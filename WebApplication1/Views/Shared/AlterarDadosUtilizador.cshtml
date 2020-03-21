@@ -1,0 +1,154 @@
+﻿@model WebApplication1.Models.Utilizador
+@{
+    ViewBag.Title = "AlterarDadosUtilizador";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>AlterarDadosUtilizador</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/Content/style.css" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Oswald" rel="stylesheet">
+    <link rel="icon" href="~/icon.ico">
+</head>
+<body>
+    <br />
+    <br />
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-12"></div>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+
+
+                @if (!@User.Identity.IsAuthenticated)
+                {
+                    using (Html.BeginForm("AlterarDadosUtilizador", "Utilizador", FormMethod.Post))
+                    {
+
+                        @Html.ValidationSummary(true)
+                        <form>
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label for="Email"> Email de registo (o email não pode ser alterado)</label>
+                                <div>
+                                    <input id="Email" name="Email" type="text" class="form-control input-md" required="">
+
+                                </div>
+
+                            </div>
+
+
+
+
+                            <!-- Password input-->
+                            <div>
+                                <label for="Password">Password</label>
+                                <div>
+                                    <input id="Password" name="Password" type="password" placeholder="" class="form-control input-md" required="">
+
+                                </div>
+                            </div>
+
+                            <!-- Text input-->
+                            <div>
+                                <label for="ContaBancaria">Conta Bancária</label>
+                                <div>
+                                    <input id="ContaBancaria" name="ContaBancaria" type="text" placeholder="" class="form-control input-md" required="">
+
+                                </div>
+                            </div>
+
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label for="Telemovel">Telemovel</label>
+                                <div>
+                                    <input id="Telemovel" name="Telemovel" type="text" class="form-control input-md" required="">
+
+                                </div>
+                            </div>
+
+
+                            <!-- Codigo Postal input-->
+                            <div>
+                                <label for="CodigoPostal">Código Postal</label>
+                                <div>
+                                    <input id="CodigoPostal" name="CodigoPostal" type="text" placeholder="" class="form-control input-md" required="">
+
+                                </div>
+                            </div>
+
+
+
+
+                            <!-- Text input-->
+                            <div>
+                                <label for="Freguesia">Freguesia</label>
+                                <div>
+                                    <input id="Freguesia" name="Freguesia" type="text" placeholder="" class="form-control input-md" required="">
+
+                                </div>
+                            </div>
+
+
+                            <!-- Text input-->
+                            <div>
+                                <label for="Rua">Rua</label>
+                                <div>
+                                    <input id="Rua" name="Rua" type="text" placeholder="" class="form-control input-md" required="">
+
+                                </div>
+                            </div>
+
+                            <!-- Text input-->
+                            <div>
+                                <label for="NPorta">Número da porta</label>
+                                <div>
+                                    <input id="NPorta" name="NPorta" type="text" placeholder="" class="form-control input-md" required="">
+
+                                </div>
+                            </div>
+
+                            <!-- Text input-->
+                            <div>
+                                <label for="Distrito">Distrito</label>
+                                <div>
+                                    <input id="Distrito" name="Distrito" type="text" placeholder="" class="form-control input-md" required="">
+
+                                </div>
+                            </div>
+
+
+
+
+                            <!-- Button (Double) -->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="save"></label>
+                                <div class="col-md-8">
+                                    <button id="save" name="save" class="btn btn-default">Registar</button>
+                                </div>
+                            </div>
+
+
+                        </form>
+                    }
+                }
+
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12"></div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+

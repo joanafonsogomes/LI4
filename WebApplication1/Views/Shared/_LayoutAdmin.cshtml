@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Portelinha</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Oswald" rel="stylesheet">
+    <link rel="stylesheet" href="~/Content/style.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
+        <a class="navbar-brand" style="color:#FFFFFF">Portelinha</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <!--<li class="nav-item active">-->
+                    <a class="nav-link" href="@Url.Action("Index")"><i class="fa fa-home"></i> Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">Catálogo</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("VerFuncionarios","Admin")">Funcionários</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Pacotes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Clientes</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav  mt-2 mt-lg-0">
+                <li class="nav-item dropdown mr-auto">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" id="Preview" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-user"></i> Perfil
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" style="margin-top:7px; border-top-left-radius:0; border-color: #343A40; border-top-right-radius:0; background-color: #343A40;" aria-labelledby="Preview">
+                        <a class="dropdown-item" href="@Url.Action("LogOut","Account")">Logout</a>
+                        <a class="dropdown-item" href="#">Editar Perfil</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="jumbotron">
+        <div id="hdr-top-logo">
+            <h1>
+                <a>
+                    <img style="margin:0px auto;display:block" src="~/Images/logo.png" />
+                </a>
+            </h1>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Portelinha</p>
+        </footer>
+    </div>
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

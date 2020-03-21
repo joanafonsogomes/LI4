@@ -1,0 +1,70 @@
+﻿@model IEnumerable< WebApplication1.Models.Artigo>
+
+@{
+    ViewBag.Title = "ARTIGOS";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<br>
+<br>
+
+<tr>
+    <td>
+        @Html.ActionLink("ADICIONAR NOVO ARTIGO","NovoArtigo")
+
+    </td>
+</tr>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IdArtigo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quantidade) <h6> artigos </h6>
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Modo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Preco) <h6> € </h6>
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Estado)
+        </th>
+     
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <th>
+                @Html.DisplayFor(modelItem => item.IdArtigo)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantidade)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Modo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Preco)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+            <td>
+                    @Html.ActionLink("Alterar", "Alterar", new {idArtigo = item.IdArtigo }, null ) 
+
+                </td>
+        </tr>
+    }
+
+</table>

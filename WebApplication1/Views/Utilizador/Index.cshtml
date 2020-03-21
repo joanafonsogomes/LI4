@@ -1,0 +1,58 @@
+﻿@model WebApplication1.Models.Utilizador
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+
+    string str = (string)@ViewData["User_Name"];
+}
+
+
+<h1> @str</h1>
+
+<br><br>
+
+    <div class="card-columns">
+        <div class="card">
+            <img class="card-img-top img-fluid" src="~/Images/vestido.jpg" alt="Card image cap">
+            <div class="card-block">
+                <h4 class="card-title">Vestido Chanel</h4>
+                <!-- <p class="card-text">Delicie-se com os nossos bolos de aniversário! Possuímos alternativas vegetarias, sem glúten e sem lactose!</p>-->
+            </div>
+        </div>
+        <div class="card">
+            <img class="card-img-top img-fluid" src="~/Images/tenda.jpg" alt="Card image cap">
+            <div class="card-block">
+                <h4 class="card-title">Tenda Campismo</h4>
+
+            </div>
+        </div>
+        <div class="card">
+            <img class="card-img-top img-fluid" src="~/Images/cadeira.jpg" alt="Card image cap">
+            <div class="card-block">
+                <h4 class="card-title">Cadeiras jardim</h4>
+
+            </div>
+        </div>
+        <div class="card">
+            <img class="card-img-top img-fluid" src="~/Images/som.jpg" alt="Card image cap">
+            <div class="card-block">
+                <h4 class="card-title">Ultra sistema de som</h4>
+
+            </div>
+        </div>
+        <div class="card">
+            <img class="card-img-top img-fluid" src="~/Images/camisa.jpg" alt="Card image cap">
+            <div class="card-block">
+                <h4 class="card-title">Camisa Ralph Lauren</h4>
+
+            </div>
+        </div>
+        <div class="card">
+            <img class="card-img-top img-fluid" src="~/Images/bolsa.jpg" alt="Card image cap">
+            <div class="card-block">
+                <h4 class="card-title">Bolsa Louis Vuitton</h4>
+
+            </div>
+        </div>
+    </div>
