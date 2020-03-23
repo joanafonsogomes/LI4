@@ -1,19 +1,11 @@
-﻿@model IEnumerable< WebApplication1.Models.Artigo>
+﻿@model IEnumerable<WebApplication1.Models.Artigo>
 
 @{
     ViewBag.Title = "ARTIGOS";
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
 
-<br>
-<br>
 
-<tr>
-    <td>
-        @Html.ActionLink("ADICIONAR NOVO ARTIGO","NovoArtigo")
-
-    </td>
-</tr>
 
 <table class="table">
     <tr>
@@ -24,18 +16,18 @@
             @Html.DisplayNameFor(model => model.Nome)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Quantidade) <h6> artigos </h6>
+            @Html.DisplayNameFor(model => model.Quantidade) <h6><b>de artigos</b></h6>
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Modo)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Preco) <h6> € </h6>
+            @Html.DisplayNameFor(model => model.Preco) <h6><b>(€)</b></h6>
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Estado)
         </th>
-     
+
 
     </tr>
 
@@ -61,10 +53,19 @@
                 @Html.DisplayFor(modelItem => item.Estado)
             </td>
             <td>
-                    @Html.ActionLink("Alterar", "Alterar", new {idArtigo = item.IdArtigo }, null ) 
+                @Html.ActionLink("Alterar", "Alterar", new { idArtigo = item.IdArtigo }, null)
 
-                </td>
+            </td>
         </tr>
     }
 
 </table>
+
+<p></p>
+<p></p>
+<p></p>
+<center>
+    <button>
+        @Html.ActionLink("Adicionar novo artigox    ", "NovoArtigo")
+    </button>
+</center>

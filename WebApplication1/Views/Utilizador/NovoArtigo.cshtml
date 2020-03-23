@@ -1,7 +1,7 @@
 ﻿@model WebApplication1.Models.Utilizador
 @{
     ViewBag.Title = "Novo Artigo";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
 
 
@@ -37,7 +37,7 @@
 
                             <!-- Text input-->
                             <div class="form-group">
-                                <label for="Nome"> NOME</label>
+                                <label for="Nome"> <b>Nome</b></label>
                                 <div>
                                     <input id="Nome" name="Nome" type="text" class="form-control input-md" required="">
 
@@ -47,7 +47,7 @@
 
                             <!-- Text input-->
                             <div class="form-group">
-                                <label for="preço"> PRECO (€) </label>
+                                <label for="preço"> <b>Preço (€)</b> </label>
                                 <div>
                                     <input id="Preco" name="Preco" type="text" class="form-control input-md" required="">
                                 </div>
@@ -55,7 +55,7 @@
 
                             <!-- Text input-->
                             <div class="form-group">
-                                <label for="Modo">MODO (alugar/vender)</label>
+                                <label for="Modo"><b>Modo </b>(alugar/vender)</label>
                                 <div>
                                     <input id="Modo" name="Modo" type="text" class="form-control input-md" required="">
 
@@ -65,7 +65,7 @@
 
                             <!-- Password input-->
                             <div>
-                                <label for="Quantidade">QUANTIDADE</label>
+                                <label for="Quantidade"><b>Quantidade</b></label>
                                 <div>
                                     <input id="Quantidade" name="Quantidade" type="text" placeholder="" class="form-control input-md" required="">
 
@@ -74,7 +74,7 @@
 
                             <!-- Text input-->
                             <div>
-                                <label for="Categoria">CATEGORIA</label>
+                                <label for="Categoria"><b>Categoria</b></label>
                                 <div>
                                     <input id="Categoria" name="Categoria" type="text" placeholder="" class="form-control input-md" required="">
 
@@ -83,7 +83,7 @@
 
                             <!-- tipo input-->
                             <div>
-                                <label for="Etiquetas">ETIQUETAS</label>
+                                <label for="Etiquetas"><b>Etiquetas</b></label>
                                 <div>
                                     <input id="Etiquetas" name="Etiquetas" type="text" placeholder="" class="form-control input-md" required="">
 
