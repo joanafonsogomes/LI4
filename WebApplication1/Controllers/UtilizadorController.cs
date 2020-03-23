@@ -116,7 +116,6 @@ namespace WebApplication1.Controllers
 
             return RedirectToAction("VerArtigos", "Utilizador");
         }
-        
 
 
             public ActionResult verArtigos()
@@ -183,5 +182,31 @@ namespace WebApplication1.Controllers
 
         }
 
+        public ActionResult ProcurarArtigoPorEtiqueta(string etiqueta){
+            if (ModelState.IsValid)
+            {
+                var local = (from x in model.Artigo where (x.Etiquetas.contains(etiqueta)) select x);
+                local.ToList();
+                return View("VerArtigos");
+            }
+        }
+
+        public ActionResult ProcurarArtigoPorCategoria(string categoria){
+            if(ModelState.IsValid)
+            {
+                var local = (from x in model.Artigo where (x.Categoria == categoria) select x);
+                local.ToList();   
+                return View("VerArtigos");
+            }
+        }
+
+        public ActionResult ProcurarArtigoPorNome(string nome){
+            if(ModelState.IsValid)
+            {
+                var local = (from x in model.Artigo where (x.Nome.contains(nome)) select x);
+                local.ToList();    
+                return View("VerArtigos");
+            }
+        }
     }
 }
