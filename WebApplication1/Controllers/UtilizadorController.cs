@@ -35,43 +35,44 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        public ActionResult AdicionarCliente(string email, int cc, string nome, string password, long contaBancaria, string tipo, int telemovel, string rua, int nPorta, string codigoPostal, string freguesia, string distrito){
+        public ActionResult AdicionarCliente(string email, int cc, string nome, string password, long contaBancaria, string tipo, int telemovel, string rua, int nPorta, string codigoPostal, string freguesia, string distrito)
+        {
             if (ModelState.IsValid)
             {
-                Utilizador utilizador= new Utilizador()
-            {
-                Email= email,
-                Cc = cc,
-                Nome = nome,
-                Password = password,
-                ContaBancaria = contaBancaria,
-                Pontuacao = 0,
-                Tipo = tipo,
-                Telemovel = telemovel,
-                Rua = rua,
-                NPorta = nPorta,
-                Estado = true,
-                Administrador = "admin@gmail.com",
-                CodPostal = codigoPostal
-            };
-
-            var local = (from x in model.Localizacao where (x.CodigoPostal == codigoPostal) select x);
-            if (local.ToList().Count == 0)
-            {
-
-                Localizacao localizacao = new Localizacao()
+                Utilizador utilizador = new Utilizador()
                 {
-                    CodigoPostal = codigoPostal,
-                    Freguesia = freguesia,
-                    Distrito = distrito
+                    Email = email,
+                    Cc = cc,
+                    Nome = nome,
+                    Password = password,
+                    ContaBancaria = contaBancaria,
+                    Pontuacao = 0,
+                    Tipo = tipo,
+                    Telemovel = telemovel,
+                    Rua = rua,
+                    NPorta = nPorta,
+                    Estado = true,
+                    Administrador = "admin@gmail.com",
+                    CodPostal = codigoPostal
                 };
-                model.Localizacao.Add(localizacao);
-            }
 
-         
-           
+                var local = (from x in model.Localizacao where (x.CodigoPostal == codigoPostal) select x);
+                if (local.ToList().Count == 0)
+                {
+
+                    Localizacao localizacao = new Localizacao()
+                    {
+                        CodigoPostal = codigoPostal,
+                        Freguesia = freguesia,
+                        Distrito = distrito
+                    };
+                    model.Localizacao.Add(localizacao);
+                }
+
+
+
                 model.Utilizador.Add(utilizador);
-                
+
                 model.SaveChanges();
             }
 
@@ -79,10 +80,10 @@ namespace WebApplication1.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult NovoProduto (string nome, float preco, string modo, int quantidade,string categoria,string etiquetas)
+        public ActionResult NovoProduto(string nome, float preco, string modo, int quantidade, string categoria, string etiquetas)
         {
-            string user= Helpers.CacheController.utilizador;
-            var artigos = (from m in model.Artigo  select m);
+            string user = Helpers.CacheController.utilizador;
+            var artigos = (from m in model.Artigo select m);
             List<Artigo> lista = artigos.ToList<Artigo>();
             int i = lista.Count;
 
@@ -95,7 +96,8 @@ namespace WebApplication1.Controllers
             */
 
             i++;
-            Artigo artigo = new Artigo() {
+            Artigo artigo = new Artigo()
+            {
                 IdArtigo = i++,
                 Nome = nome,
                 Preco = preco,
@@ -110,7 +112,7 @@ namespace WebApplication1.Controllers
             if (ModelState.IsValid)
             {
                 model.Artigo.Add(artigo);
-               // model.Artigo.Remove(a);
+                // model.Artigo.Remove(a);
                 model.SaveChanges();
             }
 
@@ -118,9 +120,9 @@ namespace WebApplication1.Controllers
         }
 
 
-            public ActionResult verArtigos()
+        public ActionResult verArtigos()
         {
-           string user = Helpers.CacheController.utilizador;
+            string user = Helpers.CacheController.utilizador;
 
             var artigos = (from m in model.Artigo where (m.IdDono == user) select m);
             List<Artigo> lista = artigos.ToList<Artigo>();
@@ -129,11 +131,11 @@ namespace WebApplication1.Controllers
         }
 
         //Está mal redirecionada , ainda não funciona
-        public ActionResult Alterar (int? idArtigos)
+        public ActionResult Alterar(int? idArtigos)
         {
             Helpers.CacheController.idArtigo = idArtigos.Value;
 
-           return View("RequisitarServico");
+            return View("RequisitarServico");
         }
 
         public ActionResult NovoArtigo()
@@ -154,7 +156,7 @@ namespace WebApplication1.Controllers
 
                 var local = (from x in model.Localizacao where (x.CodigoPostal == codigoPostal) select x);
 
-                if (local.ToList().Count==0)
+                if (local.ToList().Count == 0)
                 {
 
                     Localizacao localizacao = new Localizacao()
@@ -181,7 +183,7 @@ namespace WebApplication1.Controllers
             return RedirectToAction("Index", "Home");
 
         }
-
+        /*
         public ActionResult ProcurarArtigoPorEtiqueta(string etiqueta){
             if (ModelState.IsValid)
             {
@@ -207,6 +209,6 @@ namespace WebApplication1.Controllers
                 local.ToList();    
                 return View("VerArtigos");
             }
-        }
+        }*/
     }
 }
