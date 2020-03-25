@@ -1,0 +1,125 @@
+﻿@model WebApplication1.Models.Utilizador
+
+@{
+    ViewBag.Title = "VerInfo";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+           <table class="table">
+                <tr>
+                    <td>
+                        <h4>Tipo de informação</h4> 
+                    </td>
+                    <td>
+                        <h4>Informação atual</h4>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Email
+                    </td>
+                    <td>
+                        @Html.DisplayFor(Model => Model.Email)
+                    </td>
+                    <td>
+                        Alteração Não Permitida
+                    </td>
+
+                </tr>
+
+                <tr>
+                    <td>
+                        Password
+                    </td>
+                    <td>
+                        *********
+                    </td>
+                    <td>
+                            @Html.ActionLink("Alterar","Password")
+                      
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Conta Bancária
+                    </td>
+                    <td>
+                        @Html.DisplayFor(Model => Model.ContaBancaria)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Alterar", "CBanc")
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Telemovel
+                    </td>
+                    <td>
+                        @Html.DisplayFor(Model => Model.Telemovel)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Alterar", "Telemovel")
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Código Postal
+                    </td>
+                    <td>
+                        @Html.DisplayFor(Model => Model.CodPostal )
+                    </td>
+                    <td>
+                        @Html.ActionLink("Alterar", "CPostal")
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Freguesia
+                    </td>
+                    <td>
+                        @Html.DisplayFor(Model => Model.CodPostalNavigation.Freguesia)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Alterar", "Freguesia")
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Rua
+                    </td>
+                    <td>
+                        @Html.DisplayFor(Model => Model.Rua)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Alterar", "Rua")
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Número da porta
+                    </td>
+                    <td>
+                        @Html.DisplayFor(Model => Model.NPorta)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Alterar", "NPorta")
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Distrito
+                    </td>
+                    <td>
+                        @Html.DisplayFor(Model => Model.CodPostalNavigation.Distrito)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Alterar", "Distrito")
+                    </td>
+                </tr>
+
+            </table>
+
+
+   <div>
+       @Html.ActionLink("Voltar", "Index", "Utilizador")
+   </div>
