@@ -16,11 +16,6 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        public ActionResult AlterarDadosUtilizador()
-        {
-            return View();
-        }
-
 
         public ActionResult AdicionarCliente()
         {
@@ -228,7 +223,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        public ActionResult CBanc(long banc)
+        public ActionResult CBanc(long conta)
         {
             string mail = Helpers.CacheController.utilizador;
             if (ModelState.IsValid)
@@ -266,7 +261,7 @@ namespace WebApplication1.Controllers
 
                 Utilizador u = model.Utilizador.FirstOrDefault(x => x.Email.Equals(std.Email));
                 u.Password = std.Password;
-                u.ContaBancaria = banc;
+                u.ContaBancaria = conta;
                 u.Telemovel = std.Telemovel;
                 u.Rua = std.Rua;
                 u.NPorta = std.NPorta;

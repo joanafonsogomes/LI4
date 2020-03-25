@@ -30,7 +30,7 @@ namespace WebApplication1.Controllers
 
             DefaultController.Utilizador = new Utilizador();
             DefaultController.Utilizador.Password = password;
-           // int userName = Int32.Parse(username);
+            // int userName = Int32.Parse(username);
             if (ModelState.IsValid)
             {
                 var userS = (from u in model.Utilizador where (u.Email == email && u.Tipo == "single") select u);

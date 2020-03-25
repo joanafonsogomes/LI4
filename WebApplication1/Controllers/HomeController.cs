@@ -19,6 +19,7 @@ namespace WebApplication1.Controllers
             _logger = logger;
         }
 
+
         public IActionResult Index()
         {
             return View();
@@ -43,6 +44,11 @@ namespace WebApplication1.Controllers
         public IActionResult Login(string username, string password)
         {
             return conta.Login(username, password);
+        }
+        public ActionResult Procurei()
+        {
+            var data = "info que eu preciso guardar para mandar";
+              return View(data);
         }
     }
 }
