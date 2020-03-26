@@ -4,16 +4,36 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using System.Configuration;
+using System.IO;
+using System.Web;
 
 namespace WebApplication1.Controllers
 {
     public class UtilizadorController : Controller
     {
         private Model model = new Model();
+        private IHostingEnvironment _environment;
+
+        public UtilizadorController(IHostingEnvironment environment)
+        {
+            _environment = environment;
+        }
+
 
         public ActionResult Index()
         {
             return View();
+        }
+
+        public IActionResult Details(int id)
+        {
+            var artigos = (from m in model.Artigo select m);
+            List<Artigo> lista = artigos.ToList<Artigo>();
+            var a = lista[id - 1];
+            return View(a);
         }
 
         public ActionResult AlterarDadosUtilizador()
@@ -29,12 +49,12 @@ namespace WebApplication1.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Descrição da página.";
 
             return View();
         }
 
-        [HttpPost]
+
         public ActionResult AdicionarCliente(string email, int cc, string nome, string password, long contaBancaria, string tipo, int telemovel, string rua, int nPorta, string codigoPostal, string freguesia, string distrito)
         {
             if (ModelState.IsValid)
@@ -80,24 +100,30 @@ namespace WebApplication1.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult NovoProduto(string nome, float preco, string modo, int quantidade, string categoria, string etiquetas)
+        public ActionResult UploadDocument()
         {
-            string user = Helpers.CacheController.utilizador;
-            var artigos = (from m in model.Artigo select m);
-            List<Artigo> lista = artigos.ToList<Artigo>();
-            int i = lista.Count;
+            return View();
+        }
 
-            /**
-             * Serve para apagar artigos
-             * CUIDADO A USA-LA
-            var art = (from u in model.Artigo where (u.IdArtigo == i) select u);
-            Artigo a = art.ToList().ElementAt<Artigo>(0);
-            model.Artigo.Remove(a);
-            */
+        [HttpGet]
+        public IActionResult NovoArtigo()
+        {
+            return View();
+        }
 
-            i++;
-            Artigo artigo = new Artigo()
+        
+        [HttpPost]
+        public IActionResult NovoArtigo(IFormFile file, string nome, float preco, string modo, int quantidade, string categoria, string etiquetas)
+        {
+            try
             {
+                string user = Helpers.CacheController.utilizador;
+                var artigos = (from m in model.Artigo select m);
+                List<Artigo> lista = artigos.ToList<Artigo>();
+                int i = lista.Count;
+
+                i++;
+                Artigo artigo = new Artigo() {
                 IdArtigo = i++,
                 Nome = nome,
                 Preco = preco,
@@ -106,18 +132,53 @@ namespace WebApplication1.Controllers
                 Categoria = categoria,
                 Etiquetas = etiquetas,
                 Estado = false,
-                IdDono = user
-            };
+                IdDono = user,
+                };
 
-            if (ModelState.IsValid)
-            {
-                model.Artigo.Add(artigo);
-                // model.Artigo.Remove(a);
-                model.SaveChanges();
+                var fileName = file.FileName;
+                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", fileName);
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    file.CopyTo(fileStream);
+                }
+
+
+                artigo.Imagem = fileName;
+
+
+                if (ModelState.IsValid)
+                {
+                    model.Artigo.Add(artigo);
+
+                    model.SaveChanges();
+                }
+
             }
-
+            catch(Exception)
+            {
+                return Content("Could not create item...");
+            }
+            
             return RedirectToAction("VerArtigos", "Utilizador");
         }
+        /*
+        public void UploadFile(IFormFile file, int artigoId)
+        {
+            var fileName = file.FileName;
+            var path = Path.Combine(Directory.GetCurrentDirectory(),"wwwroot/uploads",fileName);
+            using(var fileStream = new FileStream(path, FileMode.Create))
+            {
+                file.CopyTo(fileStream);
+            }
+
+            var artigos = (from m in model.Artigo select m);
+            List<Artigo> lista = artigos.ToList<Artigo>();
+            Console.WriteLine("Carago o id Artigo e");
+            Console.WriteLine(artigoId);
+            var artigo = lista[artigoId];
+            artigo.Imagem = fileName;
+
+        }*/
 
 
         public ActionResult verArtigos()
@@ -137,12 +198,6 @@ namespace WebApplication1.Controllers
 
             return View("RequisitarServico");
         }
-
-        public ActionResult NovoArtigo()
-        {
-            return View("NovoArtigo");
-        }
-
 
         [HttpPost]
         public ActionResult AlterarDadosUtilizador(string email, string password, long contaBancaria, int telemovel, string codigoPostal, string freguesia, string rua, int nPorta, string distrito)
@@ -183,32 +238,38 @@ namespace WebApplication1.Controllers
             return RedirectToAction("Index", "Home");
 
         }
-        /*
-        public ActionResult ProcurarArtigoPorEtiqueta(string etiqueta){
-            if (ModelState.IsValid)
-            {
-                var local = (from x in model.Artigo where (x.Etiquetas.contains(etiqueta)) select x);
-                local.ToList();
-                return View("VerArtigos");
-            }
+
+        public IActionResult Image()
+        {
+            return View();
         }
 
-        public ActionResult ProcurarArtigoPorCategoria(string categoria){
-            if(ModelState.IsValid)
-            {
-                var local = (from x in model.Artigo where (x.Categoria == categoria) select x);
-                local.ToList();   
-                return View("VerArtigos");
-            }
-        }
-
-        public ActionResult ProcurarArtigoPorNome(string nome){
-            if(ModelState.IsValid)
-            {
-                var local = (from x in model.Artigo where (x.Nome.contains(nome)) select x);
-                local.ToList();    
-                return View("VerArtigos");
-            }
-        }*/
     }
+    /*
+    public ActionResult ProcurarArtigoPorEtiqueta(string etiqueta){
+        if (ModelState.IsValid)
+        {
+            var local = (from x in model.Artigo where (x.Etiquetas.contains(etiqueta)) select x);
+            local.ToList();
+            return View("VerArtigos");
+        }
+    }
+
+    public ActionResult ProcurarArtigoPorCategoria(string categoria){
+        if(ModelState.IsValid)
+        {
+            var local = (from x in model.Artigo where (x.Categoria == categoria) select x);
+            local.ToList();   
+            return View("VerArtigos");
+        }
+    }
+
+    public ActionResult ProcurarArtigoPorNome(string nome){
+        if(ModelState.IsValid)
+        {
+            var local = (from x in model.Artigo where (x.Nome.contains(nome)) select x);
+            local.ToList();    
+            return View("VerArtigos");
+        }
+    }*/
 }

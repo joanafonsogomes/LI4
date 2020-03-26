@@ -6,6 +6,9 @@ using Nancy.Authentication.Forms;
 
 using RestSharp;
 using Nancy.Authentication.Forms;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace WebApplication1.Controllers
 {

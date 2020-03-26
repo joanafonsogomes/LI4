@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<WebApplication1.Models.Artigo>
 
 @{
-    ViewBag.Title = "ARTIGOS";
+    ViewBag.Title = "Artigos";
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
 
@@ -27,36 +27,46 @@
         <th>
             @Html.DisplayNameFor(model => model.Estado)
         </th>
+        <th>
+            Imagens
+        </th>
+        <th>
+            Alterar
+        </th>
+
 
 
     </tr>
 
     @foreach (var item in Model)
     {
-        <tr>
-            <th>
-                @Html.DisplayFor(modelItem => item.IdArtigo)
-            </th>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Quantidade)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Modo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Preco)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Estado)
-            </td>
-            <td>
-                @Html.ActionLink("Alterar", "Alterar", new { idArtigo = item.IdArtigo }, null)
+<tr>
+    <th>
+        @Html.DisplayFor(modelItem => item.IdArtigo)
+    </th>
+    <td>
+        @Html.DisplayFor(modelItem => item.Nome)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Quantidade)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Modo)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Preco)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Estado)
+    </td>
+    <td>
+        <a asp-action="Details" asp-controller="Utilizador" asp-route-id="@item.IdArtigo">Ver imagens</a>
+    </td>
+    <td>
+        @Html.ActionLink("Alterar", "Alterar", new { idArtigo = item.IdArtigo }, null)
 
-            </td>
-        </tr>
+    </td>
+</tr>
     }
 
 </table>
@@ -65,7 +75,7 @@
 <p></p>
 <p></p>
 <center>
-    <button>
-        @Html.ActionLink("Adicionar novo artigox    ", "NovoArtigo")
+    <button class="myButton">
+        @Html.ActionLink("Adicionar novo artigo", "NovoArtigo")
     </button>
 </center>

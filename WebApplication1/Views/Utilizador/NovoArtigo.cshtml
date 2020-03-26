@@ -1,4 +1,5 @@
 ﻿@model WebApplication1.Models.Utilizador
+
 @{
     ViewBag.Title = "Novo Artigo";
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
@@ -26,85 +27,84 @@
             <div class="col-md-4 col-sm-4 col-xs-12"></div>
             <div class="col-md-4 col-sm-4 col-xs-12">
 
-
                 @if (!@User.Identity.IsAuthenticated)
                 {
-                    using (Html.BeginForm("NovoProduto", "Utilizador", FormMethod.Post))
-                    {
+                   /* using (Html.BeginForm("NovoArtigo", "Utilizador", FormMethod.Post))
+                    {*/
 
                         @Html.ValidationSummary(true)
-                        <form>
+                <form asp-action="NovoArtigo" asp-controllers="Utilizador" method="POST" enctype="multipart/form-data">
 
-                            <!-- Text input-->
-                            <div class="form-group">
-                                <label for="Nome"> <b>Nome</b></label>
-                                <div>
-                                    <input id="Nome" name="Nome" type="text" class="form-control input-md" required="">
+                    <div class="form-group">
+                        <label for="Nome"> <b>Nome</b></label>
+                        <div>
+                            <input id="Nome" name="Nome" type="text" class="form-control input-md" required="">
+                        </div>
 
-                                </div>
+                    </div>
 
-                            </div>
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label for="preço"> <b>Preço (€)</b> </label>
+                        <div>
+                            <input id="Preco" name="Preco" type="text" class="form-control input-md" required="">
+                        </div>
+                    </div>
 
-                            <!-- Text input-->
-                            <div class="form-group">
-                                <label for="preço"> <b>Preço (€)</b> </label>
-                                <div>
-                                    <input id="Preco" name="Preco" type="text" class="form-control input-md" required="">
-                                </div>
-                            </div>
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label for="Modo"><b>Modo </b>(alugar/vender)</label>
+                        <div>
+                            <input id="Modo" name="Modo" type="text" class="form-control input-md" required="">
 
-                            <!-- Text input-->
-                            <div class="form-group">
-                                <label for="Modo"><b>Modo </b>(alugar/vender)</label>
-                                <div>
-                                    <input id="Modo" name="Modo" type="text" class="form-control input-md" required="">
-
-                                </div>
-                            </div>
+                        </div>
+                    </div>
 
 
-                            <!-- Password input-->
-                            <div>
-                                <label for="Quantidade"><b>Quantidade</b></label>
-                                <div>
-                                    <input id="Quantidade" name="Quantidade" type="text" placeholder="" class="form-control input-md" required="">
+                    <!-- Password input-->
+                    <div class="form-group">
+                        <label for="Quantidade"><b>Quantidade</b></label>
+                        <div>
+                            <input id="Quantidade" name="Quantidade" type="text" placeholder="" class="form-control input-md" required="">
 
-                                </div>
-                            </div>
+                        </div>
+                    </div>
 
-                            <!-- Text input-->
-                            <div>
-                                <label for="Categoria"><b>Categoria</b></label>
-                                <div>
-                                    <input id="Categoria" name="Categoria" type="text" placeholder="" class="form-control input-md" required="">
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label for="Categoria"><b>Categoria</b></label>
+                        <div>
+                            <input id="Categoria" name="Categoria" type="text" placeholder="" class="form-control input-md" required="">
 
-                                </div>
-                            </div>
+                        </div>
+                    </div>
 
-                            <!-- tipo input-->
-                            <div>
-                                <label for="Etiquetas"><b>Etiquetas</b></label>
-                                <div>
-                                    <input id="Etiquetas" name="Etiquetas" type="text" placeholder="" class="form-control input-md" required="">
+                    <!-- tipo input-->
+                    <div class="form-group">
+                        <label for="Etiquetas"><b>Etiquetas</b></label>
+                        <div>
+                            <input id="Etiquetas" name="Etiquetas" type="text" placeholder="" class="form-control input-md" required="">
 
-                                </div>
-                            </div>
+                        </div>
+                    </div>
+                    <p></p>
+                    <p></p>
+                    <div class="form-group">
+                        <label>Upload Image</label>
+                        <input type="file" id="file" name="file" class="form-control" />
+                    </div>
 
-                            <!-- Button (Double) -->
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="save"></label>
-                                <div class="col-md-8">
-                                    <button id="save" name="save" class="btn btn-default">Inserir</button>
-                                </div>
-                            </div>
+                    <!-- Button (Double) -->
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary" value="Inserir artigo" />
+                    </div>
 
-
-                        </form>
-                    }
+                </form>
+                    //}
                 }
-
             </div>
             <div class="col-md-4 col-sm-4 col-xs-12"></div>
+
         </div>
     </div>
 </body>
