@@ -12,7 +12,7 @@ using System.IO;
 
 namespace WebApplication1.Controllers
 {
-   
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -24,6 +24,7 @@ namespace WebApplication1.Controllers
             _logger = logger;
             _environment = environment;
         }
+
 
         public IActionResult Index()
         {
@@ -60,23 +61,10 @@ namespace WebApplication1.Controllers
         {
             return conta.Login(username, password);
         }
-
-
-        [HttpPost]
-        public async Task<IActionResult> Image(ICollection<IFormFile> files)
+        public ActionResult Procurei()
         {
-            var uploads = Path.Combine(_environment.WebRootPath, "uploads");
-            foreach (var file in files)
-            {
-                if (file.Length > 0)
-                {
-                    using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
-                    {
-                        await file.CopyToAsync(fileStream);
-                    }
-                }
-            }
-            return View();
+            var data = "info que eu preciso guardar para mandar";
+              return View(data);
         }
     }
 

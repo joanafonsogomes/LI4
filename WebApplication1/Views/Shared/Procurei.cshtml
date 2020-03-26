@@ -1,0 +1,36 @@
+﻿@model IEnumerable<WebApplication1.Models.Artigo>
+<table>
+    <thead>
+        <tr>
+            <th>Listar Por procura</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+
+                @Html.DisplayFor(Model => item.Nome)
+                @Html.DisplayFor(Model => item.Estado)
+                @Html.DisplayFor(Model => item.Preco)
+            </td>
+            <td>
+                @Html.DisplayFor(Model => item.Nome)
+                @Html.DisplayFor(Model => item.Estado)
+                @Html.DisplayFor(Model => item.Preco)
+            </td>
+            <td>
+                @Html.DisplayFor(Model => item.Nome)
+                @Html.DisplayFor(Model => item.Estado)
+                @Html.DisplayFor(Model => item.Preco)
+            </td>
+            <td>
+                @Html.DisplayFor(Model => item.Nome)
+                @Html.DisplayFor(Model => item.Estado)
+                @Html.DisplayFor(Model => item.Preco)
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
