@@ -19,12 +19,116 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+        <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <style>
+                body {
+                    font-family: "Lato", sans-serif;
+                }
+
+                .sidebar {
+                    height: 100%;
+                    width: 0;
+                    position: fixed;
+                    z-index: 1;
+                    top: 0;
+                    left: 0;
+                    background-color: #343A40;
+                    overflow-x: hidden;
+                    transition: 0.5s;
+                    padding-top: 60px;
+                }
+
+                    .sidebar a {
+                        padding: 8px 8px 8px 32px;
+                        text-decoration: none;
+                        font-size: 16px;
+                        color: #818181;
+                        display: block;
+                        transition: 0.3s;
+                    }
+
+                        .sidebar a:hover {
+                            color: #f1f1f1;
+                        }
+
+                    .sidebar .closebtn {
+                        position: absolute;
+                        top: 0;
+                        right: 25px;
+                        font-size: 16px;
+                        margin-left: 50px;
+                    }
+
+                .openbtn {
+                    font-size: 16px;
+                    cursor: pointer;
+                    background-color: #343A40;
+                    color: white;
+                    padding: 5px 5px;
+                    border: none;
+                }
+
+                    .openbtn:hover {
+                        background-color: #343A40;
+                    }
+
+                #main {
+                    transition: margin-left .5s;
+                    padding: 16px;
+                }
+
+                /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+
+            </style>
+        </head>
+        <body>
+
+            <div id="mySidebar" class="sidebar">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+                <a href="#">Roupa</a>
+                <a href="#">Campismo</a>
+                <a href="#">Mobiliário</a>
+                <a href="#">Acessórios</a>
+                <a href="#">Música</a>
+                <a href="#">Livros</a>
+                <a href="#">Turismo</a>
+                <a href="#">Bebé e criança</a>
+                <a href="#">Lazer</a>
+                <a href="#">Animais</a>
+                <a href="#">Tecnologia</a>
+                <a href="#">Desporto</a>
+                <a href="#">Carros, motos e barcos</a>
+                <a href="#">Agricultura</a>
+                <a href="#">Equipamentos e Ferramentas</a>
+                <a href="#">Outros</a>
+            </div>
+
+            <div id="main">
+                <button class="openbtn" onclick="openNav()">☰ Categorias</button>
+            </div>
+
+            <script>
+                function openNav() {
+                    document.getElementById("mySidebar").style.width = "250px";
+                    document.getElementById("main").style.marginLeft = "250px";
+                }
+
+                function closeNav() {
+                    document.getElementById("mySidebar").style.width = "0";
+                    document.getElementById("main").style.marginLeft = "0";
+                }
+            </script>
+
+        </body>
         <div class="search-container">
             <form action="/action_page.php">
                 <input type="text" placeholder="Search.." name="search">
                 <button type="submit"><i class="fa fa-search"></i></button>
             </form>
         </div>
+
+
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item">
@@ -46,7 +150,11 @@
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" id="Preview" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-user"></i> Perfil
                     </a>
-                    <div class="dropdown-menu dropdown-menu-right" style="margin-top:7px; border-top-left-radius:0; border-color: #343A40; border-top-right-radius:0; background-color: #343A40;" aria-labelledby="Preview">
+                    <div class="dropdown-menu dropdown-menu-right" style="        margin-top: 7px;
+        border-top-left-radius: 0;
+        border-color: #343A40;
+        border-top-right-radius: 0;
+        background-color: #343A40;" aria-labelledby="Preview">
                         <a class="dropdown-item" href="@Url.Action("VerInfo", "Utilizador")">Alterar os meus dados</a>
                         <a class="dropdown-item" href="@Url.Action("LogOut","Conta")">Logout</a>
                         <!--<a class="dropdown-item" href="#">Editar Perfil</a>-->

@@ -54,7 +54,7 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-
+        [HttpPost]
         public ActionResult AdicionarCliente(string email, int cc, string nome, string password, long contaBancaria, string tipo, int telemovel, string rua, int nPorta, string codigoPostal, string freguesia, string distrito)
         {
             if (ModelState.IsValid)
@@ -123,16 +123,17 @@ namespace WebApplication1.Controllers
                 int i = lista.Count;
 
                 i++;
-                Artigo artigo = new Artigo() {
-                IdArtigo = i++,
-                Nome = nome,
-                Preco = preco,
-                Modo = modo,
-                Quantidade = quantidade,
-                Categoria = categoria,
-                Etiquetas = etiquetas,
-                Estado = false,
-                IdDono = user,
+                Artigo artigo = new Artigo()
+                {
+                    IdArtigo = i++,
+                    Nome = nome,
+                    Preco = preco,
+                    Modo = modo,
+                    Quantidade = quantidade,
+                    Categoria = categoria,
+                    Etiquetas = etiquetas,
+                    Estado = false,
+                    IdDono = user,
                 };
 
                 var fileName = file.FileName;
@@ -154,7 +155,7 @@ namespace WebApplication1.Controllers
                 }
 
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return Content("Could not create item...");
             }
@@ -333,7 +334,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        public ActionResult Telemovel( int telemovel)
+        public ActionResult Telemovel(int telemovel)
         {
             string mail = Helpers.CacheController.utilizador;
             if (ModelState.IsValid)
@@ -394,13 +395,13 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult CPostal(string codigoPostal)
         {
-          string mail = Helpers.CacheController.utilizador;
+            string mail = Helpers.CacheController.utilizador;
             if (ModelState.IsValid)
             {
 
                 Utilizador std = model.Utilizador.Where(x => x.Email.Equals(mail)).FirstOrDefault();
 
-                var local = (from x in model.Localizacao where (x.CodigoPostal==codigoPostal) select x);
+                var local = (from x in model.Localizacao where (x.CodigoPostal == codigoPostal) select x);
 
                 Localizacao esq = model.Localizacao.Where(x => x.CodigoPostal.Equals(std.CodPostal)).FirstOrDefault();
 
@@ -408,8 +409,8 @@ namespace WebApplication1.Controllers
 
                 if (local.ToList().Count == 0)
                 {
-                     l = new Localizacao();
-                        l.CodigoPostal = codigoPostal;
+                    l = new Localizacao();
+                    l.CodigoPostal = codigoPostal;
                     l.Freguesia = esq.Freguesia;
                     l.Distrito = esq.Distrito;
 
@@ -503,7 +504,8 @@ namespace WebApplication1.Controllers
         /**
         * Permite vizualisar a view que permite alterar a freguesia e efetua a sua mudança
         * */
-        public ActionResult Freguesia() {
+        public ActionResult Freguesia()
+        {
 
             return View("Freguesia");
         }
@@ -717,4 +719,5 @@ namespace WebApplication1.Controllers
             return View("VerArtigos");
         }
     }*/
+    }
 }

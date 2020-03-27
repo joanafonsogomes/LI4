@@ -52,13 +52,11 @@
                     </div>
 
                     <!-- Text input-->
-                    <div class="form-group">
-                        <label for="Modo"><b>Modo </b>(alugar/vender)</label>
-                        <div>
-                            <input id="Modo" name="Modo" type="text" class="form-control input-md" required="">
-
-                        </div>
-                    </div>
+                    <label for="Modo"><b>Modo:</b></label>
+                    <select  id="Modo" name="Modo" type="text" class="form-control input-md" required="">
+                        <option value="aluguer">aluguer</option>
+                        <option value="venda">venda</option>
+                    </select>
 
 
                     <!-- Password input-->
@@ -71,13 +69,28 @@
                     </div>
 
                     <!-- Text input-->
-                    <div class="form-group">
-                        <label for="Categoria"><b>Categoria</b></label>
-                        <div>
-                            <input id="Categoria" name="Categoria" type="text" placeholder="" class="form-control input-md" required="">
+                    <label for="Categoria"><b>Escolha uma categoria:</b></label>
+                    <select id="Categoria" name="Categoria" type="text" placeholder="" class="form-control input-md" required="">
+                        <option value="Roupa">Roupa</option>
+                        <option value="Campismo">Campismo</option>
+                        <option value="Mobiliário">Mobiliário</option>
+                        <option value="Acessórios">Acessórios</option>
+                        <option value="Música">Música</option>
+                        <option value="Livros">Livros</option>
+                        <option value="Turismo">Turismo</option>
+                        <option value="Bebé e criança">Bebé e criança</option>
+                        <option value="Lazer">Lazer</option>
+                        <option value="Animais">Animais</option>
+                        <option value="Tecnologia">Tecnologia</option>
+                        <option value="Desporto">Desporto</option>
+                        <option value="Carros, motos e barcos">Carros, motos e barcos</option>
+                        <option value="Agricultura">Agricultura</option>
+                        <option value="Equipamentos e Ferramentas">Equipamentos e Ferramentas</option>
+                        <option value="Outros">Outros</option>
+                    </select>
 
-                        </div>
-                    </div>
+
+
 
                     <!-- tipo input-->
                     <div class="form-group">
