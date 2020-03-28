@@ -179,7 +179,7 @@ namespace WebApplication1.Controllers
                         }
 
                     }
-                Console.WriteLine(fileName); 
+                Console.WriteLine(fileName);
                 }
 
                 artigo.Imagem = fileName;
@@ -715,5 +715,15 @@ namespace WebApplication1.Controllers
             else return RedirectToAction("ErrorSearch", "Utilizador");
         }
 
+    }
+
+    public ActionResult ProcurarArtigoPorNome(string nome){
+        if(ModelState.IsValid)
+        {
+            var local = (from x in model.Artigo where (x.Nome.contains(nome)) select x);
+            local.ToList();
+            return View("VerArtigos");
+        }
+    }*/
     }
 }
