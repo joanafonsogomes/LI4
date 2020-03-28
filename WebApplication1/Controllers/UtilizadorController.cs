@@ -54,6 +54,11 @@ namespace WebApplication1.Controllers
             return View();
         }
 
+        public IActionResult ErrorSearch()
+        {
+            return View();
+        }
+
 
         public ActionResult AdicionarCliente(string email, int cc, string nome, string password, long contaBancaria, string tipo, int telemovel, string rua, int nPorta, string codigoPostal, string freguesia, string distrito)
         {
@@ -113,8 +118,12 @@ namespace WebApplication1.Controllers
 
 
         [HttpPost]
-        public IActionResult NovoArtigo(IFormFile file, string nome, float preco, string modo, int quantidade, string categoria, string etiquetas)
+        public IActionResult NovoArtigo(List<IFormFile> file, string nome, float preco, string modo, int quantidade, string categoria, string etiquetas)
         {
+            foreach(IFormFile cenas in file)
+            {
+                Console.WriteLine(cenas.FileName);
+            }
             try
             {
                 string user = Helpers.CacheController.utilizador;
@@ -123,25 +132,55 @@ namespace WebApplication1.Controllers
                 int i = lista.Count;
 
                 i++;
-                Artigo artigo = new Artigo() {
-                IdArtigo = i++,
-                Nome = nome,
-                Preco = preco,
-                Modo = modo,
-                Quantidade = quantidade,
-                Categoria = categoria,
-                Etiquetas = etiquetas,
-                Estado = false,
-                IdDono = user,
+                Artigo artigo = new Artigo()
+                {
+                    IdArtigo = i++,
+                    Nome = nome,
+                    Preco = preco,
+                    Modo = modo,
+                    Quantidade = quantidade,
+                    Categoria = categoria,
+                    Etiquetas = etiquetas,
+                    Estado = false,
+                    IdDono = user,
                 };
 
-                var fileName = file.FileName;
-                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", fileName);
-                using (var fileStream = new FileStream(path, FileMode.Create))
-                {
-                    file.CopyTo(fileStream);
-                }
+                string fileName = "";
+                string name = "";
 
+                if (file.Count == 1)
+                {
+                    Console.WriteLine("entrei no primeiro ciclo.");
+                    fileName = file[0].FileName;
+                    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", fileName);
+                    using (var fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        file[0].CopyTo(fileStream);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("entrei no segundo ciclo.");
+                    int j;
+                    int count = file.Count;
+                    for(j=0; j<count; j++)
+                    {
+                        IFormFile f = file[j];
+                        name = f.FileName;
+                        fileName += name;
+                        var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", name);
+                        using (var fileStream = new FileStream(path, FileMode.Create))
+                        {
+                            f.CopyTo(fileStream);
+                        }
+                        if (i != count - 1)
+                        {
+                            fileName += " ";
+                        }
+
+                    }
+                Console.WriteLine(fileName); 
+                }
 
                 artigo.Imagem = fileName;
 
@@ -154,32 +193,13 @@ namespace WebApplication1.Controllers
                 }
 
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return Content("Could not create item...");
             }
 
             return RedirectToAction("VerArtigos", "Utilizador");
         }
-        /*
-        public void UploadFile(IFormFile file, int artigoId)
-        {
-            var fileName = file.FileName;
-            var path = Path.Combine(Directory.GetCurrentDirectory(),"wwwroot/uploads",fileName);
-            using(var fileStream = new FileStream(path, FileMode.Create))
-            {
-                file.CopyTo(fileStream);
-            }
-
-            var artigos = (from m in model.Artigo select m);
-            List<Artigo> lista = artigos.ToList<Artigo>();
-            Console.WriteLine("Carago o id Artigo e");
-            Console.WriteLine(artigoId);
-            var artigo = lista[artigoId];
-            artigo.Imagem = fileName;
-
-        }*/
-
 
         public ActionResult verArtigos()
         {
@@ -333,7 +353,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        public ActionResult Telemovel( int telemovel)
+        public ActionResult Telemovel(int telemovel)
         {
             string mail = Helpers.CacheController.utilizador;
             if (ModelState.IsValid)
@@ -394,13 +414,13 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult CPostal(string codigoPostal)
         {
-          string mail = Helpers.CacheController.utilizador;
+            string mail = Helpers.CacheController.utilizador;
             if (ModelState.IsValid)
             {
 
                 Utilizador std = model.Utilizador.Where(x => x.Email.Equals(mail)).FirstOrDefault();
 
-                var local = (from x in model.Localizacao where (x.CodigoPostal==codigoPostal) select x);
+                var local = (from x in model.Localizacao where (x.CodigoPostal == codigoPostal) select x);
 
                 Localizacao esq = model.Localizacao.Where(x => x.CodigoPostal.Equals(std.CodPostal)).FirstOrDefault();
 
@@ -408,8 +428,8 @@ namespace WebApplication1.Controllers
 
                 if (local.ToList().Count == 0)
                 {
-                     l = new Localizacao();
-                        l.CodigoPostal = codigoPostal;
+                    l = new Localizacao();
+                    l.CodigoPostal = codigoPostal;
                     l.Freguesia = esq.Freguesia;
                     l.Distrito = esq.Distrito;
 
@@ -503,7 +523,8 @@ namespace WebApplication1.Controllers
         /**
         * Permite vizualisar a view que permite alterar a freguesia e efetua a sua mudança
         * */
-        public ActionResult Freguesia() {
+        public ActionResult Freguesia()
+        {
 
             return View("Freguesia");
         }
@@ -677,44 +698,22 @@ namespace WebApplication1.Controllers
             return RedirectToAction("VerInfo", "Utilizador");
         }
 
+        public ActionResult SearchArtigos(string search)
+        {
+            var local = (from x in model.Artigo where (x.Nome.Contains(search)) select x);
+            var local2 = (from x in model.Artigo where (x.Etiquetas.Contains(search)) select x);
 
-
-        /*
-        public ActionResult ProcurarArtigoPorEtiqueta(string etiqueta){
-            if (ModelState.IsValid)
+            if (local.ToList().Count > 0 || local2.ToList().Count > 0)
             {
-                var local = (from x in model.Artigo where (x.Etiquetas.contains(etiqueta)) select x);
-                local.ToList();
-                return View("VerArtigos");
+                List<Artigo> lista = local.ToList<Artigo>();
+                List<Artigo> lista2 = local2.ToList<Artigo>();
+                List<Artigo> listaUnion = lista.Union(lista2).ToList();
+
+                return View(listaUnion);
             }
+
+            else return RedirectToAction("ErrorSearch", "Utilizador");
         }
 
     }
-    /*
-    public ActionResult ProcurarArtigoPorEtiqueta(string etiqueta){
-        if (ModelState.IsValid)
-        {
-            var local = (from x in model.Artigo where (x.Etiquetas.contains(etiqueta)) select x);
-            local.ToList();
-            return View("VerArtigos");
-        }
-    }
-
-    public ActionResult ProcurarArtigoPorCategoria(string categoria){
-        if(ModelState.IsValid)
-        {
-            var local = (from x in model.Artigo where (x.Categoria == categoria) select x);
-            local.ToList();
-            return View("VerArtigos");
-        }
-    }
-
-    public ActionResult ProcurarArtigoPorNome(string nome){
-        if(ModelState.IsValid)
-        {
-            var local = (from x in model.Artigo where (x.Nome.contains(nome)) select x);
-            local.ToList();
-            return View("VerArtigos");
-        }
-    }*/
 }

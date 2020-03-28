@@ -91,13 +91,17 @@
                     <p></p>
                     <div class="form-group">
                         <label>Upload Image</label>
-                        <input type="file" id="file" name="file" class="form-control" />
+                        <input type="file" id="file" name="file" class="form-control" multiple="multiple" />
                     </div>
 
                     <!-- Button (Double) -->
                     <div class="form-group">
                         <input type="submit" class="btn btn-primary" value="Inserir artigo" />
                     </div>
+
+                    <script>
+                     document.getElementById("file").multiple = true;
+                    </script>
 
                 </form>
                     //}

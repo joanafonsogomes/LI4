@@ -15,14 +15,13 @@ namespace WebApplication1.Controllers
 
     public class HomeController : Controller
     {
+        private Model model = new Model();
         private readonly ILogger<HomeController> _logger;
         private ContaController conta = new ContaController();
-        private IHostingEnvironment _environment;
 
-        public HomeController(ILogger<HomeController> logger, IHostingEnvironment environment)
+        public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            _environment = environment;
         }
 
 
@@ -51,6 +50,12 @@ namespace WebApplication1.Controllers
             return View();
         }
 
+        public IActionResult ErrorSearch()
+        {
+            return View();
+        }
+
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
@@ -65,6 +70,24 @@ namespace WebApplication1.Controllers
         {
             var data = "info que eu preciso guardar para mandar";
               return View(data);
+        }
+
+
+        public ActionResult SearchArtigos(string search)
+        {
+            var local = (from x in model.Artigo where (x.Nome.Contains(search)) select x);
+            var local2 = (from x in model.Artigo where (x.Etiquetas.Contains(search)) select x);
+
+            if (local.ToList().Count > 0 || local2.ToList().Count > 0)
+            {
+                List<Artigo> lista = local.ToList<Artigo>();
+                List<Artigo> lista2 = local2.ToList<Artigo>();
+                List<Artigo> listaUnion = lista.Union(lista2).ToList();
+
+                return View(listaUnion);
+            }
+
+            else return RedirectToAction("ErrorSearch", "Home");
         }
     }
 
