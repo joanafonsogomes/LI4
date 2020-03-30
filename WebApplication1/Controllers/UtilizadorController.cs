@@ -59,7 +59,7 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-
+        [HttpPost]
         public ActionResult AdicionarCliente(string email, int cc, string nome, string password, long contaBancaria, string tipo, int telemovel, string rua, int nPorta, string codigoPostal, string freguesia, string distrito)
         {
             if (ModelState.IsValid)
@@ -725,7 +725,7 @@ namespace WebApplication1.Controllers
             }
 
             else return RedirectToAction("ErrorSearch", "Utilizador");
-        }
+        }*/
 
 
     }
