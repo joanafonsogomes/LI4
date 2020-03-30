@@ -697,7 +697,7 @@ namespace WebApplication1.Controllers
             }
             return RedirectToAction("VerInfo", "Utilizador");
         }
-
+        /*
         public ActionResult SearchArtigos(string search)
         {
             var local = (from x in model.Artigo where (x.Nome.Contains(search)) select x);
