@@ -697,7 +697,7 @@ namespace WebApplication1.Controllers
             }
             return RedirectToAction("VerInfo", "Utilizador");
         }
-        /*
+
         public ActionResult SearchArtigos(string search)
         {
             var local = (from x in model.Artigo where (x.Nome.Contains(search)) select x);
@@ -712,8 +712,9 @@ namespace WebApplication1.Controllers
                 return View(listaUnion);
             }
 
-            else return RedirectToAction("ErrorSearch", "Utilizador");
+            else return RedirectToAction("ErrorSearch", "Home");
         }
+
 
         public ActionResult SearchCategoria(string categoria)
         {
@@ -725,7 +726,8 @@ namespace WebApplication1.Controllers
             }
 
             else return RedirectToAction("ErrorSearch", "Utilizador");
-        }*/
+        }
+
 
 
     }
