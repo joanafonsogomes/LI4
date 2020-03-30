@@ -715,15 +715,19 @@ namespace WebApplication1.Controllers
             else return RedirectToAction("ErrorSearch", "Utilizador");
         }
 
+        public ActionResult SearchCategoria(string categoria)
+        {
+            var local = (from x in model.Artigo where (x.Categoria == categoria) select x);
+            if (local.ToList().Count > 0)
+            {
+                List<Artigo> list = local.ToList<Artigo>();
+                return View(list);
+            }
+
+            else return RedirectToAction("ErrorSearch", "Utilizador");
+        }
+
+
     }
 
-    public ActionResult ProcurarArtigoPorNome(string nome){
-        if(ModelState.IsValid)
-        {
-            var local = (from x in model.Artigo where (x.Nome.contains(nome)) select x);
-            local.ToList();
-            return View("VerArtigos");
-        }
-    }*/
-    }
 }

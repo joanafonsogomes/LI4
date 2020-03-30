@@ -69,7 +69,7 @@ namespace WebApplication1.Controllers
         public ActionResult Procurei()
         {
             var data = "info que eu preciso guardar para mandar";
-              return View(data);
+            return View(data);
         }
 
 
@@ -89,6 +89,21 @@ namespace WebApplication1.Controllers
 
             else return RedirectToAction("ErrorSearch", "Home");
         }
+        
+    
+
+            public ActionResult SearchCategoria(string categoria)
+            {
+                var local = (from x in model.Artigo where (x.Categoria == categoria) select x);
+                if (local.ToList().Count > 0)
+                {
+                    List<Artigo> list = local.ToList<Artigo>();
+                    return View(list);
+                }
+
+                else return RedirectToAction("ErrorSearch", "Home");
+            }
+
     }
 
 }
