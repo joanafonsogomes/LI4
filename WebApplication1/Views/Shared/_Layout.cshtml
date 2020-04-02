@@ -8,199 +8,196 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" />
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Oswald" rel="stylesheet">
-    <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/v4-shims.css">
+    <link href="~/css/agency.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" />
+
+    <!-- Bootstrap core CSS -->
+    <link href="~/lib/bootstrap/dist/css/bootstrap-grid.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="~/css/agency.css" rel="stylesheet">
     <link rel="icon" href="~/icon.ico">
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
-        <a class="navbar-brand" style="color:#FFFFFF">RentItAll</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
 
-        <head>
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-            <style>
-                body {
-                    font-family: "Lato", sans-serif;
-                }
-
-                .sidebar {
-                    height: 100%;
-                    width: 0;
-                    position: fixed;
-                    z-index: 1;
-                    top: 0;
-                    left: 0;
-                    background-color: #343A40;
-                    overflow-x: hidden;
-                    transition: 0.5s;
-                    padding-top: 60px;
-                }
-
-                    .sidebar a {
-                        padding: 8px 8px 8px 32px;
-                        text-decoration: none;
-                        font-size: 16px;
-                        color: #818181;
-                        display: block;
-                        transition: 0.3s;
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                <img src="~/Images/rentitalllogo.png" class="col-xl-5" alt="Responsive image">
+            </a>
+            <!-- Sidebar -->
+            <head>
+                <meta name="viewport" content="width=device-width, initial-scale=1">
+                <style>
+                    body {
+                        font-family: "Lato", sans-serif;
                     }
 
-                        .sidebar a:hover {
-                            color: #f1f1f1;
+                    .sidebar {
+                        height: 100%;
+                        width: 0;
+                        position: fixed;
+                        z-index: 1;
+                        top: 0;
+                        left: 0;
+                        background-color: #343A40;
+                        overflow-x: hidden;
+                        transition: 0.5s;
+                        padding-top: 60px;
+                    }
+
+                        .sidebar a {
+                            padding: 8px 8px 8px 32px;
+                            text-decoration: none;
+                            font-size: 16px;
+                            color: #818181;
+                            display: block;
+                            transition: 0.3s;
                         }
 
-                    .sidebar .closebtn {
-                        position: absolute;
-                        top: 0;
-                        right: 25px;
+                            .sidebar a:hover {
+                                color: #f1f1f1;
+                            }
+
+                        .sidebar .closebtn {
+                            position: absolute;
+                            top: 0;
+                            right: 25px;
+                            font-size: 16px;
+                            margin-left: 50px;
+                        }
+
+                    .openbtn {
                         font-size: 16px;
-                        margin-left: 50px;
-                    }
-
-                .openbtn {
-                    font-size: 16px;
-                    cursor: pointer;
-                    background-color: #343A40;
-                    color: white;
-                    padding: 5px 5px;
-                    border: none;
-                }
-
-                    .openbtn:hover {
+                        cursor: pointer;
                         background-color: #343A40;
+                        color: white;
+                        padding: 5px 5px;
+                        border: none;
                     }
 
-                #main {
-                    transition: margin-left .5s;
-                    padding: 16px;
-                }
+                        .openbtn:hover {
+                            background-color: #343A40;
+                        }
 
-                /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+                    #main {
+                        transition: margin-left .5s;
+                        padding: 16px;
+                    }
 
-            </style>
-        </head>
-        <body>
+                    /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
 
-            <div id="mySidebar" class="sidebar">
-                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-                <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Roupa" })">
-                    <span>Roupa</span>
-                </a>
-                <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Campismo" })">
-                    <span>Campismo</span>
-                </a>
-                <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Mobiliário" })">
-                    <span>Mobiliário</span>
-                </a>
-                <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Acessórios" })">
-                    <span>Acessórios</span>
-                </a>
-                <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Música" })">
-                    <span>Música</span>
-                </a>
-                <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Livros" })">
-                    <span>Livros</span>
-                </a>
-                <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Turismo" })">
-                    <span>Turismo</span>
-                </a>
-                <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Bebé e criança" })">
-                    <span>Bebé e criança</span>
-                </a>
-                <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Lazer" })">
-                    <span>Lazer</span>
-                </a>
-                <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Animais" })">
-                    <span>Animais</span>
-                </a>
-                <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Tecnologia" })">
-                    <span>Tecnologia</span>
-                </a>
-                <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Desporto" })">
-                    <span>Desporto</span>
-                </a>
-                <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Carros, motos e barcos" })">
-                    <span>Carros, motos e barcos</span>
-                </a>
-                <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Agricultura" })">
-                    <span>Agricultura</span>
-                </a>
-                <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Equipamentos e Ferramentas" })">
-                    <span>Equipamentos e Ferramentas</span>
-                </a>
-                <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Outros" })">
-                    <span>Outros</span>
-                </a>
+                </style>
+            </head>
+            <body>
+
+                <div id="mySidebar" class="sidebar">
+                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+                    <a href="#">Roupa</a>
+                    <a href="#">Campismo</a>
+                    <a href="#">Mobiliário</a>
+                    <a href="#">Acessórios</a>
+                    <a href="#">Música</a>
+                    <a href="#">Livros</a>
+                    <a href="#">Turismo</a>
+                    <a href="#">Bebé e criança</a>
+                    <a href="#">Lazer</a>
+                    <a href="#">Animais</a>
+                    <a href="#">Tecnologia</a>
+                    <a href="#">Desporto</a>
+                    <a href="#">Carros, motos e barcos</a>
+                    <a href="#">Agricultura</a>
+                    <a href="#">Equipamentos e Ferramentas</a>
+                    <a href="#">Outros</a>
+                </div>
+
+                <div id="main">
+                    <button class="openbtn" onclick="openNav()">☰ Categorias</button>
+                </div>
+
+                <script>
+                    function openNav() {
+                        document.getElementById("mySidebar").style.width = "250px";
+                        document.getElementById("main").style.marginLeft = "250px";
+                    }
+
+                    function closeNav() {
+                        document.getElementById("mySidebar").style.width = "0";
+                        document.getElementById("main").style.marginLeft = "0";
+                    }
+                </script>
+
+            </body>
+
+
+            <!--botõeszinhos-->
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+
+                <!--Search Bar-->
+
+                <div class="search-container">
+                    <form asp-action="SearchArtigos" asp-controllers="Home" method="POST" enctype="multipart/form-data">
+                        <input type="text" placeholder="Search" name="search">
+                        <button type="submit"><i class="fa fa-search" aria-hidden="true"> </i></button>
+                    </form>
+                </div>
+
+
+
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
+                            <i class="fa fa-home"></i>
+                            Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="About">
+                            Sobre nós
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Contact">
+                            Contacto
+                        </a>
+                    </li>
+                </ul>
+
+                <!--Right side view perfil / login etc-->
+                <ul class="navbar-nav  mt-2 mt-lg-0">
+                    <li class="nav-item dropdown mr-auto">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" id="Preview" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-user"></i> Perfil
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" style="        margin-top: 7px;
+                            border-top-left-radius: 0;
+                            border-color: #343A40;
+                            border-top-right-radius: 0;
+                            background-color: #343A40;" aria-labelledby="Preview">
+                            <a class="dropdown-item" href="@Url.Action("Login", "Conta")">Login</a>
+                            <a class="dropdown-item" href="@Url.Action("AdicionarCliente", "Utilizador")">Registar</a>
+                        </div>
+                    </li>
+                </ul>
+
             </div>
-
-            <div id="main">
-                <button class="openbtn" onclick="openNav()">☰ Categorias</button>
-            </div>
-
-            <script>
-                function openNav() {
-                    document.getElementById("mySidebar").style.width = "250px";
-                    document.getElementById("main").style.marginLeft = "250px";
-                }
-
-                function closeNav() {
-                    document.getElementById("mySidebar").style.width = "0";
-                    document.getElementById("main").style.marginLeft = "0";
-                }
-            </script>
-
-        </body>
-
-        <div class="search-container">
-            <form asp-action="SearchArtigos" asp-controllers="Home" method="POST" enctype="multipart/form-data">
-            <input type="text" placeholder="Search.." name="search">
-            <button type="submit"><i class="fa fa-search"></i></button>
-            </form>
-        </div>
-
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa fa-home"></i> Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="About">Sobre nós</a>
-                </li>
-
-            </ul>
-
-            <!--Botão de perfil do lado direito-->
-            <ul class="navbar-nav  mt-2 mt-lg-0">
-                <li class="nav-item dropdown mr-auto">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" id="Preview" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-user"></i> Perfil
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right" style="        margin-top: 7px;
-        border-top-left-radius: 0;
-        border-color: #343A40;
-        border-top-right-radius: 0;
-        background-color: #343A40;" aria-labelledby="Preview">
-                        <a class="dropdown-item" href="@Url.Action("Login", "Conta")">Login</a>
-                        <a class="dropdown-item" href="@Url.Action("AdicionarCliente", "Utilizador")">Registar</a>
-                    </div>
-                </li>
-            </ul>
         </div>
     </nav>
+
 
     <div class="jumbotron">
         <!--Logo no topo da pagina-->
         <div id="hdr-top-logo">
             <h1>
                 <a>
-                    <img style="margin:0px auto;display:block" src="~/Images/rentitalllogo.png" />
+                    <img style="margin:10px auto;display:block" src="~/Images/rentitalllogo.png" />
                 </a>
             </h1>
         </div>
@@ -212,16 +209,68 @@
         </main>
     </div>
 
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - RentItAll</p>
-        </footer>
-    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+
+            @RenderBody()
+            <div class="row align-items-center">
+                <div class="col-md-4">
+                    <span class="copyright">Copyright  @DateTime.Now.Year - RentItAll</span>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-inline social-buttons">
+                        <li class="list-inline-item">
+                            <a href="#">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-inline quicklinks">
+                        <li class="list-inline-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">
+                                Politica de Privacidade
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#">Termos de Uso</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
 
     @RenderSection("scripts", required: false)
 
+    <!-- Bootstrap core JavaScript -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+
+    <!-- Contact form JavaScript -->
+    <script src="~/js/jqBootstrapValidation.js"></script>
+    <script src="~/js/contact_me.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="~/js/agency.min.js"></script>
+
 
 </body>
+
 </html>

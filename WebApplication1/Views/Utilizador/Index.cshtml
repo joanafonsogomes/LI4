@@ -1,4 +1,4 @@
-﻿@model WebApplication1.Models.Utilizador
+﻿@model IEnumerable<WebApplication1.Models.Artigo>
 
 @{
     ViewBag.Title = "Index";
@@ -9,51 +9,86 @@
 
 
 <h1> @str</h1>
-
 <br>
 <br>
 
-<div class="card-columns">
-    <div class="card">
-        <img class="card-img-top img-fluid" src="~/Images/vestido.jpg" alt="Card image cap">
-        <div class="card-block">
-            <h4 class="card-title">Vestido Chanel</h4>
-            <!-- <p class="card-text">Delicie-se com os nossos bolos de aniversário! Possuímos alternativas vegetarias, sem glúten e sem lactose!</p>-->
-        </div>
-    </div>
-    <div class="card">
-        <img class="card-img-top img-fluid" src="~/Images/tenda.jpg" alt="Card image cap">
-        <div class="card-block">
-            <h4 class="card-title">Tenda Campismo</h4>
+<!-- Page Content -->
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-lg-3">
+
+            <h1 class="my-4">Procurar Por:</h1>
+            <div class="list-group">
+                <a href="#" class="list-group-item">Os mais Vendidos</a>
+                <a href="#" class="list-group-item">Os mais Recentes</a>
+                <a href="#" class="list-group-item">Novidades</a>
+            </div>
 
         </div>
-    </div>
-    <div class="card">
-        <img class="card-img-top img-fluid" src="~/Images/cadeira.jpg" alt="Card image cap">
-        <div class="card-block">
-            <h4 class="card-title">Cadeiras jardim</h4>
+        <!-- /.col-lg-3 -->
 
-        </div>
-    </div>
-    <div class="card">
-        <img class="card-img-top img-fluid" src="~/Images/som.jpg" alt="Card image cap">
-        <div class="card-block">
-            <h4 class="card-title">Ultra sistema de som</h4>
+        <div class="col-lg-9">
 
-        </div>
-    </div>
-    <div class="card">
-        <img class="card-img-top img-fluid" src="~/Images/camisa.jpg" alt="Card image cap">
-        <div class="card-block">
-            <h4 class="card-title">Camisa Ralph Lauren</h4>
+            <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner" role="listbox">
+                    <div class="carousel-item active">
+                        <img class="d-block img-fluid" src="~/Images/an.jpg" alt="Anuncie">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block img-fluid" src="~/Images/hit.jpg" alt="Relogio">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block img-fluid" src="~/Images/th.jpg" alt="Thank">
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
 
-        </div>
-    </div>
-    <div class="card">
-        <img class="card-img-top img-fluid" src="~/Images/bolsa.jpg" alt="Card image cap">
-        <div class="card-block">
-            <h4 class="card-title">Bolsa Louis Vuitton</h4>
 
+            <div class="row">
+
+                @foreach (var item in Model)
+                {
+
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card h-100">
+                            <a href="@Url.Action("Details", new { idArtigo = item.IdArtigo })"><img class="card-img-top" src="~/uploads/@Html.DisplayFor(modelItem => item.Imagem)" alt=""></a>  <!--700x400-->
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <a href="@Url.Action("Details", new { idArtigo = item.IdArtigo })">@Html.DisplayFor(modelItem => item.Nome)</a>
+                                </h4>
+                                <h5>@Html.DisplayFor(modelItem => item.Preco) €</h5>
+                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                            </div>
+                            <div class="card-footer">
+                                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+
+            </div>
+            <!-- /.row -->
         </div>
+        <!-- /.col-lg-9 -->
+
     </div>
+    <!-- /.row -->
+
 </div>
+<!-- /.container -->

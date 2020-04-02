@@ -21,161 +21,109 @@
 <body>
     <br />
     <br />
-    <div class="container-fluid">
+
+
+    <div class="container">
         <div class="row">
-            <div class="col-md-4 col-sm-4 col-xs-12"></div>
-            <div class="col-md-4 col-sm-4 col-xs-12">
+            <div class="col-lg-10 col-xl-9 mx-auto">
+                <div class="card card-signin flex-row my-9">
+                    <div class="card-img-left d-none d-md-flex">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Register</h5>
 
+                        @if (!@User.Identity.IsAuthenticated)
+                        {
+                            using (Html.BeginForm("AdicionarCliente", "Utilizador", FormMethod.Post))
+                            {
 
-                @if (!@User.Identity.IsAuthenticated)
-                {
-                    using (Html.BeginForm("AdicionarCliente", "Utilizador", FormMethod.Post))
-                    {
+                                @Html.ValidationSummary(true)
 
-                        @Html.ValidationSummary(true)
-                <form>
+                                <form class="form-signin">
 
-                    <!-- Text input-->
-                    <div class="form-group">
-                        <label for="Email"> Email</label>
-                        <div>
-                            <input id="Email" name="Email" type="text" class="form-control input-md" required="">
+                                    <div class="form-label-group">
+                                        <input type="text" id="email" name="email" class="form-control" placeholder="Email" required>
+                                        <label for="Email">Email</label>
+                                    </div>
+                                    <div class="form-label-group">
+                                        <input type="text" name="Cc" id="Cc" class="form-control" placeholder="Cartão de Cidadão" required>
+                                        <label for="Cc"> CC</label>
+                                    </div>
+                                    <div class="form-label-group">
+                                        <input type="text" id="Nome" name="nome" class="form-control" placeholder="nome" required>
+                                        <label for="Nome">Nome</label>
+                                    </div>
+                                    <div class="form-label-group">
+                                        <input id="Password" name="Password" type="password" placeholder="" class="form-control" required>
+                                        <label for="Password">Password</label>
+                                    </div>
+                                    <div class="form-label-group">
+                                        <input id="ContaBancaria" name="ContaBancaria" type="text" placeholder="Conta Bancaria" class="form-control" required>
+                                        <label for="ContaBancaria">Conta Bancária</label>
+                                    </div>
+                                    <!-- tipo input-->
+                                    <div class="form-label-group">
+                                        <input id="Tipo" name="Tipo" type="text" placeholder="Tipo" class="form-control" required>
+                                        <label for="Tipo">Tipo (single/company)</label>
+                                    </div>
 
-                        </div>
+                                    <!-- Text input-->
+                                    <div class="form-label-group">
+                                        <input id="Telemovel" name="Telemovel" type="text" placeholder="Telemovel" class="form-control" required>
+                                        <label for="Telemovel">Telemovel</label>
+                                    </div>
+                                    <!-- Text input-->
+                                    <div class="form-label-group">
+                                        <input id="Rua" name="Rua" type="text" placeholder="Rua" class="form-control" required>
+                                        <label for="Rua">Rua</label>
+                                    </div>
+
+                                    <!-- Text input-->
+                                    <div class="form-label-group">
+                                        <input id="NPorta" name="NPorta" type="text" placeholder="Numero da Porta" class="form-control" required>
+                                        <label for="NPorta">Número da porta</label>
+                                    </div>
+
+                                    <!-- Codigo Postal input-->
+                                    <div class="form-label-group">
+                                        <input id="CodPostal" name="CodPostal" type="text" placeholder="Codigo Postal" class="form-control" required>
+                                        <label for="CodPostal">Código Postal</label>
+                                    </div>
+
+                                    <!-- Codigo Postal input-->
+                                    <div class="form-label-group">
+                                        <input id="CodigoPostal" name="CodigoPostal" type="text" placeholder="Codigo Postal" class="form-control" required>
+                                        <label for="CodigoPostal">Confirme Código Postal</label>
+                                    </div>
+
+                                    <!-- Text input-->
+                                    <div class="form-label-group">
+                                        <input id="Freguesia" name="Freguesia" type="text" placeholder="Freguesia" class="form-control" required>
+                                        <label for="Freguesia">Freguesia</label>
+                                    </div>
+
+                                    <!-- Text input-->
+                                    <div class="form-label-group">
+                                        <input id="Distrito" name="Distrito" type="text" placeholder="Distrito" class="form-control" required>
+                                        <label for="Distrito">Distrito</label>
+                                    </div>
+
+                                    <hr>
+                                    <button class="btn btn-lg btn-primary btn-block text-uppercase" id="save" name="save">Registar</button>
+                                    <a class="d-block text-center mt-2 small" href="@Url.Action("Login", "Conta")">Login</a>
+                                    <hr class="my-4">
+                                    <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"></i> Registar com Google</button>
+                                    <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2"></i> Registar com Facebook</button>
+                                </form>
+
+                            }
+                        }
 
                     </div>
-
-                    <!-- Text input-->
-                    <div class="form-group">
-                        <label for="Cc"> CC</label>
-                        <div>
-                            <input id="Cc" name="Cc" type="text" class="form-control input-md" required="">
-                        </div>
-                    </div>
-
-                    <!-- Text input-->
-                    <div class="form-group">
-                        <label for="Nome">Nome</label>
-                        <div>
-                            <input id="Nome" name="Nome" type="text" class="form-control input-md" required="">
-
-                        </div>
-                    </div>
-
-
-                    <!-- Password input-->
-                    <div>
-                        <label for="Password">Password</label>
-                        <div>
-                            <input id="Password" name="Password" type="password" placeholder="" class="form-control input-md" required="">
-
-                        </div>
-                    </div>
-
-                    <!-- Text input-->
-                    <div>
-                        <label for="ContaBancaria">Conta Bancária</label>
-                        <div>
-                            <input id="ContaBancaria" name="ContaBancaria" type="text" placeholder="" class="form-control input-md" required="">
-
-                        </div>
-                    </div>
-
-                    <!-- tipo input-->
-                    <div>
-                        <label for="Tipo">Tipo (single/company)</label>
-                        <div>
-                            <input id="Tipo" name="Tipo" type="text" placeholder="" class="form-control input-md" required="">
-
-                        </div>
-                    </div>
-
-                    <!-- Text input-->
-                    <div class="form-group">
-                        <label for="Telemovel">Telemovel</label>
-                        <div>
-                            <input id="Telemovel" name="Telemovel" type="text" class="form-control input-md" required="">
-
-                        </div>
-                    </div>
-                    <!-- Text input-->
-                    <div>
-                        <label for="Rua">Rua</label>
-                        <div>
-                            <input id="Rua" name="Rua" type="text" placeholder="" class="form-control input-md" required="">
-
-                        </div>
-                    </div>
-
-                    <!-- Text input-->
-                    <div>
-                        <label for="NPorta">Número da porta</label>
-                        <div>
-                            <input id="NPorta" name="NPorta" type="text" placeholder="" class="form-control input-md" required="">
-
-                        </div>
-                    </div>
-
-                    <!-- Codigo Postal input-->
-                    <div>
-                        <label for="CodPostal">Código Postal</label>
-                        <div>
-                            <input id="CodPostal" name="CodPostal" type="text" placeholder="" class="form-control input-md" required="">
-
-                        </div>
-                    </div>
-
-                    <!-- Codigo Postal input-->
-                    <div>
-                        <label for="CodigoPostal">Confirme Código Postal</label>
-                        <div>
-                            <input id="CodigoPostal" name="CodigoPostal" type="text" placeholder="" class="form-control input-md" required="">
-
-                        </div>
-                    </div>
-
-
-                    <!-- Text input-->
-                    <div>
-                        <label for="Freguesia">Freguesia</label>
-                        <div>
-                            <input id="Freguesia" name="Freguesia" type="text" placeholder="" class="form-control input-md" required="">
-
-                        </div>
-                    </div>
-
-
-
-
-                    <!-- Text input-->
-                    <div>
-                        <label for="Distrito">Distrito</label>
-                        <div>
-                            <input id="Distrito" name="Distrito" type="text" placeholder="" class="form-control input-md" required="">
-
-                        </div>
-                    </div>
-
-
-
-
-                    <!-- Button (Double) -->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="save"></label>
-                        <div class="col-md-8">
-                            <button id="save" name="save" class="btn btn-default">Registar</button>
-                        </div>
-                    </div>
-
-
-                </form>
-                    }
-                }
-
-                    </div>
-            <div class="col-md-4 col-sm-4 col-xs-12"></div>
+                </div>
+            </div>
         </div>
-    </div>
 </body>
+
 </html>
 

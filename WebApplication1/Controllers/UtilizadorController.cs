@@ -25,16 +25,20 @@ namespace WebApplication1.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            var local = (from x in model.Artigo select x);
+            List<Artigo> res = local.ToList<Artigo>();
+            return View(res);
         }
 
-        public IActionResult Details(int id)
+        public ActionResult Details(int art)
         {
-            var artigos = (from m in model.Artigo select m);
-            List<Artigo> lista = artigos.ToList<Artigo>();
-            var a = lista[id - 1];
-            return View(a);
+            int ar = Helpers.CacheController.idArtigo;
+
+            Artigo ss = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(ar));
+            return View(ss);
+
         }
+
 
         public ActionResult AlterarDadosUtilizador()
         {
@@ -53,6 +57,12 @@ namespace WebApplication1.Controllers
 
             return View();
         }
+
+        public ActionResult Contact()
+        {
+            return View();
+        }
+
 
         public IActionResult ErrorSearch()
         {

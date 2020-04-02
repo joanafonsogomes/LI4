@@ -24,10 +24,11 @@ namespace WebApplication1.Controllers
             _logger = logger;
         }
 
-
-        public IActionResult Index()
+        public ActionResult Index()
         {
-            return View();
+            var local = (from x in model.Artigo select x);
+            List<Artigo> res = local.ToList<Artigo>();
+            return View(res);
         }
 
         public IActionResult Privacy()
@@ -49,13 +50,24 @@ namespace WebApplication1.Controllers
         {
             return View();
         }
+        public ActionResult Contact()
+        {
+            return View();
+        }
 
         public IActionResult ErrorSearch()
         {
             return View();
         }
 
+        public ActionResult Details(int art)
+        {
+            int ar = Helpers.CacheController.idArtigo;
 
+            Artigo ss = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(ar));
+            return View(ss);
+
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

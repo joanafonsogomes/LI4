@@ -19,38 +19,49 @@
 <body>
     <br>
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-4 col-sm-4 col-xs-12"></div> 
-            <div class="col-md-4 col-sm-4 col-xs-12">
-                <!-- form start -->
+        <div class="row no-gutter">
+            <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
+            <div class="col-md-8 col-lg-6">
+                <div class="login d-flex align-items-center py-5">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-9 col-lg-8 mx-auto">
+                                <h3 class="login-heading mb-4">Welcome back!</h3>
+                                <!-- form start -->
 
-                @if (!@User.Identity.IsAuthenticated) 
-                {
-                    using (Html.BeginForm("Login","Conta", FormMethod.Post))
-                    {
-                        @Html.ValidationSummary(true);
-                <form>
-                    <div class="form-group">
-                        <label for="Email"><b>E-mail</b></label>
-                        <input type="text" name="Email" class="form-control input-md" id="Email" placeholder="E-mail" required="">
-                    </div>
-                    <div class="form-group">
-                        <label for="Password"><b>Password</b></label>
-                        <input type="password" name="Password" class="form-control input-md" id="Password" placeholder="Password" required="">
-                    </div>
-                    <!--<div class="checkbox">
-                        <label>
-                            <input type="checkbox"> Remember me
-                        </label>
-                    </div>-->
-                    <button type="submit" class="btn btn-default">Sign in</button>
-                    </form>
-                        <!-- form end -->
-                    }
-                }
+                                @if (!@User.Identity.IsAuthenticated)
+                                {
+                                    using (Html.BeginForm("Login", "Conta", FormMethod.Post))
+                                    {
+                                        @Html.ValidationSummary(true);
+                                        <form>
+                                            <div class="form-label-group">
+                                                <input type="text" name="email" class="form-control" id="email" placeholder="E-mail" required autofocus>
+                                                <label for="Email"><b>E-mail</b></label>
+                                            </div>
 
+                                            <div class="form-label-group">
+                                                <input type="password" name="Password" class="form-control" id="inputPassword" placeholder="Password" required>
+                                                <label for="Password"><b>Password</b></label>
+                                            </div>
+
+                                            <div class="custom-control custom-checkbox mb-3">
+                                                <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                                <label class="custom-control-label" for="customCheck1">Lembrar Password</label>
+                                            </div>
+                                            <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Sign in</button>
+                                            <div class="text-center">
+                                                <a class="small" href="#">Esqueceu-se da password?</a>
+                                            </div>
+                                        </form>
+                                        <!-- form end -->
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-4 col-sm-4 col-xs-12"></div>
         </div>
     </div>
     <br />
@@ -59,3 +70,6 @@
     <br />
 </body>
 </html>
+
+
+
