@@ -40,6 +40,7 @@ namespace WebApplication1.Controllers
         }
 
 
+
         public ActionResult AlterarDadosUtilizador()
         {
             return View();
