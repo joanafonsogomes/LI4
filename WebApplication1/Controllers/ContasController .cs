@@ -27,6 +27,7 @@ namespace WebApplication1.Controllers
             return View();
         }
 
+
         [HttpPost]
         public ActionResult Login(string email, string password)
         {

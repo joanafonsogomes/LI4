@@ -102,8 +102,7 @@ namespace WebApplication1.Controllers
             else return RedirectToAction("ErrorSearch", "Home");
         }
         
-    
-
+  
             public ActionResult SearchCategoria(string categoria)
             {
                 var local = (from x in model.Artigo where (x.Categoria == categoria) select x);
