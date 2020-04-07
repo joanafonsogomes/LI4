@@ -13,6 +13,8 @@ namespace WebApplication1.Models
         public string IdRent { get; set; }
         public DateTime DataInicio { get; set; }
         public DateTime DataFim { get; set; }
+        public bool Estado { get; set; }
+        public int Quantidade { get; set; }
 
         public virtual Artigo IdArtigoNavigation { get; set; }
         public virtual Utilizador IdUtilizadorNavigation { get; set; }

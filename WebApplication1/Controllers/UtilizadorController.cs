@@ -30,14 +30,18 @@ namespace WebApplication1.Controllers
             return View(res);
         }
 
-        public ActionResult Details(int art)
+        public ActionResult Details(int idArtigo)
         {
-            int ar = Helpers.CacheController.idArtigo;
+            Console.WriteLine(idArtigo);
 
-            Artigo ss = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(ar));
+            Artigo ss = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(idArtigo));
+
+            var cenas = ss.IdArtigo;
+            Console.WriteLine(cenas);
             return View(ss);
 
         }
+
 
         public ActionResult AlterarDadosUtilizador()
         {

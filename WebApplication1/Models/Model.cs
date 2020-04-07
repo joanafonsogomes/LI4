@@ -31,7 +31,7 @@ namespace WebApplication1.Models
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
 
-                optionsBuilder.UseSqlServer("Data Source = DESKTOP-UPMDNTI;Initial Catalog = LI4; Integrated Security = True");
+                optionsBuilder.UseSqlServer("Data Source = LENOVO-JOANA;Initial Catalog = LI4; Integrated Security = True");
             } 
         }
 
@@ -84,6 +84,18 @@ namespace WebApplication1.Models
                 entity.Property(e => e.IdUtilizador)
                     .IsRequired()
                     .HasColumnName("idUtilizador")
+                    .HasMaxLength(45)
+                    .IsFixedLength();
+
+                entity.Property(e => e.Estado)
+                    .IsRequired()
+                    .HasColumnName("estado")
+                    .HasMaxLength(45)
+                    .IsFixedLength();
+
+                entity.Property(e => e.Quantidade)
+                    .IsRequired()
+                    .HasColumnName("quantidade")
                     .HasMaxLength(45)
                     .IsFixedLength();
 
@@ -145,6 +157,10 @@ namespace WebApplication1.Models
                 entity.Property(e => e.Preco).HasColumnName("preco");
 
                 entity.Property(e => e.Quantidade).HasColumnName("quantidade");
+
+                entity.Property(e => e.Descricao).HasColumnName("descricao");
+
+                entity.Property(e => e.Pontuacao).HasColumnName("pontuacao");
 
                 entity.HasOne(d => d.IdDonoNavigation)
                     .WithMany(p => p.Artigo)
@@ -305,6 +321,18 @@ namespace WebApplication1.Models
                 entity.Property(e => e.IdUtilizador)
                     .IsRequired()
                     .HasColumnName("idUtilizador")
+                    .HasMaxLength(45)
+                    .IsFixedLength();
+
+                entity.Property(e => e.Estado)
+                    .IsRequired()
+                    .HasColumnName("estado")
+                    .HasMaxLength(45)
+                    .IsFixedLength();
+
+                entity.Property(e => e.Quantidade)
+                    .IsRequired()
+                    .HasColumnName("quantidade")
                     .HasMaxLength(45)
                     .IsFixedLength();
 

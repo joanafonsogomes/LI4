@@ -60,14 +60,36 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        public ActionResult Details(int art)
+        public ActionResult Details(int idArtigo)
         {
-            int ar = Helpers.CacheController.idArtigo;
+            Console.WriteLine(idArtigo);
 
-            Artigo ss = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(ar));
+            Artigo ss = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(idArtigo));
+
+            var cenas = ss.IdArtigo;
+            Console.WriteLine(cenas);
             return View(ss);
 
         }
+
+        public ActionResult VerInfo()
+        {
+            string user = Helpers.CacheController.utilizador;
+
+            var info = (from m in model.Utilizador where (m.Email.Equals(user)) select m);
+            List<Utilizador> lista = info.ToList<Utilizador>();
+
+            Utilizador res = lista.ElementAt(0);
+            var local = (from m in model.Localizacao where (m.CodigoPostal.Equals(res.CodPostal)) select m);
+
+            List<Localizacao> list = local.ToList<Localizacao>();
+            Localizacao l = list.ElementAt(0);
+
+            res.CodPostalNavigation = l;
+
+            return View(res);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
