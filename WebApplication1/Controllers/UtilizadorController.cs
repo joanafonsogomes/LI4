@@ -27,15 +27,17 @@ namespace WebApplication1.Controllers
             return View(res);
         }
 
-        public ActionResult Details(int art)
+        public ActionResult Details(int idArtigo)
         {
-            int ar = Helpers.CacheController.idArtigo;
+            Console.WriteLine(idArtigo);
 
-            Artigo ss = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(ar));
+            Artigo ss = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(idArtigo));
+
+            var cenas = ss.IdArtigo;
+            Console.WriteLine(cenas);
             return View(ss);
 
         }
-
 
 
         public ActionResult AlterarDadosUtilizador()
@@ -126,7 +128,7 @@ namespace WebApplication1.Controllers
 
 
         [HttpPost]
-        public IActionResult NovoArtigo(List<IFormFile> file, string nome, float preco, string modo, int quantidade, string categoria, string etiquetas)
+        public IActionResult NovoArtigo(List<IFormFile> file, string nome, float preco, string modo, int quantidade, string categoria, string etiquetas, string descricao)
         {
             foreach(IFormFile cenas in file)
             {
@@ -150,6 +152,8 @@ namespace WebApplication1.Controllers
                     Categoria = categoria,
                     Etiquetas = etiquetas,
                     Estado = false,
+                    Pontuacao =0,
+                    Descricao = descricao,
                     IdDono = user,
                 };
 
@@ -475,12 +479,15 @@ namespace WebApplication1.Controllers
             return View(res);
         }
 
-        //Está mal redirecionada , ainda não funciona
-        public ActionResult Alterar(int? idArtigos)
+        public ActionResult Alterar(int idArtigo)
         {
-            Helpers.CacheController.idArtigo = idArtigos.Value;
+          
+            Artigo ss = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(idArtigo));
 
-            return View("RequisitarServico");
+            Helpers.CacheController.IdArtigo = idArtigo;
+            var cenas = ss.IdArtigo;
+            Console.WriteLine(cenas);
+            return View(ss);
         }
 
         [HttpPost]
@@ -765,7 +772,7 @@ namespace WebApplication1.Controllers
 
                 model.SaveChanges();
             }
-            return RedirectToAction("VerInfo", "Utilizador");
+            return RedirectToAction("", "Utilizador");
         }
         /**
         * Permite vizualisar a view que permite alterar a freguesia e efetua a sua mudança
@@ -975,6 +982,323 @@ namespace WebApplication1.Controllers
             else return RedirectToAction("ErrorSearch", "Utilizador");
         }
 
+        public ActionResult AlteraNome()
+        {
+            return View("AlteraNome");
+        }
+
+        [HttpPost]
+        public ActionResult AlteraNome (string nome)
+        {
+            
+            int id = Helpers.CacheController.IdArtigo;
+            if (ModelState.IsValid)
+            {
+                
+                Artigo std = model.Artigo.Where(x => x.IdArtigo.Equals(id)).FirstOrDefault();
+
+
+                Artigo a = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(std.IdArtigo));
+                a.Nome = nome;
+                a.Preco = std.Preco;
+                a.Modo = std.Modo;
+                a.Quantidade = std.Quantidade;
+                a.Categoria = std.Categoria;
+                a.Etiquetas = std.Etiquetas;
+                a.Estado = std.Estado;
+                a.Descricao = std.Descricao;
+                a.Imagem = std.Imagem;
+                model.SaveChanges();
+            }
+            return RedirectToAction("verArtigos", "Utilizador");
+        }
+
+        public ActionResult AlteraPreco()
+        {
+            return View("AlteraPreco");
+        }
+
+        [HttpPost]
+        public ActionResult AlteraPreco(float preco)
+        {
+
+            int id = Helpers.CacheController.IdArtigo;
+            if (ModelState.IsValid)
+            {
+
+                Artigo std = model.Artigo.Where(x => x.IdArtigo.Equals(id)).FirstOrDefault();
+
+
+                Artigo a = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(std.IdArtigo));
+                a.Nome = std.Nome;
+                a.Preco = preco;
+                a.Modo = std.Modo;
+                a.Quantidade = std.Quantidade;
+                a.Categoria = std.Categoria;
+                a.Etiquetas = std.Etiquetas;
+                a.Estado = std.Estado;
+                a.Descricao = std.Descricao;
+                a.Imagem = std.Imagem;
+                model.SaveChanges();
+            }
+            return RedirectToAction("verArtigos", "Utilizador");
+        }
+
+        public ActionResult AlteraModo()
+        {
+            return View("AlteraModo");
+        }
+        [HttpPost]
+        public ActionResult AlteraModo(string modo)
+        {
+
+            int id = Helpers.CacheController.IdArtigo;
+            if (ModelState.IsValid)
+            {
+
+                Artigo std = model.Artigo.Where(x => x.IdArtigo.Equals(id)).FirstOrDefault();
+
+
+                Artigo a = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(std.IdArtigo));
+                a.Nome = std.Nome;
+                a.Preco = std.Preco;
+                a.Modo = modo;
+                a.Quantidade = std.Quantidade;
+                a.Categoria = std.Categoria;
+                a.Etiquetas = std.Etiquetas;
+                a.Estado = std.Estado;
+                a.Descricao = std.Descricao;
+                a.Imagem = std.Imagem;
+                model.SaveChanges();
+            }
+            return RedirectToAction("verArtigos", "Utilizador");
+        }
+
+
+        public ActionResult AlteraCategoria()
+        {
+            return View("AlteraCategoria");
+        }
+
+        [HttpPost]
+        public ActionResult AlteraCategoria(string categoria)
+        {
+
+            int id = Helpers.CacheController.IdArtigo;
+            if (ModelState.IsValid)
+            {
+
+                Artigo std = model.Artigo.Where(x => x.IdArtigo.Equals(id)).FirstOrDefault();
+
+
+                Artigo a = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(std.IdArtigo));
+                a.Nome = std.Nome;
+                a.Preco = std.Preco;
+                a.Modo = std.Modo;
+                a.Quantidade = std.Quantidade;
+                a.Categoria = categoria;
+                a.Etiquetas = std.Etiquetas;
+                a.Estado = std.Estado;
+                a.Descricao = std.Descricao;
+                a.Imagem = std.Imagem;
+                model.SaveChanges();
+            }
+            return RedirectToAction("verArtigos", "Utilizador");
+        }
+
+        public ActionResult AlteraQuantidade()
+        {
+            return View("AlteraQuantidade");
+        }
+
+        [HttpPost]
+        public ActionResult AlteraQuantidade(int quantidade)
+        {
+
+            int id = Helpers.CacheController.IdArtigo;
+            if (ModelState.IsValid)
+            {
+
+                Artigo std = model.Artigo.Where(x => x.IdArtigo.Equals(id)).FirstOrDefault();
+
+
+                Artigo a = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(std.IdArtigo));
+                a.Nome = std.Nome;
+                a.Preco = std.Preco;
+                a.Modo = std.Modo;
+                a.Quantidade = quantidade;
+                a.Categoria = std.Categoria;
+                a.Etiquetas = std.Etiquetas;
+                a.Estado = std.Estado;
+                a.Descricao = std.Descricao;
+                a.Imagem = std.Imagem;
+                model.SaveChanges();
+            }
+            return RedirectToAction("verArtigos", "Utilizador");
+        }
+
+        public ActionResult AlteraDescricao()
+        {
+            return View("AlteraDescricao");
+        }
+
+        [HttpPost]
+        public ActionResult AlteraDescricao(string descricao)
+        {
+
+            int id = Helpers.CacheController.IdArtigo;
+            if (ModelState.IsValid)
+            {
+
+                Artigo std = model.Artigo.Where(x => x.IdArtigo.Equals(id)).FirstOrDefault();
+
+
+                Artigo a = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(std.IdArtigo));
+                a.Nome = std.Nome;
+                a.Preco = std.Preco;
+                a.Modo = std.Modo;
+                a.Quantidade = std.Quantidade;
+                a.Categoria = std.Categoria;
+                a.Etiquetas = std.Etiquetas;
+                a.Estado = std.Estado;
+                a.Descricao = descricao;
+                a.Imagem = std.Imagem;
+                model.SaveChanges();
+            }
+            return RedirectToAction("verArtigos", "Utilizador");
+        }
+
+        public ActionResult AlteraEstado()
+        {
+            return View("AlteraEstado");
+        }
+
+        [HttpPost]
+        public ActionResult AlteraEstado(bool estado)
+        {
+
+            int id = Helpers.CacheController.IdArtigo;
+            if (ModelState.IsValid)
+            {
+
+                Artigo std = model.Artigo.Where(x => x.IdArtigo.Equals(id)).FirstOrDefault();
+
+
+                Artigo a = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(std.IdArtigo));
+                a.Nome = std.Nome;
+                a.Preco = std.Preco;
+                a.Modo = std.Modo;
+                a.Quantidade = std.Quantidade;
+                a.Categoria = std.Categoria;
+                a.Etiquetas = std.Etiquetas;
+                a.Estado = estado;
+                a.Descricao = std.Descricao;
+                a.Imagem = std.Imagem;
+                model.SaveChanges();
+            }
+            return RedirectToAction("verArtigos", "Utilizador");
+        }
+
+        public ActionResult AlteraEtiquetas()
+        {
+            return View("AlteraEtiquetas");
+        }
+        [HttpPost]
+        public ActionResult AlteraEtiquetas(string etiquetas)
+        {
+
+            int id = Helpers.CacheController.IdArtigo;
+            if (ModelState.IsValid)
+            {
+
+                Artigo std = model.Artigo.Where(x => x.IdArtigo.Equals(id)).FirstOrDefault();
+
+
+                Artigo a = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(std.IdArtigo));
+                a.Nome = std.Nome;
+                a.Preco = std.Preco;
+                a.Modo = std.Modo;
+                a.Quantidade = std.Quantidade;
+                a.Categoria = std.Categoria;
+                a.Etiquetas = etiquetas;
+                a.Estado = std.Estado;
+                a.Descricao = std.Descricao;
+                a.Imagem = std.Imagem;
+                model.SaveChanges();
+            }
+            return RedirectToAction("verArtigos", "Utilizador");
+        }
+
+        public ActionResult AlteraImagem()
+        {
+            return View("AlteraImagem");
+        }
+
+        [HttpPost]
+        public ActionResult AlteraImagem(List<IFormFile> file)
+        {
+              var artigos = (from m in model.Artigo select m);
+                List<Artigo> lista = artigos.ToList<Artigo>();
+                int i = lista.Count;
+
+                i++;
+            string fileName = "";
+            string name = "";
+
+            if (file.Count == 1)
+            {
+                Console.WriteLine("entrei no primeiro ciclo.");
+                fileName = file[0].FileName;
+                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", fileName);
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    file[0].CopyTo(fileStream);
+                }
+            }
+            else
+            {
+                Console.WriteLine("entrei no segundo ciclo.");
+                int j;
+                int count = file.Count;
+                for (j = 0; j < count; j++)
+                {
+                    IFormFile f = file[j];
+                    name = f.FileName;
+                    fileName += name;
+                    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", name);
+                    using (var fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        f.CopyTo(fileStream);
+                    }
+                    if (i != count - 1)
+                    {
+                        fileName += " ";
+                    }
+
+                }
+                Console.WriteLine(fileName);
+            }
+            int id = Helpers.CacheController.IdArtigo;
+            
+                Artigo std = model.Artigo.Where(x => x.IdArtigo.Equals(id)).FirstOrDefault();
+               
+
+                Artigo a = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(std.IdArtigo));
+                a.Nome = std.Nome;
+                a.Preco = std.Preco;
+                a.Modo = std.Modo;
+                a.Quantidade = std.Quantidade;
+                a.Categoria = std.Categoria;
+                a.Etiquetas = std.Etiquetas;
+                a.Estado = std.Estado;
+                a.Descricao = std.Descricao;        
+                a.Imagem = fileName;
+                model.SaveChanges();
+                //model.Artigo.Update(a);
+               // model.Artigo.Add(a);
+            
+            return RedirectToAction("verArtigos", "Utilizador");
+        }
 
 
     }

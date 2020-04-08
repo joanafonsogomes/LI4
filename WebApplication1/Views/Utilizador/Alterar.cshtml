@@ -1,0 +1,125 @@
+﻿@model WebApplication1.Models.Artigo
+
+@{
+    ViewBag.Title = "Alterar";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+    <table class="table">
+        <tr>
+            <td>
+                <h4>Tipo de informação</h4>
+            </td>
+            <td>
+                <h4>Informação atual</h4>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                Nome
+            </td>
+            <td>
+                @Html.DisplayFor(Model => Model.Nome)
+            </td>
+            <td>
+                @Html.ActionLink("Alterar", "AlteraNome")
+            </td>
+
+        </tr>
+
+
+        <tr>
+            <td>
+                Preço
+            </td>
+            <td>
+                @Html.DisplayFor(Model => Model.Preco)
+            </td>
+            <td>
+                @Html.ActionLink("Alterar", "AlteraPreco")
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Modo
+            </td>
+            <td>
+                @Html.DisplayFor(Model => Model.Modo)
+            </td>
+            <td>
+                @Html.ActionLink("Alterar", "AlteraModo")
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Quantidade
+            </td>
+            <td>
+                @Html.DisplayFor(Model => Model.Quantidade)
+            </td>
+            <td>
+                @Html.ActionLink("Alterar", "AlteraQuantidade")
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Categoria
+            </td>
+            <td>
+                @Html.DisplayFor(Model => Model.Categoria)
+            </td>
+            <td>
+                @Html.ActionLink("Alterar", "AlteraCategoria")
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Etiquetas
+            </td>
+            <td>
+                @Html.DisplayFor(Model => Model.Etiquetas)
+            </td>
+            <td>
+                @Html.ActionLink("Alterar", "AlteraEtiquetas")
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Estado
+            </td>
+            <td>
+                @Html.DisplayFor(Model => Model.Estado)
+            </td>
+            <td>
+                @Html.ActionLink("Alterar", "AlteraEstado")
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Descrição
+            </td>
+            <td>
+                @Html.DisplayFor(Model => Model.Descricao)
+            </td>
+            <td>
+                @Html.ActionLink("Alterar", "AlteraDescricao")
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Imagens
+            </td>
+            <td>
+                @Html.DisplayFor(Model => Model.Imagem)
+            </td>
+            <td>
+                @Html.ActionLink("Alterar", "AlteraImagem")
+            </td>
+        </tr>
+    </table>
+
+
+<div>
+    @Html.ActionLink("Voltar", "Index", "Utilizador")
+</div>

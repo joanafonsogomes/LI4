@@ -1,0 +1,72 @@
+﻿@model WebApplication1.Models.Artigo
+@{
+    ViewBag.Title = "AlteraEstado";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>VerInfo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/Content/style.css" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Oswald" rel="stylesheet">
+    <link rel="icon" href="~/icon.ico">
+</head>
+<body>
+    <br />
+    <br />
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-12"></div>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+
+
+                @if (!@User.Identity.IsAuthenticated)
+                {
+                    using (Html.BeginForm("AlteraEstado", "Utilizador", FormMethod.Post))
+                    {
+
+                        @Html.ValidationSummary(true)
+                <form>
+
+
+                    <!-- Nome input-->
+                    <div>
+                        <div>
+                            <label for="Estado">Insira o estado (coleque um certo se pretende que se encontre disponível)</label>
+                            <form action="/action_page.php">
+
+                                <input type="checkbox" id="Estado" name="Estado" value="true">
+                                <input type="submit" value="Guardar">
+                            </form>
+                        </div>
+                    </div>
+
+                   
+
+
+
+                </form>
+                    }
+                }
+                <div>
+                    @Html.ActionLink("Voltar", "Alterar")
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12"></div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
