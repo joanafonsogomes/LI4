@@ -1,0 +1,88 @@
+﻿@model WebApplication1.Models.Artigo
+@{
+    ViewBag.Title = "AlteraCategoria";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>VerInfo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/Content/style.css" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Oswald" rel="stylesheet">
+    <link rel="icon" href="~/icon.ico">
+</head>
+<body>
+    <br />
+    <br />
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-12"></div>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+
+
+                @if (!@User.Identity.IsAuthenticated)
+                {
+                    using (Html.BeginForm("AlteraCategoria", "Utilizador", FormMethod.Post))
+                    {
+
+                        @Html.ValidationSummary(true)
+                        <form>
+
+
+                            <!-- Nome input-->
+                            <div>
+                                <label for="Categoria"><Escolha uma nova categoria:></label>
+                                <select id="Categoria" name="Categoria" type="text" placeholder="" class="form-control input-md" required="">
+                                    <option value="Roupa">Roupa</option>
+                                    <option value="Campismo">Campismo</option>
+                                    <option value="Mobiliário">Mobiliário</option>
+                                    <option value="Acessórios">Acessórios</option>
+                                    <option value="Música">Música</option>
+                                    <option value="Livros">Livros</option>
+                                    <option value="Turismo">Turismo</option>
+                                    <option value="Bebé e criança">Bebé e criança</option>
+                                    <option value="Lazer">Lazer</option>
+                                    <option value="Animais">Animais</option>
+                                    <option value="Tecnologia">Tecnologia</option>
+                                    <option value="Desporto">Desporto</option>
+                                    <option value="Carros, motos e barcos">Carros, motos e barcos</option>
+                                    <option value="Agricultura">Agricultura</option>
+                                    <option value="Equipamentos e Ferramentas">Equipamentos e Ferramentas</option>
+                                    <option value="Outros">Outros</option>
+                                </select>
+
+                            </div>
+
+
+
+
+                            <!-- Button (Double) -->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="save"></label>
+                                <div class="col-md-8">
+                                    <button id="save" name="save" class="btn btn-default">Guardar</button>
+                                </div>
+                            </div>
+
+
+                        </form>
+                    }
+                }
+                <div>
+                    @Html.ActionLink("Voltar", "Alterar")
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12"></div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
