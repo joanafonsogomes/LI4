@@ -31,7 +31,7 @@ namespace WebApplication1.Models
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
 
-                optionsBuilder.UseSqlServer("Data Source = HP-PC;Initial Catalog = LI4; Integrated Security = True");
+                optionsBuilder.UseSqlServer("Data Source = LAPTOP-1D1BAM12;Initial Catalog = LI4; Integrated Security = True");
             } 
         }
 
@@ -167,6 +167,123 @@ namespace WebApplication1.Models
                     .HasForeignKey(d => d.IdDono)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Artigo_Utilizador");
+            });
+            modelBuilder.Entity<AluguerInfo>(entity =>
+            {
+                entity.HasKey(e => e.IdArtigo);
+
+                entity.Property(e => e.IdArtigo)
+                    .HasColumnName("idArtigo")
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.IdAluguer)
+                    .HasColumnName("idAluguer");
+
+                entity.Property(e => e.NomeArtigo)
+                    .IsRequired()
+                    .HasColumnName("nome")
+                    .HasMaxLength(45)
+                    .IsFixedLength();
+
+                entity.Property(e => e.Preco).HasColumnName("preco");
+
+                entity.Property(e => e.Quantidade).HasColumnName("quantidade");
+
+                entity.Property(e => e.DataFim)
+                   .HasColumnName("dataFim")
+                   .HasColumnType("date");
+
+                entity.Property(e => e.DataInicio)
+                    .HasColumnName("dataInicio")
+                    .HasColumnType("date");
+
+                entity.Property(e => e.Email)
+                    .HasColumnName("email")
+                    .HasMaxLength(45)
+                    .IsFixedLength();
+
+                entity.Property(e => e.CodPostal)
+                    .IsRequired()
+                    .HasColumnName("codPostal")
+                    .HasMaxLength(45)
+                    .IsFixedLength();
+
+                entity.Property(e => e.NPorta).HasColumnName("nPorta");
+
+                entity.Property(e => e.Rua)
+                    .IsRequired()
+                    .HasColumnName("rua")
+                    .HasMaxLength(200)
+                    .IsFixedLength();
+
+                entity.Property(e => e.Nome)
+                    .IsRequired()
+                    .HasColumnName("nome")
+                    .HasMaxLength(45)
+                    .IsFixedLength();
+
+                entity.Property(e => e.Telemovel).HasColumnName("telemovel");
+
+                entity.Property(e => e.Tipo)
+                    .IsRequired()
+                    .HasColumnName("tipo")
+                    .HasMaxLength(45)
+                    .IsFixedLength();
+
+
+            });
+            modelBuilder.Entity<VendaInfo>(entity =>
+            {
+                entity.HasKey(e => e.IdArtigo);
+
+                entity.Property(e => e.IdArtigo)
+                    .HasColumnName("idArtigo")
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.IdVenda)
+                    .HasColumnName("idVenda");
+
+                entity.Property(e => e.NomeArtigo)
+                    .IsRequired()
+                    .HasColumnName("nome")
+                    .HasMaxLength(45)
+                    .IsFixedLength();
+
+                entity.Property(e => e.Preco).HasColumnName("preco");
+
+                entity.Property(e => e.Quantidade).HasColumnName("quantidade");
+                entity.Property(e => e.Email)
+                    .HasColumnName("email")
+                    .HasMaxLength(45)
+                    .IsFixedLength();
+
+                entity.Property(e => e.CodPostal)
+                    .IsRequired()
+                    .HasColumnName("codPostal")
+                    .HasMaxLength(45)
+                    .IsFixedLength();
+
+                entity.Property(e => e.NPorta).HasColumnName("nPorta");
+
+                entity.Property(e => e.Rua)
+                    .IsRequired()
+                    .HasColumnName("rua")
+                    .HasMaxLength(200)
+                    .IsFixedLength();
+
+                entity.Property(e => e.Nome)
+                    .IsRequired()
+                    .HasColumnName("nome")
+                    .HasMaxLength(45)
+                    .IsFixedLength();
+
+                entity.Property(e => e.Telemovel).HasColumnName("telemovel");
+
+                entity.Property(e => e.Tipo)
+                    .IsRequired()
+                    .HasColumnName("tipo")
+                    .HasMaxLength(45)
+                    .IsFixedLength();
             });
 
             modelBuilder.Entity<Denuncias>(entity =>

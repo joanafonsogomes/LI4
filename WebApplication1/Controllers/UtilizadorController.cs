@@ -225,6 +225,242 @@ namespace WebApplication1.Controllers
 
             return View(lista);
         }
+        public ActionResult Aceitar(int idAluguer)
+        {
+            Aluguer u = (from alu in model.Aluguer where (alu.IdAluguer == idAluguer) select alu).ToList().ElementAt<Aluguer>(0);
+            u.Estado = true;
+            Artigo a = (from m in model.Artigo where (m.IdArtigo == u.IdArtigo) select m).ToList().ElementAt<Artigo>(0);
+            if (u.Quantidade <= a.Quantidade)
+            {
+                a.Quantidade -= u.Quantidade;
+            }
+            else
+            {
+                return Content("You don't have enough items...");
+            }
+            model.SaveChanges();
+            return RedirectToAction("AluguerInfo", "Utilizador");
+        }
+
+        public ActionResult Recusar(int idAluguer)
+        {
+            Aluguer u = (from alu in model.Aluguer where (alu.IdAluguer == idAluguer) select alu).ToList().ElementAt<Aluguer>(0);
+            model.Aluguer.Remove(u);
+            model.SaveChanges();
+            return RedirectToAction("AluguerInfo", "Utilizador");
+        }
+
+        public ActionResult AluguerInfo()
+        {
+            string user = Helpers.CacheController.utilizador;
+
+            var alugueres = (from alu in model.Aluguer where (alu.IdUtilizador == user && alu.Estado == false) select alu);
+            List<Aluguer> lista = alugueres.ToList<Aluguer>();
+            List<AluguerInfo> nots = new List<AluguerInfo>();
+            foreach (Aluguer alug in lista)
+            {
+                Artigo artigo = (from m in model.Artigo where (m.IdArtigo == alug.IdArtigo) select m).ToList().ElementAt<Artigo>(0);
+                Utilizador u = (from m in model.Utilizador where (m.Email.Equals(alug.IdRent)) select m).ToList().ElementAt<Utilizador>(0);
+
+                AluguerInfo not = new AluguerInfo()
+
+                {
+                    IdArtigo = artigo.IdArtigo,
+                    IdAluguer = alug.IdAluguer,
+                    NomeArtigo = artigo.Nome,
+                    Preco = alug.Preco,
+                    Quantidade = alug.Quantidade,
+                    Imagem = artigo.Imagem,
+                    DataInicio = alug.DataInicio,
+                    DataFim = alug.DataFim,
+                    Email = u.Email,
+                    Nome = u.Nome,
+                    Telemovel = u.Telemovel,
+                    CodPostal = u.CodPostal,
+                    Rua = u.Rua,
+                    NPorta = u.NPorta
+                };
+                nots.Add(not);
+            }
+
+            return View(nots);
+        }
+
+
+        public ActionResult Historico()
+        {
+            return View("Historico");
+        }
+
+        public ActionResult HAlugueres()
+        {
+            string user = Helpers.CacheController.utilizador;
+            List<AluguerInfo> alugueres = new List<AluguerInfo>();
+
+            var alugueres1 = from alu in model.Aluguer where (alu.IdUtilizador == user || alu.IdRent == user) && alu.Estado == true select alu;
+            List<Aluguer> lista1 = alugueres1.ToList<Aluguer>();
+
+            string tipo = " ";
+
+
+            foreach (Aluguer alug in lista1)
+            {
+                Utilizador u = new Utilizador();
+
+                if (alug.IdUtilizador == user)
+                {
+                    tipo = "Recebido";
+                    u = (from m in model.Utilizador where (m.Email.Equals(alug.IdRent)) select m).ToList().ElementAt<Utilizador>(0);
+                }
+                else if (alug.IdRent == user)
+                {
+                    tipo = "Realizado";
+                    u = (from m in model.Utilizador where (m.Email.Equals(alug.IdUtilizador)) select m).ToList().ElementAt<Utilizador>(0);
+                }
+
+                Artigo artigo = (from m in model.Artigo where (m.IdArtigo == alug.IdArtigo) select m).ToList().ElementAt<Artigo>(0);
+
+                AluguerInfo a1 = new AluguerInfo()
+
+                {
+                    IdArtigo = artigo.IdArtigo,
+                    IdAluguer = alug.IdAluguer,
+                    NomeArtigo = artigo.Nome,
+                    Preco = alug.Preco,
+                    Quantidade = alug.Quantidade,
+                    Imagem = artigo.Imagem,
+                    DataInicio = alug.DataInicio,
+                    DataFim = alug.DataFim,
+                    Email = u.Email,
+                    Nome = u.Nome,
+                    Telemovel = u.Telemovel,
+                    CodPostal = u.CodPostal,
+                    Rua = u.Rua,
+                    NPorta = u.NPorta,
+                    Tipo = tipo
+
+                };
+                alugueres.Add(a1);
+            }
+
+
+            return View(alugueres);
+        }
+        public ActionResult HVendas()
+        {
+            string user = Helpers.CacheController.utilizador;
+            List<VendaInfo> vendas = new List<VendaInfo>();
+
+            var vendas1 = from ven in model.Venda where (ven.IdUtilizador == user || ven.IdRent == user) && ven.Estado == true select ven;
+            List<Venda> lista1 = vendas1.ToList<Venda>();
+
+            string tipo = " ";
+
+
+            foreach (Venda v in lista1)
+            {
+                Utilizador u = new Utilizador();
+
+                if (v.IdUtilizador == user)
+                {
+                    tipo = "Recebido";
+                    u = (from m in model.Utilizador where (m.Email.Equals(v.IdRent)) select m).ToList().ElementAt<Utilizador>(0);
+                }
+                else if (v.IdRent == user)
+                {
+                    tipo = "Realizado";
+                    u = (from m in model.Utilizador where (m.Email.Equals(v.IdUtilizador)) select m).ToList().ElementAt<Utilizador>(0);
+                }
+
+                Artigo artigo = (from m in model.Artigo where (m.IdArtigo == v.IdArtigo) select m).ToList().ElementAt<Artigo>(0);
+
+                VendaInfo a1 = new VendaInfo()
+
+                {
+                    IdArtigo = artigo.IdArtigo,
+                    IdVenda = v.IdVenda,
+                    NomeArtigo = artigo.Nome,
+                    Preco = v.Preco,
+                    Quantidade = v.Quantidade,
+                    Imagem = artigo.Imagem,
+                    Email = u.Email,
+                    Nome = u.Nome,
+                    Telemovel = u.Telemovel,
+                    CodPostal = u.CodPostal,
+                    Rua = u.Rua,
+                    NPorta = u.NPorta,
+                    Tipo = tipo
+
+                };
+                vendas.Add(a1);
+            }
+
+
+            return View(vendas);
+        }
+
+        public ActionResult FinalizarCompra()
+        {
+
+            string user = Helpers.CacheController.utilizador;
+
+            var vendas = (from vend in model.Venda where (vend.IdRent == user && vend.Estado == false) select vend);
+            List<Venda> lista = vendas.ToList<Venda>();
+
+            foreach (Venda venda in lista)
+            {
+                Artigo artigo = (from m in model.Artigo where (m.IdArtigo == venda.IdArtigo) select m).ToList().ElementAt<Artigo>(0);
+                if (venda.Quantidade <= artigo.Quantidade)
+                {
+                    artigo.Quantidade -= venda.Quantidade;
+                    venda.Estado = true;
+                }
+                else
+                {
+                    model.Venda.Remove(venda);
+                    String s = "Sorry, but the item " + venda.IdArtigo + " is out of stock";
+                    return Content(s);
+                }
+            }
+            model.SaveChanges();
+            return RedirectToAction("VendaInfo", "Utilizador");
+        }
+
+        public ActionResult RemArtCarrinho(int idVenda)
+        {
+            Venda v = (from vend in model.Venda where (vend.IdVenda == idVenda) select vend).ToList().ElementAt<Venda>(0);
+            model.Venda.Remove(v);
+            model.SaveChanges();
+            return RedirectToAction("VendaInfo", "Utilizador");
+        }
+
+
+        public ActionResult VendaInfo()
+        {
+            string user = Helpers.CacheController.utilizador;
+
+            var vendas = (from vend in model.Venda where (vend.IdRent == user && vend.Estado == false) select vend);
+            List<Venda> lista = vendas.ToList<Venda>();
+
+            List<VendaInfo> carInfo = new List<VendaInfo>();
+            foreach (Venda venda in lista)
+            {
+                Artigo artigo = (from m in model.Artigo where (m.IdArtigo == venda.IdArtigo) select m).ToList().ElementAt<Artigo>(0);
+                VendaInfo car = new VendaInfo()
+
+                {
+                    IdArtigo = artigo.IdArtigo,
+                    IdVenda = venda.IdVenda,
+                    NomeArtigo = artigo.Nome,
+                    Preco = venda.Preco,
+                    Quantidade = venda.Quantidade,
+                    Imagem = artigo.Imagem
+                };
+                carInfo.Add(car);
+            }
+            return View(carInfo);
+        }
+
         public ActionResult VerInfo()
         {
             string user = Helpers.CacheController.utilizador;
