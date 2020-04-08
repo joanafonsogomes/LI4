@@ -18,7 +18,5 @@ namespace WebApplication1.Models
 
         public virtual Artigo IdArtigoNavigation { get; set; }
         public virtual Utilizador IdUtilizadorNavigation { get; set; }
-        public bool Estado { get; set; }
-        public int Quantidade { get; set; }
     }
 }
