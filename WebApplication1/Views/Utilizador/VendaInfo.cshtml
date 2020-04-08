@@ -1,0 +1,128 @@
+﻿@model IEnumerable<WebApplication1.Models.VendaInfo>
+
+@{
+    ViewBag.Title = "Venda";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+    <table class="table">
+        <tr>
+            <th style="text-align: center; vertical-align: middle;">
+                @Html.DisplayNameFor(model => model.IdArtigo)
+            </th>
+            <th style="text-align:center; vertical-align:middle">
+                @Html.DisplayNameFor(model => model.NomeArtigo) <h6><b>de artigos</b></h6>
+            </th>
+            <th style="text-align:center; vertical-align:middle">
+                @Html.DisplayNameFor(model => model.Quantidade) <h6><b>de artigos</b></h6>
+            </th>
+            <th style="text-align: center; vertical-align: middle">
+                @Html.DisplayNameFor(model => model.Preco) <h6><b>(€)</b></h6>
+            </th>
+            <th style="text-align:center; vertical-align:middle">
+                Artigo
+            </th>
+
+
+        </tr>
+
+        @foreach (var item in Model)
+        {
+    <tr>
+        <td style="text-align:center; vertical-align:middle; font-weight:bold">
+
+            @Html.DisplayFor(modelItem => item.IdArtigo)
+        </td>
+        <td style="text-align:center; vertical-align:middle">
+            @Html.DisplayFor(modelItem => item.NomeArtigo)
+        </td>
+        <td style="text-align:center; vertical-align:middle">
+            @Html.DisplayFor(modelItem => item.Quantidade)
+        </td>
+        <td style="text-align:center; vertical-align:middle">
+            @Html.DisplayFor(modelItem => item.Preco)
+        </td>
+        <td style="width:250px; height:250px; text-align:center; vertical-align:middle">
+            <div class="w3-content w3-display-container">
+                @{var fileName = @item.Imagem;
+                    var idd = @item.IdArtigo;
+                    string[] words = fileName.Split(" ");
+
+                    int i = 1;
+
+                    int count = words.Length();
+
+                    Console.WriteLine(count);
+
+                    foreach (string s in words)
+                    {
+                        <center>
+                            <img class="mySlides-@idd" src="~/uploads/@s" style="max-width:250px ; max-height:250px ; display: none" />
+                        </center>
+                        if (i == count)
+                        {
+                            break;
+                        }
+                        i++;
+                    }
+                    string slides = "mySlides-" + idd;
+                    var cenas = slides;
+                    string scr = "script-" + idd;
+                    var scri = scr;
+
+                    if (words.Length() > 1)
+                    {
+
+                        <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
+                        <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
+                    }
+
+                    <script name="script-@idd" type="text/javascript">
+                        var slideIndex = 1;
+                        showDivs(slideIndex);
+
+                        function plusDivs(n,) {
+                        showDivs(slideIndex += n);
+                         }
+
+                        function showDivs(n) {
+                            var i;
+                            var x = document.getElementsByClassName("@cenas");
+                            if (n > x.length) { slideIndex = 1 }
+                            if (n < 1) { slideIndex = x.length }
+                            for (i = 0; i < x.length; i++) {
+                                x[i].style.display = "none";
+                            }
+                            x[slideIndex - 1].style.display = "block";
+                            }
+
+
+                    </script>
+
+            <td>
+                <button class="myButton">
+                    @Html.ActionLink("Remover do Carrinho", "RemArtCarrinho", "Utilizador", new { idVenda = item.IdVenda }, null)
+
+                </button>
+            </td>
+            <td>
+                <button class="myButton">
+                    @Html.ActionLink("Visualizar Produto", "Details", "Utilizador", new { idVenda = item.IdVenda }, null)
+
+                </button>
+            </td>
+                }
+                </div>
+                </td>
+        </tr>
+        }
+    </table>
+
+<p></p>
+<p></p>
+<p></p>
+<center>
+    <button class="myButton">
+        @Html.ActionLink("Finalizar Compra", "FinalizarCompra")
+    </button>
+</center>
