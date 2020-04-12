@@ -1,8 +1,10 @@
 ﻿@model WebApplication1.Models.Artigo
+
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 
 <!DOCTYPE html>
 <html>
@@ -10,59 +12,61 @@
     <title>Details</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Oswald" rel="stylesheet">
-
 </head>
 
 <body>
-        <!-- Page Content -->
-        <div class="container">
+    <!-- Page Content -->
+    <div class="container">
 
 
-            <div class="row">
+        <div class="row">
 
-                <div class="col-lg-9">
+            <div class="col-lg-9">
 
 
-                    <div class="card mt-4">
-                        <!--<img class="card-img-top img-fluid" src="~/uploads/@Html.DisplayFor(modelItem => Model.Imagem)" alt="">-->
-                        <div class="w3-content w3-display-container">
-                            @{var fileName = Model.Imagem;
-                                var idd = Model.IdArtigo;
-                                string[] words = fileName.Split(" ");
+                <div class="card mt-4">
+                    <!--<img class="card-img-top img-fluid" src="~/uploads/@Html.DisplayFor(modelItem => Model.Imagem)" alt="">-->
+                    <div class="w3-content w3-display-container">
 
-                                int i = 1;
+                        @{var fileName = Model.Imagem;
+                            var idd = Model.IdArtigo;
+                            string[] words = fileName.Split(" ");
 
-                                int count = words.Length();
+                            int i = 1;
 
-                                Console.WriteLine(count);
+                            int count = words.Length();
 
-                                foreach (string s in words)
-                                {
-                                    <center>
-                                        <img class="mySlides-@idd" src="~/uploads/@s" style="max-width:250px ; max-height:250px ; display: none" />
-                                    </center>
-                                    if (i == count)
-                                    {
-                                        break;
-                                    }
-                                    i++;
-                                }
-                                string slides = "mySlides-" + idd;
-                                var cenas = slides;
-                                string scr = "script-" + idd;
-                                var scri = scr;
+                            Console.WriteLine(count);
 
-                                if (words.Length() > 1)
-                                {
-                                    <center>
-                                        <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
-                                        <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
-                                    </center>
-                                }
+                            foreach (string s in words)
+                            {
+                        <center>
+                            <img class="mySlides-@idd" src="~/uploads/@s" style="max-width:250px ; max-height:250px ; display: none" />
+                        </center>
+                        if (i == count)
+                        {
+                            break;
+                        }
+                        i++;
+                    }
+                    string slides = "mySlides-" + idd;
+                    var cenas = slides;
+                    string scr = "script-" + idd;
+                    var scri = scr;
 
-                                <script name="script-@idd" type="text/javascript">
+                    if (words.Length() > 1)
+                    {
+                        <center>
+                            <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
+                            <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
+                        </center>
+                    }
+
+                    <script name="script-@idd" type="text/javascript">
                         var slideIndex = 1;
                         showDivs(slideIndex);
 
@@ -82,72 +86,85 @@
                             }
 
 
-                                </script>
+                    </script>
 
+}
+</div>
+                    <div class="card-body">
+                        <h3 class="card-title">@Html.DisplayFor(modelItem => Model.Nome)</h3>
+                        <h4>@Html.DisplayFor(modelItem => Model.Preco) €</h4>
+                        <h5>@Html.DisplayFor(modelItem => Model.Modo)</h5>
+
+                        @if (Model.Modo.Equals("aluguer"))
+                        {
+
+                            <h5>Para efetuar um aluguer primeiro inicie sessão ou crie uma conta</h5>
+
+
+                        }
+                        @if (Model.Modo.Equals("venda"))
+                        {
+                            <h5>Para efetuar uma compra primeiro inicie sessão ou crie uma conta</h5>
+                        }
+
+                        <p class="card-text">@Html.DisplayFor(modelItem => Model.Descricao)</p>
+                        @{ if (0 <= Model.Pontuacao && Model.Pontuacao < 1)
+                            {
+                                <span class="text-warning">&#9734; &#9734; &#9734; &#9734; &#9734;</span>
                             }
-                        </div>
-                        <div class="card-body">
-                            <h3 class="card-title">@Html.DisplayFor(modelItem => Model.Nome)</h3>
-                            <h4>@Html.DisplayFor(modelItem => Model.Preco) €</h4>
-                            <h5>@Html.DisplayFor(modelItem => Model.Modo)</h5>
-                            <p class="card-text">@Html.DisplayFor(modelItem => Model.Descricao)</p>
-                            @{ if (0 <= Model.Pontuacao && Model.Pontuacao < 1)
-                                {
-                                    <span class="text-warning">&#9734; &#9734; &#9734; &#9734; &#9734;</span>
-                                }
-                                else if (1 <= Model.Pontuacao && Model.Pontuacao < 2)
-                                {
-                                    <span class="text-warning">&#9733; &#9734; &#9734; &#9734; &#9734;</span>
-                                }
-                                else if (2 <= Model.Pontuacao && Model.Pontuacao < 3)
-                                {
-                                    <span class="text-warning">&#9733; &#9733; &#9734; &#9734; &#9734;</span>
-                                }
-                                else if (3 <= Model.Pontuacao && Model.Pontuacao < 4)
-                                {
-                                    <span class="text-warning">&#9733; &#9733; &#9733; &#9734; &#9734;</span>
-                                }
-                                else if (4 <= Model.Pontuacao && Model.Pontuacao < 5)
-                                {
-                                    <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
-                                }
-                                else if (Model.Pontuacao == 5)
-                                {
-                                    <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9733;</span>
-                                }
+                            else if (1 <= Model.Pontuacao && Model.Pontuacao < 2)
+                            {
+                                <span class="text-warning">&#9733; &#9734; &#9734; &#9734; &#9734;</span>
                             }
-                            <br />    
-                            @Model.Pontuacao stars
-                        </div>
+                            else if (2 <= Model.Pontuacao && Model.Pontuacao < 3)
+                            {
+                                <span class="text-warning">&#9733; &#9733; &#9734; &#9734; &#9734;</span>
+                            }
+                            else if (3 <= Model.Pontuacao && Model.Pontuacao < 4)
+                            {
+                                <span class="text-warning">&#9733; &#9733; &#9733; &#9734; &#9734;</span>
+                            }
+                            else if (4 <= Model.Pontuacao && Model.Pontuacao < 5)
+                            {
+                                <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
+                            }
+                            else if (Model.Pontuacao == 5)
+                            {
+                                <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9733;</span>
+                            }
+                        }
+                        <br />
+                        @Model.Pontuacao stars
                     </div>
-                    <!-- /.card -->
+</div>
+<!-- /.card -->
 
-                    <div class="card card-outline-secondary my-4">
-                        <div class="card-header">
-                            Product Reviews
-                        </div>
-                        <div class="card-body">
-                            <p>Aqui estaria um comentário ao produto.</p>
-                            <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-                            <hr>
-                            <p>Aqui estaria um comentário ao produto.</p>
-                            <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-                            <hr>
-                            <p>Aqui estaria um comentário ao produto.</p>
-                            <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-                            <hr>
-                            <a href="#" class="btn border-success btn-login">Leave a Review</a> <!--Leave a review doesnt work yet-->
-                        </div>
-                    </div>
-                    <!-- /.card -->
+<div class="card card-outline-secondary my-4">
+    <div class="card-header">
+        Product Reviews
+    </div>
+    <div class="card-body">
+        <p>Aqui estaria um comentário ao produto.</p>
+        <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+        <hr>
+        <p>Aqui estaria um comentário ao produto.</p>
+        <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+        <hr>
+        <p>Aqui estaria um comentário ao produto.</p>
+        <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+        <hr>
+        <a href="#" class="btn border-success btn-login">Leave a Review</a> <!--Leave a review doesnt work yet-->
+    </div>
+</div>
+<!-- /.card -->
 
-                </div>
-                <!-- /.col-lg-9 -->
+</div>
+<!-- /.col-lg-9 -->
 
-            </div>
+</div>
 
-        </div>
-        <!-- /.container -->
+</div>
+<!-- /.container -->
 
 </body>
 

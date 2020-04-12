@@ -74,7 +74,11 @@
                                 <h4 class="card-title">
                                     <a href="@Url.Action("Details", new { idArtigo = item.IdArtigo })">@Html.DisplayFor(modelItem => item.Nome)</a>
                                 </h4>
-                                <h5>@Html.DisplayFor(modelItem => item.Preco) €</h5>
+                                <h5>
+                                    @Html.DisplayFor(modelItem => item.Preco) €
+
+                                                                Tipo: @Html.DisplayFor(modelItem => item.Modo)
+                                                            </h5>
                                 <p class="card-text">@Html.DisplayFor(modelItem => item.Descricao)</p>
                             </div>
                             <div class="card-footer">

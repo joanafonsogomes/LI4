@@ -13,6 +13,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Oswald" rel="stylesheet">
 
+
 </head>
 
 <body>
@@ -90,35 +91,70 @@
                         <h3 class="card-title">@Html.DisplayFor(modelItem => Model.Nome)</h3>
                         <h4>@Html.DisplayFor(modelItem => Model.Preco) €</h4>
                         <h5>@Html.DisplayFor(modelItem => Model.Modo)</h5>
-                        <p class="card-text">@Html.DisplayFor(modelItem => Model.Descricao)</p>
-                        @{ if (0 <= Model.Pontuacao && Model.Pontuacao < 1)
-                            {
-                                <span class="text-warning">&#9734; &#9734; &#9734; &#9734; &#9734;</span>
-                            }
-                            else if (1 <= Model.Pontuacao && Model.Pontuacao < 2)
-                            {
-                                <span class="text-warning">&#9733; &#9734; &#9734; &#9734; &#9734;</span>
-                            }
-                            else if (2 <= Model.Pontuacao && Model.Pontuacao < 3)
-                            {
-                                <span class="text-warning">&#9733; &#9733; &#9734; &#9734; &#9734;</span>
-                            }
-                            else if (3 <= Model.Pontuacao && Model.Pontuacao < 4)
-                            {
-                                <span class="text-warning">&#9733; &#9733; &#9733; &#9734; &#9734;</span>
-                            }
-                            else if (4 <= Model.Pontuacao && Model.Pontuacao < 5)
-                            {
-                                <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
-                            }
-                            else if (Model.Pontuacao == 5)
-                            {
-                                <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9733;</span>
-                            }
-                        }
-                        <br />
-                        @Model.Pontuacao stars
-                    </div>
+                        @if (Model.Modo.Equals("aluguer"))
+                        {
+
+                    <form asp-action="Details" asp-controllers="Utilizador" method="POST" enctype="multipart/form-data">
+
+                        <!-- <form action="/action_page.php"> -->
+                        <div class="form-group">
+                            <label for="birthday">De:</label>
+                            <input type="date" id="inicio" name="inicio">
+                        </div>
+                        <div class="form-group">
+                            <label for="birthday">Até:</label>
+                            <input type="date" id="fim" name="fim">
+                        </div>
+                        <div class="form-group">
+                            <input class="btn border-success btn-login btn-outline-primary" type="submit" value="Verificar Disponibiliade">
+                        </div>
+
+
+
+                        <script>
+                            document.getElementById("file").multiple = true;
+                        </script>
+
+                    </form>
+
+
+
+                                }
+                                @if (Model.Modo.Equals("venda"))
+                                {
+                                    <a href="@Url.Action("AdicionarCarrinho", new { idArtigo = Model.IdArtigo })"
+                                       class="btn border-success btn-login btn-outline-primary">Adicionar ao Carrinho</a>
+                                }
+
+                                <p class="card-text">@Html.DisplayFor(modelItem => Model.Descricao)</p>
+                                @{ if (0 <= Model.Pontuacao && Model.Pontuacao < 1)
+                                    {
+                                        <span class="text-warning">&#9734; &#9734; &#9734; &#9734; &#9734;</span>
+                                    }
+                                    else if (1 <= Model.Pontuacao && Model.Pontuacao < 2)
+                                    {
+                                        <span class="text-warning">&#9733; &#9734; &#9734; &#9734; &#9734;</span>
+                                    }
+                                    else if (2 <= Model.Pontuacao && Model.Pontuacao < 3)
+                                    {
+                                        <span class="text-warning">&#9733; &#9733; &#9734; &#9734; &#9734;</span>
+                                    }
+                                    else if (3 <= Model.Pontuacao && Model.Pontuacao < 4)
+                                    {
+                                        <span class="text-warning">&#9733; &#9733; &#9733; &#9734; &#9734;</span>
+                                    }
+                                    else if (4 <= Model.Pontuacao && Model.Pontuacao < 5)
+                                    {
+                                        <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
+                                    }
+                                    else if (Model.Pontuacao == 5)
+                                    {
+                                        <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9733;</span>
+                                    }
+                                }
+                                <br />
+                                @Model.Pontuacao stars
+                        </div>
                 </div>
                 <!-- /.card -->
 

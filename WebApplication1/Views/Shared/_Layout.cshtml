@@ -14,6 +14,28 @@
     <link href="~/css/agency.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" />
 
+
+
+    @section scripts{
+
+        <script type="text/javascript">
+            // <![CDATA[
+            $(document).ready(function () {
+                $('#calendar').fullCalendar({
+                    theme: true,
+
+                    defaultView: 'agendaDay',
+                    editable: false,
+                    events: "/Home/Details/"
+                });
+            });
+
+            // ]]></script>
+
+    }
+    <!--Pretty one :-->
+    <link rel="stylesheet" type="text/css" media="screen" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
+
     <!-- Bootstrap core CSS -->
     <link href="~/lib/bootstrap/dist/css/bootstrap-grid.min.css" rel="stylesheet">
 
@@ -21,12 +43,12 @@
     <link href="~/css/agency.css" rel="stylesheet">
     <link rel="icon" href="~/icon.ico">
 </head>
-<body>
 
+<body>
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+            <a class="navbar-brand" asp-area="" asp-controller="Utilizador" asp-action="Index">
                 <img src="~/Images/rentitalllogo.png" class="col-xl-5" alt="Responsive image">
             </a>
             <!-- Sidebar -->
@@ -92,6 +114,7 @@
                     /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
 
                 </style>
+
             </head>
             <body>
 
@@ -147,79 +170,83 @@
                     </a>
                 </div>
 
-                <div id="main">
-                    <button class="openbtn" onclick="openNav()">☰ Categorias</button>
-                </div>
+                <!--botõeszinhos-->
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-lg-auto">
+                        <li class="nav-item">
+                            <div id="main">
+                                <button class="openbtn" onclick="openNav()">☰ Categorias</button>
+                            </div>
+                        </li>
 
-                <script>
-                    function openNav() {
-                        document.getElementById("mySidebar").style.width = "250px";
-                        document.getElementById("main").style.marginLeft = "250px";
-                    }
+                        <script>
+                            function openNav() {
+                                document.getElementById("mySidebar").style.width = "250px";
+                                document.getElementById("main").style.marginLeft = "250px";
+                            }
 
-                    function closeNav() {
-                        document.getElementById("mySidebar").style.width = "0";
-                        document.getElementById("main").style.marginLeft = "0";
-                    }
-                </script>
+                            function closeNav() {
+                                document.getElementById("mySidebar").style.width = "0";
+                                document.getElementById("main").style.marginLeft = "0";
+                            }
+                        </script>
 
             </body>
 
 
-            <!--botõeszinhos-->
-            <div class="collapse navbar-collapse" id="navbarResponsive">
 
-                <!--Search Bar-->
 
+            <!--Search Bar-->
+            <li class="nav-item">
                 <div class="search-container">
                     <form asp-action="SearchArtigos" asp-controllers="Home" method="POST" enctype="multipart/form-data">
                         <input type="text" placeholder="Search" name="search">
-                        <button type="submit"><i class="fa fa-search" aria-hidden="true"> </i></button>
+                        <button type="submit"><i class="glyphicon glyphicon-search" aria-hidden="true"> </i></button>
                     </form>
                 </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
+                    <i class="fa fa-home"></i>
+                    Home
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Services</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="About">
+                    Sobre nós
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Contact">
+                    Contacto
+                </a>
+            </li>
 
 
-
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
-                            <i class="fa fa-home"></i>
-                            Home
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Services</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="About">
-                            Sobre nós
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Contact">
-                            Contacto
-                        </a>
-                    </li>
-                </ul>
-
-                <!--Right side view perfil / login etc-->
-                <ul class="navbar-nav  mt-2 mt-lg-0">
-                    <li class="nav-item dropdown mr-auto">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" id="Preview" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-user"></i> Perfil
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right" style="        margin-top: 7px;
+            <!--Right side view perfil / login etc-->
+            <li class="nav-item"
+            <li class="navbar-nav  mt-2 mt-lg-0">
+            <li class="nav-item dropdown mr-auto">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" id="Preview" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-user"></i> Perfil
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" style="        margin-top: 7px;
                             border-top-left-radius: 0;
                             border-color: #343A40;
                             border-top-right-radius: 0;
                             background-color: #343A40;" aria-labelledby="Preview">
-                            <a class="dropdown-item" href="@Url.Action("Login", "Conta")">Login</a>
-                            <a class="dropdown-item" href="@Url.Action("AdicionarCliente", "Utilizador")">Registar</a>
-                        </div>
-                    </li>
-                </ul>
-
-            </div>
+                    <a class="dropdown-item" href="@Url.Action("Login", "Conta")">Login</a>
+                    <a class="dropdown-item" href="@Url.Action("AdicionarCliente", "Utilizador")">Registar</a>
+                </div>
+            </li>
+            </li>
+            </li>
+            </ul>
+        </div>
         </div>
     </nav>
 

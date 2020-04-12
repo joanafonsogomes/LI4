@@ -6,6 +6,7 @@ namespace WebApplication1.Helpers
     {
         public static int IdArtigo { get; set; }
         public static string utilizador { get; set; }
+        public static int aluguerRealizado { get; set; }
 
     }
 }

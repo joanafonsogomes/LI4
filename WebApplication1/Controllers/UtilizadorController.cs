@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using System.Configuration;
 using System.IO;
 using System.Web;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace WebApplication1.Controllers
 {
@@ -16,6 +17,9 @@ namespace WebApplication1.Controllers
     {
         private Model model = new Model();
         private IHostingEnvironment _environment;
+
+        public DateTime SelectedDate { get; set; }
+        public DateTime SelectedDateTo { get; set; }
 
         public UtilizadorController(IHostingEnvironment environment)
         {
@@ -30,19 +34,8 @@ namespace WebApplication1.Controllers
             return View(res);
         }
 
-        public ActionResult Details(int idArtigo)
-        {
-            Console.WriteLine(idArtigo);
-
-            Artigo ss = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(idArtigo));
-
-            var cenas = ss.IdArtigo;
-            Console.WriteLine(cenas);
-            return View(ss);
-
-        }
-
-
+        
+     
         public ActionResult AlterarDadosUtilizador()
         {
             return View();
@@ -71,6 +64,60 @@ namespace WebApplication1.Controllers
         {
             return View();
         }
+
+
+        public ActionResult AdicionarCarrinho(int idArtigo)
+        {
+
+            Console.WriteLine(idArtigo);
+
+            Artigo ss = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(idArtigo));
+
+            var cenas = ss.IdArtigo;
+            Console.WriteLine(cenas);
+            string nower = Helpers.CacheController.utilizador;
+            var vendas = (from vend in model.Venda where (vend.IdRent == nower && vend.Estado == false) select vend);
+            List<Venda> lista = vendas.ToList<Venda>();
+            Utilizador uti = model.Utilizador.FirstOrDefault(x => x.Email.Equals(nower));
+            int size = model.Venda.Length()+1;
+
+            Venda vendinha = new Venda()
+            {
+                IdVenda = size,
+                IdArtigo = ss.IdArtigo,
+                IdUtilizador = ss.IdDono,
+                Preco = ss.Preco,
+                IdRent = nower,
+                Estado = false,
+                Quantidade = 1,
+
+
+            };
+            lista.Add(vendinha);
+
+            VendaInfo res = new VendaInfo()
+            {
+                IdArtigo = ss.IdArtigo,
+                IdVenda = vendinha.IdVenda,
+                NomeArtigo = ss.Nome,
+                Preco = vendinha.Preco,
+                Quantidade = vendinha.Quantidade,
+                Imagem = ss.Imagem,
+                Email = nower,
+
+    };
+
+            uti.Venda.Add(vendinha);
+
+
+            model.Venda.Add(vendinha);
+            model.SaveChanges();
+
+            return View(res);
+        
+
+            }
+
 
         [HttpPost]
         public ActionResult AdicionarCliente(string email, int cc, string nome, string password, long contaBancaria, string tipo, int telemovel, string rua, int nPorta, string codigoPostal, string freguesia, string distrito)
@@ -122,6 +169,136 @@ namespace WebApplication1.Controllers
         {
             return View();
         }
+
+        public ActionResult Details(int idArtigo)
+        {
+            Console.WriteLine(idArtigo);
+
+            Artigo ss = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(idArtigo));
+            Helpers.CacheController.IdArtigo = idArtigo;
+            var cenas = ss.IdArtigo;
+            Console.WriteLine(cenas);
+            return View(ss);
+
+        }
+        /**envia o pedido ao dono*/
+        [HttpPost]
+        public ActionResult Details( DateTime inicio, DateTime fim)
+        {
+            int ar = Helpers.CacheController.IdArtigo;
+            Artigo ss = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(ar));
+            string dono = ss.IdDono;
+            Utilizador donito = model.Utilizador.FirstOrDefault(x => x.Email.Equals(dono));
+
+            int tamanho = model.Aluguer.Length() + 1; 
+
+            int m = (fim - inicio).Days;
+            Aluguer novo = new Aluguer()
+            {
+                IdAluguer = tamanho,
+                IdArtigo = ar,
+                IdUtilizador = ss.IdDono,
+                Preco = ss.Preco,
+                Duracao = m,
+                IdRent = Helpers.CacheController.utilizador,
+                DataInicio = inicio,
+                DataFim = fim,
+                Estado = 0,
+                Quantidade = 1,
+            };
+            model.Aluguer.Add(novo);
+            model.SaveChanges();
+            Helpers.CacheController.aluguerRealizado = tamanho;
+            return RedirectToAction("AluguerPedido", "Utilizador");
+        }
+
+        public ActionResult AluguerPedido()
+        {
+            int s = Helpers.CacheController.aluguerRealizado;
+            Aluguer ss = model.Aluguer.FirstOrDefault(x => x.IdAluguer.Equals(s));
+            int art = Helpers.CacheController.IdArtigo;
+            Artigo a = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(art));
+            ss.IdArtigoNavigation.Nome = a.Nome;
+            ss.IdArtigoNavigation.Imagem = a.Imagem;
+            AluguerInfo res = new AluguerInfo()
+            {
+                IdArtigo = ss.IdArtigo,
+                IdAluguer = ss.IdAluguer,
+                NomeArtigo = ss.IdArtigoNavigation.Nome,
+                Preco = ss.Preco,
+                Quantidade = ss.Quantidade,
+                Imagem = ss.IdArtigoNavigation.Imagem,
+                Email = ss.IdRent,
+                DataInicio = ss.DataInicio,
+                DataFim = ss.DataFim,
+
+            };
+            return View(res);
+        }
+
+        /** Verifica disponibilidade de Datas para o caso de mudar-mos de ideia
+        [HttpPost]
+        public ActionResult Details(List<IFormFile> file, DateTime inicio, DateTime fim)
+        {
+            foreach (IFormFile cenas in file)
+            {
+                Console.WriteLine(cenas.FileName);
+            }
+            try
+            {
+                Console.WriteLine("???? like da fuck");
+                int s = Helpers.CacheController.IdArtigo;
+                Artigo ss = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(s));
+                if (inicio >= fim )
+                {
+                    Console.WriteLine("entrei no primeiro ciclo.");
+                    return View();
+
+                }
+                else
+                {
+                    Console.WriteLine("entrei no segundo ciclo.");
+                    int imp = 0;
+                    int tamanho = ss.Aluguer.Length() + 1;
+                    foreach (Aluguer a in ss.Aluguer)
+                    {
+                        if (!(a.DataInicio > inicio && a.DataInicio > fim || inicio > a.DataFim && inicio > a.DataFim))
+                        {
+                            imp = 1;
+                        }
+                    }
+                    if (imp == 0)
+                    {
+                        int m = (fim-inicio).Days;
+                        Aluguer novo = new Aluguer()
+                        {
+                            IdAluguer = tamanho,
+                            IdArtigo = s,
+                            IdUtilizador = ss.IdDono,
+                            Preco = ss.Preco,
+                            Duracao = m,
+                            IdRent = Helpers.CacheController.utilizador,
+                            DataInicio = inicio,
+                            DataFim = fim,
+                            Estado = false,
+                            Quantidade = 1,
+                        };
+                        ss.Aluguer.Add(novo);
+                        model.SaveChanges();
+                    }
+                    else return View();
+
+                }
+            }
+            catch (Exception)
+            {
+                return Content("Erro...");
+            }
+            return RedirectToAction("HAlugueres", "Utilizador");
+        }
+
+        
+             */
 
         [HttpGet]
         public IActionResult NovoArtigo()
@@ -228,7 +405,7 @@ namespace WebApplication1.Controllers
         public ActionResult Aceitar(int idAluguer)
         {
             Aluguer u = (from alu in model.Aluguer where (alu.IdAluguer == idAluguer) select alu).ToList().ElementAt<Aluguer>(0);
-            u.Estado = true;
+            u.Estado = 1;
             Artigo a = (from m in model.Artigo where (m.IdArtigo == u.IdArtigo) select m).ToList().ElementAt<Artigo>(0);
             if (u.Quantidade <= a.Quantidade)
             {
@@ -245,7 +422,8 @@ namespace WebApplication1.Controllers
         public ActionResult Recusar(int idAluguer)
         {
             Aluguer u = (from alu in model.Aluguer where (alu.IdAluguer == idAluguer) select alu).ToList().ElementAt<Aluguer>(0);
-            model.Aluguer.Remove(u);
+            u.Estado = 2; //estado 2 para recusado
+           // model.Aluguer.Remove(u);
             model.SaveChanges();
             return RedirectToAction("AluguerInfo", "Utilizador");
         }
@@ -254,7 +432,7 @@ namespace WebApplication1.Controllers
         {
             string user = Helpers.CacheController.utilizador;
 
-            var alugueres = (from alu in model.Aluguer where (alu.IdUtilizador == user && alu.Estado == false) select alu);
+            var alugueres = (from alu in model.Aluguer where (alu.IdUtilizador == user && alu.Estado == 0) select alu);
             List<Aluguer> lista = alugueres.ToList<Aluguer>();
             List<AluguerInfo> nots = new List<AluguerInfo>();
             foreach (Aluguer alug in lista)
@@ -297,7 +475,7 @@ namespace WebApplication1.Controllers
             string user = Helpers.CacheController.utilizador;
             List<AluguerInfo> alugueres = new List<AluguerInfo>();
 
-            var alugueres1 = from alu in model.Aluguer where (alu.IdUtilizador == user || alu.IdRent == user) && alu.Estado == true select alu;
+            var alugueres1 = from alu in model.Aluguer where (alu.IdUtilizador == user || alu.IdRent == user) && alu.Estado == 1 select alu;
             List<Aluguer> lista1 = alugueres1.ToList<Aluguer>();
 
             string tipo = " ";
