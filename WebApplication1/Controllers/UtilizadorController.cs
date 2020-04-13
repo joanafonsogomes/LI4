@@ -76,7 +76,7 @@ namespace WebApplication1.Controllers
             var cenas = ss.IdArtigo;
             Console.WriteLine(cenas);
             string nower = Helpers.CacheController.utilizador;
-            var vendas = (from vend in model.Venda where (vend.IdRent == nower && vend.Estado == false) select vend);
+            var vendas = (from vend in model.Venda where (vend.IdRent == nower && vend.Estado == 0) select vend);
             List<Venda> lista = vendas.ToList<Venda>();
             Utilizador uti = model.Utilizador.FirstOrDefault(x => x.Email.Equals(nower));
             int size = model.Venda.Length()+1;
@@ -88,7 +88,7 @@ namespace WebApplication1.Controllers
                 IdUtilizador = ss.IdDono,
                 Preco = ss.Preco,
                 IdRent = nower,
-                Estado = false,
+                Estado = 0,
                 Quantidade = 1,
 
 
@@ -416,7 +416,7 @@ namespace WebApplication1.Controllers
                 return Content("You don't have enough items...");
             }
             model.SaveChanges();
-            return RedirectToAction("AluguerInfo", "Utilizador");
+            return RedirectToAction("AluguerPedidos", "Utilizador");
         }
 
         public ActionResult Recusar(int idAluguer)
@@ -425,10 +425,10 @@ namespace WebApplication1.Controllers
             u.Estado = 2; //estado 2 para recusado
            // model.Aluguer.Remove(u);
             model.SaveChanges();
-            return RedirectToAction("AluguerInfo", "Utilizador");
+            return RedirectToAction("AluguerPedidos", "Utilizador");
         }
 
-        public ActionResult AluguerInfo()
+        public ActionResult AluguerPedidos()
         {
             string user = Helpers.CacheController.utilizador;
 
@@ -463,11 +463,64 @@ namespace WebApplication1.Controllers
 
             return View(nots);
         }
+        public ActionResult AluguerRespostas()
+        {
+            string user = Helpers.CacheController.utilizador;
+
+            var alugueres = (from alu in model.Aluguer where (alu.IdRent == user ) select alu);
+            List<Aluguer> lista = alugueres.ToList<Aluguer>();
+            List<AluguerInfo> nots = new List<AluguerInfo>();
+            String tipo = " ";
+            foreach (Aluguer alug in lista)
+            {
+                Artigo artigo = (from m in model.Artigo where (m.IdArtigo == alug.IdArtigo) select m).ToList().ElementAt<Artigo>(0);
+                Utilizador u = (from m in model.Utilizador where (m.Email.Equals(alug.IdUtilizador)) select m).ToList().ElementAt<Utilizador>(0);
+                if (alug.Estado == 0)
+                {
+                    tipo = "Pendente";
+
+                }
+                else if(alug.Estado == 1)
+                {
+                    tipo = "Aceite";
+                }
+                else if (alug.Estado == 2)
+                {
+                    tipo = "Recusado";
+                }
+                AluguerInfo not = new AluguerInfo()
+
+                {
+                    Tipo = tipo,
+                    IdArtigo = artigo.IdArtigo,
+                    IdAluguer = alug.IdAluguer,
+                    NomeArtigo = artigo.Nome,
+                    Preco = alug.Preco,
+                    Quantidade = alug.Quantidade,
+                    Imagem = artigo.Imagem,
+                    DataInicio = alug.DataInicio,
+                    DataFim = alug.DataFim,
+                    Email = u.Email,
+                    Nome = u.Nome,
+                    Telemovel = u.Telemovel,
+                    CodPostal = u.CodPostal,
+                    Rua = u.Rua,
+                    NPorta = u.NPorta
+                };
+                nots.Add(not);
+            }
+
+            return View(nots);
+        }
 
 
         public ActionResult Historico()
         {
             return View("Historico");
+        }
+        public ActionResult AluguerInfo()
+        {
+            return View("AluguerInfo");
         }
 
         public ActionResult HAlugueres()
@@ -529,7 +582,7 @@ namespace WebApplication1.Controllers
             string user = Helpers.CacheController.utilizador;
             List<VendaInfo> vendas = new List<VendaInfo>();
 
-            var vendas1 = from ven in model.Venda where (ven.IdUtilizador == user || ven.IdRent == user) && ven.Estado == true select ven;
+            var vendas1 = from ven in model.Venda where (ven.IdUtilizador == user || ven.IdRent == user) && ven.Estado == 1 select ven;
             List<Venda> lista1 = vendas1.ToList<Venda>();
 
             string tipo = " ";
@@ -582,7 +635,7 @@ namespace WebApplication1.Controllers
 
             string user = Helpers.CacheController.utilizador;
 
-            var vendas = (from vend in model.Venda where (vend.IdRent == user && vend.Estado == false) select vend);
+            var vendas = (from vend in model.Venda where (vend.IdRent == user && vend.Estado == 0) select vend);
             List<Venda> lista = vendas.ToList<Venda>();
 
             foreach (Venda venda in lista)
@@ -591,7 +644,7 @@ namespace WebApplication1.Controllers
                 if (venda.Quantidade <= artigo.Quantidade)
                 {
                     artigo.Quantidade -= venda.Quantidade;
-                    venda.Estado = true;
+                    venda.Estado = 1;
                 }
                 else
                 {
@@ -617,7 +670,7 @@ namespace WebApplication1.Controllers
         {
             string user = Helpers.CacheController.utilizador;
 
-            var vendas = (from vend in model.Venda where (vend.IdRent == user && vend.Estado == false) select vend);
+            var vendas = (from vend in model.Venda where (vend.IdRent == user && vend.Estado == 0) select vend);
             List<Venda> lista = vendas.ToList<Venda>();
 
             List<VendaInfo> carInfo = new List<VendaInfo>();
