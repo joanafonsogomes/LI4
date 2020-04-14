@@ -10,7 +10,7 @@ namespace WebApplication1.Models
         public string IdUtilizador { get; set; }
         public double Preco { get; set; }
         public string IdRent { get; set; }
-        public bool Estado { get; set; }
+        public int Estado { get; set; }
         public int Quantidade { get; set; }
 
         public virtual Artigo IdArtigoNavigation { get; set; }

@@ -72,6 +72,8 @@ namespace WebApplication1.Controllers
 
         }
 
+       
+
         public ActionResult VerInfo()
         {
             string user = Helpers.CacheController.utilizador;

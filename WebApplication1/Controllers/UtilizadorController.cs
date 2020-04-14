@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using System.Configuration;
 using System.IO;
 using System.Web;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace WebApplication1.Controllers
 {
@@ -16,6 +17,9 @@ namespace WebApplication1.Controllers
     {
         private Model model = new Model();
         private IHostingEnvironment _environment;
+
+        public DateTime SelectedDate { get; set; }
+        public DateTime SelectedDateTo { get; set; }
 
         public UtilizadorController(IHostingEnvironment environment)
         {
@@ -30,19 +34,8 @@ namespace WebApplication1.Controllers
             return View(res);
         }
 
-        public ActionResult Details(int idArtigo)
-        {
-            Console.WriteLine(idArtigo);
-
-            Artigo ss = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(idArtigo));
-
-            var cenas = ss.IdArtigo;
-            Console.WriteLine(cenas);
-            return View(ss);
-
-        }
-
-
+        
+     
         public ActionResult AlterarDadosUtilizador()
         {
             return View();
@@ -71,6 +64,60 @@ namespace WebApplication1.Controllers
         {
             return View();
         }
+
+
+        public ActionResult AdicionarCarrinho(int idArtigo)
+        {
+
+            Console.WriteLine(idArtigo);
+
+            Artigo ss = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(idArtigo));
+
+            var cenas = ss.IdArtigo;
+            Console.WriteLine(cenas);
+            string nower = Helpers.CacheController.utilizador;
+            var vendas = (from vend in model.Venda where (vend.IdRent == nower && vend.Estado == 0) select vend);
+            List<Venda> lista = vendas.ToList<Venda>();
+            Utilizador uti = model.Utilizador.FirstOrDefault(x => x.Email.Equals(nower));
+            int size = model.Venda.Length()+1;
+
+            Venda vendinha = new Venda()
+            {
+                IdVenda = size,
+                IdArtigo = ss.IdArtigo,
+                IdUtilizador = ss.IdDono,
+                Preco = ss.Preco,
+                IdRent = nower,
+                Estado = 0,
+                Quantidade = 1,
+
+
+            };
+            lista.Add(vendinha);
+
+            VendaInfo res = new VendaInfo()
+            {
+                IdArtigo = ss.IdArtigo,
+                IdVenda = vendinha.IdVenda,
+                NomeArtigo = ss.Nome,
+                Preco = vendinha.Preco,
+                Quantidade = vendinha.Quantidade,
+                Imagem = ss.Imagem,
+                Email = nower,
+
+    };
+
+            uti.Venda.Add(vendinha);
+
+
+            model.Venda.Add(vendinha);
+            model.SaveChanges();
+
+            return View(res);
+        
+
+            }
+
 
         [HttpPost]
         public ActionResult AdicionarCliente(string email, int cc, string nome, string password, long contaBancaria, string tipo, int telemovel, string rua, int nPorta, string codigoPostal, string freguesia, string distrito)
@@ -123,6 +170,136 @@ namespace WebApplication1.Controllers
             return View();
         }
 
+        public ActionResult Details(int idArtigo)
+        {
+            Console.WriteLine(idArtigo);
+
+            Artigo ss = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(idArtigo));
+            Helpers.CacheController.IdArtigo = idArtigo;
+            var cenas = ss.IdArtigo;
+            Console.WriteLine(cenas);
+            return View(ss);
+
+        }
+        /**envia o pedido ao dono*/
+        [HttpPost]
+        public ActionResult Details( DateTime inicio, DateTime fim)
+        {
+            int ar = Helpers.CacheController.IdArtigo;
+            Artigo ss = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(ar));
+            string dono = ss.IdDono;
+            Utilizador donito = model.Utilizador.FirstOrDefault(x => x.Email.Equals(dono));
+
+            int tamanho = model.Aluguer.Length() + 1; 
+
+            int m = (fim - inicio).Days;
+            Aluguer novo = new Aluguer()
+            {
+                IdAluguer = tamanho,
+                IdArtigo = ar,
+                IdUtilizador = ss.IdDono,
+                Preco = ss.Preco,
+                Duracao = m,
+                IdRent = Helpers.CacheController.utilizador,
+                DataInicio = inicio,
+                DataFim = fim,
+                Estado = 0,
+                Quantidade = 1,
+            };
+            model.Aluguer.Add(novo);
+            model.SaveChanges();
+            Helpers.CacheController.aluguerRealizado = tamanho;
+            return RedirectToAction("AluguerPedido", "Utilizador");
+        }
+
+        public ActionResult AluguerPedido()
+        {
+            int s = Helpers.CacheController.aluguerRealizado;
+            Aluguer ss = model.Aluguer.FirstOrDefault(x => x.IdAluguer.Equals(s));
+            int art = Helpers.CacheController.IdArtigo;
+            Artigo a = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(art));
+            ss.IdArtigoNavigation.Nome = a.Nome;
+            ss.IdArtigoNavigation.Imagem = a.Imagem;
+            AluguerInfo res = new AluguerInfo()
+            {
+                IdArtigo = ss.IdArtigo,
+                IdAluguer = ss.IdAluguer,
+                NomeArtigo = ss.IdArtigoNavigation.Nome,
+                Preco = ss.Preco,
+                Quantidade = ss.Quantidade,
+                Imagem = ss.IdArtigoNavigation.Imagem,
+                Email = ss.IdRent,
+                DataInicio = ss.DataInicio,
+                DataFim = ss.DataFim,
+
+            };
+            return View(res);
+        }
+
+        /** Verifica disponibilidade de Datas para o caso de mudar-mos de ideia
+        [HttpPost]
+        public ActionResult Details(List<IFormFile> file, DateTime inicio, DateTime fim)
+        {
+            foreach (IFormFile cenas in file)
+            {
+                Console.WriteLine(cenas.FileName);
+            }
+            try
+            {
+                Console.WriteLine("???? like da fuck");
+                int s = Helpers.CacheController.IdArtigo;
+                Artigo ss = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(s));
+                if (inicio >= fim )
+                {
+                    Console.WriteLine("entrei no primeiro ciclo.");
+                    return View();
+
+                }
+                else
+                {
+                    Console.WriteLine("entrei no segundo ciclo.");
+                    int imp = 0;
+                    int tamanho = ss.Aluguer.Length() + 1;
+                    foreach (Aluguer a in ss.Aluguer)
+                    {
+                        if (!(a.DataInicio > inicio && a.DataInicio > fim || inicio > a.DataFim && inicio > a.DataFim))
+                        {
+                            imp = 1;
+                        }
+                    }
+                    if (imp == 0)
+                    {
+                        int m = (fim-inicio).Days;
+                        Aluguer novo = new Aluguer()
+                        {
+                            IdAluguer = tamanho,
+                            IdArtigo = s,
+                            IdUtilizador = ss.IdDono,
+                            Preco = ss.Preco,
+                            Duracao = m,
+                            IdRent = Helpers.CacheController.utilizador,
+                            DataInicio = inicio,
+                            DataFim = fim,
+                            Estado = false,
+                            Quantidade = 1,
+                        };
+                        ss.Aluguer.Add(novo);
+                        model.SaveChanges();
+                    }
+                    else return View();
+
+                }
+            }
+            catch (Exception)
+            {
+                return Content("Erro...");
+            }
+            return RedirectToAction("HAlugueres", "Utilizador");
+        }
+
+        
+             */
+
         [HttpGet]
         public IActionResult NovoArtigo()
         {
@@ -131,7 +308,7 @@ namespace WebApplication1.Controllers
 
 
         [HttpPost]
-        public IActionResult NovoArtigo(List<IFormFile> file, string nome, float preco, string modo, int quantidade, string categoria, string etiquetas)
+        public IActionResult NovoArtigo(List<IFormFile> file, string nome, float preco, string modo, int quantidade, string categoria, string etiquetas, string descricao)
         {
             foreach(IFormFile cenas in file)
             {
@@ -155,6 +332,8 @@ namespace WebApplication1.Controllers
                     Categoria = categoria,
                     Etiquetas = etiquetas,
                     Estado = false,
+                    Pontuacao =0,
+                    Descricao = descricao,
                     IdDono = user,
                 };
 
@@ -223,6 +402,296 @@ namespace WebApplication1.Controllers
 
             return View(lista);
         }
+        public ActionResult Aceitar(int idAluguer)
+        {
+            Aluguer u = (from alu in model.Aluguer where (alu.IdAluguer == idAluguer) select alu).ToList().ElementAt<Aluguer>(0);
+            u.Estado = 1;
+            Artigo a = (from m in model.Artigo where (m.IdArtigo == u.IdArtigo) select m).ToList().ElementAt<Artigo>(0);
+            if (u.Quantidade <= a.Quantidade)
+            {
+                a.Quantidade -= u.Quantidade;
+            }
+            else
+            {
+                return Content("You don't have enough items...");
+            }
+            model.SaveChanges();
+            return RedirectToAction("AluguerPedidos", "Utilizador");
+        }
+
+        public ActionResult Recusar(int idAluguer)
+        {
+            Aluguer u = (from alu in model.Aluguer where (alu.IdAluguer == idAluguer) select alu).ToList().ElementAt<Aluguer>(0);
+            u.Estado = 2; //estado 2 para recusado
+           // model.Aluguer.Remove(u);
+            model.SaveChanges();
+            return RedirectToAction("AluguerPedidos", "Utilizador");
+        }
+
+        public ActionResult AluguerPedidos()
+        {
+            string user = Helpers.CacheController.utilizador;
+
+            var alugueres = (from alu in model.Aluguer where (alu.IdUtilizador == user && alu.Estado == 0) select alu);
+            List<Aluguer> lista = alugueres.ToList<Aluguer>();
+            List<AluguerInfo> nots = new List<AluguerInfo>();
+            foreach (Aluguer alug in lista)
+            {
+                Artigo artigo = (from m in model.Artigo where (m.IdArtigo == alug.IdArtigo) select m).ToList().ElementAt<Artigo>(0);
+                Utilizador u = (from m in model.Utilizador where (m.Email.Equals(alug.IdRent)) select m).ToList().ElementAt<Utilizador>(0);
+
+                AluguerInfo not = new AluguerInfo()
+
+                {
+                    IdArtigo = artigo.IdArtigo,
+                    IdAluguer = alug.IdAluguer,
+                    NomeArtigo = artigo.Nome,
+                    Preco = alug.Preco,
+                    Quantidade = alug.Quantidade,
+                    Imagem = artigo.Imagem,
+                    DataInicio = alug.DataInicio,
+                    DataFim = alug.DataFim,
+                    Email = u.Email,
+                    Nome = u.Nome,
+                    Telemovel = u.Telemovel,
+                    CodPostal = u.CodPostal,
+                    Rua = u.Rua,
+                    NPorta = u.NPorta
+                };
+                nots.Add(not);
+            }
+
+            return View(nots);
+        }
+        public ActionResult AluguerRespostas()
+        {
+            string user = Helpers.CacheController.utilizador;
+
+            var alugueres = (from alu in model.Aluguer where (alu.IdRent == user ) select alu);
+            List<Aluguer> lista = alugueres.ToList<Aluguer>();
+            List<AluguerInfo> nots = new List<AluguerInfo>();
+            String tipo = " ";
+            foreach (Aluguer alug in lista)
+            {
+                Artigo artigo = (from m in model.Artigo where (m.IdArtigo == alug.IdArtigo) select m).ToList().ElementAt<Artigo>(0);
+                Utilizador u = (from m in model.Utilizador where (m.Email.Equals(alug.IdUtilizador)) select m).ToList().ElementAt<Utilizador>(0);
+                if (alug.Estado == 0)
+                {
+                    tipo = "Pendente";
+
+                }
+                else if(alug.Estado == 1)
+                {
+                    tipo = "Aceite";
+                }
+                else if (alug.Estado == 2)
+                {
+                    tipo = "Recusado";
+                }
+                AluguerInfo not = new AluguerInfo()
+
+                {
+                    Tipo = tipo,
+                    IdArtigo = artigo.IdArtigo,
+                    IdAluguer = alug.IdAluguer,
+                    NomeArtigo = artigo.Nome,
+                    Preco = alug.Preco,
+                    Quantidade = alug.Quantidade,
+                    Imagem = artigo.Imagem,
+                    DataInicio = alug.DataInicio,
+                    DataFim = alug.DataFim,
+                    Email = u.Email,
+                    Nome = u.Nome,
+                    Telemovel = u.Telemovel,
+                    CodPostal = u.CodPostal,
+                    Rua = u.Rua,
+                    NPorta = u.NPorta
+                };
+                nots.Add(not);
+            }
+
+            return View(nots);
+        }
+
+
+        public ActionResult Historico()
+        {
+            return View("Historico");
+        }
+        public ActionResult AluguerInfo()
+        {
+            return View("AluguerInfo");
+        }
+
+        public ActionResult HAlugueres()
+        {
+            string user = Helpers.CacheController.utilizador;
+            List<AluguerInfo> alugueres = new List<AluguerInfo>();
+
+            var alugueres1 = from alu in model.Aluguer where (alu.IdUtilizador == user || alu.IdRent == user) && alu.Estado == 1 select alu;
+            List<Aluguer> lista1 = alugueres1.ToList<Aluguer>();
+
+            string tipo = " ";
+
+
+            foreach (Aluguer alug in lista1)
+            {
+                Utilizador u = new Utilizador();
+
+                if (alug.IdUtilizador == user)
+                {
+                    tipo = "Recebido";
+                    u = (from m in model.Utilizador where (m.Email.Equals(alug.IdRent)) select m).ToList().ElementAt<Utilizador>(0);
+                }
+                else if (alug.IdRent == user)
+                {
+                    tipo = "Realizado";
+                    u = (from m in model.Utilizador where (m.Email.Equals(alug.IdUtilizador)) select m).ToList().ElementAt<Utilizador>(0);
+                }
+
+                Artigo artigo = (from m in model.Artigo where (m.IdArtigo == alug.IdArtigo) select m).ToList().ElementAt<Artigo>(0);
+
+                AluguerInfo a1 = new AluguerInfo()
+
+                {
+                    IdArtigo = artigo.IdArtigo,
+                    IdAluguer = alug.IdAluguer,
+                    NomeArtigo = artigo.Nome,
+                    Preco = alug.Preco,
+                    Quantidade = alug.Quantidade,
+                    Imagem = artigo.Imagem,
+                    DataInicio = alug.DataInicio,
+                    DataFim = alug.DataFim,
+                    Email = u.Email,
+                    Nome = u.Nome,
+                    Telemovel = u.Telemovel,
+                    CodPostal = u.CodPostal,
+                    Rua = u.Rua,
+                    NPorta = u.NPorta,
+                    Tipo = tipo
+
+                };
+                alugueres.Add(a1);
+            }
+
+
+            return View(alugueres);
+        }
+        public ActionResult HVendas()
+        {
+            string user = Helpers.CacheController.utilizador;
+            List<VendaInfo> vendas = new List<VendaInfo>();
+
+            var vendas1 = from ven in model.Venda where (ven.IdUtilizador == user || ven.IdRent == user) && ven.Estado == 1 select ven;
+            List<Venda> lista1 = vendas1.ToList<Venda>();
+
+            string tipo = " ";
+
+
+            foreach (Venda v in lista1)
+            {
+                Utilizador u = new Utilizador();
+
+                if (v.IdUtilizador == user)
+                {
+                    tipo = "Recebido";
+                    u = (from m in model.Utilizador where (m.Email.Equals(v.IdRent)) select m).ToList().ElementAt<Utilizador>(0);
+                }
+                else if (v.IdRent == user)
+                {
+                    tipo = "Realizado";
+                    u = (from m in model.Utilizador where (m.Email.Equals(v.IdUtilizador)) select m).ToList().ElementAt<Utilizador>(0);
+                }
+
+                Artigo artigo = (from m in model.Artigo where (m.IdArtigo == v.IdArtigo) select m).ToList().ElementAt<Artigo>(0);
+
+                VendaInfo a1 = new VendaInfo()
+
+                {
+                    IdArtigo = artigo.IdArtigo,
+                    IdVenda = v.IdVenda,
+                    NomeArtigo = artigo.Nome,
+                    Preco = v.Preco,
+                    Quantidade = v.Quantidade,
+                    Imagem = artigo.Imagem,
+                    Email = u.Email,
+                    Nome = u.Nome,
+                    Telemovel = u.Telemovel,
+                    CodPostal = u.CodPostal,
+                    Rua = u.Rua,
+                    NPorta = u.NPorta,
+                    Tipo = tipo
+
+                };
+                vendas.Add(a1);
+            }
+
+
+            return View(vendas);
+        }
+
+        public ActionResult FinalizarCompra()
+        {
+
+            string user = Helpers.CacheController.utilizador;
+
+            var vendas = (from vend in model.Venda where (vend.IdRent == user && vend.Estado == 0) select vend);
+            List<Venda> lista = vendas.ToList<Venda>();
+
+            foreach (Venda venda in lista)
+            {
+                Artigo artigo = (from m in model.Artigo where (m.IdArtigo == venda.IdArtigo) select m).ToList().ElementAt<Artigo>(0);
+                if (venda.Quantidade <= artigo.Quantidade)
+                {
+                    artigo.Quantidade -= venda.Quantidade;
+                    venda.Estado = 1;
+                }
+                else
+                {
+                    model.Venda.Remove(venda);
+                    String s = "Sorry, but the item " + venda.IdArtigo + " is out of stock";
+                    return Content(s);
+                }
+            }
+            model.SaveChanges();
+            return RedirectToAction("VendaInfo", "Utilizador");
+        }
+
+        public ActionResult RemArtCarrinho(int idVenda)
+        {
+            Venda v = (from vend in model.Venda where (vend.IdVenda == idVenda) select vend).ToList().ElementAt<Venda>(0);
+            model.Venda.Remove(v);
+            model.SaveChanges();
+            return RedirectToAction("VendaInfo", "Utilizador");
+        }
+
+
+        public ActionResult VendaInfo()
+        {
+            string user = Helpers.CacheController.utilizador;
+
+            var vendas = (from vend in model.Venda where (vend.IdRent == user && vend.Estado == 0) select vend);
+            List<Venda> lista = vendas.ToList<Venda>();
+
+            List<VendaInfo> carInfo = new List<VendaInfo>();
+            foreach (Venda venda in lista)
+            {
+                Artigo artigo = (from m in model.Artigo where (m.IdArtigo == venda.IdArtigo) select m).ToList().ElementAt<Artigo>(0);
+                VendaInfo car = new VendaInfo()
+
+                {
+                    IdArtigo = artigo.IdArtigo,
+                    IdVenda = venda.IdVenda,
+                    NomeArtigo = artigo.Nome,
+                    Preco = venda.Preco,
+                    Quantidade = venda.Quantidade,
+                    Imagem = artigo.Imagem
+                };
+                carInfo.Add(car);
+            }
+            return View(carInfo);
+        }
+
         public ActionResult VerInfo()
         {
             string user = Helpers.CacheController.utilizador;
@@ -241,12 +710,15 @@ namespace WebApplication1.Controllers
             return View(res);
         }
 
-        //Está mal redirecionada , ainda não funciona
-        public ActionResult Alterar(int? idArtigos)
+        public ActionResult Alterar(int idArtigo)
         {
-            Helpers.CacheController.idArtigo = idArtigos.Value;
+          
+            Artigo ss = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(idArtigo));
 
-            return View("RequisitarServico");
+            Helpers.CacheController.IdArtigo = idArtigo;
+            var cenas = ss.IdArtigo;
+            Console.WriteLine(cenas);
+            return View(ss);
         }
 
         [HttpPost]
@@ -536,7 +1008,7 @@ namespace WebApplication1.Controllers
 
                 model.SaveChanges();
             }
-            return RedirectToAction("VerInfo", "Utilizador");
+            return RedirectToAction("", "Utilizador");
         }
         /**
         * Permite vizualisar a view que permite alterar a freguesia e efetua a sua mudança
@@ -746,6 +1218,323 @@ namespace WebApplication1.Controllers
             else return RedirectToAction("ErrorSearch", "Utilizador");
         }
 
+        public ActionResult AlteraNome()
+        {
+            return View("AlteraNome");
+        }
+
+        [HttpPost]
+        public ActionResult AlteraNome (string nome)
+        {
+            
+            int id = Helpers.CacheController.IdArtigo;
+            if (ModelState.IsValid)
+            {
+                
+                Artigo std = model.Artigo.Where(x => x.IdArtigo.Equals(id)).FirstOrDefault();
+
+
+                Artigo a = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(std.IdArtigo));
+                a.Nome = nome;
+                a.Preco = std.Preco;
+                a.Modo = std.Modo;
+                a.Quantidade = std.Quantidade;
+                a.Categoria = std.Categoria;
+                a.Etiquetas = std.Etiquetas;
+                a.Estado = std.Estado;
+                a.Descricao = std.Descricao;
+                a.Imagem = std.Imagem;
+                model.SaveChanges();
+            }
+            return RedirectToAction("verArtigos", "Utilizador");
+        }
+
+        public ActionResult AlteraPreco()
+        {
+            return View("AlteraPreco");
+        }
+
+        [HttpPost]
+        public ActionResult AlteraPreco(float preco)
+        {
+
+            int id = Helpers.CacheController.IdArtigo;
+            if (ModelState.IsValid)
+            {
+
+                Artigo std = model.Artigo.Where(x => x.IdArtigo.Equals(id)).FirstOrDefault();
+
+
+                Artigo a = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(std.IdArtigo));
+                a.Nome = std.Nome;
+                a.Preco = preco;
+                a.Modo = std.Modo;
+                a.Quantidade = std.Quantidade;
+                a.Categoria = std.Categoria;
+                a.Etiquetas = std.Etiquetas;
+                a.Estado = std.Estado;
+                a.Descricao = std.Descricao;
+                a.Imagem = std.Imagem;
+                model.SaveChanges();
+            }
+            return RedirectToAction("verArtigos", "Utilizador");
+        }
+
+        public ActionResult AlteraModo()
+        {
+            return View("AlteraModo");
+        }
+        [HttpPost]
+        public ActionResult AlteraModo(string modo)
+        {
+
+            int id = Helpers.CacheController.IdArtigo;
+            if (ModelState.IsValid)
+            {
+
+                Artigo std = model.Artigo.Where(x => x.IdArtigo.Equals(id)).FirstOrDefault();
+
+
+                Artigo a = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(std.IdArtigo));
+                a.Nome = std.Nome;
+                a.Preco = std.Preco;
+                a.Modo = modo;
+                a.Quantidade = std.Quantidade;
+                a.Categoria = std.Categoria;
+                a.Etiquetas = std.Etiquetas;
+                a.Estado = std.Estado;
+                a.Descricao = std.Descricao;
+                a.Imagem = std.Imagem;
+                model.SaveChanges();
+            }
+            return RedirectToAction("verArtigos", "Utilizador");
+        }
+
+
+        public ActionResult AlteraCategoria()
+        {
+            return View("AlteraCategoria");
+        }
+
+        [HttpPost]
+        public ActionResult AlteraCategoria(string categoria)
+        {
+
+            int id = Helpers.CacheController.IdArtigo;
+            if (ModelState.IsValid)
+            {
+
+                Artigo std = model.Artigo.Where(x => x.IdArtigo.Equals(id)).FirstOrDefault();
+
+
+                Artigo a = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(std.IdArtigo));
+                a.Nome = std.Nome;
+                a.Preco = std.Preco;
+                a.Modo = std.Modo;
+                a.Quantidade = std.Quantidade;
+                a.Categoria = categoria;
+                a.Etiquetas = std.Etiquetas;
+                a.Estado = std.Estado;
+                a.Descricao = std.Descricao;
+                a.Imagem = std.Imagem;
+                model.SaveChanges();
+            }
+            return RedirectToAction("verArtigos", "Utilizador");
+        }
+
+        public ActionResult AlteraQuantidade()
+        {
+            return View("AlteraQuantidade");
+        }
+
+        [HttpPost]
+        public ActionResult AlteraQuantidade(int quantidade)
+        {
+
+            int id = Helpers.CacheController.IdArtigo;
+            if (ModelState.IsValid)
+            {
+
+                Artigo std = model.Artigo.Where(x => x.IdArtigo.Equals(id)).FirstOrDefault();
+
+
+                Artigo a = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(std.IdArtigo));
+                a.Nome = std.Nome;
+                a.Preco = std.Preco;
+                a.Modo = std.Modo;
+                a.Quantidade = quantidade;
+                a.Categoria = std.Categoria;
+                a.Etiquetas = std.Etiquetas;
+                a.Estado = std.Estado;
+                a.Descricao = std.Descricao;
+                a.Imagem = std.Imagem;
+                model.SaveChanges();
+            }
+            return RedirectToAction("verArtigos", "Utilizador");
+        }
+
+        public ActionResult AlteraDescricao()
+        {
+            return View("AlteraDescricao");
+        }
+
+        [HttpPost]
+        public ActionResult AlteraDescricao(string descricao)
+        {
+
+            int id = Helpers.CacheController.IdArtigo;
+            if (ModelState.IsValid)
+            {
+
+                Artigo std = model.Artigo.Where(x => x.IdArtigo.Equals(id)).FirstOrDefault();
+
+
+                Artigo a = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(std.IdArtigo));
+                a.Nome = std.Nome;
+                a.Preco = std.Preco;
+                a.Modo = std.Modo;
+                a.Quantidade = std.Quantidade;
+                a.Categoria = std.Categoria;
+                a.Etiquetas = std.Etiquetas;
+                a.Estado = std.Estado;
+                a.Descricao = descricao;
+                a.Imagem = std.Imagem;
+                model.SaveChanges();
+            }
+            return RedirectToAction("verArtigos", "Utilizador");
+        }
+
+        public ActionResult AlteraEstado()
+        {
+            return View("AlteraEstado");
+        }
+
+        [HttpPost]
+        public ActionResult AlteraEstado(bool estado)
+        {
+
+            int id = Helpers.CacheController.IdArtigo;
+            if (ModelState.IsValid)
+            {
+
+                Artigo std = model.Artigo.Where(x => x.IdArtigo.Equals(id)).FirstOrDefault();
+
+
+                Artigo a = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(std.IdArtigo));
+                a.Nome = std.Nome;
+                a.Preco = std.Preco;
+                a.Modo = std.Modo;
+                a.Quantidade = std.Quantidade;
+                a.Categoria = std.Categoria;
+                a.Etiquetas = std.Etiquetas;
+                a.Estado = estado;
+                a.Descricao = std.Descricao;
+                a.Imagem = std.Imagem;
+                model.SaveChanges();
+            }
+            return RedirectToAction("verArtigos", "Utilizador");
+        }
+
+        public ActionResult AlteraEtiquetas()
+        {
+            return View("AlteraEtiquetas");
+        }
+        [HttpPost]
+        public ActionResult AlteraEtiquetas(string etiquetas)
+        {
+
+            int id = Helpers.CacheController.IdArtigo;
+            if (ModelState.IsValid)
+            {
+
+                Artigo std = model.Artigo.Where(x => x.IdArtigo.Equals(id)).FirstOrDefault();
+
+
+                Artigo a = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(std.IdArtigo));
+                a.Nome = std.Nome;
+                a.Preco = std.Preco;
+                a.Modo = std.Modo;
+                a.Quantidade = std.Quantidade;
+                a.Categoria = std.Categoria;
+                a.Etiquetas = etiquetas;
+                a.Estado = std.Estado;
+                a.Descricao = std.Descricao;
+                a.Imagem = std.Imagem;
+                model.SaveChanges();
+            }
+            return RedirectToAction("verArtigos", "Utilizador");
+        }
+
+        public ActionResult AlteraImagem()
+        {
+            return View("AlteraImagem");
+        }
+
+        [HttpPost]
+        public ActionResult AlteraImagem(List<IFormFile> file)
+        {
+              var artigos = (from m in model.Artigo select m);
+                List<Artigo> lista = artigos.ToList<Artigo>();
+                int i = lista.Count;
+
+                i++;
+            string fileName = "";
+            string name = "";
+
+            if (file.Count == 1)
+            {
+                Console.WriteLine("entrei no primeiro ciclo.");
+                fileName = file[0].FileName;
+                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", fileName);
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    file[0].CopyTo(fileStream);
+                }
+            }
+            else
+            {
+                Console.WriteLine("entrei no segundo ciclo.");
+                int j;
+                int count = file.Count;
+                for (j = 0; j < count; j++)
+                {
+                    IFormFile f = file[j];
+                    name = f.FileName;
+                    fileName += name;
+                    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", name);
+                    using (var fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        f.CopyTo(fileStream);
+                    }
+                    if (i != count - 1)
+                    {
+                        fileName += " ";
+                    }
+
+                }
+                Console.WriteLine(fileName);
+            }
+            int id = Helpers.CacheController.IdArtigo;
+            
+                Artigo std = model.Artigo.Where(x => x.IdArtigo.Equals(id)).FirstOrDefault();
+               
+
+                Artigo a = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(std.IdArtigo));
+                a.Nome = std.Nome;
+                a.Preco = std.Preco;
+                a.Modo = std.Modo;
+                a.Quantidade = std.Quantidade;
+                a.Categoria = std.Categoria;
+                a.Etiquetas = std.Etiquetas;
+                a.Estado = std.Estado;
+                a.Descricao = std.Descricao;        
+                a.Imagem = fileName;
+                model.SaveChanges();
+                //model.Artigo.Update(a);
+               // model.Artigo.Add(a);
+            
+            return RedirectToAction("verArtigos", "Utilizador");
+        }
 
 
     }

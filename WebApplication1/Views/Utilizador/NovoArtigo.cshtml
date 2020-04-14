@@ -53,7 +53,7 @@
 
                     <!-- Text input-->
                     <label for="Modo"><b>Modo:</b></label>
-                    <select  id="Modo" name="Modo" type="text" class="form-control input-md" required="">
+                    <select id="Modo" name="Modo" type="text" class="form-control input-md" required="">
                         <option value="aluguer">aluguer</option>
                         <option value="venda">venda</option>
                     </select>
@@ -89,6 +89,10 @@
                         <option value="Outros">Outros</option>
                     </select>
 
+                    <div class="form-group">
+                        <label for="Descricao"><b>Descrição</b></label>
+                            <textarea id="Descricao" name="Descricao" typeof="text" class="form-control input-md" required=""  rows="3"></textarea>
+                    </div>
 
 
 
@@ -113,7 +117,7 @@
                     </div>
 
                     <script>
-                     document.getElementById("file").multiple = true;
+                        document.getElementById("file").multiple = true;
                     </script>
 
                 </form>

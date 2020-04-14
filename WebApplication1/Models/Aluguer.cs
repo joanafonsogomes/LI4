@@ -13,7 +13,7 @@ namespace WebApplication1.Models
         public string IdRent { get; set; }
         public DateTime DataInicio { get; set; }
         public DateTime DataFim { get; set; }
-        public bool Estado { get; set; }
+        public int Estado { get; set; } // 0 - pedido , 1- aceite , 2- recusado
         public int Quantidade { get; set; }
 
         public virtual Artigo IdArtigoNavigation { get; set; }
