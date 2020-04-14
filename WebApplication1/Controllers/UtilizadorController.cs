@@ -307,6 +307,11 @@ namespace WebApplication1.Controllers
             return View("CBanc");
         }
 
+        public ActionResult Password()
+        {
+            return View("Password");
+        }
+
         [HttpPost]
         public ActionResult CBanc(long conta)
         {
