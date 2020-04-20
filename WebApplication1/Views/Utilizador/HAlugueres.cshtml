@@ -8,49 +8,39 @@
 <table class="table">
     <tr>
         <th style="text-align: center; vertical-align: middle;">
-            @Html.DisplayNameFor(model => model.Tipo)
-        </th>
-        <th style="text-align: center; vertical-align: middle;">
-            @Html.DisplayNameFor(model => model.IdArtigo)
+
         </th>
         <th style="text-align:center; vertical-align:middle">
-            @Html.DisplayNameFor(model => model.NomeArtigo) <h6><b>de artigos</b></h6>
+            Nome
         </th>
         <th style="text-align:center; vertical-align:middle">
-            @Html.DisplayNameFor(model => model.Quantidade) <h6><b>de artigos</b></h6>
+            Quantidade
         </th>
         <th style="text-align: center; vertical-align: middle">
-            @Html.DisplayNameFor(model => model.Preco) <h6><b>(€)</b></h6>
+            @Html.DisplayNameFor(model => model.Preco) <b> (€)</b>
         </th>
         <th style="text-align:center; vertical-align:middle">
-            Artigo
+            Imagem
         </th>
         <th style="text-align: center; vertical-align: middle;">
-            @Html.DisplayNameFor(model => model.DataInicio)
+            Data de Início
         </th>
         <th style="text-align: center; vertical-align: middle;">
-            @Html.DisplayNameFor(model => model.DataFim)
+            Data de fim
         </th>
         <th style="text-align: center; vertical-align: middle;">
             @Html.DisplayNameFor(model => model.Email)
         </th>
         <th style="text-align: center; vertical-align: middle;">
-            @Html.DisplayNameFor(model => model.Nome)
+            Alugado por
         </th>
-
-
     </tr>
 
     @foreach (var item in Model)
     {
      <tr>
-    <td style="text-align:center; vertical-align:middle; font-weight:bold">
-
+    <td style="color: rgb(17, 112, 158);  text-align:center; vertical-align:middle; font-weight:bold">
         @Html.DisplayFor(modelItem => item.Tipo)
-    </td>
-    <td style="text-align:center; vertical-align:middle; font-weight:bold">
-
-        @Html.DisplayFor(modelItem => item.IdArtigo)
     </td>
     <td style="text-align:center; vertical-align:middle">
         @Html.DisplayFor(modelItem => item.NomeArtigo)
@@ -61,83 +51,36 @@
     <td style="text-align:center; vertical-align:middle">
         @Html.DisplayFor(modelItem => item.Preco)
     </td>
-    <td style="width:250px; height:250px; text-align:center; vertical-align:middle">
+    <td style="        width: 250px;
+        height: 250px;
+        text-align: center;
+        vertical-align: middle
+">
         <div class="w3-content w3-display-container">
+
             @{var fileName = @item.Imagem;
-                var idd = @item.IdArtigo;
-                string[] words = fileName.Split(" ");
+                String[] words = fileName.Split(" ");
+                String itempic = words[0];
+            }
+            <img class="card-img-top" src="~/uploads/@itempic" alt="" style="max-width:250px ; max-height:250px">
 
-                int i = 1;
+        </div>
+    </td>
+    <td style="text-align:center; vertical-align:middle">
+        @Html.DisplayFor(modelItem => item.DataInicio)
+    </td>
+    <td style="text-align:center; vertical-align:middle">
+        @Html.DisplayFor(modelItem => item.DataFim)
+    </td>
+    <td style="text-align:center; vertical-align:middle">
+        @Html.DisplayFor(modelItem => item.Email)
+    </td>
+    <td style="text-align:center; vertical-align:middle">
+        @Html.DisplayFor(modelItem => item.Nome)
+    </td>
 
-                int count = words.Length();
-
-                Console.WriteLine(count);
-
-                foreach (string s in words)
-                {
-                    <center>
-                        <img class="mySlides-@idd" src="~/uploads/@s" style="max-width:250px ; max-height:250px ; display: none" />
-                    </center>
-                    if (i == count)
-                    {
-                        break;
-                    }
-                    i++;
-                }
-                string slides = "mySlides-" + idd;
-                var cenas = slides;
-                string scr = "script-" + idd;
-                var scri = scr;
-
-                if (words.Length() > 1)
-                {
-
-                    <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
-                    <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
-                }
-
-                <script name="script-@idd" type="text/javascript">
-                        var slideIndex = 1;
-                        showDivs(slideIndex);
-
-                        function plusDivs(n,) {
-                        showDivs(slideIndex += n);
-                         }
-
-                        function showDivs(n) {
-                            var i;
-                            var x = document.getElementsByClassName("@cenas");
-                            if (n > x.length) { slideIndex = 1 }
-                            if (n < 1) { slideIndex = x.length }
-                            for (i = 0; i < x.length; i++) {
-                                x[i].style.display = "none";
-                            }
-                            x[slideIndex - 1].style.display = "block";
-                            }
-
-
-                </script>
-        <td style="text-align:center; vertical-align:middle">
-            @Html.DisplayFor(modelItem => item.DataInicio)
-        </td>
-        <td style="text-align:center; vertical-align:middle">
-            @Html.DisplayFor(modelItem => item.DataFim)
-        </td>
-        <td style="text-align:center; vertical-align:middle">
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td style="text-align:center; vertical-align:middle">
-            @Html.DisplayFor(modelItem => item.Nome)
-        </td>
-
-                    }
-                    </div>
-
-                    </td>
-
-
-                    </tr>
-                }
+    </tr>
+ }
 </table>
 
 <p></p>

@@ -5,44 +5,41 @@
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
 
-<h1>Foi enviado um pedido para alugar o artigo!</h1>
+<center>
+    <p>
+        <b>Foi enviado um pedido para alugar o artigo!</b>
+    </p>
+    <p>    </p>
+    <p>    </p>
+</center>
+
 <table class="table">
     <tr>
-        <th style="text-align: center; vertical-align: middle;">
-            @Html.DisplayNameFor(model => model.IdArtigo)
+        <th style="text-align:center; vertical-align:middle">
+            Nome
         </th>
         <th style="text-align:center; vertical-align:middle">
-            @Html.DisplayNameFor(model => model.NomeArtigo) <h6><b>de artigos</b></h6>
-        </th>
-        <th style="text-align:center; vertical-align:middle">
-            @Html.DisplayNameFor(model => model.Quantidade) <h6><b>de artigos</b></h6>
+            Quantidade
         </th>
         <th style="text-align: center; vertical-align: middle">
-            @Html.DisplayNameFor(model => model.Preco) <h6><b>(€)</b></h6>
+            @Html.DisplayNameFor(model => model.Preco) <b> (€)</b>
         </th>
         <th style="text-align: center; vertical-align: middle">
-            @Html.DisplayNameFor(model => model.Imagem) <h6><b>Foto(s)</b></h6>
+            @Html.DisplayNameFor(model => model.Imagem)
         </th>
         <th style="text-align: center; vertical-align: middle">
-            @Html.DisplayNameFor(model => model.DataInicio) <h6><b>Data de Inicio</b></h6>
+            Data de Início
         </th>
         <th style="text-align: center; vertical-align: middle">
-            @Html.DisplayNameFor(model => model.DataFim) <h6><b>Data do Fim</b></h6>
-        </th>
-        <th style="text-align:center; vertical-align:middle">
-            Artigo
+            Data de Fim
         </th>
 
 
     </tr>
-    {
     <tr>
-        <td style="text-align:center; vertical-align:middle; font-weight:bold">
-
-            @Html.DisplayFor(modelItem => Model.IdArtigo)
-        </td>
         <td style="text-align:center; vertical-align:middle">
-            @Html.DisplayFor(modelItem => Model.NomeArtigo)
+            @{String nome = Model.NomeArtigo; }
+            <a href="@Url.Action("Details", "Utilizador", new { idArtigo = Model.IdArtigo })"> @nome </a>
         </td>
         <td style="text-align:center; vertical-align:middle">
             @Html.DisplayFor(modelItem => Model.Quantidade)
@@ -52,86 +49,29 @@
         </td>
         <td style="width:250px; height:250px; text-align:center; vertical-align:middle">
             <div class="w3-content w3-display-container">
+
                 @{var fileName = @Model.Imagem;
-                    var idd = @Model.IdArtigo;
-                    string[] words = fileName.Split(" ");
-
-                    int i = 1;
-
-                    int count = words.Length();
-
-                    Console.WriteLine(count);
-
-                    foreach (string s in words)
-                    {
-                        <center>
-                            <img class="mySlides-@idd" src="~/uploads/@s" style="max-width:250px ; max-height:250px ; display: none" />
-                        </center>
-                        if (i == count)
-                        {
-                            break;
-                        }
-                        i++;
-                    }
-                    string slides = "mySlides-" + idd;
-                    var cenas = slides;
-                    string scr = "script-" + idd;
-                    var scri = scr;
-
-                    if (words.Length() > 1)
-                    {
-
-                        <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
-                        <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
-                    }
-
-                    <script name="script-@idd" type="text/javascript">
-                        var slideIndex = 1;
-                        showDivs(slideIndex);
-
-                        function plusDivs(n,) {
-                        showDivs(slideIndex += n);
-                         }
-
-                        function showDivs(n) {
-                            var i;
-                            var x = document.getElementsByClassName("@cenas");
-                            if (n > x.length) { slideIndex = 1 }
-                            if (n < 1) { slideIndex = x.length }
-                            for (i = 0; i < x.length; i++) {
-                                x[i].style.display = "none";
-                            }
-                            x[slideIndex - 1].style.display = "block";
-                            }
-
-
-                    </script>
-            <td style="text-align:center; vertical-align:middle">
-                @Html.DisplayFor(modelItem => Model.DataInicio)
-            </td>
-            <td style="text-align:center; vertical-align:middle">
-                @Html.DisplayFor(modelItem => Model.DataFim)
-            </td>
-            <td>
-                <button class="myButton">
-                    @Html.ActionLink("Visualizar Produto", "Details", "Utilizador", new { idArtigo = Model.IdArtigo }, null)
-
-                </button>
-            </td>
-
+                    String[] words = fileName.Split(" ");
+                    String itempic = words[0];
                 }
-                </div>
-                </td>
-            </tr>
+                <img class="card-img-top" src="~/uploads/@itempic" alt="" style="max-width:250px ; max-height:250px">
 
-            <tr>
-                <td>
-                    <button class="myButton">
-                        @Html.ActionLink("Continuar a comprar", "Details", "Utilizador", new { idArtigo = Model.IdArtigo }, null)
+            </div>
+        </td>
+        <td style="text-align:center; vertical-align:middle">
+            @Html.DisplayFor(modelItem => Model.DataInicio)
+        </td>
+        <td style="text-align:center; vertical-align:middle">
+            @Html.DisplayFor(modelItem => Model.DataFim)
+        </td>
+    </tr>
+</table>
 
-                    </button>
-                </td>
+<p></p>
+<p></p>
+<button style=" margin:0 auto; display:block;">
+    @Html.ActionLink("Continuar a comprar", "Details", "Utilizador", new { idArtigo = Model.IdArtigo }, null)
 
-            </tr>
-            }
-        </table>
+</button>
+
+        

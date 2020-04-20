@@ -1,15 +1,20 @@
 ﻿
 @{
     ViewData["Title"] = "Historico";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
 
-<h1>Historico</h1>
+<center>
+<b>Consulte os seus históricos:</b>
+</center>
+<p> </p>
+<p> </p>
 
     <center>
-        <button class="myButton">
+        <button>
             @Html.ActionLink("Historico de Alugueres", "HAlugueres")
         </button>
-        <button class="myButton">
+        <button>
             @Html.ActionLink("Historico de Compras", "HVendas")
         </button>
     </center>
