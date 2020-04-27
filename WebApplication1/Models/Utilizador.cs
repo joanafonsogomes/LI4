@@ -10,6 +10,7 @@ namespace WebApplication1.Models
             Aluguer = new HashSet<Aluguer>();
             Artigo = new HashSet<Artigo>();
             Venda = new HashSet<Venda>();
+            Comentarios = new HashSet<Comentarios>();
         }
 
         public string Email { get; set; }
@@ -29,6 +30,8 @@ namespace WebApplication1.Models
         public virtual ICollection<Aluguer> Aluguer { get; set; }
         public virtual ICollection<Artigo> Artigo { get; set; }
         public virtual ICollection<Venda> Venda { get; set; }
+        public virtual ICollection<Comentarios> Comentarios { get; set; }
+
         public int NPorta { get; internal set; }
         public string Rua { get; internal set; }
     }

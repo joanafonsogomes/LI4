@@ -24,14 +24,16 @@ namespace WebApplication1.Models
         public virtual DbSet<Utilizador> Utilizador { get; set; }
         public virtual DbSet<Venda> Venda { get; set; }
 
-        
+        public virtual DbSet<Comentarios> Comentarios { get; set; }
+
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
 
-                optionsBuilder.UseSqlServer("Data Source = LENOVO-JOANA;Initial Catalog = LI4; Integrated Security = True");
+                optionsBuilder.UseSqlServer("Data Source = HP-PC;Initial Catalog = LI4; Integrated Security = True");
             } 
         }
 
@@ -467,6 +469,29 @@ namespace WebApplication1.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Venda_Utilizador");
             });
+                modelBuilder.Entity<Comentarios>(entity =>
+                {
+                    entity.HasKey(e => e.IdComentario);
+
+                    entity.Property(e => e.IdComentario)
+                        .HasColumnName("idVenda")
+                        .ValueGeneratedNever();
+
+                    entity.Property(e => e.IdArtigo).HasColumnName("idArtigo");
+
+                    entity.Property(e => e.IdUtilizador)
+                        .IsRequired()
+                        .HasColumnName("idUtilizador")
+                        .HasMaxLength(45)
+                        .IsFixedLength();
+
+                    entity.Property(e => e.Descricao)
+                        .IsRequired()
+                        .HasColumnName("descricao")
+                        .HasMaxLength(10000)
+                        .IsFixedLength();
+
+                });
 
             OnModelCreatingPartial(modelBuilder);
         }
