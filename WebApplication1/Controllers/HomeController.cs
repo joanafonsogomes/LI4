@@ -72,7 +72,85 @@ namespace WebApplication1.Controllers
 
         }
 
-       
+
+        public ActionResult MaiorClassificacao()
+        {
+            var local = (from x in model.Artigo select x);
+            List<Artigo> res = local.ToList<Artigo>();
+
+            Dictionary<Artigo,double> mp = new Dictionary<Artigo, double>();
+            for (int i = 0; i < res.Count; i++)
+            {
+                Artigo a = (from x in model.Artigo where (x.IdArtigo == res[i].IdArtigo) select x).ToList().ElementAt<Artigo>(0); ;
+                mp.Add(a, a.Pontuacao );
+
+            }
+
+            if (mp.Count >= 20)
+            {
+                mp = mp.OrderBy(p => p.Value).Reverse().Take(20).ToDictionary(p => p.Key, p => p.Value);
+            }
+            else
+            {
+                mp = mp.OrderBy(p => p.Value).Reverse().ToDictionary(p => p.Key, p => p.Value);
+            }
+            List<Artigo> res2 = mp.Keys.ToList();
+            return View(res2);
+
+        }
+
+
+        public ActionResult MaisVendidos()
+        {
+            var local = (from x in model.Artigo select x);
+            List<Artigo> res = local.ToList<Artigo>();
+            
+            Dictionary<Artigo, int> mp = new Dictionary<Artigo,int>();
+            for(int i = 0; i < res.Count; i++)
+            {
+                    int a = (from x in model.Aluguer where (x.IdArtigo == res[i].IdArtigo) select x).ToList().Count;
+                    int v = (from x in model.Venda where (x.IdArtigo == res[i].IdArtigo) select x).ToList().Count;
+                    mp.Add(res[i], a + v);
+               
+            }
+
+            if (mp.Count >= 20)
+            {
+                mp=mp.OrderBy(p => p.Value).Reverse().Take(20).ToDictionary(p => p.Key, p => p.Value);
+            }
+            else
+            {
+                mp=mp.OrderBy(p => p.Value).Reverse().ToDictionary(p => p.Key, p => p.Value);
+            }
+            List<Artigo> res2 = mp.Keys.ToList();
+            return View(res2);
+
+        }
+        public ActionResult Novidades()
+        {
+            var local = (from x in model.Artigo select x);
+            List<Artigo> res = local.ToList<Artigo>();
+            res.Reverse();
+            List<Artigo> res2 = new List<Artigo>();
+            if (res.Count >= 20)
+            {
+                for (int i = 0; i < 20; i++)
+                {
+                    res2.Add(res[i]);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < res.Count; i++)
+                {
+                    res2.Add(res[i]);
+                }
+            }
+            return View(res2);
+            
+        }
+
+
 
         public ActionResult VerInfo()
         {
