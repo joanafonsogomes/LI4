@@ -23,8 +23,8 @@ namespace WebApplication1.Models
         public virtual DbSet<Localizacao> Localizacao { get; set; }
         public virtual DbSet<Utilizador> Utilizador { get; set; }
         public virtual DbSet<Venda> Venda { get; set; }
-
         public virtual DbSet<Comentarios> Comentarios { get; set; }
+        public virtual DbSet<Voucher> Voucher { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -33,7 +33,7 @@ namespace WebApplication1.Models
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
 
-                optionsBuilder.UseSqlServer("Data Source = HP-PC;Initial Catalog = LI4; Integrated Security = True");
+                optionsBuilder.UseSqlServer("Server = tcp:li1212.database.windows.net, 1433; Database = BaseDeDadosLI4; User ID = li4; Password = !@cmplex@133Ab; Trusted_Connection = False; Encrypt = True;");
             } 
         }
 
@@ -474,10 +474,8 @@ namespace WebApplication1.Models
                     entity.HasKey(e => e.IdComentario);
 
                     entity.Property(e => e.IdComentario)
-                        .HasColumnName("idVenda")
+                        .HasColumnName("idComentario")
                         .ValueGeneratedNever();
-
-                    entity.Property(e => e.IdArtigo).HasColumnName("idArtigo");
 
                     entity.Property(e => e.IdUtilizador)
                         .IsRequired()
@@ -490,6 +488,45 @@ namespace WebApplication1.Models
                         .HasColumnName("descricao")
                         .HasMaxLength(10000)
                         .IsFixedLength();
+
+                    entity.Property(e => e.IdArtigo).HasColumnName("idArtigo");
+
+                     entity.HasOne(d => d.IdArtigoNavigation)
+                    .WithMany(p => p.Comentarios)
+                    .HasForeignKey(d => d.IdArtigo)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Comentarios_Artigo");
+
+                entity.HasOne(d => d.IdUtilizadorNavigation)
+                    .WithMany(p => p.Comentarios)
+                    .HasForeignKey(d => d.IdUtilizador)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Comentarios_Utilizador");
+
+                });
+             modelBuilder.Entity<Voucher>(entity =>
+                {
+                    entity.HasKey(e => e.Codigo);
+
+                    entity.Property(e => e.Codigo)
+                        .HasColumnName("codigo")
+                        .ValueGeneratedNever();
+
+                    entity.Property(e => e.Estado).HasColumnName("estado");
+
+                    entity.Property(e => e.IdUtilizador)
+                        .IsRequired()
+                        .HasColumnName("idUtilizador")
+                        .HasMaxLength(45)
+                        .IsFixedLength();
+
+                    entity.Property(e => e.ValorOferta).HasColumnName("valorOferta");
+
+                    entity.HasOne(d => d.IdUtilizadorNavigation)
+                    .WithMany(p => p.Voucher)
+                    .HasForeignKey(d => d.IdUtilizador)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Voucher_Utilizador");
 
                 });
 
