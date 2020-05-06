@@ -1536,7 +1536,106 @@ namespace WebApplication1.Controllers
             return RedirectToAction("verArtigos", "Utilizador");
         }
 
+        /*
+        //Adcionar Comentários á BD ----------------------------------------
+        public ActionResult AdicionarComentario(String coment,int idAg){
+            string user = Helpers.CacheController.utilizador;
+            try{
+                var comentarios = (from c in model.Comentarios select c);
+                List<Comentarios> lista = comentarios.ToList<Comentarios>();
+                int id = lista.Count + 1;
 
+                Comentarios c = new Comentarios();
+                c.IdComentario = id;
+                c.Descricao = coment;
+                c.IdUtilizador = user;
+                c.IdArtigo = idAg;
+
+                if (ModelState.IsValid)
+                {
+                    model.Comentarios.Add(c);
+
+                    model.SaveChanges();
+                }
+            }
+
+            return RedirectToAction();
+        }
+        
+        //Procurar os comentários de um utilizador qualquer-----------------------------------
+        public ActionResult SearchComentarioUser(String user){
+
+            var local = (from x in model.Comentarios where (x.IdUtilizador == user) select x);
+            if (local.ToList().Count > 0)
+            {
+                List<Artigo> list = local.ToList<Artigo>();
+                return View(list);
+            }
+
+            else return RedirectToAction("ErrorSearch", "Utilizador");
+        }
+
+        //Procurar os comentários de um artigo qualquer-------------------------------------
+        public ActionResult SearchComentarioArtigo(int artigo){
+
+            var local = (from x in model.Comentarios where (x.IdArtigo == artigo) select x);
+            if (local.ToList().Count > 0)
+            {
+                List<Artigo> list = local.ToList<Artigo>();
+                return View(list);
+            }
+
+            else return RedirectToAction("ErrorSearch", "Utilizador");
+        }
+
+        public ActionResult AplicarDesconto(List<Venda> list, float discount){
+            float num = 0.0;
+
+            foreach(Venda v in list){
+                num += v.Preco;
+            }
+
+            num = num * (1-discount);
+
+            return (num);
+        }
+
+        //Adicionar um Voucher á BD -------------------------------------
+        public ActionResult AdicionarVoucher(string codigo,float valor){
+            string user = Helpers.CacheController.utilizador;
+
+            Vouchers v = new Vouchers();
+            v.Codigo = codigo;
+            v.Estado = 1;
+            v.ValorOferta = valor;
+            v.IdUtilizador = user;
+
+            if (ModelState.IsValid){
+                    model.Vouchers.Add(v);
+                    model.SaveChanges();
+            }
+
+            return ;
+        }
+        
+        //Verificar se é possível ou não utilizar o voucher pretendido --------------------------------------------------------------
+        public ActionResult UsarVoucher(string codigo){
+            string user = Helpers.CacheController.utilizador;
+
+            var vouchers = (from v in model.Vouchers where (v.Codigo == codigo && v.Estado == 1 && v.IdUtilizador == user) select v);
+            List<Vouchers> lista = vouchers.ToList<Vouchers>();
+
+            if(lista.Count != 0){
+                Vouchers v = lista.get(0);
+                v.Estado = 0;
+                return (v.ValorOferta);
+            }
+            else{
+                String s = "Sorry, but the Voucher " + codigo + " does not exist/ is not aplicable";
+                return Content(s);
+            }
+        }
+        */
     }
 
 }
