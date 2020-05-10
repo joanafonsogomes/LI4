@@ -6,7 +6,7 @@
 }
 
 <!--IF THEN ELSE PARA SE O CARRINHO ESTIVER VAZIO-->
-@{int count = 0;
+@{int count = 0; double totalPrice = 0; int index = 0; double precoCupao = 0; 
 
     foreach (var item in Model)
     {
@@ -15,8 +15,8 @@
     if (count == 0)
     {
         <center>
-                <b>O seu carrinho está vazio!</b>
-                <p>  </p>
+            <b>O seu carrinho está vazio!</b>
+            <p>  </p>
         </center>
         <button style=" margin:0 auto; display:block;">
             @Html.ActionLink("Continuar a comprar", "Index", "Utilizador")
@@ -46,9 +46,9 @@
 
 
             </tr>
-
             @foreach (var item in Model)
             {
+                totalPrice += item.Preco;
                 <tr>
                     <td style="text-align:center; vertical-align:middle; font-weight:bold">
                         <a href="@Url.Action("Details", new { idArtigo = item.IdArtigo })">@Html.DisplayFor(modelItem => item.NomeArtigo)</a>
@@ -78,10 +78,46 @@
             }
         </table>
 
+        precoCupao = totalPrice;
+        <p></p>
+        <p></p>
+
+
+        <p style="text-align:center; font-weight:bold">
+            Total de Compra:
+            <td>
+                @totalPrice €
+            </td>
+        </p>
+        <p></p>
+        <p></p>
+
+        <div class="custom-select-lg" style="text-align:center;">
+            <select>
+
+                <option value="0">Selecione Cupão:</option>
+                index++;
+                @foreach (var item in Model)
+                {
+                    <option value="index">@Html.DisplayFor(modelItem => item.Nome)</option>
+                    index++;
+                }
+            </select>
+        </div>
 
         <p></p>
         <p></p>
+
+        <p style="text-align:center; font-weight:bold">
+            Total de Compra Com Cupão:
+            <td>
+                @precoCupao €
+            </td>
+        </p>
+
         <p></p>
+        <p></p>
+
         <center>
             <button class="myButton">
                 @Html.ActionLink("Finalizar Compra", "FinalizarCompra")

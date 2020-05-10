@@ -68,6 +68,16 @@ namespace WebApplication1.Controllers
 
             var cenas = ss.IdArtigo;
             Console.WriteLine(cenas);
+
+            var comentarios = from x in model.Comentarios where (x.IdArtigo.Equals(idArtigo)) select x;
+            List<Comentarios> c = comentarios.ToList<Comentarios>();
+
+            foreach(Comentarios a in c)
+            {
+                ss.Comentarios.Add(a);
+            }
+
+
             return View(ss);
 
         }

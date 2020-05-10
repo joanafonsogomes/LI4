@@ -10,6 +10,7 @@ using System.Configuration;
 using System.IO;
 using System.Web;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using System.Collections.Specialized;
 
 namespace WebApplication1.Controllers
 {
@@ -66,6 +67,25 @@ namespace WebApplication1.Controllers
         }
 
 
+        public ActionResult Perfil()
+        {
+            string uti = Helpers.CacheController.utilizador;
+            Utilizador std = model.Utilizador.Where(x => x.Email.Equals(uti)).FirstOrDefault();
+          
+            var vouchers = from alu in model.Voucher where (alu.IdUtilizador.Equals(uti)) select alu;
+
+            List<Voucher> v = vouchers.ToList<Voucher>();
+
+            foreach(Voucher a in v)
+            {
+                std.Voucher.Add(a);
+            }
+
+
+            return View(uti);
+        }
+
+
         public ActionResult AdicionarCarrinho(int idArtigo)
         {
 
@@ -79,7 +99,7 @@ namespace WebApplication1.Controllers
             var vendas = (from vend in model.Venda where (vend.IdRent == nower && vend.Estado == 0) select vend);
             List<Venda> lista = vendas.ToList<Venda>();
             Utilizador uti = model.Utilizador.FirstOrDefault(x => x.Email.Equals(nower));
-            int size = model.Venda.Length()+1;
+            int size = model.Venda.Length()+3;
 
             Venda vendinha = new Venda()
             {
@@ -117,6 +137,89 @@ namespace WebApplication1.Controllers
         
 
             }
+
+
+
+
+        public ActionResult MaiorClassificacao()
+        {
+            var local = (from x in model.Artigo select x);
+            List<Artigo> res = local.ToList<Artigo>();
+
+            Dictionary<Artigo, double> mp = new Dictionary<Artigo, double>();
+            for (int i = 0; i < res.Count; i++)
+            {
+                Artigo a = (from x in model.Artigo where (x.IdArtigo == res[i].IdArtigo) select x).ToList().ElementAt<Artigo>(0); ;
+                mp.Add(a, a.Pontuacao);
+
+            }
+
+            if (mp.Count >= 20)
+            {
+                mp = mp.OrderBy(p => p.Value).Reverse().Take(20).ToDictionary(p => p.Key, p => p.Value);
+            }
+            else
+            {
+                mp = mp.OrderBy(p => p.Value).Reverse().ToDictionary(p => p.Key, p => p.Value);
+            }
+            List<Artigo> res2 = mp.Keys.ToList();
+            return View(res2);
+
+        }
+
+
+        public ActionResult MaisVendidos()
+        {
+            var local = (from x in model.Artigo select x);
+            List<Artigo> res = local.ToList<Artigo>();
+
+            Dictionary<Artigo, int> mp = new Dictionary<Artigo, int>();
+            for (int i = 0; i < res.Count; i++)
+            {
+                int a = (from x in model.Aluguer where (x.IdArtigo == res[i].IdArtigo) select x).ToList().Count;
+                int v = (from x in model.Venda where (x.IdArtigo == res[i].IdArtigo) select x).ToList().Count;
+                mp.Add(res[i], a + v);
+
+            }
+
+            if (mp.Count >= 20)
+            {
+                mp = mp.OrderBy(p => p.Value).Reverse().Take(20).ToDictionary(p => p.Key, p => p.Value);
+            }
+            else
+            {
+                mp = mp.OrderBy(p => p.Value).Reverse().ToDictionary(p => p.Key, p => p.Value);
+            }
+            List<Artigo> res2 = mp.Keys.ToList();
+            return View(res2);
+
+        }
+        public ActionResult Novidades()
+        {
+            var local = (from x in model.Artigo select x);
+            List<Artigo> res = local.ToList<Artigo>();
+            res.Reverse();
+            List<Artigo> res2 = new List<Artigo>();
+            if (res.Count >= 20)
+            {
+                for (int i = 0; i < 20; i++)
+                {
+                    res2.Add(res[i]);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < res.Count; i++)
+                {
+                    res2.Add(res[i]);
+                }
+            }
+            return View(res2);
+
+        }
+
+
+
 
 
         [HttpPost]
@@ -648,7 +751,8 @@ namespace WebApplication1.Controllers
                 }
                 else
                 {
-                    model.Venda.Remove(venda);
+                    //model.Venda.Remove(venda);
+                    venda.Estado = 2;
                     String s = "Sorry, but the item " + venda.IdArtigo + " is out of stock";
                     return Content(s);
                 }
@@ -660,7 +764,8 @@ namespace WebApplication1.Controllers
         public ActionResult RemArtCarrinho(int idVenda)
         {
             Venda v = (from vend in model.Venda where (vend.IdVenda == idVenda) select vend).ToList().ElementAt<Venda>(0);
-            model.Venda.Remove(v);
+            //model.Venda.Remove(v);
+            v.Estado = 2;
             model.SaveChanges();
             return RedirectToAction("VendaInfo", "Utilizador");
         }

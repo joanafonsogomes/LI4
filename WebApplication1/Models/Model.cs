@@ -511,16 +511,14 @@ namespace WebApplication1.Models
                         .HasColumnName("codigo")
                         .ValueGeneratedNever();
 
-                    entity.Property(e => e.Estado).HasColumnName("estado");
-
-                    entity.Property(e => e.IdUtilizador)
-                        .IsRequired()
-                        .HasColumnName("idUtilizador")
-                        .HasMaxLength(45)
-                        .IsFixedLength();
-
                     entity.Property(e => e.ValorOferta).HasColumnName("valorOferta");
 
+                    entity.Property(e => e.Estado).HasColumnName("estado")
+                    .HasMaxLength(45)
+                    .IsFixedLength();
+
+
+                   // entity.Property(e => e.IdUtilizador).HasColumnName("idUtilizador");
                     entity.HasOne(d => d.IdUtilizadorNavigation)
                     .WithMany(p => p.Voucher)
                     .HasForeignKey(d => d.IdUtilizador)
