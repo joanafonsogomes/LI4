@@ -163,14 +163,12 @@
                         Product Reviews
                     </div>
                     <div class="card-body">
-                        <p>Aqui estaria um comentário ao produto.</p>
-                        <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-                        <hr>
-                        <p>Aqui estaria um comentário ao produto.</p>
-                        <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-                        <hr>
-                        <p>Aqui estaria um comentário ao produto.</p>
-                        <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+                        @foreach (var item in Model.Comentarios)
+                        {
+                            <p>@Html.DisplayFor(itemModel => item.Descricao)</p>
+                            <small class="text-muted">Posted by @Html.DisplayFor(itemModel => item.IdUtilizador) on 3/1/17</small>
+                          
+                        }
                         <hr>
                         <a href="#" class="btn border-success btn-login">Leave a Review</a> <!--Leave a review doesnt work yet-->
                     </div>
