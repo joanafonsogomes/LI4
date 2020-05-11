@@ -30,7 +30,7 @@
 
                             <p class="w3-large"><b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>Dados</b></p>
 
-                    
+
                             <table class="table">
                                 <tr>
                                     <td>
@@ -45,7 +45,7 @@
                                         Email
                                     </td>
                                     <td>
-                                        Html.DisplayFor(Model => Model.Email)
+                                        @Html.DisplayFor(Model => Model.Email)
                                     </td>
                                     <td>
                                         Alteração Não Permitida
@@ -61,7 +61,7 @@
                                         *********
                                     </td>
                                     <td>
-                                       Html.ActionLink("Alterar", "Password")
+                                        @Html.ActionLink("Alterar", "Password")
 
                                     </td>
                                 </tr>
@@ -70,10 +70,10 @@
                                         Conta Bancária
                                     </td>
                                     <td>
-                                        Html.DisplayFor(Model => Model.ContaBancaria)
+                                        @Html.DisplayFor(Model => Model.ContaBancaria)
                                     </td>
                                     <td>
-                                        Html.ActionLink("Alterar", "CBanc")
+                                        @Html.ActionLink("Alterar", "CBanc")
                                     </td>
                                 </tr>
                                 <tr>
@@ -81,10 +81,10 @@
                                         Telemovel
                                     </td>
                                     <td>
-                                        Html.DisplayFor(Model => Model.Telemovel)
+                                        @Html.DisplayFor(Model => Model.Telemovel)
                                     </td>
                                     <td>
-                                        Html.ActionLink("Alterar", "Telemovel")
+                                        @Html.ActionLink("Alterar", "Telemovel")
                                     </td>
                                 </tr>
                                 <tr>
@@ -92,10 +92,10 @@
                                         Código Postal
                                     </td>
                                     <td>
-                                        Html.DisplayFor(Model => Model.CodPostal)
+                                        @Html.DisplayFor(Model => Model.CodPostal)
                                     </td>
                                     <td>
-                                        Html.ActionLink("Alterar", "CPostal")
+                                        @Html.ActionLink("Alterar", "CPostal")
                                     </td>
                                 </tr>
                                 <tr>
@@ -103,10 +103,10 @@
                                         Freguesia
                                     </td>
                                     <td>
-                                        Html.DisplayFor(Model => Model.CodPostalNavigation.Freguesia)
+                                        @Html.DisplayFor(Model => Model.CodPostalNavigation.Freguesia)
                                     </td>
                                     <td>
-                                        Html.ActionLink("Alterar", "Freguesia")
+                                        @Html.ActionLink("Alterar", "Freguesia")
                                     </td>
                                 </tr>
                                 <tr>
@@ -114,10 +114,10 @@
                                         Rua
                                     </td>
                                     <td>
-                                        Html.DisplayFor(Model => Model.Rua)
+                                        @Html.DisplayFor(Model => Model.Rua)
                                     </td>
                                     <td>
-                                        Html.ActionLink("Alterar", "Rua")
+                                        @Html.ActionLink("Alterar", "Rua")
                                     </td>
                                 </tr>
                                 <tr>
@@ -125,10 +125,10 @@
                                         Número da porta
                                     </td>
                                     <td>
-                                        Html.DisplayFor(Model => Model.NPorta)
+                                        @Html.DisplayFor(Model => Model.NPorta)
                                     </td>
                                     <td>
-                                       Html.ActionLink("Alterar", "NPorta")
+                                        @Html.ActionLink("Alterar", "NPorta")
                                     </td>
                                 </tr>
                                 <tr>
@@ -136,32 +136,32 @@
                                         Distrito
                                     </td>
                                     <td>
-                                        Html.DisplayFor(Model => Model.CodPostalNavigation.Distrito)
+                                        @Html.DisplayFor(Model => Model.CodPostalNavigation.Distrito)
                                     </td>
                                     <td>
-                                        Html.ActionLink("Alterar", "Distrito")
+                                        @Html.ActionLink("Alterar", "Distrito")
                                     </td>
                                 </tr>
 
                             </table>
 
-                       
+
 
                             <p class="w3-large w3-text-theme"><b><i class="fa fa-globe fa-fw w3-margin-right w3-text-teal"></i>Cupões:</b></p>
-                          
-                            @foreach (var item in Model.Voucher)
-                            {
-                                <p>@Html.DisplayFor(itemModel => item.Codigo)</p>
-                                <div class="w3-light-grey w3-round-xlarge">
-                                    <div class="w3-round-xlarge w3-teal" style="height:24px;width:100%"></div>
-                                </div>
-                            }
-                            <br>
-                        </div>
-                    </div><br>
-
-                    <!-- End Left Column -->
+                            <!---
+            foreach (var item in Model.Voucher)
+            {
+                <p>Html.DisplayFor(itemModel => item.Codigo)</p>
+                <div class="w3-light-grey w3-round-xlarge">
+                    <div class="w3-round-xlarge w3-teal" style="height:24px;width:100%"></div>
                 </div>
+            }
+            <br>
+        </div>
+    </div><br>
+              -->
+                            <!-- End Left Column -->
+                        </div>
             </div>
         </div>
 

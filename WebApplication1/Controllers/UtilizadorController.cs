@@ -73,16 +73,16 @@ namespace WebApplication1.Controllers
             Utilizador std = model.Utilizador.Where(x => x.Email.Equals(uti)).FirstOrDefault();
           
             var vouchers = from alu in model.Voucher where (alu.IdUtilizador.Equals(uti)) select alu;
-
+            /**
             List<Voucher> v = vouchers.ToList<Voucher>();
 
             foreach(Voucher a in v)
             {
                 std.Voucher.Add(a);
             }
+            */
 
-
-            return View(uti);
+            return View(std);
         }
 
 
@@ -279,8 +279,13 @@ namespace WebApplication1.Controllers
 
             Artigo ss = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(idArtigo));
             Helpers.CacheController.IdArtigo = idArtigo;
-            var cenas = ss.IdArtigo;
-            Console.WriteLine(cenas);
+            var coments = from c in model.Comentarios where (c.IdArtigo.Equals(ss.IdArtigo)) select c;
+            List<Comentarios> a = coments.ToList<Comentarios>();
+            foreach ( Comentarios v in a)
+            {
+                ss.Comentarios.Add(v);
+            }
+            //Console.WriteLine(cenas);
             return View(ss);
 
         }
