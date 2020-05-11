@@ -11,7 +11,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Oswald" rel="stylesheet">
+    <add key="UnobtrusiveJavaScriptEnabled" value="true" />
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type="text/javascript"></script>
 
 
 </head>
@@ -94,67 +95,67 @@
                         @if (Model.Modo.Equals("aluguer"))
                         {
 
-                    <form asp-action="Details" asp-controllers="Utilizador" method="POST" enctype="multipart/form-data">
+                            <form asp-action="Details" asp-controllers="Utilizador" method="POST" enctype="multipart/form-data">
 
-                        <!-- <form action="/action_page.php"> -->
-                        <div class="form-group">
-                            <label for="birthday">De:</label>
-                            <input type="date" id="inicio" name="inicio">
-                        </div>
-                        <div class="form-group">
-                            <label for="birthday">Até:</label>
-                            <input type="date" id="fim" name="fim">
-                        </div>
-                        <div class="form-group">
-                            <input class="btn border-success btn-login btn-outline-primary" type="submit" value="Verificar Disponibiliade">
-                        </div>
-
-
-
-                        <script>
-                            document.getElementById("file").multiple = true;
-                        </script>
-
-                    </form>
+                                <!-- <form action="/action_page.php"> -->
+                                <div class="form-group">
+                                    <label for="birthday">De:</label>
+                                    <input type="date" id="inicio" name="inicio">
+                                </div>
+                                <div class="form-group">
+                                    <label for="birthday">Até:</label>
+                                    <input type="date" id="fim" name="fim">
+                                </div>
+                                <div class="form-group">
+                                    <input class="btn border-success btn-login btn-outline-primary" type="submit" value="Verificar Disponibiliade">
+                                </div>
 
 
 
-                                }
-                                @if (Model.Modo.Equals("venda"))
-                                {
-                                    <a href="@Url.Action("AdicionarCarrinho", new { idArtigo = Model.IdArtigo })"
-                                       class="btn border-success btn-login btn-outline-primary">Adicionar ao Carrinho</a>
-                                }
+                                <script>
+                                    document.getElementById("file").multiple = true;
+                                </script>
 
-                                <p class="card-text">@Html.DisplayFor(modelItem => Model.Descricao)</p>
-                                @{ if (0 <= Model.Pontuacao && Model.Pontuacao < 1)
-                                    {
-                                        <span class="text-warning">&#9734; &#9734; &#9734; &#9734; &#9734;</span>
-                                    }
-                                    else if (1 <= Model.Pontuacao && Model.Pontuacao < 2)
-                                    {
-                                        <span class="text-warning">&#9733; &#9734; &#9734; &#9734; &#9734;</span>
-                                    }
-                                    else if (2 <= Model.Pontuacao && Model.Pontuacao < 3)
-                                    {
-                                        <span class="text-warning">&#9733; &#9733; &#9734; &#9734; &#9734;</span>
-                                    }
-                                    else if (3 <= Model.Pontuacao && Model.Pontuacao < 4)
-                                    {
-                                        <span class="text-warning">&#9733; &#9733; &#9733; &#9734; &#9734;</span>
-                                    }
-                                    else if (4 <= Model.Pontuacao && Model.Pontuacao < 5)
-                                    {
-                                        <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
-                                    }
-                                    else if (Model.Pontuacao == 5)
-                                    {
-                                        <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9733;</span>
-                                    }
-                                }
-                                <br />
-                                @Model.Pontuacao stars
-                        </div>
+                            </form>
+
+
+
+                        }
+                        @if (Model.Modo.Equals("venda"))
+                        {
+                            <a href="@Url.Action("AdicionarCarrinho", new { idArtigo = Model.IdArtigo })"
+                               class="btn border-success btn-login btn-outline-primary">Adicionar ao Carrinho</a>
+                        }
+
+                        <p class="card-text">@Html.DisplayFor(modelItem => Model.Descricao)</p>
+                        @{ if (0 <= Model.Pontuacao && Model.Pontuacao < 1)
+                            {
+                                <span class="text-warning">&#9734; &#9734; &#9734; &#9734; &#9734;</span>
+                            }
+                            else if (1 <= Model.Pontuacao && Model.Pontuacao < 2)
+                            {
+                                <span class="text-warning">&#9733; &#9734; &#9734; &#9734; &#9734;</span>
+                            }
+                            else if (2 <= Model.Pontuacao && Model.Pontuacao < 3)
+                            {
+                                <span class="text-warning">&#9733; &#9733; &#9734; &#9734; &#9734;</span>
+                            }
+                            else if (3 <= Model.Pontuacao && Model.Pontuacao < 4)
+                            {
+                                <span class="text-warning">&#9733; &#9733; &#9733; &#9734; &#9734;</span>
+                            }
+                            else if (4 <= Model.Pontuacao && Model.Pontuacao < 5)
+                            {
+                                <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
+                            }
+                            else if (Model.Pontuacao == 5)
+                            {
+                                <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9733;</span>
+                            }
+                        }
+                        <br />
+                        @Model.Pontuacao stars
+                    </div>
                 </div>
                 <!-- /.card -->
 
@@ -166,19 +167,50 @@
                         @foreach (var item in Model.Comentarios)
                         {
                             <p>@Html.DisplayFor(itemModel => item.Descricao)</p>
-                            <small class="text-muted">Posted by @Html.DisplayFor(itemModel => item.IdUtilizador) on 3/1/17</small>
-                          
+                            <small class="text-muted">Posted by @Html.DisplayFor(itemModel => item.IdUtilizador)</small>
+                            <hr>
                         }
-                        <hr>
-                        <a href="#" class="btn border-success btn-login">Leave a Review</a> <!--Leave a review doesnt work yet-->
                     </div>
                 </div>
-                <!-- /.card -->
+
+                <!--div class="card card-outline-secondary my-4">
+                    <div class="card-header">
+                        Deixe o seu comentário
+                    </div>
+                </div-->
+                    <form asp-action="AddComentario" asp-controllers="Utilizador" method="POST" enctype="multipart/form-data">
+
+                        <div class="form-horizontal">
+                            @Html.ValidationSummary(true)
+                            <div>
+                                <label for="Descricao"></label>
+                                <div>
+                                    <input id="Descricao" name="Descricao" type="text" class="form-control" placeholder="Deixe o seu comentário" required="">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="IdArtigo"></label>
+                                <div>
+                                    <input type="hidden" name="IdArtigo" value="@Model.IdArtigo" />
+                                </div>
+                            </div>
+
+                            <center>
+                                <div class="form-group">
+                                    <div>
+                                        <input type="submit" value="Post Review" class="btn-primary" />
+                                    </div>
+                                </div>
+                            </center>
+
+                        </div>
+                    </form>
 
             </div>
-            <!-- /.col-lg-9 -->
+                <!-- /.col-lg-9 -->
 
-        </div>
+            </div>
 
     </div>
     <!-- /.container -->
