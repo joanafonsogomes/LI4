@@ -73,16 +73,16 @@ namespace WebApplication1.Controllers
             Utilizador std = model.Utilizador.Where(x => x.Email.Equals(uti)).FirstOrDefault();
 
             var vouchers = from alu in model.Voucher where (alu.IdUtilizador.Equals(uti)) select alu;
-
+            /**
             List<Voucher> v = vouchers.ToList<Voucher>();
 
             foreach (Voucher a in v)
             {
                 std.Voucher.Add(a);
             }
+            */
 
-
-            return View(uti);
+            return View(std);
         }
 
 
