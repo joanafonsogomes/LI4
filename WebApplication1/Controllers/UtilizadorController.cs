@@ -35,8 +35,8 @@ namespace WebApplication1.Controllers
             return View(res);
         }
 
-        
-     
+
+
         public ActionResult AlterarDadosUtilizador()
         {
             return View();
@@ -71,18 +71,18 @@ namespace WebApplication1.Controllers
         {
             string uti = Helpers.CacheController.utilizador;
             Utilizador std = model.Utilizador.Where(x => x.Email.Equals(uti)).FirstOrDefault();
-          
-            var vouchers = from alu in model.Voucher where (alu.IdUtilizador.Equals(uti)) select alu;
 
+            var vouchers = from alu in model.Voucher where (alu.IdUtilizador.Equals(uti)) select alu;
+            /**
             List<Voucher> v = vouchers.ToList<Voucher>();
 
-            foreach(Voucher a in v)
+            foreach (Voucher a in v)
             {
                 std.Voucher.Add(a);
             }
+            */
 
-
-            return View(uti);
+            return View(std);
         }
 
 
@@ -99,7 +99,7 @@ namespace WebApplication1.Controllers
             var vendas = (from vend in model.Venda where (vend.IdRent == nower && vend.Estado == 0) select vend);
             List<Venda> lista = vendas.ToList<Venda>();
             Utilizador uti = model.Utilizador.FirstOrDefault(x => x.Email.Equals(nower));
-            int size = model.Venda.Length()+3;
+            int size = model.Venda.Length() + 3;
 
             Venda vendinha = new Venda()
             {
@@ -125,7 +125,7 @@ namespace WebApplication1.Controllers
                 Imagem = ss.Imagem,
                 Email = nower,
 
-    };
+            };
 
             uti.Venda.Add(vendinha);
 
@@ -134,9 +134,9 @@ namespace WebApplication1.Controllers
             model.SaveChanges();
 
             return View(res);
-        
 
-            }
+
+        }
 
 
 
@@ -273,27 +273,58 @@ namespace WebApplication1.Controllers
             return View();
         }
 
+
+        /*public ActionResult Details(int idArtigo)
+        {
+
+            Artigo art = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(idArtigo));
+
+            var cenas = art.IdArtigo;
+
+            var comentarios = from x in model.Comentarios where (x.IdArtigo.Equals(idArtigo)) select x;
+            List<Comentarios> c = comentarios.ToList<Comentarios>();
+
+            foreach (Comentarios a in c)
+            {
+                art.Comentarios.Add(a);
+            }
+
+
+            return View(art);
+
+        }*/
         public ActionResult Details(int idArtigo)
         {
             Console.WriteLine(idArtigo);
 
             Artigo ss = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(idArtigo));
-            Helpers.CacheController.IdArtigo = idArtigo;
+
             var cenas = ss.IdArtigo;
             Console.WriteLine(cenas);
+
+            var comentarios = from x in model.Comentarios where (x.IdArtigo.Equals(idArtigo)) select x;
+            List<Comentarios> c = comentarios.ToList<Comentarios>();
+
+            foreach (Comentarios a in c)
+            {
+                ss.Comentarios.Add(a);
+            }
+
+
             return View(ss);
 
         }
+
         /**envia o pedido ao dono*/
         [HttpPost]
-        public ActionResult Details( DateTime inicio, DateTime fim)
+        public ActionResult Details(DateTime inicio, DateTime fim)
         {
             int ar = Helpers.CacheController.IdArtigo;
             Artigo ss = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(ar));
             string dono = ss.IdDono;
             Utilizador donito = model.Utilizador.FirstOrDefault(x => x.Email.Equals(dono));
 
-            int tamanho = model.Aluguer.Length() + 1; 
+            int tamanho = model.Aluguer.Length() + 1;
 
             int m = (fim - inicio).Days;
             Aluguer novo = new Aluguer()
@@ -413,7 +444,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public IActionResult NovoArtigo(List<IFormFile> file, string nome, float preco, string modo, int quantidade, string categoria, string etiquetas, string descricao)
         {
-            foreach(IFormFile cenas in file)
+            foreach (IFormFile cenas in file)
             {
                 Console.WriteLine(cenas.FileName);
             }
@@ -460,7 +491,7 @@ namespace WebApplication1.Controllers
                     Console.WriteLine("entrei no segundo ciclo.");
                     int j;
                     int count = file.Count;
-                    for(j=0; j<count; j++)
+                    for (j = 0; j < count; j++)
                     {
                         IFormFile f = file[j];
                         name = f.FileName;
@@ -476,7 +507,7 @@ namespace WebApplication1.Controllers
                         }
 
                     }
-                Console.WriteLine(fileName);
+                    Console.WriteLine(fileName);
                 }
 
                 artigo.Imagem = fileName;
@@ -528,7 +559,7 @@ namespace WebApplication1.Controllers
         {
             Aluguer u = (from alu in model.Aluguer where (alu.IdAluguer == idAluguer) select alu).ToList().ElementAt<Aluguer>(0);
             u.Estado = 2; //estado 2 para recusado
-           // model.Aluguer.Remove(u);
+                          // model.Aluguer.Remove(u);
             model.SaveChanges();
             return RedirectToAction("AluguerPedidos", "Utilizador");
         }
@@ -572,7 +603,7 @@ namespace WebApplication1.Controllers
         {
             string user = Helpers.CacheController.utilizador;
 
-            var alugueres = (from alu in model.Aluguer where (alu.IdRent == user ) select alu);
+            var alugueres = (from alu in model.Aluguer where (alu.IdRent == user) select alu);
             List<Aluguer> lista = alugueres.ToList<Aluguer>();
             List<AluguerInfo> nots = new List<AluguerInfo>();
             String tipo = " ";
@@ -585,7 +616,7 @@ namespace WebApplication1.Controllers
                     tipo = "Pendente";
 
                 }
-                else if(alug.Estado == 1)
+                else if (alug.Estado == 1)
                 {
                     tipo = "Aceite";
                 }
@@ -819,7 +850,7 @@ namespace WebApplication1.Controllers
 
         public ActionResult Alterar(int idArtigo)
         {
-          
+
             Artigo ss = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(idArtigo));
 
             Helpers.CacheController.IdArtigo = idArtigo;
@@ -881,6 +912,7 @@ namespace WebApplication1.Controllers
         /**
         * Permite vizualisar a view que permite alterar a conta Bancaria e efetua a sua mudança
         * */
+
         public ActionResult CBanc()
         {
             return View("CBanc");
@@ -1331,13 +1363,13 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        public ActionResult AlteraNome (string nome)
+        public ActionResult AlteraNome(string nome)
         {
-            
+
             int id = Helpers.CacheController.IdArtigo;
             if (ModelState.IsValid)
             {
-                
+
                 Artigo std = model.Artigo.Where(x => x.IdArtigo.Equals(id)).FirstOrDefault();
 
 
@@ -1580,11 +1612,11 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult AlteraImagem(List<IFormFile> file)
         {
-              var artigos = (from m in model.Artigo select m);
-                List<Artigo> lista = artigos.ToList<Artigo>();
-                int i = lista.Count;
+            var artigos = (from m in model.Artigo select m);
+            List<Artigo> lista = artigos.ToList<Artigo>();
+            int i = lista.Count;
 
-                i++;
+            i++;
             string fileName = "";
             string name = "";
 
@@ -1622,53 +1654,77 @@ namespace WebApplication1.Controllers
                 Console.WriteLine(fileName);
             }
             int id = Helpers.CacheController.IdArtigo;
-            
-                Artigo std = model.Artigo.Where(x => x.IdArtigo.Equals(id)).FirstOrDefault();
-               
 
-                Artigo a = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(std.IdArtigo));
-                a.Nome = std.Nome;
-                a.Preco = std.Preco;
-                a.Modo = std.Modo;
-                a.Quantidade = std.Quantidade;
-                a.Categoria = std.Categoria;
-                a.Etiquetas = std.Etiquetas;
-                a.Estado = std.Estado;
-                a.Descricao = std.Descricao;        
-                a.Imagem = fileName;
-                model.SaveChanges();
-                //model.Artigo.Update(a);
-               // model.Artigo.Add(a);
-            
+            Artigo std = model.Artigo.Where(x => x.IdArtigo.Equals(id)).FirstOrDefault();
+
+
+            Artigo a = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(std.IdArtigo));
+            a.Nome = std.Nome;
+            a.Preco = std.Preco;
+            a.Modo = std.Modo;
+            a.Quantidade = std.Quantidade;
+            a.Categoria = std.Categoria;
+            a.Etiquetas = std.Etiquetas;
+            a.Estado = std.Estado;
+            a.Descricao = std.Descricao;
+            a.Imagem = fileName;
+            model.SaveChanges();
+            //model.Artigo.Update(a);
+            // model.Artigo.Add(a);
+
             return RedirectToAction("verArtigos", "Utilizador");
         }
 
-        /*
-        //Adcionar Comentários á BD ----------------------------------------
-        public ActionResult AdicionarComentario(String coment,int idAg){
+       /* [HttpGet]
+        public IActionResult SearchComentarios(int IdArtigo)
+        {
+            var local = (from x in model.Comentarios where (x.IdArtigo == IdArtigo) select x);
+
+            List<Comentarios> list = local.ToList<Comentarios>();
+
+            return View(list);
+        }*/
+
+        [HttpPost]
+        public IActionResult SearchComentarios(int IdArtigo)
+        {
+            var local = (from x in model.Comentarios where (x.IdArtigo == IdArtigo) select x);
+
+            List<Comentarios> list = local.ToList<Comentarios>();
+
+            return View(list);
+
+        }
+
+        [HttpPost]
+        public IActionResult AddComentario(String Descricao, int IdArtigo)
+        {
             string user = Helpers.CacheController.utilizador;
-            try{
-                var comentarios = (from c in model.Comentarios select c);
-                List<Comentarios> lista = comentarios.ToList<Comentarios>();
-                int id = lista.Count + 1;
+            var comentarios = (from com in model.Comentarios where (com.IdArtigo == IdArtigo) select com);
+            List<Comentarios> lista = comentarios.ToList<Comentarios>();
+            var totalcomentarios = (from comtotal in model.Comentarios select comtotal);
+            List<Comentarios> listatotal = totalcomentarios.ToList<Comentarios>();
+            int id = listatotal.Count + 1;
 
-                Comentarios c = new Comentarios();
-                c.IdComentario = id;
-                c.Descricao = coment;
-                c.IdUtilizador = user;
-                c.IdArtigo = idAg;
+            Comentarios c = new Comentarios();
+            c.IdComentario = id;
+            c.Descricao = Descricao;
+            c.IdUtilizador = user;
+            c.IdArtigo = IdArtigo;
 
-                if (ModelState.IsValid)
-                {
-                    model.Comentarios.Add(c);
+            if (ModelState.IsValid)
+            {
+                model.Comentarios.Add(c);
 
-                    model.SaveChanges();
-                }
+                model.SaveChanges();
             }
 
-            return RedirectToAction();
+            return RedirectToAction("Details","Utilizador", new { idArtigo = IdArtigo });
         }
-        
+
+
+        /*
+         * 
         //Procurar os comentários de um utilizador qualquer-----------------------------------
         public ActionResult SearchComentarioUser(String user){
 
@@ -1680,21 +1736,26 @@ namespace WebApplication1.Controllers
             }
 
             else return RedirectToAction("ErrorSearch", "Utilizador");
-        }
+        }*/
 
-        //Procurar os comentários de um artigo qualquer-------------------------------------
+        /*
+        [HttpGet]
         public ActionResult SearchComentarioArtigo(int artigo){
 
             var local = (from x in model.Comentarios where (x.IdArtigo == artigo) select x);
             if (local.ToList().Count > 0)
             {
                 List<Artigo> list = local.ToList<Artigo>();
-                return View(list);
+
+                return PartialView("show", local.YourDbSet.ToList());
+
             }
 
             else return RedirectToAction("ErrorSearch", "Utilizador");
         }
+        */
 
+        /*
         public ActionResult AplicarDesconto(List<Venda> list, float discount){
             float num = 0.0;
 
@@ -1744,5 +1805,4 @@ namespace WebApplication1.Controllers
         }
         */
     }
-
 }

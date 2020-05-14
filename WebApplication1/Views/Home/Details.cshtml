@@ -146,11 +146,9 @@
     <div class="card-body">
         @foreach (var item in Model.Comentarios) {
         <p>@Html.DisplayFor(itemModel => item.Descricao)</p>
-        <small class="text-muted">Posted by @Html.DisplayFor(itemModel => item.IdUtilizador) on 3/1/17</small>
+        <small class="text-muted">Posted by @Html.DisplayFor(itemModel => item.IdUtilizador) </small>
         <hr>
         }
-
-        <a href="#" class="btn border-success btn-login">Leave a Review</a> <!--Leave a review doesnt work yet-->
     </div>
 </div>
 <!-- /.card -->
