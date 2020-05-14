@@ -1673,15 +1673,15 @@ namespace WebApplication1.Controllers
             return RedirectToAction("verArtigos", "Utilizador");
         }
 
-       /* [HttpGet]
-        public IActionResult SearchComentarios(int IdArtigo)
-        {
-            var local = (from x in model.Comentarios where (x.IdArtigo == IdArtigo) select x);
+        /* [HttpGet]
+         public IActionResult SearchComentarios(int IdArtigo)
+         {
+             var local = (from x in model.Comentarios where (x.IdArtigo == IdArtigo) select x);
 
-            List<Comentarios> list = local.ToList<Comentarios>();
+             List<Comentarios> list = local.ToList<Comentarios>();
 
-            return View(list);
-        }*/
+             return View(list);
+         }*/
 
         [HttpPost]
         public IActionResult SearchComentarios(int IdArtigo)
@@ -1717,8 +1717,21 @@ namespace WebApplication1.Controllers
                 model.SaveChanges();
             }
 
-            return RedirectToAction("Details","Utilizador", new { idArtigo = IdArtigo });
+            return RedirectToAction("Details", "Utilizador", new { idArtigo = IdArtigo });
         }
+
+        //[HttpPost]
+        /*  public IActionResult FiveStars(int IdArtigo)
+          {
+              Artigo art = (from x in model.Artigo where (x.IdArtigo == IdArtigo) select x);
+
+              double pontuacao = art.Pontuacao;
+
+              double newPontuacao = pontuacao + 
+
+              return RedirectToAction("Details", "Utilizador", new { idArtigo = IdArtigo });
+
+          }*/
 
 
         /*
@@ -1801,6 +1814,7 @@ namespace WebApplication1.Controllers
                 return Content(s);
             }
         }
-        */
+       */
     }
+    
 }
