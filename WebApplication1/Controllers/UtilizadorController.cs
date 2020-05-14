@@ -239,7 +239,7 @@ namespace WebApplication1.Controllers
                     Telemovel = telemovel,
                     Rua = rua,
                     NPorta = nPorta,
-                    Estado = true,
+                    Estado = 0,
                     Administrador = "admin@gmail.com",
                     CodPostal = codigoPostal
                 };
@@ -434,8 +434,10 @@ namespace WebApplication1.Controllers
                     Quantidade = quantidade,
                     Categoria = categoria,
                     Etiquetas = etiquetas,
-                    Estado = false,
+                    Estado = 0,
                     Pontuacao =0,
+                    NumeroVotos = 0,
+                    PontucaoAcumulada = 0,
                     Descricao = descricao,
                     IdDono = user,
                 };
@@ -1515,7 +1517,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        public ActionResult AlteraEstado(bool estado)
+        public ActionResult AlteraEstado(int estado)
         {
 
             int id = Helpers.CacheController.IdArtigo;

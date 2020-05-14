@@ -31,11 +31,15 @@ namespace WebApplication1.Models
         public int Quantidade { get; set; }
         public string Categoria { get; set; }
         public string Etiquetas { get; set; }
-        public bool Estado { get; set; }
+        public int Estado { get; set; }
         public string Imagem { get; set; }
         public double Pontuacao { get; set; }
         public string Descricao { get; set; }
         public string IdDono { get; set; }
+
+        public double PontucaoAcumulada { get; set; }
+
+        public int NumeroVotos { get; set; }
 
         public virtual Utilizador IdDonoNavigation { get; set; }
         public virtual ICollection<Aluguer> Aluguer { get; set; }

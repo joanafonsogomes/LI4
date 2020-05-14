@@ -10,6 +10,8 @@ namespace WebApplication1.Models
         public string IdUtilizador { get; set; }
         public int IdArtigo { get; set; }
 
+        public DateTime Data { get; set; }
+
         public virtual Artigo IdArtigoNavigation { get; set; }
         public virtual Utilizador IdUtilizadorNavigation { get; set; }
     }

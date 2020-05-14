@@ -11,6 +11,10 @@ namespace WebApplication1.Models
         public string IdDenunciado { get; set; }
         public string Administrador { get; set; }
 
+        public DateTime Data { get; set; }
+
         public virtual Administrador AdministradorNavigation { get; set; }
+
+        public virtual Utilizador IdUtilizadorNavigation { get; set; }
     }
 }
