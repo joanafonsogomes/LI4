@@ -48,10 +48,15 @@ namespace WebApplication1.Controllers
                         ViewData["User_Name"] = "Bem vindo" + userSingle.Nome;
                         //return RedirectToAction("Index", "UtilizadorSingle");
                         //   return RedirectToAction("About", "Utilizador");
+                        /*
+                        HttpCookie cookie = MyHelpers.CreateAuthorizeTicket(cliente.Id.ToString(), cliente.Role);
+                            Response.Cookies.Add(cookie);
+                            */
                         Helpers.CacheController.utilizador = userSingle.Email;
                         return RedirectToAction("Index", "Utilizador");
                     }
                     else
+
                     {
                         //ViewData["User_Name"] = "Bem vindo" + userSingle.Nome;
                         //ModelState.AddModelError("password", "Password incorreta!");
@@ -67,6 +72,10 @@ namespace WebApplication1.Controllers
                     {
 
                         //ViewData["User_Name"] = "Bem vindo";
+                        /*
+                        HttpCookie cookie = MyHelpers.CreateAuthorizeTicket(cliente.Id.ToString(), cliente.Role);
+                            Response.Cookies.Add(cookie);
+                            */
                         return RedirectToAction("Index", "Administrador");
                     }
                     else
@@ -85,7 +94,10 @@ namespace WebApplication1.Controllers
                         Utilizador utilizador = userC.ToList().ElementAt<Utilizador>(0);
                         if (string.Equals(password, utilizador.Password))
                         {
-
+                            /*
+                            HttpCookie cookie = MyHelpers.CreateAuthorizeTicket(cliente.Id.ToString(), cliente.Role);
+                            Response.Cookies.Add(cookie);
+                            */
                             ViewData["User_Name"] = "Bem vindo" + utilizador.Nome;
                             return RedirectToAction("Index", "Funcionario");
                         }

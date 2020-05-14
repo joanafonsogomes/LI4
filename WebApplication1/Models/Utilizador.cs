@@ -12,6 +12,7 @@ namespace WebApplication1.Models
             Venda = new HashSet<Venda>();
             Comentarios = new HashSet<Comentarios>();
             Voucher = new HashSet<Voucher>();
+            Denuncias = new HashSet<Denuncias>();
         }
 
         public string Email { get; set; }
@@ -22,7 +23,7 @@ namespace WebApplication1.Models
         public double Pontuacao { get; set; }
         public string Tipo { get; set; }
         public int Telemovel { get; set; }
-        public bool Estado { get; set; }
+        public int Estado { get; set; }
         public string Administrador { get; set; }
         public string CodPostal { get; set; }
 
@@ -33,6 +34,8 @@ namespace WebApplication1.Models
         public virtual ICollection<Venda> Venda { get; set; }
         public virtual ICollection<Comentarios> Comentarios { get; set; }
         public virtual ICollection<Voucher> Voucher { get; set; }
+
+        public virtual ICollection<Denuncias> Denuncias { get; set; }
 
         public int NPorta { get; internal set; }
         public string Rua { get; internal set; }

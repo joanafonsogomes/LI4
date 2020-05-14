@@ -163,6 +163,10 @@ namespace WebApplication1.Models
 
                 entity.Property(e => e.Pontuacao).HasColumnName("pontuacao");
 
+                entity.Property(e => e.PontucaoAcumulada).HasColumnName("pontucaoAcumulada");
+
+                entity.Property(e => e.NumeroVotos).HasColumnName("numeroVotos");
+
                 entity.HasOne(d => d.IdDonoNavigation)
                     .WithMany(p => p.Artigo)
                     .HasForeignKey(d => d.IdDono)
@@ -319,11 +323,21 @@ namespace WebApplication1.Models
                     .HasMaxLength(45)
                     .IsFixedLength();
 
+                entity.Property(e => e.Data)
+                    .HasColumnName("data")
+                    .HasColumnType("date");
+
                 entity.HasOne(d => d.AdministradorNavigation)
                     .WithMany(p => p.Denuncias)
                     .HasForeignKey(d => d.Administrador)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Denuncias_Administrador");
+
+                entity.HasOne(d => d.IdUtilizadorNavigation)
+                   .WithMany(p => p.Denuncias)
+                   .HasForeignKey(d => d.IdAutor)
+                   .OnDelete(DeleteBehavior.ClientSetNull)
+                   .HasConstraintName("FK_Venda_Utilizador");
             });
 
             modelBuilder.Entity<Localizacao>(entity =>
@@ -404,7 +418,7 @@ namespace WebApplication1.Models
                 entity.Property(e => e.Tipo)
                     .IsRequired()
                     .HasColumnName("tipo")
-                    .HasMaxLength(10)
+                    .HasMaxLength(45)
                     .IsFixedLength();
 
                 entity.HasOne(d => d.AdministradorNavigation)
@@ -490,7 +504,11 @@ namespace WebApplication1.Models
 
                     entity.Property(e => e.IdArtigo).HasColumnName("idArtigo");
 
-                     entity.HasOne(d => d.IdArtigoNavigation)
+                    entity.Property(e => e.Data)
+                    .HasColumnName("data")
+                    .HasColumnType("date");
+
+                    entity.HasOne(d => d.IdArtigoNavigation)
                     .WithMany(p => p.Comentarios)
                     .HasForeignKey(d => d.IdArtigo)
                     .OnDelete(DeleteBehavior.ClientSetNull)
@@ -513,12 +531,11 @@ namespace WebApplication1.Models
 
                     entity.Property(e => e.ValorOferta).HasColumnName("valorOferta");
 
-                    entity.Property(e => e.Estado).HasColumnName("estado")
-                    .HasMaxLength(45)
-                    .IsFixedLength();
+                    entity.Property(e => e.Estado).HasColumnName("estado");
 
+                    entity.Property(e => e.IdUtilizador).HasColumnName("idUtilizador").HasMaxLength(45)
+                        .IsFixedLength();
 
-                   // entity.Property(e => e.IdUtilizador).HasColumnName("idUtilizador");
                     entity.HasOne(d => d.IdUtilizadorNavigation)
                     .WithMany(p => p.Voucher)
                     .HasForeignKey(d => d.IdUtilizador)
