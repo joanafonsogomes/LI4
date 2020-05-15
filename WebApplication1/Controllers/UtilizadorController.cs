@@ -1722,18 +1722,33 @@ namespace WebApplication1.Controllers
             return RedirectToAction("Details", "Utilizador", new { idArtigo = IdArtigo });
         }
 
-        //[HttpPost]
-        /*  public IActionResult FiveStars(int IdArtigo)
+          [HttpPost]
+          public IActionResult Stars(int IdArtigo, int pont)
           {
-              Artigo art = (from x in model.Artigo where (x.IdArtigo == IdArtigo) select x);
+            Artigo art = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(IdArtigo));
+            
+            double pontuacao = art.Pontuacao;
 
-              double pontuacao = art.Pontuacao;
+            int nrVotos = art.NumeroVotos;
+            int newNrVotos = nrVotos + 1;
 
-              double newPontuacao = pontuacao + 
+            art.NumeroVotos = newNrVotos;
 
-              return RedirectToAction("Details", "Utilizador", new { idArtigo = IdArtigo });
+            double newPontuacaoAcumulada = art.PontucaoAcumulada + pont;
+            double newPontuacao = newPontuacaoAcumulada / (double)newNrVotos;
+            
+            art.Pontuacao = Math.Truncate(100 * newPontuacao) / 100; ;
+            art.PontucaoAcumulada = newPontuacaoAcumulada;
 
-          }*/
+            if (ModelState.IsValid)
+            {
+
+                model.SaveChanges();
+            }
+
+            return RedirectToAction("Details", "Utilizador", new { IdArtigo = IdArtigo });
+
+          }
 
 
         /*
