@@ -14,7 +14,27 @@
     <link href="~/css/agency.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" />
 
+    <style>
+        #myBtn {
+            display: inline-block;
+            position: fixed;
+            bottom: 20px;
+            right: 30px;
+            z-index: 99;
+            font-size: 18px;
+            border: none;
+            outline: none;
+            background-color: #4eb5f1;
+            color: #FFFFFF;
+            cursor: pointer;
+            padding: 0.3em 1.2em;
+            border-radius: 4px;
+        }
 
+            #myBtn:hover {
+                background-color: #4095c6;
+            }
+    </style>
 
     @section scripts{
 
@@ -48,9 +68,6 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand" asp-area="" asp-controller="Utilizador" asp-action="Index">
-                <img src="~/Images/rentitalllogo.png" class="col-xl-5" alt="Responsive image">
-            </a>
             <!-- Sidebar -->
             <head>
                 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -114,10 +131,8 @@
                     /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
 
                 </style>
-
             </head>
             <body>
-
                 <div id="mySidebar" class="sidebar">
                     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
                     <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Roupa" })">
@@ -169,97 +184,117 @@
                         <span>Outros</span>
                     </a>
                 </div>
-
-                <!--botõeszinhos-->
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ml-lg-auto">
-                        <li class="nav-item">
-                            <div id="main">
-                                <button class="openbtn" onclick="openNav()">☰ Categorias</button>
-                            </div>
-                        </li>
-
-                        <script>
-                            function openNav() {
-                                document.getElementById("mySidebar").style.width = "250px";
-                                document.getElementById("main").style.marginLeft = "250px";
-                            }
-
-                            function closeNav() {
-                                document.getElementById("mySidebar").style.width = "0";
-                                document.getElementById("main").style.marginLeft = "0";
-                            }
-                        </script>
-
             </body>
 
 
+            <!--botõeszinhos-->
 
 
-            <!--Search Bar-->
-            <li class="nav-item  align-items-lg-start">
-                <div class="search-container">
-                    <form asp-action="SearchArtigos" asp-controllers="Home" method="POST" enctype="multipart/form-data">
-                        <input type="text" placeholder="Search" name="search">
-                        <button type="submit"><i class="glyphicon glyphicon-search" aria-hidden="true"> </i></button>
-                    </form>
+
+            <div id="main">
+                <button class="openbtn" style="margin-left: -300px" onclick="openNav()">☰ Categorias</button>
+            </div>
+            <
+
+            <script>
+                function openNav() {
+                    document.getElementById("mySidebar").style.width = "250px";
+                    document.getElementById("main").style.marginLeft = "260px";
+                }
+
+                function closeNav() {
+                    document.getElementById("mySidebar").style.width = "0";
+                    document.getElementById("main").style.marginLeft = "0";
+                }
+            </script>
+
+
+
+            <ul class="navbar-nav ml-lg-auto">
+                <div>
+                    <a class="nav-item" asp-area="" asp-controller="Home" asp-action="Index">
+                        <img src="~/Images/rentitalllogo.png" class="col-xl-6" alt="Responsive image">
+                    </a>
                 </div>
-            </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
+                        <i class="fa fa-home"></i>
+                        Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="About">
+                        Sobre nós
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Contact">
+                        Contacto
+                    </a>
+                </li>
 
-            <li class="nav-item">
-                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
-                    <i class="fa fa-home"></i>
-                    Home
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Services</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="About">
-                    Sobre nós
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Contact">
-                    Contacto
-                </a>
-            </li>
+                <!--Right side view perfil / login etc-->
+                <li class="nav-item">
+                <li class="navbar-nav  mt-2 mt-lg-0">
+                <li class="nav-item dropdown mr-auto">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" id="Preview" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-user"></i> Perfil
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" style="        margin-top: 7px;
+                                             border-top-left-radius: 0;
+                                             border-color: #343A40;
+                                             border-top-right-radius: 0;
+                                             background-color: #f1f1f1;" aria-labelledby="Preview">
+                        <a class="dropdown-item" href="@Url.Action("Login", "Conta")">Login</a>
+                        <a class="dropdown-item" href="@Url.Action("AdicionarCliente", "Utilizador")">Registar</a>
+                    </div>
+                </li>
+                </li>
+                </li>
 
 
-            <!--Right side view perfil / login etc-->
-            <li class="nav-item"
-            <li class="navbar-nav  mt-2 mt-lg-0">
-            <li class="nav-item dropdown mr-auto">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" id="Preview" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-user"></i> Perfil
-                </a>
-                <div class="dropdown-menu dropdown-menu-right" style="        margin-top: 7px;
-                            border-top-left-radius: 0;
-                            border-color: #343A40;
-                            border-top-right-radius: 0;
-                            background-color: #343A40;" aria-labelledby="Preview">
-                    <a class="dropdown-item" href="@Url.Action("Login", "Conta")">Login</a>
-                    <a class="dropdown-item" href="@Url.Action("AdicionarCliente", "Utilizador")">Registar</a>
-                </div>
-            </li>
-            </li>
-            </li>
             </ul>
+
         </div>
+        <!--Search Bar-->
+        <div class="search-container" style="margin-right">
+            <form asp-action="SearchArtigos" asp-controllers="Home" method="POST" enctype="multipart/form-data">
+                <input type="text" placeholder="Search" name="search">
+                <button type="submit"><i class="glyphicon glyphicon-search" aria-hidden="true"> </i></button>
+            </form>
         </div>
+
     </nav>
 
-    <div class="jumbotron">
-        <!--Logo no topo da pagina-->
-        <div id="hdr-top-logo">
-            <h1>
-                <a>
-                    <img style="margin:10px auto;display:block" src="~/Images/rentitalllogo.png" />
-                </a>
-            </h1>
-        </div>
-    </div>
+    <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+
+    <script>
+        //Get the button
+        var mybutton = document.getElementById("myBtn");
+
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function () { scrollFunction() };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>
+
+
+
 
     <div class="container">
         <main role="main" class="pb-3">
