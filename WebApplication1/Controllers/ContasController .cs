@@ -3,12 +3,18 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using RestSharp;
 using Nancy.Authentication.Forms;
+using WebApplication1.Helpers;
+using WebApplication1.Models;
+using System;
+using System.Linq;
+using System.Security.Cryptography;
 
 using RestSharp;
 using Nancy.Authentication.Forms;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.Extensions.DependencyInjection;
+using System.Security.Cryptography;
 
 namespace WebApplication1.Controllers
 {
@@ -43,24 +49,27 @@ namespace WebApplication1.Controllers
                 {
 
                     Utilizador userSingle = userS.ToList().ElementAt<Utilizador>(0);
-                    if (string.Equals(password, userSingle.Password))
+                    using (MD5 md5Hash = MD5.Create())
                     {
-                        ViewData["User_Name"] = "Bem vindo" + userSingle.Nome;
-                        //return RedirectToAction("Index", "UtilizadorSingle");
-                        //   return RedirectToAction("About", "Utilizador");
-                        /*
-                        HttpCookie cookie = MyHelpers.CreateAuthorizeTicket(cliente.Id.ToString(), cliente.Role);
-                            Response.Cookies.Add(cookie);
-                            */
-                        Helpers.CacheController.utilizador = userSingle.Email;
-                        return RedirectToAction("Index", "Utilizador");
-                    }
-                    else
+                        if (MyHelpers.VerifyMd5Hash(md5Hash, password, userSingle.Password))
+                        {
+                            ViewData["User_Name"] = "Bem vindo" + userSingle.Nome;
+                            //return RedirectToAction("Index", "UtilizadorSingle");
+                            //   return RedirectToAction("About", "Utilizador");
+                            /*
+                            HttpCookie cookie = MyHelpers.CreateAuthorizeTicket(cliente.Id.ToString(), cliente.Role);
+                                Response.Cookies.Add(cookie);
+                                */
+                            Helpers.CacheController.utilizador = userSingle.Email;
+                            return RedirectToAction("Index", "Utilizador");
+                        }
+                        else
 
-                    {
-                        //ViewData["User_Name"] = "Bem vindo" + userSingle.Nome;
-                        //ModelState.AddModelError("password", "Password incorreta!");
-                        return View();
+                        {
+                            //ViewData["User_Name"] = "Bem vindo" + userSingle.Nome;
+                            ModelState.AddModelError("password", "Password incorreta!");
+                            return View();
+                        }
                     }
                 }
 
@@ -68,38 +77,17 @@ namespace WebApplication1.Controllers
                 {
                     var admin = ((from m in model.Administrador where (m.Email == email) select m)).ToList().ElementAt<Administrador>(0);
 
-                    if (string.Equals(password, admin.Password))
+                    using (MD5 md5Hash = MD5.Create())
                     {
-
-                        //ViewData["User_Name"] = "Bem vindo";
-                        /*
-                        HttpCookie cookie = MyHelpers.CreateAuthorizeTicket(cliente.Id.ToString(), cliente.Role);
-                            Response.Cookies.Add(cookie);
-                            */
-                        return RedirectToAction("Index", "Administrador");
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("password", "Password incorreta!");
-                        return View();
-                    }
-                }
-
-
-                else
-                {
-                    var userC = (from m in model.Utilizador where (m.Email == email && m.Tipo == "company") select m);
-                    if (userC.ToList().Count > 0)
-                    {
-                        Utilizador utilizador = userC.ToList().ElementAt<Utilizador>(0);
-                        if (string.Equals(password, utilizador.Password))
+                        if (MyHelpers.VerifyMd5Hash(md5Hash, password, admin.Password))
                         {
+
+                            //ViewData["User_Name"] = "Bem vindo";
                             /*
                             HttpCookie cookie = MyHelpers.CreateAuthorizeTicket(cliente.Id.ToString(), cliente.Role);
-                            Response.Cookies.Add(cookie);
-                            */
-                            ViewData["User_Name"] = "Bem vindo" + utilizador.Nome;
-                            return RedirectToAction("Index", "Funcionario");
+                                Response.Cookies.Add(cookie);
+                                */
+                            return RedirectToAction("Index", "Administrador");
                         }
                         else
                         {
@@ -107,13 +95,40 @@ namespace WebApplication1.Controllers
                             return View();
                         }
                     }
-                }
-            }
 
-            else
-            {
-                ModelState.AddModelError("", "Login data is incorrect!");
-                return View();
+                }
+                else
+                {
+                    var userC = (from m in model.Utilizador where (m.Email == email && m.Tipo == "company") select m);
+                    if (userC.ToList().Count > 0)
+                    {
+                        Utilizador utilizador = userC.ToList().ElementAt<Utilizador>(0);
+                        using (MD5 md5Hash = MD5.Create())
+                        {
+                            if (MyHelpers.VerifyMd5Hash(md5Hash, password, utilizador.Password))
+                            {
+                                /*
+                                HttpCookie cookie = MyHelpers.CreateAuthorizeTicket(cliente.Id.ToString(), cliente.Role);
+                                Response.Cookies.Add(cookie);
+                                */
+                                ViewData["User_Name"] = "Bem vindo" + utilizador.Nome;
+                                return RedirectToAction("Index", "Funcionario");
+                            }
+                            else
+                            {
+                                ModelState.AddModelError("password", "Password incorreta!");
+                                return View();
+                            }
+                        }
+                    }
+
+
+                    else
+                    {
+                        ModelState.AddModelError("", "Login data is incorrect!");
+                        return View();
+                    }
+                }
             }
 
             return View();

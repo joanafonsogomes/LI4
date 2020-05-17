@@ -11,6 +11,7 @@ using System.IO;
 using System.Web;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System.Collections.Specialized;
+using WebApplication1.Helpers;
 
 namespace WebApplication1.Controllers
 {
@@ -225,45 +226,45 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult AdicionarCliente(string email, int cc, string nome, string password, long contaBancaria, string tipo, int telemovel, string rua, int nPorta, string codigoPostal, string freguesia, string distrito)
         {
-            if (ModelState.IsValid)
+
+            Utilizador utilizador = new Utilizador()
             {
-                Utilizador utilizador = new Utilizador()
+                Email = email,
+                Cc = cc,
+                Nome = nome,
+                Password = password,
+                ContaBancaria = contaBancaria,
+                Pontuacao = 0,
+                Tipo = tipo,
+                Telemovel = telemovel,
+                Rua = rua,
+                NPorta = nPorta,
+                Estado = 0,
+                Administrador = "admin@gmail.com",
+                CodPostal = codigoPostal
+            };
+
+            var local = (from x in model.Localizacao where (x.CodigoPostal == codigoPostal) select x);
+            if (local.ToList().Count == 0)
+            {
+
+                Localizacao localizacao = new Localizacao()
                 {
-                    Email = email,
-                    Cc = cc,
-                    Nome = nome,
-                    Password = password,
-                    ContaBancaria = contaBancaria,
-                    Pontuacao = 0,
-                    Tipo = tipo,
-                    Telemovel = telemovel,
-                    Rua = rua,
-                    NPorta = nPorta,
-                    Estado = 0,
-                    Administrador = "admin@gmail.com",
-                    CodPostal = codigoPostal
+                    CodigoPostal = codigoPostal,
+                    Freguesia = freguesia,
+                    Distrito = distrito
                 };
 
-                var local = (from x in model.Localizacao where (x.CodigoPostal == codigoPostal) select x);
-                if (local.ToList().Count == 0)
-                {
+                model.Localizacao.Add(localizacao);
+            }
+            if (ModelState.IsValid)
+            {
 
-                    Localizacao localizacao = new Localizacao()
-                    {
-                        CodigoPostal = codigoPostal,
-                        Freguesia = freguesia,
-                        Distrito = distrito
-                    };
-                    model.Localizacao.Add(localizacao);
-                }
-
-
-
+                utilizador.Password = MyHelpers.HashPassword(utilizador.Password);
                 model.Utilizador.Add(utilizador);
-
                 model.SaveChanges();
             }
-
+        
 
             return RedirectToAction("Index", "Home");
         }
@@ -893,6 +894,7 @@ namespace WebApplication1.Controllers
                     l.Freguesia = esq.Freguesia;
                     l.Distrito = esq.Distrito;
 
+
                     model.SaveChanges();
                 }
 
@@ -904,8 +906,10 @@ namespace WebApplication1.Controllers
                 u.NPorta = std.NPorta;
                 u.CodPostal = std.CodPostal;
                 u.CodPostalNavigation = l;
+                u.Password = MyHelpers.HashPassword(u.Password);
                 model.SaveChanges();
             }
+            
             return RedirectToAction("VerInfo", "Utilizador");
         }
 
@@ -1722,18 +1726,33 @@ namespace WebApplication1.Controllers
             return RedirectToAction("Details", "Utilizador", new { idArtigo = IdArtigo });
         }
 
-        //[HttpPost]
-        /*  public IActionResult FiveStars(int IdArtigo)
+          [HttpPost]
+          public IActionResult Stars(int IdArtigo, int pont)
           {
-              Artigo art = (from x in model.Artigo where (x.IdArtigo == IdArtigo) select x);
+            Artigo art = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(IdArtigo));
+            
+            double pontuacao = art.Pontuacao;
 
-              double pontuacao = art.Pontuacao;
+            int nrVotos = art.NumeroVotos;
+            int newNrVotos = nrVotos + 1;
 
-              double newPontuacao = pontuacao + 
+            art.NumeroVotos = newNrVotos;
 
-              return RedirectToAction("Details", "Utilizador", new { idArtigo = IdArtigo });
+            double newPontuacaoAcumulada = art.PontucaoAcumulada + pont;
+            double newPontuacao = newPontuacaoAcumulada / (double)newNrVotos;
+            
+            art.Pontuacao = Math.Truncate(100 * newPontuacao) / 100; ;
+            art.PontucaoAcumulada = newPontuacaoAcumulada;
 
-          }*/
+            if (ModelState.IsValid)
+            {
+
+                model.SaveChanges();
+            }
+
+            return RedirectToAction("Details", "Utilizador", new { IdArtigo = IdArtigo });
+
+          }
 
 
         /*

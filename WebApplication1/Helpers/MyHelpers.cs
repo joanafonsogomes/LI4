@@ -6,21 +6,62 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
-/*
-using System.Web.security;
+
+//using System.Web.Security;
 
 
 namespace WebApplication1.Helpers
 {
     public static class MyHelpers
     {
+        /*
         public static HttpCookie CreateAuthorizeTicket(string id_user, string roles)
         {
             FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(1, id_user, DateTime.Now, DateTime.Now.AddMinutes(30), false, roles); //dados do utilizador
             HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(authTicket)); return cookie;
+        }*/
+
+
+        public static String HashPassword(string password)
+        {
+            using (MD5 md5Hash = MD5.Create())
+            {
+                string hash = GetMd5Hash(md5Hash, password);
+                return hash;
+            }
+        }
+
+        public static bool VerifyMd5Hash(MD5 md5Hash, string input, string hash)
+        {
+            string hashOfInput = GetMd5Hash(md5Hash, input);
+            StringComparer comparer = StringComparer.OrdinalIgnoreCase;
+
+            if (0 == comparer.Compare(hashOfInput, hash))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static string GetMd5Hash(MD5 md5Hash, string input)
+        {
+            byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
+            StringBuilder sBuilder = new StringBuilder();
+
+            for (int i = 0; i < data.Length; i++)
+            {
+                sBuilder.Append(data[i].ToString("x2"));
+            }
+
+            return sBuilder.ToString();
         }
     }
-    */
+}
+
+    
 
 
 
