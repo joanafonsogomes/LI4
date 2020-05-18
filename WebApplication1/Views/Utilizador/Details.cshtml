@@ -180,7 +180,7 @@
                                     <input type="date" id="fim" name="fim">
                                 </div>
                                 <div class="form-group">
-                                    <input class="btn border-success btn-login btn-outline-primary" type="submit" value="Verificar Disponibiliade">
+                                    <input class="btn border-primary btn-login btn-outline-primary" type="submit" value="Verificar Disponibiliade">
                                 </div>
 
 
@@ -225,7 +225,7 @@
                         @if (Model.Modo.Equals("venda"))
                         {
                             <a href="@Url.Action("AdicionarCarrinho", new { idArtigo = Model.IdArtigo })"
-                               class="btn border-success btn-login btn-outline-primary">Adicionar ao Carrinho</a>
+                               class="btn border-primary btn-login btn-outline-primary">Adicionar ao Carrinho</a>
                         }
 
                     </div>
@@ -254,7 +254,7 @@
                                     <input type="hidden" name="IdArtigo" value="@Model.IdArtigo" />
                                 </div>
                             </div>
-                            <input type="submit" value="Avalie o item" class="btn border-success btn-login btn-outline-primary">
+                            <input type="submit" value="Avalie o item" class="btn border-primary btn-login btn-outline-primary">
                         </form>
                     </div>
                 </div>
@@ -296,7 +296,7 @@
                         <center>
                             <div class="form-group">
                                 <div>
-                                    <input type="submit" value="Post Review" class="btn border-success btn-login btn-outline-primary" />
+                                    <input type="submit" value="Post Review" class="btn border-primary btn-outline-primary" />
                                 </div>
                             </div>
                         </center>

@@ -5,84 +5,104 @@
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
 
-<table class="table">
-    <tr>
-        <th style="text-align: center; vertical-align: middle;">
-        </th>
-        <th style="text-align:center; vertical-align:middle">
-            Nome
-        </th>
-        <th style="text-align:center; vertical-align:middle">
-            Quantidade
-        </th>
-        <th style="text-align: center; vertical-align: middle">
-            @Html.DisplayNameFor(model => model.Preco) <b> (€)</b>
-        </th>
-        <th style="text-align:center; vertical-align:middle">
-            Imagem
-        </th>
-        <th style="text-align: center; vertical-align: middle;">
-            Data de ínicio
-        </th>
-        <th style="text-align: center; vertical-align: middle;">
-            Data de fim
-        </th>
-        <th style="text-align: center; vertical-align: middle;">
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th style="text-align: center; vertical-align: middle;">
-            Pedido efetuado a
-        </th>
-
-
-    </tr>
-
-    @foreach (var item in Model)
+<!--IF THEN ELSE PARA VER SE HÁ RESPOSTAS A ALUGUERES-->
+@{ int count = 0;
+    foreach (var item in Model)
     {
-<tr>
-    <td style="color: rgb(17, 112, 158); text-align:center; vertical-align:middle; font-weight:bold">
-        <a href="@Url.Action("Details", new { idArtigo = item.IdArtigo })">@Html.DisplayFor(modelItem => item.NomeArtigo)</a>
-    </td>
-    <td style="text-align:center; vertical-align:middle">
-        @Html.DisplayFor(modelItem => item.NomeArtigo)
-    </td>
-    <td style="text-align:center; vertical-align:middle">
-        @Html.DisplayFor(modelItem => item.Quantidade)
-    </td>
-    <td style="text-align:center; vertical-align:middle">
-        @Html.DisplayFor(modelItem => item.Preco)
-    </td>
-    <td style="        width: 250px;
+        count++;
+    }
+    if (count == 0)
+    {
+        <center>
+            <b>Não existem novas respostas a pedidos de aluguer.</b>
+            <p>  </p>
+        </center>
+        <button class="btn border-primary btn-login btn-outline-primary" style=" margin:0 auto; display:block;">
+            @Html.ActionLink("Voltar a página inicial", "Index", "Utilizador")
+        </button>
+    }
+    else
+    {
+        <table class="table">
+            <tr>
+                <th style="text-align: center; vertical-align: middle;">
+                </th>
+                <th style="text-align:center; vertical-align:middle">
+                    Nome
+                </th>
+                <th style="text-align:center; vertical-align:middle">
+                    Quantidade
+                </th>
+                <th style="text-align: center; vertical-align: middle">
+                    @Html.DisplayNameFor(model => model.Preco) <b> (€)</b>
+                </th>
+                <th style="text-align:center; vertical-align:middle">
+                    Imagem
+                </th>
+                <th style="text-align: center; vertical-align: middle;">
+                    Data de ínicio
+                </th>
+                <th style="text-align: center; vertical-align: middle;">
+                    Data de fim
+                </th>
+                <th style="text-align: center; vertical-align: middle;">
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th style="text-align: center; vertical-align: middle;">
+                    Pedido efetuado a
+                </th>
+
+
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="color: rgb(17, 112, 158); text-align:center; vertical-align:middle; font-weight:bold">
+                        <a href="@Url.Action("Details", new { idArtigo = item.IdArtigo })">@Html.DisplayFor(modelItem => item.NomeArtigo)</a>
+                    </td>
+                    <td style="text-align:center; vertical-align:middle">
+                        @Html.DisplayFor(modelItem => item.NomeArtigo)
+                    </td>
+                    <td style="text-align:center; vertical-align:middle">
+                        @Html.DisplayFor(modelItem => item.Quantidade)
+                    </td>
+                    <td style="text-align:center; vertical-align:middle">
+                        @Html.DisplayFor(modelItem => item.Preco)
+                    </td>
+                    <td style="        width: 250px;
         height: 250px;
         text-align: center;
         vertical-align: middle
 ">
-        <div class="w3-content w3-display-container">
+                        <div class="w3-content w3-display-container">
 
-            @{var fileName = @item.Imagem;
-                String[] words = fileName.Split(" ");
-                String itempic = words[0];
-            }
-            <img class="card-img-top" src="~/uploads/@itempic" alt="" style="max-width:250px ; max-height:250px">
+                            @{var fileName = @item.Imagem;
+                                String[] words = fileName.Split(" ");
+                                String itempic = words[0];
+                            }
+                            <img class="card-img-top" src="~/uploads/@itempic" alt="" style="max-width:250px ; max-height:250px">
 
-        </div>
-    </td>
-        <td style="text-align:center; vertical-align:middle">
-            @Html.DisplayFor(modelItem => item.DataInicio)
-        </td>
-        <td style="text-align:center; vertical-align:middle">
-            @Html.DisplayFor(modelItem => item.DataFim)
-        </td>
-        <td style="text-align:center; vertical-align:middle">
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td style="text-align:center; vertical-align:middle">
-            @Html.DisplayFor(modelItem => item.Nome)
-        </td>
-        </tr>
-     }
-</table>
+                        </div>
+                    </td>
+                    <td style="text-align:center; vertical-align:middle">
+                        @Html.DisplayFor(modelItem => item.DataInicio)
+                    </td>
+                    <td style="text-align:center; vertical-align:middle">
+                        @Html.DisplayFor(modelItem => item.DataFim)
+                    </td>
+                    <td style="text-align:center; vertical-align:middle">
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td style="text-align:center; vertical-align:middle">
+                        @Html.DisplayFor(modelItem => item.Nome)
+                    </td>
+                </tr>
+                                }
+        </table>
 
-<p></p>
-<p></p>
-<p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+    }
+}

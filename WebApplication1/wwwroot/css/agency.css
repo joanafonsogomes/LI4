@@ -2317,6 +2317,13 @@ tbody tr {
     border-radius: 2rem;
 }
 
+.btn-login-large {
+    font-size: 1.5rem;
+    letter-spacing: 0.05rem;
+    padding: 1.00rem 1.5rem;
+    border-radius: 4rem;
+}
+
 .form-label-group {
     position: relative;
     margin-bottom: 1rem;
