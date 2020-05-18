@@ -263,7 +263,7 @@
                         @foreach (var item in Model.Comentarios)
                         {
                             <p>@Html.DisplayFor(itemModel => item.Descricao)</p>
-                            <small class="text-muted">Posted by @Html.DisplayFor(itemModel => item.IdUtilizador)</small>
+                            <small class="text-muted">Posted by @Html.DisplayFor(itemModel => item.IdUtilizador) em @Html.DisplayFor(itemModel => item.Data)</small>
                             <hr>
                         }
                     </div>
