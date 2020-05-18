@@ -14,9 +14,9 @@
     if (count == 0)
     {
         <center>
-            <b>Não existem novas respostas a pedidos de aluguer.</b>
-            <p>  </p>
+            <p style=" font-family: 'Montserrat'; font-weight: bold ">Não existem novas respostas a pedidos de aluguer.</p>
         </center>
+        <p> </p>
         <button class="btn border-primary btn-login btn-outline-primary" style=" margin:0 auto; display:block;">
             @Html.ActionLink("Voltar a página inicial", "Index", "Utilizador")
         </button>
@@ -98,7 +98,7 @@
                         @Html.DisplayFor(modelItem => item.Nome)
                     </td>
                 </tr>
-                                }
+            }
         </table>
 
         <p></p>

@@ -44,47 +44,15 @@
             padding: 0;
         }
 
-        .pont {
-            float: left;
-            height: 46px;
-            padding: 0 10px;
+        .buttonStar {
+            color : #168AFF;
         }
 
-            .pont:not(:checked) > input {
-                position: absolute;
-                top: -9999px;
-            }
+        .buttonStar:hover {
+            color : #75BAFF;
+            transform: rotate(-15deg) scale(1.2); }
+        }
 
-            .pont:not(:checked) > label {
-                float: right;
-                width: 1em;
-                overflow: hidden;
-                white-space: nowrap;
-                cursor: pointer;
-                font-size: 30px;
-                color: #ccc;
-            }
-
-            .pont:not(:checked) > label:before {
-                content: '★ ';
-            }
-
-            .pont > input:checked ~ label {
-                color: #ffc700;
-            }
-
-            .pont:not(:checked) > label:hover,
-            .pont:not(:checked) > label:hover ~ label {
-                color: #deb217;
-            }
-
-            .pont > input:checked + label:hover,
-            .pont > input:checked + label:hover ~ label,
-            .pont > input:checked ~ label:hover,
-            .pont > input:checked ~ label:hover ~ label,
-            .pont > label:hover ~ input:checked ~ label {
-                color: #c59b08;
-            }
     </style>
 
 
@@ -180,7 +148,7 @@
                                     <input type="date" id="fim" name="fim">
                                 </div>
                                 <div class="form-group">
-                                    <input class="btn border-primary btn-login btn-outline-primary" type="submit" value="Verificar Disponibiliade">
+                                    <input class="btn border-primary btn-login btn-outline-primary" type="submit" value="Verificar Disponibilidade">
                                 </div>
 
 
@@ -194,32 +162,6 @@
 
                         }
                         <p class="card-text">@Html.DisplayFor(modelItem => Model.Descricao)</p>
-                        @{ if (0 <= Model.Pontuacao && Model.Pontuacao < 1)
-                            {
-                                <span class="text-warning">&#9734; &#9734; &#9734; &#9734; &#9734;</span>
-                            }
-                            else if (1 <= Model.Pontuacao && Model.Pontuacao < 2)
-                            {
-                                <span class="text-warning">&#9733; &#9734; &#9734; &#9734; &#9734;</span>
-                            }
-                            else if (2 <= Model.Pontuacao && Model.Pontuacao < 3)
-                            {
-                                <span class="text-warning">&#9733; &#9733; &#9734; &#9734; &#9734;</span>
-                            }
-                            else if (3 <= Model.Pontuacao && Model.Pontuacao < 4)
-                            {
-                                <span class="text-warning">&#9733; &#9733; &#9733; &#9734; &#9734;</span>
-                            }
-                            else if (4 <= Model.Pontuacao && Model.Pontuacao < 5)
-                            {
-                                <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
-                            }
-                            else if (Model.Pontuacao == 5)
-                            {
-                                <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9733;</span>
-                            }
-                        }
-                        @Model.Pontuacao stars  
 
                         <br />
                         @if (Model.Modo.Equals("venda"))
@@ -232,30 +174,82 @@
                 </div>
 
                 <div class="card card-outline-secondary my-4">
+                    <div class="card-header">
+                        Deixe uma avaliação ao produto
+                    </div>
                     <!--STAR PONTUATION-->
                     <div class="card-body">
-                        <form asp-action="Stars" asp-controllers="Utilizador" method="POST" enctype="multipart/form-data">
-                            <div class="pont">
-                                <input type="radio" id="star5" name="pont" value="5"/>
-                                <label for="star5" title="Five">5 stars</label>
-                                <input type="radio" id="star4" name="pont" value="4" />
-                                <label for="star4" title="Four">4 stars</label>
-                                <input type="radio" id="star3" name="pont" value="3" />
-                                <label for="star3" title="Three">3 stars</label>
-                                <input type="radio" id="star2" name="pont" value="2" />
-                                <label for="star2" title="Two">2 stars</label>
-                                <input type="radio" id="star1" name="pont" value="1" />
-                                <label for="star1" title="One">1 star</label>
-                            </div>
-                            <br />
-                            <div class="form-group">
-                                <label for="IdArtigo"></label>
-                                <div>
+                        @{ if (0 <= Model.Pontuacao && Model.Pontuacao < 1)
+                            {
+                                <form asp-action="Stars" asp-controllers="Utilizador" method="POST" enctype="multipart/form-data">
                                     <input type="hidden" name="IdArtigo" value="@Model.IdArtigo" />
-                                </div>
-                            </div>
-                            <input type="submit" value="Avalie o item" class="btn border-primary btn-login btn-outline-primary">
-                        </form>
+                                    <button class="buttonStar" style="background-color: Transparent; border:none; font-size:30px" type="submit" name="pont" value="1">&#9734;</button>
+                                    <button class="buttonStar" style=" background-color: Transparent; border: none; font-size: 30px" type="submit" name="pont" value="2">
+                                        &#9734;
+                                    </button>
+                                    <button class="buttonStar" style="background-color: Transparent; border:none; font-size:30px" type="submit" name="pont" value="3">&#9734;</button>
+                                    <button class="buttonStar" style="background-color: Transparent; border:none; font-size:30px" type="submit" name="pont" value="4">&#9734;</button>
+                                    <button class="buttonStar" style="background-color: Transparent; border:none; font-size:30px" type="submit" name="pont" value="5">&#9734;</button>
+                                </form>
+                            }
+                            else if (1 <= Model.Pontuacao && Model.Pontuacao < 2)
+                            {
+                                <form asp-action="Stars" asp-controllers="Utilizador" method="POST" enctype="multipart/form-data">
+                                    <input type="hidden" name="IdArtigo" value="@Model.IdArtigo" />
+                                    <button class="buttonStar" style="background-color: Transparent; border:none; font-size:30px" type="submit" name="pont" value="1">&#9733;</button>
+                                    <button class="buttonStar" style="background-color: Transparent; border: none; font-size: 30px" type="submit" name="pont" value="2">&#9734;</button>
+                                    <button class="buttonStar" style="background-color: Transparent; border:none; font-size:30px" type="submit" name="pont" value="3">&#9734;</button>
+                                    <button class="buttonStar" style="background-color: Transparent; border:none; font-size:30px" type="submit" name="pont" value="4">&#9734;</button>
+                                    <button class="buttonStar" style="background-color: Transparent; border:none; font-size:30px" type="submit" name="pont" value="5">&#9734;</button>
+                                </form>
+                            }
+                            else if (2 <= Model.Pontuacao && Model.Pontuacao < 3)
+                            {
+                                <form asp-action="Stars" asp-controllers="Utilizador" method="POST" enctype="multipart/form-data">
+                                    <input type="hidden" name="IdArtigo" value="@Model.IdArtigo" />
+                                    <button class="buttonStar" style="background-color: Transparent; border:none; font-size:30px" type="submit" name="pont" value="1">&#9733;</button>
+                                    <button class="buttonStar" style="background-color: Transparent; border: none; font-size: 30px" type="submit" name="pont" value="2">&#9733;</button>
+                                    <button class="buttonStar" style="background-color: Transparent; border:none; font-size:30px" type="submit" name="pont" value="3">&#9734;</button>
+                                    <button class="buttonStar" style="background-color: Transparent; border:none; font-size:30px" type="submit" name="pont" value="4">&#9734;</button>
+                                    <button class="buttonStar" style="background-color: Transparent; border:none; font-size:30px" type="submit" name="pont" value="5">&#9734;</button>
+                                </form>
+                            }
+                            else if (3 <= Model.Pontuacao && Model.Pontuacao < 4)
+                            {
+                                <form asp-action="Stars" asp-controllers="Utilizador" method="POST" enctype="multipart/form-data">
+                                    <input type="hidden" name="IdArtigo" value="@Model.IdArtigo" />
+                                    <button class="buttonStar" style="background-color: Transparent; border:none; font-size:30px" type="submit" name="pont" value="1">&#9733;</button>
+                                    <button class="buttonStar" style="background-color: Transparent; border: none; font-size: 30px" type="submit" name="pont" value="2">&#9733;</button>
+                                    <button class="buttonStar" style="background-color: Transparent; border:none; font-size:30px" type="submit" name="pont" value="3">&#9733;</button>
+                                    <button class="buttonStar" style="background-color: Transparent; border:none; font-size:30px" type="submit" name="pont" value="4">&#9734;</button>
+                                    <button class="buttonStar" style="background-color: Transparent; border:none; font-size:30px" type="submit" name="pont" value="5">&#9734;</button>
+                                </form>
+                            }
+                            else if (4 <= Model.Pontuacao && Model.Pontuacao < 5)
+                            {
+                                <form asp-action="Stars" asp-controllers="Utilizador" method="POST" enctype="multipart/form-data">
+                                    <input type="hidden" name="IdArtigo" value="@Model.IdArtigo" />
+                                    <button class="buttonStar" style="background-color: Transparent; border:none; font-size:30px" type="submit" name="pont" value="1">&#9733;</button>
+                                    <button class="buttonStar" style="background-color: Transparent; border: none; font-size: 30px" type="submit" name="pont" value="2">&#9733;</button>
+                                    <button class="buttonStar" style="background-color: Transparent; border:none; font-size:30px" type="submit" name="pont" value="3">&#9733;</button>
+                                    <button class="buttonStar" style="background-color: Transparent; border:none; font-size:30px" type="submit" name="pont" value="4">&#9733;</button>
+                                    <button class="buttonStar" style="background-color: Transparent; border:none; font-size:30px" type="submit" name="pont" value="5">&#9734;</button>
+                                </form>
+                            }
+                            else if (Model.Pontuacao == 5)
+                            {
+                                <form asp-action="Stars" asp-controllers="Utilizador" method="POST" enctype="multipart/form-data">
+                                    <input type="hidden" name="IdArtigo" value="@Model.IdArtigo" />
+                                    <button class="buttonStar" style="background-color: Transparent; border:none; font-size:30px" type="submit" name="pont" value="1">&#9733;</button>
+                                    <button class="buttonStar" style="background-color: Transparent; border: none; font-size: 30px" type="submit" name="pont" value="2">&#9733;</button>
+                                    <button class="buttonStar" style="background-color: Transparent; border:none; font-size:30px" type="submit" name="pont" value="3">&#9733;</button>
+                                    <button class="buttonStar" style="background-color: Transparent; border:none; font-size:30px" type="submit" name="pont" value="4">&#9733;</button>
+                                    <button class="buttonStar" style="background-color: Transparent; border:none; font-size:30px" type="submit" name="pont" value="5">&#9733;</button>
+                                </form>
+                            }
+                        }
+
+                        <small><p>Pontuação atual: @Model.Pontuacao stars</p></small>
                     </div>
                 </div>
                 <!--.................-->
@@ -296,7 +290,7 @@
                         <center>
                             <div class="form-group">
                                 <div>
-                                    <input type="submit" value="Post Review" class="btn border-primary btn-outline-primary" />
+                                    <input type="submit" value="Post Review" class="btn border-primary btn-login btn-outline-primary" />
                                 </div>
                             </div>
                         </center>

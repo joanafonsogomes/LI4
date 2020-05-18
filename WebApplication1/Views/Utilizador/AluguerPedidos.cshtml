@@ -13,97 +13,97 @@
     }
     if (count == 0)
     {
-<center>
-    <b>Não existem novos pedidos de aluguer.</b>
-    <p>  </p>
-</center>
-<button class="btn border-primary btn-login btn-outline-primary" style=" margin:0 auto; display:block;">
-    @Html.ActionLink("Voltar a página inicial", "Index", "Utilizador")
-</button>
+        <center>
+            <p style=" font-family: 'Montserrat'; font-weight: bold ">Não existem novos pedidos de aluguer.</p>
+        </center>
+        <p> </p>
+        <button class="btn border-primary btn-login btn-outline-primary" style=" margin:0 auto; display:block;">
+            @Html.ActionLink("Voltar a página inicial", "Index", "Utilizador")
+        </button>
     }
     else
     {
-<table class="table">
-    <tr>
-        <th style="text-align:center; vertical-align:middle">
-            Nome
-        </th>
-        <th style="text-align:center; vertical-align:middle">
-            @Html.DisplayNameFor(model => model.Quantidade) <h6><b>de artigos</b></h6>
-        </th>
-        <th style="text-align: center; vertical-align: middle">
-            @Html.DisplayNameFor(model => model.Preco) <h6><b>(€)</b></h6>
-        </th>
-        <th style="text-align:center; vertical-align:middle">
-            Artigo
-        </th>
-        <th style="text-align: center; vertical-align: middle;">
-            @Html.DisplayNameFor(model => model.DataInicio)
-        </th>
-        <th style="text-align: center; vertical-align: middle;">
-            @Html.DisplayNameFor(model => model.DataFim)
-        </th>
-        <th style="text-align: center; vertical-align: middle;">
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th style="text-align: center; vertical-align: middle;">
-            @Html.DisplayNameFor(model => model.Nome)
-        </th>
+        <table class="table">
+            <tr>
+                <th style="text-align:center; vertical-align:middle">
+                    Nome
+                </th>
+                <th style="text-align:center; vertical-align:middle">
+                    @Html.DisplayNameFor(model => model.Quantidade) <h6><b>de artigos</b></h6>
+                </th>
+                <th style="text-align: center; vertical-align: middle">
+                    @Html.DisplayNameFor(model => model.Preco) <h6><b>(€)</b></h6>
+                </th>
+                <th style="text-align:center; vertical-align:middle">
+                    Artigo
+                </th>
+                <th style="text-align: center; vertical-align: middle;">
+                    @Html.DisplayNameFor(model => model.DataInicio)
+                </th>
+                <th style="text-align: center; vertical-align: middle;">
+                    @Html.DisplayNameFor(model => model.DataFim)
+                </th>
+                <th style="text-align: center; vertical-align: middle;">
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th style="text-align: center; vertical-align: middle;">
+                    @Html.DisplayNameFor(model => model.Nome)
+                </th>
 
 
-    </tr>
+            </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td style="text-align:center; vertical-align:middle; font-weight:bold">
-                <a href="@Url.Action("Details", new { idArtigo = item.IdArtigo })">@Html.DisplayFor(modelItem => item.NomeArtigo)</a>
-            </td>
-            <td style="text-align:center; vertical-align:middle">
-                @Html.DisplayFor(modelItem => item.Quantidade)
-            </td>
-            <td style="text-align:center; vertical-align:middle">
-                @Html.DisplayFor(modelItem => item.Preco)
-            </td>
-            <td style="        width: 250px;
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="text-align:center; vertical-align:middle; font-weight:bold">
+                        <a href="@Url.Action("Details", new { idArtigo = item.IdArtigo })">@Html.DisplayFor(modelItem => item.NomeArtigo)</a>
+                    </td>
+                    <td style="text-align:center; vertical-align:middle">
+                        @Html.DisplayFor(modelItem => item.Quantidade)
+                    </td>
+                    <td style="text-align:center; vertical-align:middle">
+                        @Html.DisplayFor(modelItem => item.Preco)
+                    </td>
+                    <td style="        width: 250px;
         height: 250px;
         text-align: center;
         vertical-align: middle
 ">
-                <div class="w3-content w3-display-container">
+                        <div class="w3-content w3-display-container">
 
-                    @{var fileName = @item.Imagem;
-                        String[] words = fileName.Split(" ");
-                        String itempic = words[0];
-                    }
-                    <img class="card-img-top" src="~/uploads/@itempic" alt="" style="max-width:250px ; max-height:250px">
+                            @{var fileName = @item.Imagem;
+                                String[] words = fileName.Split(" ");
+                                String itempic = words[0];
+                            }
+                            <img class="card-img-top" src="~/uploads/@itempic" alt="" style="max-width:250px ; max-height:250px">
 
-                </div>
-            </td>
-            <td style="text-align: center; vertical-align: middle">
-                @Html.DisplayFor(modelItem => item.DataInicio)
-            </td>
-            <td style="text-align:center; vertical-align:middle">
-                @Html.DisplayFor(modelItem => item.DataFim)
-            </td>
-            <td style="text-align:center; vertical-align:middle">
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td style="text-align:center; vertical-align:middle">
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            <td style="text-align:center; vertical-align:middle">
-                @Html.ActionLink("Aceitar", "Aceitar", "Utilizador", new { idAluguer = item.IdAluguer }, null)
-                <p></p>
-                @Html.ActionLink("Recusar", "Recusar", "Utilizador", new { idAluguer = item.IdAluguer }, null)
-            </td>
-        </tr>
+                        </div>
+                    </td>
+                    <td style="text-align: center; vertical-align: middle">
+                        @Html.DisplayFor(modelItem => item.DataInicio)
+                    </td>
+                    <td style="text-align:center; vertical-align:middle">
+                        @Html.DisplayFor(modelItem => item.DataFim)
+                    </td>
+                    <td style="text-align:center; vertical-align:middle">
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td style="text-align:center; vertical-align:middle">
+                        @Html.DisplayFor(modelItem => item.Nome)
+                    </td>
+                    <td style="text-align:center; vertical-align:middle">
+                        @Html.ActionLink("Aceitar", "Aceitar", "Utilizador", new { idAluguer = item.IdAluguer }, null)
+                        <p></p>
+                        @Html.ActionLink("Recusar", "Recusar", "Utilizador", new { idAluguer = item.IdAluguer }, null)
+                    </td>
+                </tr>
 
-                        }
-</table>
+            }
+        </table>
 
-<p></p>
-<p></p>
-<p></p>
+        <p></p>
+        <p></p>
+        <p></p>
     }
 }
