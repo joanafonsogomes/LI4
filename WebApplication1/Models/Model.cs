@@ -421,6 +421,8 @@ namespace WebApplication1.Models
                     .HasMaxLength(45)
                     .IsFixedLength();
 
+                entity.Property(e => e.Notificacoes).HasColumnName("Notificacoes");
+
                 entity.HasOne(d => d.AdministradorNavigation)
                     .WithMany(p => p.Utilizador)
                     .HasForeignKey(d => d.Administrador)

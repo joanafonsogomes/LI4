@@ -27,6 +27,8 @@ namespace WebApplication1.Models
         public string Administrador { get; set; }
         public string CodPostal { get; set; }
 
+        public int Notificacoes { get; set; }
+
         public virtual Administrador AdministradorNavigation { get; set; }
         public virtual Localizacao CodPostalNavigation { get; set; }
         public virtual ICollection<Aluguer> Aluguer { get; set; }
