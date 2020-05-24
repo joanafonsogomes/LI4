@@ -5,6 +5,28 @@
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
 
+
+    <head>
+        <head>
+            @section NotId {
+                <li>
+                    <a href="@Url.Action("AluguerInfo", "Utilizador")">
+                        <span class="glyphicon glyphicon-bell "></span>
+                        Notificações
+                        @{
+                            int n = (int)@ViewData["noti"];
+                            if (n > 0)
+                            {
+
+                                <span class="badge">@n</span>
+                            }
+                        }
+                    </a>
+                </li>
+            }
+        </head>
+    </head>
+
 <!--IF THEN ELSE PARA SE O CARRINHO ESTIVER VAZIO-->
 @{int count = 0; double totalPrice = 0; int index = 0; double precoCupao = 0; 
 

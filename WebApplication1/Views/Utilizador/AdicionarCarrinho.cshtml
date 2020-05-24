@@ -3,15 +3,36 @@
 @{
     ViewBag.Title = "AdicionarCarrinho";
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+
+    string str = (string)@ViewData["User_Name"];
 }
 
-    <center>
-        <p>
-            <b>O produto foi adicionado ao seu Carrinho de Compras com sucesso!</b>
-        </p>
-        <p>    </p>
-        <p>    </p>
-    </center>
+
+    <head>
+        @section NotId {
+            <li>
+                <a href="@Url.Action("AluguerInfo", "Utilizador")">
+                    <span class="glyphicon glyphicon-bell "></span>
+                    Notificações
+                    @{
+                        int n = (int)@ViewData["noti"];
+                        if (n > 0)
+                        {
+
+                            <span class="badge">@n</span>
+                        }
+                    }
+                </a>
+            </li>
+        }
+    </head>
+<center>
+    <p>
+        <b>O produto foi adicionado ao seu Carrinho de Compras com sucesso!</b>
+    </p>
+    <p>    </p>
+    <p>    </p>
+</center>
 
 <table class="table">
     <tr>
@@ -34,7 +55,7 @@
     <tr>
         <td style="text-align:center; vertical-align:middle; font-weight:bold">
             @{String nome = Model.NomeArtigo;
-            Console.Write("olhonome:" + nome); }
+                Console.Write("olhonome:" + nome); }
             <a href="@Url.Action("Details", "Utilizador", new { idArtigo = Model.IdArtigo })"> @nome </a>
         </td>
         <td style="text-align:center; vertical-align:middle">
@@ -61,7 +82,7 @@
 <p></p>
 <p></p>
 <button style=" margin:0 auto; display:block;">
-@Html.ActionLink("Ver Carrinho", "VendaInfo", "Utilizador", new { idVenda = Model.IdVenda }, null)
+    @Html.ActionLink("Ver Carrinho", "VendaInfo", "Utilizador", new { idVenda = Model.IdVenda }, null)
 </button>
 <p></p>
 <button style=" margin:0 auto; display:block;">

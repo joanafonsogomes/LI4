@@ -52,29 +52,29 @@
 
                             foreach (string s in words)
                             {
-                        <center>
-                            <img class="mySlides-@idd" src="~/uploads/@s" style="max-width:250px ; max-height:250px ; display: none" />
-                        </center>
-                        if (i == count)
-                        {
-                            break;
-                        }
-                        i++;
-                    }
-                    string slides = "mySlides-" + idd;
-                    var cenas = slides;
-                    string scr = "script-" + idd;
-                    var scri = scr;
+                                <center>
+                                    <img class="mySlides-@idd" src="~/uploads/@s" style="max-width:250px ; max-height:250px ; display: none" />
+                                </center>
+                                if (i == count)
+                                {
+                                    break;
+                                }
+                                i++;
+                            }
+                            string slides = "mySlides-" + idd;
+                            var cenas = slides;
+                            string scr = "script-" + idd;
+                            var scri = scr;
 
-                    if (words.Length() > 1)
-                    {
-                        <center>
-                            <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
-                            <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
-                        </center>
-                    }
+                            if (words.Length() > 1)
+                            {
+                                <center>
+                                    <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
+                                    <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
+                                </center>
+                            }
 
-                    <script name="script-@idd" type="text/javascript">
+                            <script name="script-@idd" type="text/javascript">
                         var slideIndex = 1;
                         showDivs(slideIndex);
 
@@ -94,10 +94,10 @@
                             }
 
 
-                    </script>
+                            </script>
 
-}
-</div>
+                        }
+                    </div>
                     <div class="card-body">
                         <h3 class="card-title">@Html.DisplayFor(modelItem => Model.Nome)</h3>
                         <h4>@Html.DisplayFor(modelItem => Model.Preco) €</h4>
@@ -143,25 +143,34 @@
                         }
                         <br />
                         <small>@Model.Pontuacao stars</small>
+                        @{ if (Model.NumeroVotos == 0)
+                            {
+                                <small><i>(Ainda sem reviews.)</i></small>
+                            } }
+
                     </div>
-</div>
-<!-- /.card -->
+                </div>
+                <!-- /.card -->
+                @{ if (Model.Comentarios.Count != 0)
+                    {
+                <div class="card card-outline-secondary my-4">
+                    <div class="card-header">
+                        Product Reviews
+                    </div>
+                    <div class="card-body">
+                        @foreach (var item in Model.Comentarios)
+                        {
+                            <p>@Html.DisplayFor(itemModel => item.Descricao)</p>
+                            <small class="text-muted"> Postado por @Html.DisplayFor(itemModel => item.IdUtilizador) em @Html.DisplayFor(itemModel => item.Data) </small>
+                            <hr>
+                        }
+                    </div>
+                </div>
+                        }
+                    }
+                <!-- /.card -->
 
-<div class="card card-outline-secondary my-4">
-    <div class="card-header">
-        Product Reviews
-    </div>
-    <div class="card-body">
-        @foreach (var item in Model.Comentarios) {
-        <p>@Html.DisplayFor(itemModel => item.Descricao)</p>
-        <small class="text-muted"> Postado por @Html.DisplayFor(itemModel => item.IdUtilizador) em @Html.DisplayFor(itemModel => item.Data) </small>
-        <hr>
-        }
-    </div>
-</div>
-<!-- /.card -->
-
-</div>
+            </div>
 <!-- /.col-lg-9 -->
 
 </div>

@@ -2,8 +2,29 @@
 
 @{
     ViewBag.Title = "Search";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
+
+    <head>
+        <head>
+            @section NotId {
+                <li>
+                    <a href="@Url.Action("AluguerInfo", "Utilizador")">
+                        <span class="glyphicon glyphicon-bell "></span>
+                        Notificações
+                        @{
+                            int n = (int)@ViewData["noti"];
+                            if (n > 0)
+                            {
+
+                                <span class="badge">@n</span>
+                            }
+                        }
+                    </a>
+                </li>
+            }
+        </head>
+    </head>
 
 <!-- Page Content -->
 <div class="container">

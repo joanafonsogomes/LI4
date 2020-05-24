@@ -15,6 +15,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.Extensions.DependencyInjection;
 using System.Security.Cryptography;
+using System.Security.Claims;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 
 namespace WebApplication1.Controllers
 {
@@ -37,6 +41,11 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult Login(string email, string password)
         {
+            if (!Response.Cookies.Equals("CookieMonster"))
+            {
+                Helpers.CacheController.utilizador = email;
+                return RedirectToAction("Index", "Utilizador");
+            }
 
             DefaultController.Utilizador = new Utilizador();
             DefaultController.Utilizador.Password = password;
@@ -53,13 +62,16 @@ namespace WebApplication1.Controllers
                     {
                         if (MyHelpers.VerifyMd5Hash(md5Hash, password, userSingle.Password))
                         {
-                            ViewData["User_Name"] = "Bem vindo" + userSingle.Nome;
-                            //return RedirectToAction("Index", "UtilizadorSingle");
-                            //   return RedirectToAction("About", "Utilizador");
-                            /*
-                            HttpCookie cookie = MyHelpers.CreateAuthorizeTicket(cliente.Id.ToString(), cliente.Role);
-                                Response.Cookies.Add(cookie);
-                                */
+                            var claims = new List<Claim>
+                            {
+                                new Claim(ClaimTypes.Name,email)
+                            };
+
+                            var identety = new ClaimsIdentity(
+                                   claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                            var principal = new ClaimsPrincipal(identety);
+                            var props = new AuthenticationProperties();
+                            HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, props).Wait();
                             Helpers.CacheController.utilizador = userSingle.Email;
                             return RedirectToAction("Index", "Utilizador");
                         }

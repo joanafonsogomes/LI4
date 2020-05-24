@@ -12,6 +12,7 @@ using System.Web;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System.Collections.Specialized;
 using WebApplication1.Helpers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplication1.Controllers
 {
@@ -28,11 +29,17 @@ namespace WebApplication1.Controllers
             _environment = environment;
         }
 
-
         public ActionResult Index()
         {
             var local = (from x in model.Artigo select x);
             List<Artigo> res = local.ToList<Artigo>();
+
+            string user = Helpers.CacheController.utilizador;
+            Utilizador u = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+            int notifications = u.Notificacoes;
+
+            ViewData["noti"] = notifications;
+
             return View(res);
         }
 
@@ -53,6 +60,12 @@ namespace WebApplication1.Controllers
         {
             ViewBag.Message = "Descrição da página.";
 
+            string user = Helpers.CacheController.utilizador;
+            Utilizador u = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+            int notifications = u.Notificacoes;
+
+            ViewData["noti"] = notifications;
+
             return View();
         }
 
@@ -64,6 +77,12 @@ namespace WebApplication1.Controllers
 
         public IActionResult ErrorSearch()
         {
+            string user = Helpers.CacheController.utilizador;
+            Utilizador u = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+            int notifications = u.Notificacoes;
+
+            ViewData["noti"] = notifications;
+
             return View();
         }
 
@@ -74,14 +93,19 @@ namespace WebApplication1.Controllers
             Utilizador std = model.Utilizador.Where(x => x.Email.Equals(uti)).FirstOrDefault();
 
             var vouchers = from alu in model.Voucher where (alu.IdUtilizador.Equals(uti)) select alu;
-            /**
+            
             List<Voucher> v = vouchers.ToList<Voucher>();
 
             foreach (Voucher a in v)
             {
                 std.Voucher.Add(a);
             }
-            */
+
+            string user = Helpers.CacheController.utilizador;
+            Utilizador u = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+            int notifications = u.Notificacoes;
+
+            ViewData["noti"] = notifications;
 
             return View(std);
         }
@@ -100,11 +124,19 @@ namespace WebApplication1.Controllers
             var vendas = (from vend in model.Venda where (vend.IdRent == nower && vend.Estado == 0) select vend);
             List<Venda> lista = vendas.ToList<Venda>();
             Utilizador uti = model.Utilizador.FirstOrDefault(x => x.Email.Equals(nower));
-            int size = model.Venda.Length() + 3;
+
+            List<int> indexes = new List<int>();
+
+            foreach (Venda v in lista)
+            {
+                indexes.Add(v.IdVenda);
+            }
+
+            int tamanho = (indexes.Max()) + 1;
 
             Venda vendinha = new Venda()
             {
-                IdVenda = size,
+                IdVenda = tamanho,
                 IdArtigo = ss.IdArtigo,
                 IdUtilizador = ss.IdDono,
                 Preco = ss.Preco,
@@ -134,13 +166,16 @@ namespace WebApplication1.Controllers
             model.Venda.Add(vendinha);
             model.SaveChanges();
 
+            string user = Helpers.CacheController.utilizador;
+            Utilizador u = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+            int notifications = u.Notificacoes;
+
+            ViewData["noti"] = notifications;
+
             return View(res);
 
 
         }
-
-
-
 
         public ActionResult MaiorClassificacao()
         {
@@ -164,10 +199,16 @@ namespace WebApplication1.Controllers
                 mp = mp.OrderBy(p => p.Value).Reverse().ToDictionary(p => p.Key, p => p.Value);
             }
             List<Artigo> res2 = mp.Keys.ToList();
+
+            string user = Helpers.CacheController.utilizador;
+            Utilizador u = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+            int notifications = u.Notificacoes;
+
+            ViewData["noti"] = notifications;
+
             return View(res2);
 
         }
-
 
         public ActionResult MaisVendidos()
         {
@@ -192,6 +233,13 @@ namespace WebApplication1.Controllers
                 mp = mp.OrderBy(p => p.Value).Reverse().ToDictionary(p => p.Key, p => p.Value);
             }
             List<Artigo> res2 = mp.Keys.ToList();
+
+            string user = Helpers.CacheController.utilizador;
+            Utilizador u = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+            int notifications = u.Notificacoes;
+
+            ViewData["noti"] = notifications;
+
             return View(res2);
 
         }
@@ -215,6 +263,13 @@ namespace WebApplication1.Controllers
                     res2.Add(res[i]);
                 }
             }
+
+            string user = Helpers.CacheController.utilizador;
+            Utilizador u = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+            int notifications = u.Notificacoes;
+
+            ViewData["noti"] = notifications;
+
             return View(res2);
 
         }
@@ -264,7 +319,7 @@ namespace WebApplication1.Controllers
                 model.Utilizador.Add(utilizador);
                 model.SaveChanges();
             }
-        
+
 
             return RedirectToAction("Index", "Home");
         }
@@ -275,25 +330,6 @@ namespace WebApplication1.Controllers
         }
 
 
-        /*public ActionResult Details(int idArtigo)
-        {
-
-            Artigo art = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(idArtigo));
-
-            var cenas = art.IdArtigo;
-
-            var comentarios = from x in model.Comentarios where (x.IdArtigo.Equals(idArtigo)) select x;
-            List<Comentarios> c = comentarios.ToList<Comentarios>();
-
-            foreach (Comentarios a in c)
-            {
-                art.Comentarios.Add(a);
-            }
-
-
-            return View(art);
-
-        }*/
         public ActionResult Details(int idArtigo)
         {
             Console.WriteLine(idArtigo);
@@ -311,27 +347,40 @@ namespace WebApplication1.Controllers
                 ss.Comentarios.Add(a);
             }
 
+            string user = Helpers.CacheController.utilizador;
+            Utilizador u = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+            int notifications = u.Notificacoes;
+
+            ViewData["noti"] = notifications;
 
             return View(ss);
 
         }
 
+
         /**envia o pedido ao dono*/
         [HttpPost]
-        public ActionResult Details(DateTime inicio, DateTime fim)
+        public ActionResult Details(int IdArtigo, DateTime inicio, DateTime fim)
         {
-            int ar = Helpers.CacheController.IdArtigo;
-            Artigo ss = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(ar));
+            Artigo ss = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(IdArtigo));
             string dono = ss.IdDono;
             Utilizador donito = model.Utilizador.FirstOrDefault(x => x.Email.Equals(dono));
 
-            int tamanho = model.Aluguer.Length() + 1;
+            List<Aluguer> alugueres = (from a in model.Aluguer select a).ToList();
+
+            List<int> indexes = new List<int>();
+
+            foreach(Aluguer a in alugueres){
+                indexes.Add(a.IdAluguer);
+            }
+
+            int tamanho = (indexes.Max()) + 1;
 
             int m = (fim - inicio).Days;
             Aluguer novo = new Aluguer()
             {
                 IdAluguer = tamanho,
-                IdArtigo = ar,
+                IdArtigo = IdArtigo,
                 IdUtilizador = ss.IdDono,
                 Preco = ss.Preco,
                 Duracao = m,
@@ -344,17 +393,19 @@ namespace WebApplication1.Controllers
             model.Aluguer.Add(novo);
             model.SaveChanges();
             Helpers.CacheController.aluguerRealizado = tamanho;
-            return RedirectToAction("AluguerPedido", "Utilizador");
+
+            return RedirectToAction("AluguerPedido", "Utilizador", new { idArtigo = IdArtigo });
         }
 
-        public ActionResult AluguerPedido()
+
+        public ActionResult AluguerPedido(int idArtigo)
         {
             int s = Helpers.CacheController.aluguerRealizado;
             Aluguer ss = model.Aluguer.FirstOrDefault(x => x.IdAluguer.Equals(s));
-            int art = Helpers.CacheController.IdArtigo;
-            Artigo a = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(art));
+            Artigo a = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(idArtigo));
             ss.IdArtigoNavigation.Nome = a.Nome;
             ss.IdArtigoNavigation.Imagem = a.Imagem;
+
             AluguerInfo res = new AluguerInfo()
             {
                 IdArtigo = ss.IdArtigo,
@@ -368,76 +419,30 @@ namespace WebApplication1.Controllers
                 DataFim = ss.DataFim,
 
             };
+
+            Utilizador u = (from m in model.Utilizador where (m.Email.Equals(a.IdDono)) select m).ToList().ElementAt<Utilizador>(0);
+            u.Notificacoes++;
+
+            string user = Helpers.CacheController.utilizador;
+            Utilizador uti = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+            int notifications = uti.Notificacoes;
+
+            ViewData["noti"] = notifications;
+
+            model.SaveChanges();
+
             return View(res);
         }
 
-        /** Verifica disponibilidade de Datas para o caso de mudar-mos de ideia
-        [HttpPost]
-        public ActionResult Details(List<IFormFile> file, DateTime inicio, DateTime fim)
-        {
-            foreach (IFormFile cenas in file)
-            {
-                Console.WriteLine(cenas.FileName);
-            }
-            try
-            {
-                Console.WriteLine("???? like da fuck");
-                int s = Helpers.CacheController.IdArtigo;
-                Artigo ss = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(s));
-                if (inicio >= fim )
-                {
-                    Console.WriteLine("entrei no primeiro ciclo.");
-                    return View();
 
-                }
-                else
-                {
-                    Console.WriteLine("entrei no segundo ciclo.");
-                    int imp = 0;
-                    int tamanho = ss.Aluguer.Length() + 1;
-                    foreach (Aluguer a in ss.Aluguer)
-                    {
-                        if (!(a.DataInicio > inicio && a.DataInicio > fim || inicio > a.DataFim && inicio > a.DataFim))
-                        {
-                            imp = 1;
-                        }
-                    }
-                    if (imp == 0)
-                    {
-                        int m = (fim-inicio).Days;
-                        Aluguer novo = new Aluguer()
-                        {
-                            IdAluguer = tamanho,
-                            IdArtigo = s,
-                            IdUtilizador = ss.IdDono,
-                            Preco = ss.Preco,
-                            Duracao = m,
-                            IdRent = Helpers.CacheController.utilizador,
-                            DataInicio = inicio,
-                            DataFim = fim,
-                            Estado = false,
-                            Quantidade = 1,
-                        };
-                        ss.Aluguer.Add(novo);
-                        model.SaveChanges();
-                    }
-                    else return View();
-
-                }
-            }
-            catch (Exception)
-            {
-                return Content("Erro...");
-            }
-            return RedirectToAction("HAlugueres", "Utilizador");
-        }
-
-        
-             */
-
-        [HttpGet]
         public IActionResult NovoArtigo()
         {
+            string user = Helpers.CacheController.utilizador;
+            Utilizador u = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+            int notifications = u.Notificacoes;
+
+            ViewData["noti"] = notifications;
+
             return View();
         }
 
@@ -454,8 +459,9 @@ namespace WebApplication1.Controllers
                 string user = Helpers.CacheController.utilizador;
                 var artigos = (from m in model.Artigo select m);
                 List<Artigo> lista = artigos.ToList<Artigo>();
-                int i = lista.Count;
-
+                Artigo a = lista[lista.Count - 1];
+                int i = a.IdArtigo;
+                Console.WriteLine("index" + i);
                 i++;
                 Artigo artigo = new Artigo()
                 {
@@ -467,7 +473,7 @@ namespace WebApplication1.Controllers
                     Categoria = categoria,
                     Etiquetas = etiquetas,
                     Estado = 0,
-                    Pontuacao =0,
+                    Pontuacao = 0,
                     NumeroVotos = 0,
                     PontucaoAcumulada = 0,
                     Descricao = descricao,
@@ -530,6 +536,7 @@ namespace WebApplication1.Controllers
             return RedirectToAction("VerArtigos", "Utilizador");
         }
 
+
         public ActionResult verArtigos()
         {
             string user = Helpers.CacheController.utilizador;
@@ -537,8 +544,15 @@ namespace WebApplication1.Controllers
             var artigos = (from m in model.Artigo where (m.IdDono == user) select m);
             List<Artigo> lista = artigos.ToList<Artigo>();
 
+            Utilizador uti = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+            int notifications = uti.Notificacoes;
+
+            ViewData["noti"] = notifications;
+
             return View(lista);
         }
+
+
         public ActionResult Aceitar(int idAluguer)
         {
             Aluguer u = (from alu in model.Aluguer where (alu.IdAluguer == idAluguer) select alu).ToList().ElementAt<Aluguer>(0);
@@ -552,18 +566,28 @@ namespace WebApplication1.Controllers
             {
                 return Content("You don't have enough items...");
             }
+
+            Utilizador uti = (from m in model.Utilizador where (m.Email.Equals(u.IdRent)) select m).ToList().ElementAt<Utilizador>(0);
+            uti.Notificacoes++;
+
             model.SaveChanges();
             return RedirectToAction("AluguerPedidos", "Utilizador");
         }
+
 
         public ActionResult Recusar(int idAluguer)
         {
             Aluguer u = (from alu in model.Aluguer where (alu.IdAluguer == idAluguer) select alu).ToList().ElementAt<Aluguer>(0);
             u.Estado = 2; //estado 2 para recusado
                           // model.Aluguer.Remove(u);
+
+            Utilizador uti = (from m in model.Utilizador where (m.Email.Equals(u.IdRent)) select m).ToList().ElementAt<Utilizador>(0);
+            uti.Notificacoes++;
+
             model.SaveChanges();
             return RedirectToAction("AluguerPedidos", "Utilizador");
         }
+
 
         public ActionResult AluguerPedidos()
         {
@@ -598,8 +622,16 @@ namespace WebApplication1.Controllers
                 nots.Add(not);
             }
 
+
+            Utilizador uti = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+            int notifications = uti.Notificacoes;
+
+            ViewData["noti"] = notifications;
+
             return View(nots);
         }
+
+
         public ActionResult AluguerRespostas()
         {
             string user = Helpers.CacheController.utilizador;
@@ -647,18 +679,42 @@ namespace WebApplication1.Controllers
                 nots.Add(not);
             }
 
+            Utilizador uti = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+            int notifications = uti.Notificacoes;
+
+            ViewData["noti"] = notifications;
+
             return View(nots);
         }
 
 
         public ActionResult Historico()
         {
+            string user = Helpers.CacheController.utilizador;
+            Utilizador u = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+            int notifications = u.Notificacoes;
+
+            ViewData["noti"] = notifications;
+
             return View("Historico");
         }
+
+
         public ActionResult AluguerInfo()
         {
+            string user = Helpers.CacheController.utilizador;
+            Utilizador std = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+            std.Notificacoes = 0;
+
+            model.SaveChanges();
+
+            int notifications = std.Notificacoes;
+
+            ViewData["noti"] = notifications;
+
             return View("AluguerInfo");
         }
+
 
         public ActionResult HAlugueres()
         {
@@ -711,9 +767,15 @@ namespace WebApplication1.Controllers
                 alugueres.Add(a1);
             }
 
+            Utilizador uti = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+            int notifications = uti.Notificacoes;
+
+            ViewData["noti"] = notifications;
 
             return View(alugueres);
         }
+
+
         public ActionResult HVendas()
         {
             string user = Helpers.CacheController.utilizador;
@@ -763,9 +825,15 @@ namespace WebApplication1.Controllers
                 vendas.Add(a1);
             }
 
+            Utilizador uti = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+            int notifications = uti.Notificacoes;
+
+            ViewData["noti"] = notifications;
+
 
             return View(vendas);
         }
+
 
         public ActionResult FinalizarCompra()
         {
@@ -794,6 +862,7 @@ namespace WebApplication1.Controllers
             model.SaveChanges();
             return RedirectToAction("VendaInfo", "Utilizador");
         }
+
 
         public ActionResult RemArtCarrinho(int idVenda)
         {
@@ -828,8 +897,15 @@ namespace WebApplication1.Controllers
                 };
                 carInfo.Add(car);
             }
+
+            Utilizador uti = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+            int notifications = uti.Notificacoes;
+
+            ViewData["noti"] = notifications;
+
             return View(carInfo);
         }
+
 
         public ActionResult VerInfo()
         {
@@ -846,8 +922,14 @@ namespace WebApplication1.Controllers
 
             res.CodPostalNavigation = l;
 
+            Utilizador uti = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+            int notifications = uti.Notificacoes;
+
+            ViewData["noti"] = notifications;
+
             return View(res);
         }
+
 
         public ActionResult Alterar(int idArtigo)
         {
@@ -856,9 +938,17 @@ namespace WebApplication1.Controllers
 
             Helpers.CacheController.IdArtigo = idArtigo;
             var cenas = ss.IdArtigo;
-            Console.WriteLine(cenas);
+
+            string user = Helpers.CacheController.utilizador;
+            Utilizador u = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+            int notifications = u.Notificacoes;
+
+            ViewData["noti"] = notifications;
+
+
             return View(ss);
         }
+
 
         [HttpPost]
         public ActionResult Password(string password)
@@ -909,7 +999,7 @@ namespace WebApplication1.Controllers
                 u.Password = MyHelpers.HashPassword(u.Password);
                 model.SaveChanges();
             }
-            
+
             return RedirectToAction("VerInfo", "Utilizador");
         }
 
@@ -917,15 +1007,18 @@ namespace WebApplication1.Controllers
         * Permite vizualisar a view que permite alterar a conta Bancaria e efetua a sua mudança
         * */
 
+
         public ActionResult CBanc()
         {
             return View("CBanc");
         }
 
+
         public ActionResult Password()
         {
             return View("Password");
         }
+
 
         [HttpPost]
         public ActionResult CBanc(long conta)
@@ -980,10 +1073,12 @@ namespace WebApplication1.Controllers
         /**
          * Permite vizualisar a view que permite alterar o numero de Telemovel e efetua a sua mudança
          * */
+
         public ActionResult Telemovel()
         {
             return View("Telemovel");
         }
+
 
         [HttpPost]
         public ActionResult Telemovel(int telemovel)
@@ -1039,10 +1134,12 @@ namespace WebApplication1.Controllers
         /**
          * Permite vizualisar a view que permite alterar o Codigo Postal e efetua a sua mudança
          * */
+
         public ActionResult CPostal()
         {
             return View("CPostal");
         }
+
 
         [HttpPost]
         public ActionResult CPostal(string codigoPostal)
@@ -1098,6 +1195,7 @@ namespace WebApplication1.Controllers
         /**
       * Permite vizualisar a view que permite alterar o Distrito e efetua a sua mudança
       * */
+
         public ActionResult Distrito()
         {
             return View("Distrito");
@@ -1156,11 +1254,13 @@ namespace WebApplication1.Controllers
         /**
         * Permite vizualisar a view que permite alterar a freguesia e efetua a sua mudança
         * */
+
         public ActionResult Freguesia()
         {
 
             return View("Freguesia");
         }
+
 
         [HttpPost]
         public ActionResult Freguesia(string freguesia)
@@ -1217,10 +1317,12 @@ namespace WebApplication1.Controllers
         /**
        * Permite vizualisar a view que permite alterar a rua e efetua a sua mudança
        * */
+
         public ActionResult Rua()
         {
             return View("Rua");
         }
+
 
         [HttpPost]
         public ActionResult Rua(string rua)
@@ -1276,12 +1378,14 @@ namespace WebApplication1.Controllers
         /**
         * Permite vizualisar a view que permite alterar o numero de porta e efetua a sua mudança
         * */
+
         public ActionResult NPorta()
         {
             return View("NPorta");
         }
 
         [HttpPost]
+
         public ActionResult NPorta(int nporta)
         {
             string mail = Helpers.CacheController.utilizador;
@@ -1342,6 +1446,12 @@ namespace WebApplication1.Controllers
                 List<Artigo> lista2 = local2.ToList<Artigo>();
                 List<Artigo> listaUnion = lista.Union(lista2).ToList();
 
+                string user = Helpers.CacheController.utilizador;
+                Utilizador u = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+                int notifications = u.Notificacoes;
+
+                ViewData["noti"] = notifications;
+
                 return View(listaUnion);
             }
 
@@ -1355,16 +1465,25 @@ namespace WebApplication1.Controllers
             if (local.ToList().Count > 0)
             {
                 List<Artigo> list = local.ToList<Artigo>();
+
+                string user = Helpers.CacheController.utilizador;
+                Utilizador u = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+                int notifications = u.Notificacoes;
+
+                ViewData["noti"] = notifications;
+
                 return View(list);
             }
 
             else return RedirectToAction("ErrorSearch", "Utilizador");
         }
 
+
         public ActionResult AlteraNome()
         {
             return View("AlteraNome");
         }
+
 
         [HttpPost]
         public ActionResult AlteraNome(string nome)
@@ -1392,10 +1511,12 @@ namespace WebApplication1.Controllers
             return RedirectToAction("verArtigos", "Utilizador");
         }
 
+
         public ActionResult AlteraPreco()
         {
             return View("AlteraPreco");
         }
+
 
         [HttpPost]
         public ActionResult AlteraPreco(float preco)
@@ -1423,10 +1544,13 @@ namespace WebApplication1.Controllers
             return RedirectToAction("verArtigos", "Utilizador");
         }
 
+
         public ActionResult AlteraModo()
         {
             return View("AlteraModo");
         }
+
+
         [HttpPost]
         public ActionResult AlteraModo(string modo)
         {
@@ -1459,6 +1583,7 @@ namespace WebApplication1.Controllers
             return View("AlteraCategoria");
         }
 
+
         [HttpPost]
         public ActionResult AlteraCategoria(string categoria)
         {
@@ -1485,10 +1610,12 @@ namespace WebApplication1.Controllers
             return RedirectToAction("verArtigos", "Utilizador");
         }
 
+
         public ActionResult AlteraQuantidade()
         {
             return View("AlteraQuantidade");
         }
+
 
         [HttpPost]
         public ActionResult AlteraQuantidade(int quantidade)
@@ -1521,6 +1648,7 @@ namespace WebApplication1.Controllers
             return View("AlteraDescricao");
         }
 
+
         [HttpPost]
         public ActionResult AlteraDescricao(string descricao)
         {
@@ -1547,10 +1675,12 @@ namespace WebApplication1.Controllers
             return RedirectToAction("verArtigos", "Utilizador");
         }
 
+
         public ActionResult AlteraEstado()
         {
             return View("AlteraEstado");
         }
+
 
         [HttpPost]
         public ActionResult AlteraEstado(int estado)
@@ -1578,10 +1708,13 @@ namespace WebApplication1.Controllers
             return RedirectToAction("verArtigos", "Utilizador");
         }
 
+
         public ActionResult AlteraEtiquetas()
         {
             return View("AlteraEtiquetas");
         }
+
+
         [HttpPost]
         public ActionResult AlteraEtiquetas(string etiquetas)
         {
@@ -1608,10 +1741,12 @@ namespace WebApplication1.Controllers
             return RedirectToAction("verArtigos", "Utilizador");
         }
 
+
         public ActionResult AlteraImagem()
         {
             return View("AlteraImagem");
         }
+
 
         [HttpPost]
         public ActionResult AlteraImagem(List<IFormFile> file)
@@ -1679,16 +1814,6 @@ namespace WebApplication1.Controllers
             return RedirectToAction("verArtigos", "Utilizador");
         }
 
-        /* [HttpGet]
-         public IActionResult SearchComentarios(int IdArtigo)
-         {
-             var local = (from x in model.Comentarios where (x.IdArtigo == IdArtigo) select x);
-
-             List<Comentarios> list = local.ToList<Comentarios>();
-
-             return View(list);
-         }*/
-
         [HttpPost]
         public IActionResult SearchComentarios(int IdArtigo)
         {
@@ -1700,6 +1825,7 @@ namespace WebApplication1.Controllers
 
         }
 
+
         [HttpPost]
         public IActionResult AddComentario(String Descricao, int IdArtigo)
         {
@@ -1708,10 +1834,18 @@ namespace WebApplication1.Controllers
             List<Comentarios> lista = comentarios.ToList<Comentarios>();
             var totalcomentarios = (from comtotal in model.Comentarios select comtotal);
             List<Comentarios> listatotal = totalcomentarios.ToList<Comentarios>();
-            int id = listatotal.Count + 1;
+
+            List<int> indexes = new List<int>();
+
+            foreach (Comentarios coment in listatotal)
+            {
+                indexes.Add(coment.IdComentario);
+            }
+
+            int tamanho = (indexes.Max()) + 1;
 
             Comentarios c = new Comentarios();
-            c.IdComentario = id;
+            c.IdComentario = tamanho;
             c.Descricao = Descricao;
             c.IdUtilizador = user;
             c.IdArtigo = IdArtigo;
@@ -1723,14 +1857,20 @@ namespace WebApplication1.Controllers
                 model.SaveChanges();
             }
 
+            Utilizador u = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+            int notifications = u.Notificacoes;
+
+            ViewData["noti"] = notifications;
+
             return RedirectToAction("Details", "Utilizador", new { idArtigo = IdArtigo });
         }
 
-          [HttpPost]
-          public IActionResult Stars(int IdArtigo, int pont)
-          {
+
+        [HttpPost]
+        public IActionResult Stars(int IdArtigo, int pont)
+        {
             Artigo art = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(IdArtigo));
-            
+
             double pontuacao = art.Pontuacao;
 
             int nrVotos = art.NumeroVotos;
@@ -1740,7 +1880,7 @@ namespace WebApplication1.Controllers
 
             double newPontuacaoAcumulada = art.PontucaoAcumulada + pont;
             double newPontuacao = newPontuacaoAcumulada / (double)newNrVotos;
-            
+
             art.Pontuacao = Math.Truncate(100 * newPontuacao) / 100; ;
             art.PontucaoAcumulada = newPontuacaoAcumulada;
 
@@ -1752,7 +1892,36 @@ namespace WebApplication1.Controllers
 
             return RedirectToAction("Details", "Utilizador", new { IdArtigo = IdArtigo });
 
-          }
+        }
+
+        public ActionResult Remover(int idArtigo)
+        {
+
+            Artigo art = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(idArtigo));
+
+            List<Comentarios> comentarios = model.Comentarios.Where(x => x.IdArtigo.Equals(art.IdArtigo)).ToList();
+            foreach(Comentarios c in comentarios){
+                model.Comentarios.Remove(c);
+            }
+
+            List<Aluguer> alugueres = model.Aluguer.Where(x => x.IdArtigo.Equals(art.IdArtigo)).ToList();
+            foreach (Aluguer a in alugueres)
+            {
+                model.Aluguer.Remove(a);
+            }
+
+            List<Venda> vendas = model.Venda.Where(x => x.IdArtigo.Equals(art.IdArtigo)).ToList();
+            foreach (Venda v in vendas)
+            {
+                model.Venda.Remove(v);
+            }
+
+            model.SaveChanges();
+
+            model.Artigo.Remove(art);
+            model.SaveChanges();
+            return RedirectToAction("VerArtigos", "Utilizador");
+        }
 
 
         /*
@@ -1837,5 +2006,5 @@ namespace WebApplication1.Controllers
         }
        */
     }
-    
+
 }

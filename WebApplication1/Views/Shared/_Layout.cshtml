@@ -13,377 +13,683 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/v4-shims.css">
     <link href="~/css/agency.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" />
-
-
-    @section scripts{
-
-        <script type="text/javascript">
-            // <![CDATA[
-            $(document).ready(function () {
-                $('#calendar').fullCalendar({
-                    theme: true,
-
-                    defaultView: 'agendaDay',
-                    editable: false,
-                    events: "/Home/Details/"
-                });
-            });
-
-            // ]]></script>
-
-    }
-    <!--Pretty one :-->
-    <link rel="stylesheet" type="text/css" media="screen" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
-
-    <!-- Bootstrap core CSS -->
-    <link href="~/lib/bootstrap/dist/css/bootstrap-grid.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="~/css/agency.css" rel="stylesheet">
-    <link rel="icon" href="~/icon.ico"> <noscript>Not seeing a <a href="https://www.scrolltotop.com/">Scroll to Top Button</a>? Go to our FAQ page for more info.</noscript>
-
-    <a href="javascript:" id="return-to-top"><i class="icon-chevron-up"></i></a>
-
-    <!-- ICON NEEDS FONT AWESOME FOR CHEVRON UP ICON -->
-    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
-
-    <script language="javascript">
-        // ===== Scroll to Top ====
-        $(window).scroll(function () {
-            if ($(this).scrollTop() >= 50) {        // If page is scrolled more than 50px
-                $('#return-to-top').fadeIn(200);    // Fade in the arrow
-            } else {
-                $('#return-to-top').fadeOut(200);   // Else fade out the arrow
-            }
-        });
-        $('#return-to-top').click(function () {      // When arrow is clicked
-            $('body,html').animate({
-                scrollTop: 0                       // Scroll to top of body
-            }, 500);
-        });
-    </script>
-
+    <link href='http://fonts.googleapis.com/css?family=Cookie' rel='stylesheet' type='text/css'>
     <style>
-        #return-to-top {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #343A40;
-            width: 50px;
-            height: 50px;
-            display: block;
-            text-decoration: none;
-            -webkit-border-radius: 35px;
-            -moz-border-radius: 35px;
-            border-radius: 35px;
-            display: none;
-            -webkit-transition: all 0.3s linear;
-            -moz-transition: all 0.3s ease;
-            -ms-transition: all 0.3s ease;
-            -o-transition: all 0.3s ease;
-            transition: all 0.3s ease;
+
+        .header-two-bars {
+            font: 13px Arial, Helvetica, sans-serif;
         }
 
-            #return-to-top i {
-                color: #fff;
+            .header-two-bars .header-limiter {
+                max-width: 1200px;
+                text-align: center;
+                margin: 0 auto;
+            }
+
+            /* Logo */
+
+            .header-two-bars h1 {
+                float: left;
+                font: normal 28px Cookie, Arial, Helvetica, sans-serif;
+                line-height: 40px;
                 margin: 0;
-                position: relative;
-                left: 16px;
-                top: 13px;
-                font-size: 19px;
-                -webkit-transition: all 0.3s ease;
-                -moz-transition: all 0.3s ease;
-                -ms-transition: all 0.3s ease;
-                -o-transition: all 0.3s ease;
-                transition: all 0.3s ease;
             }
 
-            #return-to-top:hover {
-                background: rgba(0, 0, 0, 0.9);
-            }
-
-                #return-to-top:hover i {
-                    color: #fff;
-                    top: 5px;
+                .header-two-bars h1 span {
+                    color: #bc40df;
                 }
+
+            /* The first bar */
+
+            .header-two-bars .header-first-bar {
+                background-color: #212529;
+                box-shadow: 0 1px 1px #ccc;
+                padding: 20px 40px;
+                height: 80px;
+                color: #ffffff;
+                box-sizing: border-box;
+            }
+
+                .header-two-bars .header-first-bar a {
+                    color: #ffffff;
+                    text-decoration: none;
+                }
+
+
+                    .header-two-bars .header-first-bar a.logout-button {
+                        font-size: 13px;
+                        font-weight: bold;
+                        float: right;
+                        border-radius: 3px;
+                        background-color: rgba(58, 60, 62, 0);
+                        height: 40px;
+                        padding: 0 20px;
+                        border: 1px solid #5E6367;
+                        line-height: 40px;
+                        box-sizing: border-box;
+                    }
+
+
+            /* Second Bar */
+
+            .header-two-bars .header-second-bar {
+                background-color: #ffffff;
+                box-shadow: 1px 3px 3px 0 rgba(0, 0, 0, 0.05);
+                padding: 20px 40px;
+            }
+
+                .header-two-bars .header-second-bar h2 {
+                    line-height: 20px;
+                    margin: 0;
+                    float: left;
+                }
+
+                    .header-two-bars .header-second-bar h2 a {
+                        font-size: 16px;
+                        color: #4e5359;
+                        text-decoration: none;
+                    }
+
+                .header-two-bars .header-second-bar nav {
+                    text-align: right;
+                    line-height: 20px;
+                    font-size: 16px;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
+                }
+
+                    .header-two-bars .header-second-bar nav a {
+                        display: inline-block;
+                        color: #4e5359;
+                        text-decoration: none;
+                    }
+
+                    .header-two-bars .header-second-bar nav i.fa {
+                        color: #495057;
+                        -7px 16px -16px 16px;
+                    }
+
+        }
+
+        .header-login-signup {
+            background-color: #292c2f;
+            box-shadow: 0 1px 1px #ccc;
+            padding: 20px 40px;
+            height: 80px;
+            color: #ffffff;
+            box-sizing: border-box;
+        }
+
+            .header-login-signup .header-limiter {
+                max-width: 1200px;
+                text-align: center;
+                margin: 0 auto;
+            }
+
+
+
+                .header-login-signup .header-limiter h1 span {
+                    color: #5383d3;
+                }
+
+                /* The navigation links */
+
+                .header-login-signup .header-limiter a {
+                    color: #ffffff;
+                    text-decoration: none;
+                }
+
+                .header-login-signup .header-limiter nav {
+                    font: 16px Arial, Helvetica, sans-serif;
+                    line-height: 35px;
+                    float: left;
+                    margin: 0 0 0 28px;
+                    padding: 0;
+                }
+
+                    .header-login-signup .header-limiter nav a {
+                        font-size: 14px;
+                        display: inline-block;
+                        padding: 0 5px;
+                        opacity: 0.9;
+                        text-decoration: none;
+                        line-height: 1;
+                    }
+
+                        .header-login-signup .header-limiter nav a:hover {
+                            opacity: 1;
+                        }
+
+                        .header-login-signup .header-limiter nav a.selected {
+                            color: #608bd2;
+                        }
+
+                /* Login/Sign up buttons */
+
+                .header-login-signup .header-limiter ul {
+                    font: 14px Arial, Helvetica, sans-serif;
+                    list-style: none;
+                    line-height: 2;
+                    float: right;
+                }
+
+                    .header-login-signup .header-limiter ul li {
+                        display: inline-block;
+                        margin-left: 15px;
+                        opacity: 0.9;
+                    }
+
+                        .header-login-signup .header-limiter ul li:hover {
+                            opacity: 1;
+                        }
+
+                        /* The sign up button */
+
+                        .header-login-signup .header-limiter ul li:last-child a {
+                            font-weight: bold;
+                            background-color: #3a3c3e;
+                            padding: 10px 15px;
+                            border-radius: 3px;
+                        }
+
+
+        .header-fixed {
+            background-color: #292c2f;
+            box-shadow: 0 1px 1px #ccc;
+            padding: 20px 40px;
+            height: 80px;
+            color: #ffffff;
+            box-sizing: border-box;
+            top: -100px;
+            -webkit-transition: top 0.3s;
+            transition: top 0.3s;
+        }
+
+            .header-fixed .header-limiter {
+                max-width: 1200px;
+                text-align: center;
+                margin: 0 auto;
+            }
+
+        /*	The header placeholder. It is displayed when the header is fixed to the top of the
+        browser window, in order to prevent the content of the page from jumping up. */
+
+        .header-fixed-placeholder {
+            height: 80px;
+            display: none;
+        }
+
+        /* Logo */
+
+        .header-fixed .header-limiter h1 {
+            float: left;
+            font: normal 28px Cookie, Arial, Helvetica, sans-serif;
+            line-height: 40px;
+            margin: 0;
+        }
+
+            .header-fixed .header-limiter h1 span {
+                color: #5383d3;
+            }
+
+        /* The navigation links */
+
+        .header-fixed .header-limiter a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        /* Fixed version of the header */
+
+        body.fixed .header-fixed {
+            padding: 10px 40px;
+            height: 50px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        body.fixed .header-fixed-placeholder {
+            display: block;
+        }
+
+        body.fixed .header-fixed .header-limiter h1 {
+            font-size: 24px;
+            line-height: 30px;
+        }
     </style>
+
+    <style>
+
+        .wrapper {
+            position: absolute;
+            top: 20%;
+            left: 72%;
+            transform: translate(-50%, -50%);
+        }
+
+        .search-box {
+            width: 453px;
+            height: 247px;
+            position: relative;
+        }
+
+        .input {
+            position: absolute;
+            top: 20px;
+            right: 50px;
+            box-sizing: border-box;
+            width: 48px;
+            height: 48px;
+            padding: 0 20px;
+            outline: none;
+            font-size: 18px;
+            border-radius: 50px;
+            color: #29313a;
+            border: 3px solid #179dd0;
+            transition: all 0.8s ease;
+        }
+
+        ::-webkit-input-placeholder {
+            /* Chrome/Opera/Safari */
+            color: #179dd0;
+        }
+
+        ::-moz-placeholder {
+            /* Firefox 19+ */
+            color: #179dd0;
+        }
+
+        :-ms-input-placeholder {
+            /* IE 10+ */
+            color: #179dd0;
+        }
+
+        :-moz-placeholder {
+            /* Firefox 18- */
+            color: #179dd0;
+        }
+
+        .btnS {
+            border-radius: 50%;
+            position: absolute;
+            width: 48px;
+            height: 48px;
+            background: #179dd0;
+            border-radius: 50%;
+            top: 20px;
+            right: 50px;
+            cursor: pointer;
+            text-align: center;
+            line-height: 55px;
+            font-size: 20px;
+            color: #fff;
+            transition: all 0.8s ease;
+        }
+
+        .input.active {
+            width: 338px;
+            height: 48px;
+            right: 61px;
+        }
+
+        .btnS.animate {
+            transform: rotate(-360deg);
+            right: 60px;
+        }
+    </style>
+
+    <!-- Sidebar -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+
+            body {
+                font-family: "Lato", sans-serif;
+            }
+
+            .sidebar {
+                height: 100%;
+                width: 0;
+                position: fixed;
+                z-index: 1;
+                top: 0;
+                left: 0;
+                background-color: #212529;
+                overflow-x: hidden;
+                transition: 0.5s;
+                padding-top: 60px;
+            }
+
+                .sidebar a {
+                    padding: 8px 8px 8px 32px;
+                    text-decoration: none;
+                    font-size: 16px;
+                    color: #818181;
+                    display: block;
+                    transition: 0.3s;
+                }
+
+                    .sidebar a:hover {
+                        color: #f1f1f1;
+                    }
+
+                .sidebar .closebtn {
+                    position: absolute;
+                    top: 0;
+                    right: 25px;
+                    font-size: 16px;
+                    margin-left: 50px;
+                }
+
+            .openbtn {
+                font-size: 16px;
+                cursor: pointer;
+                background-color: #ffffff;
+                color: #495057;
+                padding: 5px 5px;
+                border: none;
+            }
+
+                .openbtn:hover {
+                    background-color: #ffffff;
+                    color: #212529;
+                }
+
+            #main {
+                transition: margin-left .5s;
+                padding: 16px;
+            }
+
+            /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+
+        </style>
+    </head>
+    <body>
+        <div id="mySidebar" class="sidebar">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+            <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Roupa" })">
+                <span>Roupa</span>
+            </a>
+            <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Campismo" })">
+                <span>Campismo</span>
+            </a>
+            <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Mobiliário" })">
+                <span>Mobiliário</span>
+            </a>
+            <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Acessórios" })">
+                <span>Acessórios</span>
+            </a>
+            <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Música" })">
+                <span>Música</span>
+            </a>
+            <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Livros" })">
+                <span>Livros</span>
+            </a>
+            <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Turismo" })">
+                <span>Turismo</span>
+            </a>
+            <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Bebé e criança" })">
+                <span>Bebé e criança</span>
+            </a>
+            <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Lazer" })">
+                <span>Lazer</span>
+            </a>
+            <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Animais" })">
+                <span>Animais</span>
+            </a>
+            <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Tecnologia" })">
+                <span>Tecnologia</span>
+            </a>
+            <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Desporto" })">
+                <span>Desporto</span>
+            </a>
+            <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Carros, motos e barcos" })">
+                <span>Carros, motos e barcos</span>
+            </a>
+            <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Agricultura" })">
+                <span>Agricultura</span>
+            </a>
+            <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Equipamentos e Ferramentas" })">
+                <span>Equipamentos e Ferramentas</span>
+            </a>
+            <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Outros" })">
+                <span>Outros</span>
+            </a>
+        </div>
+        </body>
+
+        @section scripts{
+            <script type="text/javascript">
+                // <![CDATA[
+                $(document).ready(function () {
+                    $('#calendar').fullCalendar({
+                        theme: true,
+
+                        defaultView: 'agendaDay',
+                        editable: false,
+                        events: "/Home/Details/"
+                    });
+                });
+
+                // ]]></script>
+        }
+
+        <!--Pretty one: -->
+        <link rel="stylesheet" type="text/css" media="screen" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
+
+        <!--Bootstrap core CSS-->
+        <link href="~/lib/bootstrap/dist/css/bootstrap-grid.min.css" rel="stylesheet">
+
+        <!-- Custom styles for this template -->
+        <link href="~/css/agency.css" rel="stylesheet">
+        <link rel="icon" href="~/icon.ico">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script type="text/javascript">var scrolltotop = { setting: { startline: 100, scrollto: 0, scrollduration: 1e3, fadeduration: [500, 100] }, controlHTML: '<img src="https://i1155.photobucket.com/albums/p559/scrolltotop/arrow79.png" />', controlattrs: { offsetx: 5, offsety: 5 }, anchorkeyword: "#top", state: { isvisible: !1, shouldvisible: !1 }, scrollup: function () { this.cssfixedsupport || this.$control.css({ opacity: 0 }); var t = isNaN(this.setting.scrollto) ? this.setting.scrollto : parseInt(this.setting.scrollto); t = "string" == typeof t && 1 == jQuery("#" + t).length ? jQuery("#" + t).offset().top : 0, this.$body.animate({ scrollTop: t }, this.setting.scrollduration) }, keepfixed: function () { var t = jQuery(window), o = t.scrollLeft() + t.width() - this.$control.width() - this.controlattrs.offsetx, s = t.scrollTop() + t.height() - this.$control.height() - this.controlattrs.offsety; this.$control.css({ left: o + "px", top: s + "px" }) }, togglecontrol: function () { var t = jQuery(window).scrollTop(); this.cssfixedsupport || this.keepfixed(), this.state.shouldvisible = t >= this.setting.startline ? !0 : !1, this.state.shouldvisible && !this.state.isvisible ? (this.$control.stop().animate({ opacity: 1 }, this.setting.fadeduration[0]), this.state.isvisible = !0) : 0 == this.state.shouldvisible && this.state.isvisible && (this.$control.stop().animate({ opacity: 0 }, this.setting.fadeduration[1]), this.state.isvisible = !1) }, init: function () { jQuery(document).ready(function (t) { var o = scrolltotop, s = document.all; o.cssfixedsupport = !s || s && "CSS1Compat" == document.compatMode && window.XMLHttpRequest, o.$body = t(window.opera ? "CSS1Compat" == document.compatMode ? "html" : "body" : "html,body"), o.$control = t('<div id="topcontrol">' + o.controlHTML + "</div>").css({ position: o.cssfixedsupport ? "fixed" : "absolute", bottom: o.controlattrs.offsety, right: o.controlattrs.offsetx, opacity: 0, cursor: "pointer" }).attr({ title: "Scroll to Top" }).click(function () { return o.scrollup(), !1 }).appendTo("body"), document.all && !window.XMLHttpRequest && "" != o.$control.text() && o.$control.css({ width: o.$control.width() }), o.togglecontrol(), t('a[href="' + o.anchorkeyword + '"]').click(function () { return o.scrollup(), !1 }), t(window).bind("scroll resize", function (t) { o.togglecontrol() }) }) } }; scrolltotop.init();</script>
+        <noscript>Not seeing a <a href="https://www.scrolltotop.com/">Scroll to Top Button</a>? Go to our FAQ page for more info.</noscript>
 
 </head>
 
 <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <div class="container">
-            <!-- Sidebar -->
-            <head>
-                <meta name="viewport" content="width=device-width, initial-scale=1">
-                <style>
-                    body {
-                        font-family: "Lato", sans-serif;
-                    }
 
-                    .sidebar {
-                        height: 100%;
-                        width: 0;
-                        position: fixed;
-                        z-index: 1;
-                        top: 0;
-                        left: 0;
-                        background-color: #343A40;
-                        overflow-x: hidden;
-                        transition: 0.5s;
-                        padding-top: 60px;
-                    }
+    <header class="header-two-bars">
 
-                        .sidebar a {
-                            padding: 8px 8px 8px 32px;
-                            text-decoration: none;
-                            font-size: 16px;
-                            color: #818181;
-                            display: block;
-                            transition: 0.3s;
-                        }
+        <div class="header-first-bar header-fixed header-login-signup">
+            <div class="header-limiter" asp-area="" asp-controller="Home" asp-action="Index">
+                <a asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/Images/rentitalllogo.png" class="col-md-2" style="margin-top: -12px;" alt="Responsive image">
+                </a>
 
-                            .sidebar a:hover {
-                                color: #f1f1f1;
-                            }
-
-                        .sidebar .closebtn {
-                            position: absolute;
-                            top: 0;
-                            right: 25px;
-                            font-size: 16px;
-                            margin-left: 50px;
-                        }
-
-                    .openbtn {
-                        font-size: 16px;
-                        cursor: pointer;
-                        background-color: #343A40;
-                        color: white;
-                        padding: 5px 5px;
-                        border: none;
-                    }
-
-                        .openbtn:hover {
-                            background-color: #343A40;
-                        }
-
-                    #main {
-                        transition: margin-left .5s;
-                        padding: 16px;
-                    }
-
-                    /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
-
-                </style>
-            </head>
-            <body>
-                <div id="mySidebar" class="sidebar">
-                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-                    <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Roupa" })">
-                        <span>Roupa</span>
-                    </a>
-                    <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Campismo" })">
-                        <span>Campismo</span>
-                    </a>
-                    <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Mobiliário" })">
-                        <span>Mobiliário</span>
-                    </a>
-                    <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Acessórios" })">
-                        <span>Acessórios</span>
-                    </a>
-                    <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Música" })">
-                        <span>Música</span>
-                    </a>
-                    <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Livros" })">
-                        <span>Livros</span>
-                    </a>
-                    <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Turismo" })">
-                        <span>Turismo</span>
-                    </a>
-                    <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Bebé e criança" })">
-                        <span>Bebé e criança</span>
-                    </a>
-                    <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Lazer" })">
-                        <span>Lazer</span>
-                    </a>
-                    <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Animais" })">
-                        <span>Animais</span>
-                    </a>
-                    <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Tecnologia" })">
-                        <span>Tecnologia</span>
-                    </a>
-                    <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Desporto" })">
-                        <span>Desporto</span>
-                    </a>
-                    <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Carros, motos e barcos" })">
-                        <span>Carros, motos e barcos</span>
-                    </a>
-                    <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Agricultura" })">
-                        <span>Agricultura</span>
-                    </a>
-                    <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Equipamentos e Ferramentas" })">
-                        <span>Equipamentos e Ferramentas</span>
-                    </a>
-                    <a href="@Url.Action("SearchCategoria", "Home" , new { categoria="Outros" })">
-                        <span>Outros</span>
-                    </a>
-                </div>
-            </body>
-
-
-            <!--botõeszinhos-->
-
-
-
-            <div id="main">
-                <button class="openbtn" style="margin-left: -300px" onclick="openNav()">☰ Categorias</button>
-            </div>
-            <
-
-            <script>
-                function openNav() {
-                    document.getElementById("mySidebar").style.width = "250px";
-                    document.getElementById("main").style.marginLeft = "260px";
-                }
-
-                function closeNav() {
-                    document.getElementById("mySidebar").style.width = "0";
-                    document.getElementById("main").style.marginLeft = "0";
-                }
-            </script>
-
-
-
-            <ul class="navbar-nav ml-lg-auto">
-                <div>
-                    <a class="nav-item" asp-area="" asp-controller="Home" asp-action="Index">
-                        <img src="~/Images/rentitalllogo.png" class="col-xl-6" alt="Responsive image">
-                    </a>
-                </div>
-                <li class="nav-item">
-                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
+                <nav>
+                    <a href="@Url.Action("Index", "Home")">
                         <i class="fa fa-home"></i>
                         Home
                     </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Services</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="About">
-                        Sobre nós
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Contact">
-                        Contacto
-                    </a>
-                </li>
+                    <a href="@Url.Action("About", "Home")">Sobre Nós</a>
+                    <a href="@Url.Action("Contact", "Home")">Contacto</a>
+                </nav>
 
-                <!--Right side view perfil / login etc-->
-                <li class="nav-item">
-                <li class="navbar-nav  mt-2 mt-lg-0">
-                <li class="nav-item dropdown mr-auto">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" id="Preview" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-user"></i> Perfil
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right" style="        margin-top: 7px;
-                                             border-top-left-radius: 0;
-                                             border-color: #343A40;
-                                             border-top-right-radius: 0;
-                                             background-color: #f1f1f1;" aria-labelledby="Preview">
-                        <a class="dropdown-item" href="@Url.Action("Login", "Conta")">Login</a>
-                        <a class="dropdown-item" href="@Url.Action("AdicionarCliente", "Utilizador")">Registar</a>
-                    </div>
-                </li>
-                </li>
-                </li>
-
-
-            </ul>
-
-        </div>
-        <!--Search Bar-->
-        <div class="search-container" style="margin-right">
-            <form asp-action="SearchArtigos" asp-controllers="Home" method="POST" enctype="multipart/form-data">
-                <input type="text" placeholder="Search" name="search">
-                <button type="submit"><i class="glyphicon glyphicon-search" aria-hidden="true"> </i></button>
-            </form>
-        </div>
-
-    </nav>
-
- 
-
-
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-
-            @RenderBody()
-            <div class="row align-items-center">
-                <div class="col-md-4">
-                    <span class="copyright">Copyright  @DateTime.Now.Year - RentItAll</span>
-                </div>
-                <div class="col-md-4">
-                    <ul class="list-inline social-buttons">
-                        <li class="list-inline-item">
-                            <a href="#">
-                                <i class="fab fa-twitter"></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="#">
-                                <i class="fab fa-facebook-f"></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="#">
-                                <i class="fab fa-linkedin-in"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <ul class="list-inline quicklinks">
-                        <li class="list-inline-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">
-                                Politica de Privacidade
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="#">Termos de Uso</a>
-                        </li>
-                    </ul>
-                </div>
+                <ul>
+                    <li><a href="@Url.Action("Login", "Conta")">Login</a></li>
+                    <li><a href="@Url.Action("AdicionarCliente", "Utilizador")">Sign up</a></li>
+                </ul>
             </div>
+
+
+
+
+
+
+
         </div>
-    </footer>
+        <div class="header-second-bar header-limiter">
+
+            <h2>
+                <div id="main"  style="margin-left:-39px;margin-top: -22px">
+                    <button class="openbtn" onclick="openNav()">☰ Categorias</button>
+                </div>
+                <script>
+                    function openNav() {
+                        document.getElementById("mySidebar").style.width = "290px";
+                        document.getElementById("mySidebar").style.marginTop = "50px";
+                        document.getElementById("main").style.marginLeft = "-39px";
+                    }
+
+                    function closeNav() {
+                        document.getElementById("mySidebar").style.width = "0";
+                        document.getElementById("mySidebar").style.marginTop = "50px";
+                        document.getElementById("main").style.marginLeft = "-39px";
+                    }
+                </script>
+            </h2>
+
+                <nav>
+                    <a href="#"><i class="fa fa-trophy"></i> Mais Vendidos</a>
+                    <a href="#"><i class="fa fa-star"></i> Melhor Classificação</a>
+                    <a href="#"><i class="fa fa-exclamation"></i> Novidades</a>
 
 
 
-    @RenderSection("scripts", required: false)
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 
-    <!-- Contact form JavaScript -->
-    <script src="~/js/jqBootstrapValidation.js"></script>
-    <script src="~/js/contact_me.js"></script>
+                </nav>
 
-    <!-- Custom scripts for this template -->
-    <script src="~/js/agency.min.js"></script>
+
+        </div>
+
+
+
+
+    </header>
+
+                <!-- You need this element to prevent the content of the page from jumping up -->
+                <div class="header-fixed-placeholder"></div>
+
+                <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+                <script>
+
+                    $(document).ready(function () {
+
+                        var showHeaderAt = 150;
+
+                        var win = $(window),
+                            body = $('body');
+
+                        // Show the fixed header only on larger screen devices
+
+                        if (win.width() > 600) {
+
+                            // When we scroll more than 150px down, we set the
+                            // "fixed" class on the body element.
+
+                            win.on('scroll', function (e) {
+
+                                if (win.scrollTop() > showHeaderAt) {
+                                    body.addClass('fixed');
+                                }
+                                else {
+                                    body.removeClass('fixed');
+                                }
+                            });
+
+                        }
+
+                    });
+
+                </script>
+
+
+
+                <div class="container">
+                    <main role="main" class="pb-3">
+                        @RenderBody()
+                    </main>
+                </div>
+
+
+                <!-- Footer -->
+                <footer class="footer">
+                    <div class="container">
+                        @RenderBody()
+
+
+                        <div class="row align-items-center">
+                            <div class="col-md-4">
+                                <span class="copyright">Copyright  @DateTime.Now.Year - RentItAll</span>
+                            </div>
+                            <div class="col-md-4">
+                                <ul class="list-inline social-buttons">
+                                    <li class="list-inline-item">
+                                        <a href="#">
+                                            <i class="fab fa-twitter"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#">
+                                            <i class="fab fa-facebook-f"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#">
+                                            <i class="fab fa-linkedin-in"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="col-xl-4">
+                                <ul class="list-inline quicklinks">
+                                    <li class="list-inline-item">
+                                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Contact">
+                                            Contacto
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a class="nav-link" href="#">Services</a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#">Termos de Uso</a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">
+                                            Privacy
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="About">
+                                            Sobre nós
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+
+
+
+
+
+
+
+                @RenderSection("scripts", required: false)
+
+                <!-- Bootstrap core JavaScript -->
+                <script src="~/lib/jquery/dist/jquery.min.js"></script>
+                <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+
+                <!-- Contact form JavaScript -->
+                <script src="~/js/jqBootstrapValidation.js"></script>
+                <script src="~/js/contact_me.js"></script>
+
+                <!-- Custom scripts for this template -->
+                <script src="~/js/agency.min.js"></script>
 
 
 </body>

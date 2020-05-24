@@ -18,6 +18,25 @@
     <link rel="stylesheet" href="~/Content/style.css" />
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Oswald" rel="stylesheet">
     <link rel="icon" href="~/icon.ico">
+
+    <head>
+        @section NotId {
+            <li>
+                <a href="@Url.Action("AluguerInfo", "Utilizador")">
+                    <span class="glyphicon glyphicon-bell "></span>
+                    Notificações
+                    @{
+                        int n = (int)@ViewData["noti"];
+                        if (n > 0)
+                        {
+
+                            <span class="badge">@n</span>
+                        }
+                    }
+                </a>
+            </li>
+        }
+    </head>
 </head>
 <body>
     <br />

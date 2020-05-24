@@ -7,7 +7,7 @@ namespace WebApplication1.Models
     {
         public string Codigo { get; set; }
         public int Estado { get; set; }
-        public float ValorOferta { get; set; }
+        public double ValorOferta { get; set; }
         public string IdUtilizador { get; set; }
 
         public virtual Utilizador IdUtilizadorNavigation { get; set; }
