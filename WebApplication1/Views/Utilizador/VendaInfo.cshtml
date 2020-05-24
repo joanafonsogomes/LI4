@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebApplication1.Models.VendaInfo>
+﻿@model IEnumerable<WebApplication1.Models.Venda>
 
 @{
     ViewBag.Title = "Venda";
@@ -6,29 +6,29 @@
 }
 
 
+<head>
     <head>
-        <head>
-            @section NotId {
-                <li>
-                    <a href="@Url.Action("AluguerInfo", "Utilizador")">
-                        <span class="glyphicon glyphicon-bell "></span>
-                        Notificações
-                        @{
-                            int n = (int)@ViewData["noti"];
-                            if (n > 0)
-                            {
+        @section NotId {
+            <li>
+                <a href="@Url.Action("AluguerInfo", "Utilizador")">
+                    <span class="glyphicon glyphicon-bell "></span>
+                    Notificações
+                    @{
+                        int n = (int)@ViewData["noti"];
+                        if (n > 0)
+                        {
 
-                                <span class="badge">@n</span>
-                            }
+                            <span class="badge">@n</span>
                         }
-                    </a>
-                </li>
-            }
-        </head>
+                    }
+                </a>
+            </li>
+        }
     </head>
+</head>
 
 <!--IF THEN ELSE PARA SE O CARRINHO ESTIVER VAZIO-->
-@{int count = 0; double totalPrice = 0; int index = 0; double precoCupao = 0; 
+@{int count = 0; double totalPrice = 0; int index = 0; double precoCupao = 0;
 
     foreach (var item in Model)
     {
@@ -50,7 +50,7 @@
         <table class="table">
             <tr>
                 <th style="text-align:center; vertical-align:middle">
-                    <!--@Html.DisplayNameFor(model => model.NomeArtigo) <h6><b>de artigos</b></h6>-->
+                    <!--@Html.DisplayNameFor(model => model.IdArtigoNavigation.Nome) <h6><b>de artigos</b></h6>-->
                     Nome
                 </th>
                 <th style="text-align:center; vertical-align:middle">
@@ -73,7 +73,7 @@
                 totalPrice += item.Preco;
                 <tr>
                     <td style="text-align:center; vertical-align:middle; font-weight:bold">
-                        <a href="@Url.Action("Details", new { idArtigo = item.IdArtigo })">@Html.DisplayFor(modelItem => item.NomeArtigo)</a>
+                        <a href="@Url.Action("Details", new { idArtigo = item.IdArtigo })">@Html.DisplayFor(modelItem => item.IdArtigoNavigation.Nome)</a>
                     </td>
                     <td style="text-align:center; vertical-align:middle">
                         @Html.DisplayFor(modelItem => item.Quantidade)
@@ -84,7 +84,7 @@
                     <td style="width:250px; height:250px; text-align:center; vertical-align:middle">
                         <div class="w3-content w3-display-container">
 
-                            @{var fileName = @item.Imagem;
+                            @{var fileName = @item.IdArtigoNavigation.Imagem;
                                 String[] words = fileName.Split(" ");
                                 String itempic = words[0];
                             }
@@ -119,10 +119,14 @@
 
                 <option value="0">Selecione Cupão:</option>
                 index++;
-                @foreach (var item in Model)
+                @foreach (var item1 in Model.FirstOrDefault().IdUtilizadorNavigation.Voucher)
                 {
-                    <option value="index">@Html.DisplayFor(modelItem => item.Nome)</option>
+                    <option value="index">@Html.DisplayFor(modelItem => item1.Codigo)</option>
                     index++;
+
+                }
+                @{
+                    precoCupao = totalPrice - Model.FirstOrDefault().IdUtilizadorNavigation.Voucher.ElementAt<Voucher>(index-1).ValorOferta;
                 }
             </select>
         </div>

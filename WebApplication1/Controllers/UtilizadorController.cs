@@ -91,6 +91,12 @@ namespace WebApplication1.Controllers
         {
             string uti = Helpers.CacheController.utilizador;
             Utilizador std = model.Utilizador.Where(x => x.Email.Equals(uti)).FirstOrDefault();
+            var local = (from m in model.Localizacao where (m.CodigoPostal.Equals(std.CodPostal)) select m);
+
+            List<Localizacao> list = local.ToList<Localizacao>();
+            Localizacao l = list.ElementAt(0);
+
+            std.CodPostalNavigation = l;
 
             var vouchers = from alu in model.Voucher where (alu.IdUtilizador.Equals(uti)) select alu;
             
@@ -876,6 +882,8 @@ namespace WebApplication1.Controllers
 
         public ActionResult VendaInfo()
         {
+
+            /**
             string user = Helpers.CacheController.utilizador;
 
             var vendas = (from vend in model.Venda where (vend.IdRent == user && vend.Estado == 0) select vend);
@@ -897,13 +905,37 @@ namespace WebApplication1.Controllers
                 };
                 carInfo.Add(car);
             }
+            */
+            string user = Helpers.CacheController.utilizador;
+            var vendas = (from vend in model.Venda where (vend.IdRent == user && vend.Estado == 0) select vend);
+            List<Venda> lista = vendas.ToList<Venda>();
+            foreach (Venda venda in lista)
+            {
+                Artigo artigo = (from m in model.Artigo where (m.IdArtigo == venda.IdArtigo) select m).ToList().ElementAt<Artigo>(0);
+                var uti = from x in model.Utilizador where x.Email.Equals(user) select x;
+                Utilizador res = uti.ToList<Utilizador>().FirstOrDefault();
+                venda.IdArtigoNavigation = artigo;
 
-            Utilizador uti = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
-            int notifications = uti.Notificacoes;
+                var vouchers = from alu in model.Voucher where (alu.IdUtilizador.Equals(user)) select alu;
+
+                List<Voucher> v = vouchers.ToList<Voucher>();
+
+                foreach (Voucher a in v)
+                {
+                    res.Voucher.Add(a);
+                }
+
+                venda.IdUtilizadorNavigation = res;
+            }
+
+            Utilizador uti2 = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+            int notifications = uti2.Notificacoes;
 
             ViewData["noti"] = notifications;
 
-            return View(carInfo);
+
+
+            return View(lista);
         }
 
 

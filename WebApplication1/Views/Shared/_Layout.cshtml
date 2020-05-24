@@ -16,6 +16,145 @@
     <link href='http://fonts.googleapis.com/css?family=Cookie' rel='stylesheet' type='text/css'>
     <style>
 
+        .header-user-dropdown {
+            background-color: #212529;
+            padding: 23px 6px;
+            height: 23px;
+            color: #ffffff;
+            box-sizing: border-box;
+        }
+
+            .header-user-dropdown .header-limiter {
+                max-width: 1200px;
+                text-align: center;
+                margin: 0 auto;
+            }
+
+                /* Logo */
+
+                .header-user-dropdown .header-limiter h1 {
+                    float: left;
+                    font: normal 28px Cookie, Arial, Helvetica, sans-serif;
+                    line-height: 40px;
+                    margin: 0;
+                }
+
+                    .header-user-dropdown .header-limiter h1 span {
+                        color: #bc40df;
+                    }
+
+                /* The header links */
+
+                .header-user-dropdown .header-limiter a {
+                    color: #ffffff;
+                    text-decoration: none;
+                }
+
+                .header-user-dropdown .header-limiter nav {
+                    font: 16px Arial, Helvetica, sans-serif;
+                    line-height: 40px;
+                    float: left;
+                    margin: 0 0 0 60px;
+                    padding: 0;
+                }
+
+                    .header-user-dropdown .header-limiter nav a {
+                        font-size: 14px;
+                        display: inline-block;
+                        padding: 0 12px;
+                        opacity: 0.9;
+                        position: relative;
+                        text-decoration: none;
+                        line-height: 1;
+                    }
+
+                        .header-user-dropdown .header-limiter nav a:hover {
+                            opacity: 1;
+                        }
+
+                        /* The "new" badge */
+
+                        .header-user-dropdown .header-limiter nav a span {
+                            position: absolute;
+                            top: -12px;
+                            border-radius: 2px;
+                            background-color: #2A6A92;
+                            box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+                            height: 13px;
+                            font-size: 11px;
+                            right: -15px;
+                            padding: 1px 4px 0;
+                        }
+
+                /* The user menu */
+
+                .header-user-dropdown .header-limiter .header-user-menu {
+                    position: relative;
+                    float: right;
+                    width: 72px;
+                    padding-left: 19px;
+                    padding-top: 5px;
+                    background-color: #3a3c3e;
+                    width: 75px;
+                    height: 40px;
+                    border-radius: 2px;
+                }
+
+                    .header-user-dropdown .header-limiter .header-user-menu:before {
+                        content: '';
+                        width: 0;
+                        height: 0;
+                        top: 18px;
+                        left: 15px;
+                        position: absolute;
+                        border: 5px solid transparent;
+                        border-top-color: #fff;
+                    }
+
+                    .header-user-dropdown .header-limiter .header-user-menu ul {
+                        display: none;
+                        font: bold 13px Arial, Helvetica, sans-serif;
+                        background-color: inherit;
+                        list-style: none;
+                        position: absolute;
+                        text-align: center;
+                        width: 125px;
+                        top: 70px;
+                        right: 0px;
+                        padding: 10px;
+                        border-radius: 2px;
+                        box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+                        box-sizing: border-box;
+                    }
+
+            .header-user-dropdown .header-user-menu:active ul,
+            .header-user-dropdown .header-user-menu:hover ul,
+            .header-user-dropdown .header-user-menu.show ul {
+                display: block;
+            }
+
+            .header-user-dropdown .header-user-menu ul li {
+                padding: 5px;
+            }
+
+                .header-user-dropdown .header-user-menu ul li a:hover {
+                    opacity: 0.9;
+                }
+
+                .header-user-dropdown .header-user-menu ul li a.highlight {
+                    color: #e9ac09;
+                }
+
+            .header-user-dropdown .header-user-menu img {
+                border-radius: 50%;
+                position: absolute;
+                top: 6px;
+                max-width: 28px;
+                right: 10px;
+            }
+
+
+
         .header-two-bars {
             font: 13px Arial, Helvetica, sans-serif;
         }
@@ -170,6 +309,7 @@
                 .header-login-signup .header-limiter ul {
                     font: 14px Arial, Helvetica, sans-serif;
                     list-style: none;
+                    margin-top: -18px;
                     line-height: 2;
                     float: right;
                 }
@@ -212,7 +352,7 @@
                 margin: 0 auto;
             }
 
-        /*	The header placeholder. It is displayed when the header is fixed to the top of the
+        /*  The header placeholder. It is displayed when the header is fixed to the top of the
         browser window, in order to prevent the content of the page from jumping up. */
 
         .header-fixed-placeholder {
@@ -263,83 +403,132 @@
     </style>
 
     <style>
-
-        .wrapper {
-            position: absolute;
-            top: 20%;
-            left: 72%;
-            transform: translate(-50%, -50%);
-        }
-
-        .search-box {
-            width: 453px;
-            height: 247px;
-            position: relative;
-        }
-
-        .input {
-            position: absolute;
-            top: 20px;
-            right: 50px;
+        .header-search {
+            background-color: #292c2f;
+            box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.15);
+            padding: 20px 40px;
+            height: 80px;
+            color: #ffffff;
             box-sizing: border-box;
-            width: 48px;
-            height: 48px;
-            padding: 0 20px;
-            outline: none;
-            font-size: 18px;
-            border-radius: 50px;
-            color: #29313a;
-            border: 3px solid #179dd0;
-            transition: all 0.8s ease;
         }
 
-        ::-webkit-input-placeholder {
-            /* Chrome/Opera/Safari */
-            color: #179dd0;
-        }
+            .header-search .header-limiter {
+                max-width: 1218px;
+                text-align: center;
+                margin: 0 auto;
+            }
 
-        ::-moz-placeholder {
-            /* Firefox 19+ */
-            color: #179dd0;
-        }
+                /* Logo */
 
-        :-ms-input-placeholder {
-            /* IE 10+ */
-            color: #179dd0;
-        }
+                .header-search .header-limiter h1 {
+                    float: left;
+                    font: normal 28px Cookie, Arial, Helvetica, sans-serif;
+                    line-height: 40px;
+                    margin: 0;
+                }
 
-        :-moz-placeholder {
-            /* Firefox 18- */
-            color: #179dd0;
-        }
+                    .header-search .header-limiter h1 span {
+                        color: #5383d3;
+                    }
 
-        .btnS {
-            border-radius: 50%;
-            position: absolute;
-            width: 48px;
-            height: 48px;
-            background: #179dd0;
-            border-radius: 50%;
-            top: 20px;
-            right: 50px;
-            cursor: pointer;
-            text-align: center;
-            line-height: 55px;
-            font-size: 20px;
-            color: #fff;
-            transition: all 0.8s ease;
-        }
+                /* The header links */
 
-        .input.active {
-            width: 338px;
-            height: 48px;
-            right: 61px;
-        }
+                .header-search .header-limiter a {
+                    color: #ffffff;
+                    margin-left: -5px;
+                    text-decoration: none;
+                }
 
-        .btnS.animate {
-            transform: rotate(-360deg);
-            right: 60px;
-        }
+                .header-search .header-limiter nav {
+                    font: 16px Arial, Helvetica, sans-serif;
+                    line-height: 40px;
+                    float: left;
+                    margin: -5px -4px -5px 3px;
+                    padding: 0;
+                }
+
+                    .header-search .header-limiter nav a {
+                        display: inline-block;
+                        padding: 0 5px;
+                        text-decoration: none;
+                        color: #ffffff;
+                        font-size: 16px;
+                        font-weight: normal;
+                        opacity: 0.9;
+                    }
+
+                        .header-search .header-limiter nav a:hover {
+                            opacity: 1;
+                        }
+
+                        .header-search .header-limiter nav a.selected {
+                            color: #608bd2;
+                            pointer-events: none;
+                            opacity: 1;
+                        }
+
+                /* The search box */
+
+                .header-search .header-limiter form {
+                    float: right;
+                    position: relative;
+                    right: 1px;
+                    color: #212529;
+                    top: 14px;
+                    margin-left: 40px;
+                    border-radius: 3px;
+                    background-color: #3a3c3e;
+                    width: 44px;
+                    height: 39px;
+                    cursor: pointer;
+                    -ms-user-select: none;
+                    -moz-user-select: none;
+                    -webkit-user-select: none;
+                    user-select: none;
+                }
+
+                    /* CSS search icon */
+
+                    .header-search .header-limiter form:before {
+                        position: absolute;
+                        content: '';
+                        border-radius: 50%;
+                        border: 2px solid #fff;
+                        width: 9px;
+                        height: 9px;
+                        top: 12px;
+                        left: 14px;
+                    }
+
+                    .header-search .header-limiter form:after {
+                        position: absolute;
+                        content: '';
+                        background-color: #fff;
+                        width: 2px;
+                        height: 8px;
+                        top: 22px;
+                        left: 26px;
+                        -webkit-transform: rotate(-44deg);
+                        -moz-transform: rotate(-44deg);
+                        transform: rotate(-44deg);
+                    }
+
+                    /* The search box */
+
+                    .header-search .header-limiter form input {
+                        display: none;
+                        position: absolute;
+                        right: 42px;
+                        padding: 11px 12px 9px;
+                        border: none;
+                        width: 210px;
+                        border-radius: 2px 0 0 2px;
+                        height: 39px;
+                        box-sizing: border-box;
+                        -webkit-appearance: none;
+                        -moz-appearance: none;
+                        appearance: none;
+                    }
     </style>
 
     <!-- Sidebar -->
@@ -460,37 +649,37 @@
                 <span>Outros</span>
             </a>
         </div>
-        </body>
+    </body>
 
-        @section scripts{
-            <script type="text/javascript">
-                // <![CDATA[
-                $(document).ready(function () {
-                    $('#calendar').fullCalendar({
-                        theme: true,
+    @section scripts{
+        <script type="text/javascript">
+            // <![CDATA[
+            $(document).ready(function () {
+                $('#calendar').fullCalendar({
+                    theme: true,
 
-                        defaultView: 'agendaDay',
-                        editable: false,
-                        events: "/Home/Details/"
-                    });
+                    defaultView: 'agendaDay',
+                    editable: false,
+                    events: "/Home/Details/"
                 });
+            });
 
-                // ]]></script>
-        }
+            // ]]></script>
+    }
 
-        <!--Pretty one: -->
-        <link rel="stylesheet" type="text/css" media="screen" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
+    <!--Pretty one: -->
+    <link rel="stylesheet" type="text/css" media="screen" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
 
-        <!--Bootstrap core CSS-->
-        <link href="~/lib/bootstrap/dist/css/bootstrap-grid.min.css" rel="stylesheet">
+    <!--Bootstrap core CSS-->
+    <link href="~/lib/bootstrap/dist/css/bootstrap-grid.min.css" rel="stylesheet">
 
-        <!-- Custom styles for this template -->
-        <link href="~/css/agency.css" rel="stylesheet">
-        <link rel="icon" href="~/icon.ico">
+    <!-- Custom styles for this template -->
+    <link href="~/css/agency.css" rel="stylesheet">
+    <link rel="icon" href="~/icon.ico">
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script type="text/javascript">var scrolltotop = { setting: { startline: 100, scrollto: 0, scrollduration: 1e3, fadeduration: [500, 100] }, controlHTML: '<img src="https://i1155.photobucket.com/albums/p559/scrolltotop/arrow79.png" />', controlattrs: { offsetx: 5, offsety: 5 }, anchorkeyword: "#top", state: { isvisible: !1, shouldvisible: !1 }, scrollup: function () { this.cssfixedsupport || this.$control.css({ opacity: 0 }); var t = isNaN(this.setting.scrollto) ? this.setting.scrollto : parseInt(this.setting.scrollto); t = "string" == typeof t && 1 == jQuery("#" + t).length ? jQuery("#" + t).offset().top : 0, this.$body.animate({ scrollTop: t }, this.setting.scrollduration) }, keepfixed: function () { var t = jQuery(window), o = t.scrollLeft() + t.width() - this.$control.width() - this.controlattrs.offsetx, s = t.scrollTop() + t.height() - this.$control.height() - this.controlattrs.offsety; this.$control.css({ left: o + "px", top: s + "px" }) }, togglecontrol: function () { var t = jQuery(window).scrollTop(); this.cssfixedsupport || this.keepfixed(), this.state.shouldvisible = t >= this.setting.startline ? !0 : !1, this.state.shouldvisible && !this.state.isvisible ? (this.$control.stop().animate({ opacity: 1 }, this.setting.fadeduration[0]), this.state.isvisible = !0) : 0 == this.state.shouldvisible && this.state.isvisible && (this.$control.stop().animate({ opacity: 0 }, this.setting.fadeduration[1]), this.state.isvisible = !1) }, init: function () { jQuery(document).ready(function (t) { var o = scrolltotop, s = document.all; o.cssfixedsupport = !s || s && "CSS1Compat" == document.compatMode && window.XMLHttpRequest, o.$body = t(window.opera ? "CSS1Compat" == document.compatMode ? "html" : "body" : "html,body"), o.$control = t('<div id="topcontrol">' + o.controlHTML + "</div>").css({ position: o.cssfixedsupport ? "fixed" : "absolute", bottom: o.controlattrs.offsety, right: o.controlattrs.offsetx, opacity: 0, cursor: "pointer" }).attr({ title: "Scroll to Top" }).click(function () { return o.scrollup(), !1 }).appendTo("body"), document.all && !window.XMLHttpRequest && "" != o.$control.text() && o.$control.css({ width: o.$control.width() }), o.togglecontrol(), t('a[href="' + o.anchorkeyword + '"]').click(function () { return o.scrollup(), !1 }), t(window).bind("scroll resize", function (t) { o.togglecontrol() }) }) } }; scrolltotop.init();</script>
-        <noscript>Not seeing a <a href="https://www.scrolltotop.com/">Scroll to Top Button</a>? Go to our FAQ page for more info.</noscript>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">var scrolltotop = { setting: { startline: 100, scrollto: 0, scrollduration: 1e3, fadeduration: [500, 100] }, controlHTML: '<img src="https://i1155.photobucket.com/albums/p559/scrolltotop/arrow79.png" />', controlattrs: { offsetx: 5, offsety: 5 }, anchorkeyword: "#top", state: { isvisible: !1, shouldvisible: !1 }, scrollup: function () { this.cssfixedsupport || this.$control.css({ opacity: 0 }); var t = isNaN(this.setting.scrollto) ? this.setting.scrollto : parseInt(this.setting.scrollto); t = "string" == typeof t && 1 == jQuery("#" + t).length ? jQuery("#" + t).offset().top : 0, this.$body.animate({ scrollTop: t }, this.setting.scrollduration) }, keepfixed: function () { var t = jQuery(window), o = t.scrollLeft() + t.width() - this.$control.width() - this.controlattrs.offsetx, s = t.scrollTop() + t.height() - this.$control.height() - this.controlattrs.offsety; this.$control.css({ left: o + "px", top: s + "px" }) }, togglecontrol: function () { var t = jQuery(window).scrollTop(); this.cssfixedsupport || this.keepfixed(), this.state.shouldvisible = t >= this.setting.startline ? !0 : !1, this.state.shouldvisible && !this.state.isvisible ? (this.$control.stop().animate({ opacity: 1 }, this.setting.fadeduration[0]), this.state.isvisible = !0) : 0 == this.state.shouldvisible && this.state.isvisible && (this.$control.stop().animate({ opacity: 0 }, this.setting.fadeduration[1]), this.state.isvisible = !1) }, init: function () { jQuery(document).ready(function (t) { var o = scrolltotop, s = document.all; o.cssfixedsupport = !s || s && "CSS1Compat" == document.compatMode && window.XMLHttpRequest, o.$body = t(window.opera ? "CSS1Compat" == document.compatMode ? "html" : "body" : "html,body"), o.$control = t('<div id="topcontrol">' + o.controlHTML + "</div>").css({ position: o.cssfixedsupport ? "fixed" : "absolute", bottom: o.controlattrs.offsety, right: o.controlattrs.offsetx, opacity: 0, cursor: "pointer" }).attr({ title: "Scroll to Top" }).click(function () { return o.scrollup(), !1 }).appendTo("body"), document.all && !window.XMLHttpRequest && "" != o.$control.text() && o.$control.css({ width: o.$control.width() }), o.togglecontrol(), t('a[href="' + o.anchorkeyword + '"]').click(function () { return o.scrollup(), !1 }), t(window).bind("scroll resize", function (t) { o.togglecontrol() }) }) } }; scrolltotop.init();</script>
+    <noscript>Not seeing a <a href="https://www.scrolltotop.com/">Scroll to Top Button</a>? Go to our FAQ page for more info.</noscript>
 
 </head>
 
@@ -498,7 +687,7 @@
 
     <header class="header-two-bars">
 
-        <div class="header-first-bar header-fixed header-login-signup">
+        <div class="header-first-bar header-fixed header-login-signup header-search">
             <div class="header-limiter" asp-area="" asp-controller="Home" asp-action="Index">
                 <a asp-area="" asp-controller="Home" asp-action="Index">
                     <img src="~/Images/rentitalllogo.png" class="col-md-2" style="margin-top: -12px;" alt="Responsive image">
@@ -514,22 +703,23 @@
                 </nav>
 
                 <ul>
+                    <li>
+                        <form asp-action="SearchArtigos" asp-controllers="Home" method="POST" enctype="multipart/form-data">
+                            <input type="text" placeholder="Search" name="search" class="input">
+                        </form>
+                    </li>
                     <li><a href="@Url.Action("Login", "Conta")">Login</a></li>
                     <li><a href="@Url.Action("AdicionarCliente", "Utilizador")">Sign up</a></li>
                 </ul>
             </div>
-
-
-
-
-
+        </div>
 
 
         </div>
         <div class="header-second-bar header-limiter">
 
             <h2>
-                <div id="main"  style="margin-left:-39px;margin-top: -22px">
+                <div id="main" style="margin-left:-39px;margin-top: -22px">
                     <button class="openbtn" onclick="openNav()">☰ Categorias</button>
                 </div>
                 <script>
@@ -547,16 +737,12 @@
                 </script>
             </h2>
 
-                <nav>
-                    <a href="#"><i class="fa fa-trophy"></i> Mais Vendidos</a>
-                    <a href="#"><i class="fa fa-star"></i> Melhor Classificação</a>
-                    <a href="#"><i class="fa fa-exclamation"></i> Novidades</a>
+            <nav>
+                <a href="@Url.Action("MaisVendidos", "Home")"><i class="fa fa-trophy"></i> Mais Vendidos</a>
+                <a href="@Url.Action("MaiorClassificacao", "Home")"><i class="fa fa-star"></i> Melhor Classificação</a>
+                <a href="@Url.Action("Novidades", "Home")"><i class="fa fa-exclamation"></i> Novidades</a>
 
-
-
-
-
-                </nav>
+            </nav>
 
 
         </div>
@@ -566,110 +752,117 @@
 
     </header>
 
-                <!-- You need this element to prevent the content of the page from jumping up -->
-                <div class="header-fixed-placeholder"></div>
+    <!-- You need this element to prevent the content of the page from jumping up -->
+    <div class="header-fixed-placeholder"></div>
 
-                <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-                <script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
 
-                    $(document).ready(function () {
+        $(document).ready(function () {
 
-                        var showHeaderAt = 150;
+            var showHeaderAt = 150;
 
-                        var win = $(window),
-                            body = $('body');
+            var win = $(window),
+                body = $('body');
 
-                        // Show the fixed header only on larger screen devices
+            // Show the fixed header only on larger screen devices
 
-                        if (win.width() > 600) {
+            if (win.width() > 600) {
 
-                            // When we scroll more than 150px down, we set the
-                            // "fixed" class on the body element.
+                // When we scroll more than 150px down, we set the
+                // "fixed" class on the body element.
 
-                            win.on('scroll', function (e) {
+                win.on('scroll', function (e) {
 
-                                if (win.scrollTop() > showHeaderAt) {
-                                    body.addClass('fixed');
-                                }
-                                else {
-                                    body.removeClass('fixed');
-                                }
-                            });
+                    if (win.scrollTop() > showHeaderAt) {
+                        body.addClass('fixed');
+                    }
+                    else {
+                        body.removeClass('fixed');
+                    }
+                });
 
+            }
+
+        });
+
+    </script>
+
+    <script>
+
+                $(document).ready(function() {
+
+                    $('.header-search form').on('click', function (e) {
+
+                        // If the form (which is turned into the search button) was
+                        // clicked directly, toggle the visibility of the search box.
+
+                        if (e.target == this) {
+                            $(this).find('input').toggle();
                         }
 
                     });
+            });
 
-                </script>
+    </script>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
 
 
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            @RenderBody()
 
-                <div class="container">
-                    <main role="main" class="pb-3">
-                        @RenderBody()
-                    </main>
+
+            <div class="row align-items-center">
+                <div class="col-md-4">
+                    <span class="copyright">Copyright  @DateTime.Now.Year - RentItAll</span>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-inline social-buttons">
+                        <li class="list-inline-item">
+                            <a href="#">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
 
+                <div class="col-xl-4">
+                    <ul class="list-inline quicklinks">
 
-                <!-- Footer -->
-                <footer class="footer">
-                    <div class="container">
-                        @RenderBody()
+                        <li class="list-inline-item">
+                            <a class="nav-link" href="#">Services</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#">Termos de Uso</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">
+                                Privacy
+                            </a>
+                        </li>
 
-
-                        <div class="row align-items-center">
-                            <div class="col-md-4">
-                                <span class="copyright">Copyright  @DateTime.Now.Year - RentItAll</span>
-                            </div>
-                            <div class="col-md-4">
-                                <ul class="list-inline social-buttons">
-                                    <li class="list-inline-item">
-                                        <a href="#">
-                                            <i class="fab fa-twitter"></i>
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#">
-                                            <i class="fab fa-facebook-f"></i>
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#">
-                                            <i class="fab fa-linkedin-in"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <div class="col-xl-4">
-                                <ul class="list-inline quicklinks">
-                                    <li class="list-inline-item">
-                                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Contact">
-                                            Contacto
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a class="nav-link" href="#">Services</a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#">Termos de Uso</a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">
-                                            Privacy
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="About">
-                                            Sobre nós
-                                        </a>
-                                    </li>
-
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </footer>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
 
 
 
@@ -677,19 +870,19 @@
 
 
 
-                @RenderSection("scripts", required: false)
+    @RenderSection("scripts", required: false)
 
-                <!-- Bootstrap core JavaScript -->
-                <script src="~/lib/jquery/dist/jquery.min.js"></script>
-                <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 
-                <!-- Contact form JavaScript -->
-                <script src="~/js/jqBootstrapValidation.js"></script>
-                <script src="~/js/contact_me.js"></script>
+    <!-- Contact form JavaScript -->
+    <script src="~/js/jqBootstrapValidation.js"></script>
+    <script src="~/js/contact_me.js"></script>
 
-                <!-- Custom scripts for this template -->
-                <script src="~/js/agency.min.js"></script>
+    <!-- Custom scripts for this template -->
+    <script src="~/js/agency.min.js"></script>
 
 
 </body>

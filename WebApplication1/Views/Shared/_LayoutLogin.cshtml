@@ -24,7 +24,7 @@
     <style>
         .header-user-dropdown {
             background-color: #212529;
-            padding: 24px 12px;
+            padding: 23px 6px;
             height: 23px;
             color: #ffffff;
             box-sizing: border-box;
@@ -97,6 +97,9 @@
                 .header-user-dropdown .header-limiter .header-user-menu {
                     position: relative;
                     float: right;
+                    width: 72px;
+                    padding-left: 19px;
+                    padding-top: 5px;
                     background-color: #3a3c3e;
                     width: 75px;
                     height: 40px;
@@ -406,83 +409,133 @@
     </style>
 
     <style>
-
-        .wrapper {
-            position: absolute;
-            top: 20%;
-            left: 72%;
-            transform: translate(-50%, -50%);
-        }
-
-        .search-box {
-            width: 453px;
-            height: 247px;
-            position: relative;
-        }
-
-        .input {
-            position: absolute;
-            top: 20px;
-            right: 50px;
+        .header-search {
+            background-color: #292c2f;
+            box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.15);
+            padding: 20px 40px;
+            height: 80px;
+            color: #ffffff;
             box-sizing: border-box;
-            width: 48px;
-            height: 48px;
-            padding: 0 20px;
-            outline: none;
-            font-size: 18px;
-            border-radius: 50px;
-            color: #29313a;
-            border: 3px solid #179dd0;
-            transition: all 0.8s ease;
         }
 
-        ::-webkit-input-placeholder {
-            /* Chrome/Opera/Safari */
-            color: #179dd0;
-        }
+            .header-search .header-limiter {
+                max-width: 1218px;
+                text-align: center;
+                margin: 0 auto;
+            }
 
-        ::-moz-placeholder {
-            /* Firefox 19+ */
-            color: #179dd0;
-        }
+                /* Logo */
 
-        :-ms-input-placeholder {
-            /* IE 10+ */
-            color: #179dd0;
-        }
+                .header-search .header-limiter h1 {
+                    float: left;
+                    font: normal 28px Cookie, Arial, Helvetica, sans-serif;
+                    line-height: 40px;
+                    margin: 0;
+                }
 
-        :-moz-placeholder {
-            /* Firefox 18- */
-            color: #179dd0;
-        }
+                    .header-search .header-limiter h1 span {
+                        color: #5383d3;
+                    }
 
-        .btnS {
-            border-radius: 50%;
-            position: absolute;
-            width: 48px;
-            height: 48px;
-            background: #179dd0;
-            border-radius: 50%;
-            top: 20px;
-            right: 50px;
-            cursor: pointer;
-            text-align: center;
-            line-height: 55px;
-            font-size: 20px;
-            color: #fff;
-            transition: all 0.8s ease;
-        }
+                /* The header links */
 
-        .input.active {
-            width: 338px;
-            height: 48px;
-            right: 61px;
-        }
+                .header-search .header-limiter a {
+                    color: #ffffff;
+                    margin-left: -5px;
+                    text-decoration: none;
+                }
 
-        .btnS.animate {
-            transform: rotate(-360deg);
-            right: 60px;
-        }
+                .header-search .header-limiter nav {
+                    font: 16px Arial, Helvetica, sans-serif;
+                    line-height: 40px;
+                    float: left;
+                    margin: -5px -4px -5px 3px;
+                    padding: 0;
+                }
+
+                    .header-search .header-limiter nav a {
+                        display: inline-block;
+                        padding: 0 5px;
+                        text-decoration: none;
+                        color: #ffffff;
+                        font-size: 16px;
+                        font-weight: normal;
+                        opacity: 0.9;
+                    }
+
+                        .header-search .header-limiter nav a:hover {
+                            opacity: 1;
+                        }
+
+                        .header-search .header-limiter nav a.selected {
+                            color: #608bd2;
+                            pointer-events: none;
+                            opacity: 1;
+                        }
+
+                /* The search box */
+
+                .header-search .header-limiter form {
+                    float: right;
+                    position: relative;
+                    right: 1px;
+                    color: #212529;
+                    top: 14px;
+                    margin-left: 40px;
+                    border-radius: 3px;
+                    background-color: #3a3c3e;
+                    width: 44px;
+                    height: 39px;
+                    cursor: pointer;
+                    -ms-user-select: none;
+                    -moz-user-select: none;
+                    -webkit-user-select: none;
+                    user-select: none;
+                }
+
+                    /* CSS search icon */
+
+                    .header-search .header-limiter form:before {
+                        position: absolute;
+                        content: '';
+                        border-radius: 50%;
+                        border: 2px solid #fff;
+                        width: 9px;
+                        height: 9px;
+                        top: 12px;
+                        left: 14px;
+                    }
+
+                    .header-search .header-limiter form:after {
+                        position: absolute;
+                        content: '';
+                        background-color: #fff;
+                        width: 2px;
+                        height: 8px;
+                        top: 22px;
+                        left: 26px;
+                        -webkit-transform: rotate(-44deg);
+                        -moz-transform: rotate(-44deg);
+                        transform: rotate(-44deg);
+                    }
+
+                    /* The search box */
+
+                    .header-search .header-limiter form input {
+                        display: none;
+                        position: absolute;
+                        right: 42px;
+                        padding: 11px 12px 9px;
+                        border: none;
+                        width: 210px;
+                        border-radius: 2px 0 0 2px;
+                        height: 39px;
+                        box-sizing: border-box;
+                        -webkit-appearance: none;
+                        -moz-appearance: none;
+                        appearance: none;
+                    }
+      
     </style>
 
     <!-- Sidebar -->
@@ -648,7 +701,7 @@
 
     <header class="header-two-bars">
 
-        <div class="header-first-bar header-fixed header-login-signup">
+        <div class="header-first-bar header-fixed header-login-signup header-search">
             <div class="header-limiter" asp-area="" asp-controller="Utilizador" asp-action="Index">
                 <a asp-area="" asp-controller="Utilizador" asp-action="Index">
                     <img src="~/Images/rentitalllogo.png" class="col-md-2" style="margin-top: -12px;" alt="Responsive image">
@@ -664,6 +717,13 @@
                 </nav>
 
                 <ul>
+
+                    <li>
+                        <form asp-action="SearchArtigos" asp-controllers="Utilizador" method="POST" enctype="multipart/form-data">
+                            <input type="text" placeholder="Search" name="search" class="input">
+                        </form>
+                    </li>
+
                     <li><a href="@Url.Action("VerArtigos", "Utilizador")">Os Meus Produtos</a></li>
                     <li><a href="@Url.Action("Historico", "Utilizador")">Histórico</a></li>
                     @if (IsSectionDefined("NotId"))
@@ -695,7 +755,7 @@
                     </li>
 
 
-</div>
+            </div>
             </ul>
         </div>
 
@@ -725,44 +785,9 @@
             </h2>
 
             <nav>
-                <a href="#"><i class="fa fa-trophy"></i> Mais Vendidos</a>
-                <a href="#"><i class="fa fa-star"></i> Melhor Classificação</a>
-                <a href="#"><i class="fa fa-exclamation"></i> Novidades</a>
-                <a>
-                    <!--
-
-                    <strong>
-                        <div class="wrapper">
-                            <strong>
-                                <div class="search-box">
-                                    <form asp-action="SearchArtigos" asp-controllers="Utilizador" method="POST" enctype="multipart/form-data">
-                                        <input type="text" placeholder="Search" name="search" class="input">
-                                        <strong>
-                                            <div class="btnS" type="submit">
-                                                <script>
-
-                                                    $(".btnS").click(function () {
-                                                        $(".input").toggleClass("active").focus;
-                                                        $(this).toggleClass("animate");
-                                                        $(".input").val("");
-                                                    });
-                                                </script>
-                                                <i class="fa fa-search" aria-hidden="true"></i>
-                                            </div>
-                                        </strong>
-                                    </form>
-                                </div>
-                            </strong>
-                        </div>
-                    </strong>
-
-                        -->
-                </a>
-
-
-
-
-
+                <a href="@Url.Action("MaisVendidos", "Utilizador")"><i class="fa fa-trophy"></i> Mais Vendidos</a>
+                <a href="@Url.Action("MaiorClassificacao", "Utilizador")"><i class="fa fa-star"></i> Melhor Classificação</a>
+                <a href="@Url.Action("Novidades", "Utilizador")"><i class="fa fa-exclamation"></i> Novidades</a>
             </nav>
 
 
@@ -837,7 +862,23 @@
         });
 
     </script>
+    <script>
 
+        $(document).ready(function () {
+
+            $('.header-search form').on('click', function (e) {
+
+                // If the form (which is turned into the search button) was
+                // clicked directly, toggle the visibility of the search box.
+
+                if (e.target == this) {
+                    $(this).find('input').toggle();
+                }
+
+            });
+        });
+
+    </script>
 
 
     <div class="container">
@@ -879,11 +920,6 @@
                 <div class="col-xl-4">
                     <ul class="list-inline quicklinks">
                         <li class="list-inline-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Contact">
-                                Contacto
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
                             <a class="nav-link" href="#">Services</a>
                         </li>
                         <li class="list-inline-item">
@@ -892,11 +928,6 @@
                         <li class="list-inline-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">
                                 Privacy
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="About">
-                                Sobre nós
                             </a>
                         </li>
 
