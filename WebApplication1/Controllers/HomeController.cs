@@ -188,8 +188,9 @@ namespace WebApplication1.Controllers
 
         public IActionResult Login(string username, string password)
         {
-            return conta.Login(username, password);
+            return (IActionResult)conta.LoginAsync(username, password);
         }
+
         public ActionResult Procurei()
         {
             var data = "info que eu preciso guardar para mandar";

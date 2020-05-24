@@ -19,6 +19,7 @@ using System.Security.Claims;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
+using System.Threading.Tasks;
 
 namespace WebApplication1.Controllers
 {
@@ -39,17 +40,15 @@ namespace WebApplication1.Controllers
 
 
         [HttpPost]
-        public ActionResult Login(string email, string password)
+        public async Task<ActionResult> LoginAsync(string email, string password)
         {
-            if (!Response.Cookies.Equals("CookieMonster"))
+            if (Request.Cookies.ContainsKey("CookieMonster"))
             {
                 Helpers.CacheController.utilizador = email;
                 return RedirectToAction("Index", "Utilizador");
             }
-
             DefaultController.Utilizador = new Utilizador();
             DefaultController.Utilizador.Password = password;
-            // int userName = Int32.Parse(username);
             if (ModelState.IsValid)
             {
                 var userS = (from u in model.Utilizador where (u.Email == email && u.Tipo == "single") select u);
@@ -57,28 +56,51 @@ namespace WebApplication1.Controllers
                 if (userS.ToList().Count > 0)
                 {
 
+
                     Utilizador userSingle = userS.ToList().ElementAt<Utilizador>(0);
                     using (MD5 md5Hash = MD5.Create())
                     {
                         if (MyHelpers.VerifyMd5Hash(md5Hash, password, userSingle.Password))
                         {
+                            /*
                             var claims = new List<Claim>
-                            {
-                                new Claim(ClaimTypes.Name,email)
-                            };
-
+                    {
+                        new Claim(ClaimTypes.Name,email)
+                    };
+                            
                             var identety = new ClaimsIdentity(
                                    claims, CookieAuthenticationDefaults.AuthenticationScheme);
                             var principal = new ClaimsPrincipal(identety);
                             var props = new AuthenticationProperties();
                             HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, props).Wait();
+                            */
+                            var claims = new List<Claim>
+                                 {
+                                       new Claim(ClaimTypes.Name, email),
+                                       new Claim(ClaimTypes.Role, "User")
+                                  };
+
+                            var identidadeDeUsuario = new ClaimsIdentity(claims, "Login");
+                            ClaimsPrincipal claimPrincipal = new ClaimsPrincipal(identidadeDeUsuario);
+
+                            var propriedadesDeAutenticacao = new AuthenticationProperties
+                            {
+                                AllowRefresh = true,
+                                ExpiresUtc = DateTime.Now.ToLocalTime().AddSeconds(10),
+                                IsPersistent = true
+                            };
+
+                            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimPrincipal, propriedadesDeAutenticacao);
+
+
+
+
                             Helpers.CacheController.utilizador = userSingle.Email;
                             return RedirectToAction("Index", "Utilizador");
                         }
                         else
 
                         {
-                            //ViewData["User_Name"] = "Bem vindo" + userSingle.Nome;
                             ModelState.AddModelError("password", "Password incorreta!");
                             return View();
                         }
@@ -93,12 +115,16 @@ namespace WebApplication1.Controllers
                     {
                         if (MyHelpers.VerifyMd5Hash(md5Hash, password, admin.Password))
                         {
+                            var claims = new List<Claim>
+                    {
+                        new Claim(ClaimTypes.Name,email)
+                    };
 
-                            //ViewData["User_Name"] = "Bem vindo";
-                            /*
-                            HttpCookie cookie = MyHelpers.CreateAuthorizeTicket(cliente.Id.ToString(), cliente.Role);
-                                Response.Cookies.Add(cookie);
-                                */
+                            var identety = new ClaimsIdentity(
+                                   claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                            var principal = new ClaimsPrincipal(identety);
+                            var props = new AuthenticationProperties();
+                            HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, props).Wait();
                             return RedirectToAction("Index", "Administrador");
                         }
                         else
@@ -119,10 +145,17 @@ namespace WebApplication1.Controllers
                         {
                             if (MyHelpers.VerifyMd5Hash(md5Hash, password, utilizador.Password))
                             {
-                                /*
-                                HttpCookie cookie = MyHelpers.CreateAuthorizeTicket(cliente.Id.ToString(), cliente.Role);
-                                Response.Cookies.Add(cookie);
-                                */
+                                var claims = new List<Claim>
+                    {
+                        new Claim(ClaimTypes.Name,email)
+                    };
+
+                                var identety = new ClaimsIdentity(
+                                       claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                                var principal = new ClaimsPrincipal(identety);
+                                var props = new AuthenticationProperties();
+                                HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, props).Wait();
+
                                 ViewData["User_Name"] = "Bem vindo" + utilizador.Nome;
                                 return RedirectToAction("Index", "Funcionario");
                             }
@@ -147,11 +180,14 @@ namespace WebApplication1.Controllers
         }
 
 
-        public ActionResult LogOut()
+
+        public async Task<IActionResult> LogOut()
         {
-            // FormsAuthentication.SignOut();
+            await HttpContext.SignOutAsync();
+            Response.Cookies.Delete("CookieMonster");
             return RedirectToAction("Index", "Home");
         }
+
 
         [HttpPost]
         public ActionResult Registar(Utilizador utilizador)
