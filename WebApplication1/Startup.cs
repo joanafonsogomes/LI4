@@ -35,7 +35,6 @@ namespace WebApplication1
             {
                 options.LoginPath = "/Conta/Login";
                 options.Cookie.Name = "CookieMonster";
-                options.ExpireTimeSpan = TimeSpan.FromHours(10);
 
 
             });
