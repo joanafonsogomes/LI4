@@ -86,7 +86,7 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        [Authorize]
+    
         public ActionResult Perfil()
         {
             string uti = Helpers.CacheController.utilizador;
@@ -116,7 +116,7 @@ namespace WebApplication1.Controllers
             return View(std);
         }
 
-        [Authorize]
+ 
         public ActionResult AdicionarCarrinho(int idArtigo)
         {
 
@@ -335,7 +335,7 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        [Authorize]
+       
         public ActionResult Details(int idArtigo)
         {
             Console.WriteLine(idArtigo);
@@ -365,7 +365,7 @@ namespace WebApplication1.Controllers
 
 
         /**envia o pedido ao dono*/
-        [Authorize]
+        
         [HttpPost]
         public ActionResult Details(int IdArtigo, DateTime inicio, DateTime fim)
         {
@@ -404,7 +404,6 @@ namespace WebApplication1.Controllers
             return RedirectToAction("AluguerPedido", "Utilizador", new { idArtigo = IdArtigo });
         }
 
-        [Authorize]
         public ActionResult AluguerPedido(int idArtigo)
         {
             int s = Helpers.CacheController.aluguerRealizado;
@@ -441,7 +440,6 @@ namespace WebApplication1.Controllers
             return View(res);
         }
 
-
         public IActionResult NovoArtigo()
         {
             string user = Helpers.CacheController.utilizador;
@@ -453,7 +451,7 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        [Authorize]
+   
         [HttpPost]
         public IActionResult NovoArtigo(List<IFormFile> file, string nome, float preco, string modo, int quantidade, string categoria, string etiquetas, string descricao)
         {
@@ -558,9 +556,7 @@ namespace WebApplication1.Controllers
 
             return View(lista);
         }
-
-        [Authorize]
-        public ActionResult Aceitar(int idAluguer)
+public ActionResult Aceitar(int idAluguer)
         {
             Aluguer u = (from alu in model.Aluguer where (alu.IdAluguer == idAluguer) select alu).ToList().ElementAt<Aluguer>(0);
             u.Estado = 1;
@@ -581,7 +577,6 @@ namespace WebApplication1.Controllers
             return RedirectToAction("AluguerPedidos", "Utilizador");
         }
 
-        [Authorize]
         public ActionResult Recusar(int idAluguer)
         {
             Aluguer u = (from alu in model.Aluguer where (alu.IdAluguer == idAluguer) select alu).ToList().ElementAt<Aluguer>(0);
@@ -595,7 +590,7 @@ namespace WebApplication1.Controllers
             return RedirectToAction("AluguerPedidos", "Utilizador");
         }
 
-        [Authorize]
+ 
         public ActionResult AluguerPedidos()
         {
             string user = Helpers.CacheController.utilizador;
@@ -638,7 +633,7 @@ namespace WebApplication1.Controllers
             return View(nots);
         }
 
-        [Authorize]
+
         public ActionResult AluguerRespostas()
         {
             string user = Helpers.CacheController.utilizador;
@@ -693,8 +688,6 @@ namespace WebApplication1.Controllers
 
             return View(nots);
         }
-
-        [Authorize]
         public ActionResult Historico()
         {
             string user = Helpers.CacheController.utilizador;
@@ -706,7 +699,6 @@ namespace WebApplication1.Controllers
             return View("Historico");
         }
 
-        [Authorize]
         public ActionResult AluguerInfo()
         {
             string user = Helpers.CacheController.utilizador;
@@ -841,7 +833,6 @@ namespace WebApplication1.Controllers
             return View(vendas);
         }
 
-        [Authorize]
         public ActionResult FinalizarCompra()
         {
 
@@ -870,7 +861,7 @@ namespace WebApplication1.Controllers
             return RedirectToAction("VendaInfo", "Utilizador");
         }
 
-        [Authorize]
+
         public ActionResult RemArtCarrinho(int idVenda)
         {
             Venda v = (from vend in model.Venda where (vend.IdVenda == idVenda) select vend).ToList().ElementAt<Venda>(0);
@@ -880,7 +871,6 @@ namespace WebApplication1.Controllers
             return RedirectToAction("VendaInfo", "Utilizador");
         }
 
-        [Authorize]
         public ActionResult VendaInfo()
         {
 
@@ -939,8 +929,7 @@ namespace WebApplication1.Controllers
             return View(lista);
         }
 
-        [Authorize]
-        public ActionResult VerInfo()
+public ActionResult VerInfo()
         {
             string user = Helpers.CacheController.utilizador;
 
@@ -963,7 +952,6 @@ namespace WebApplication1.Controllers
             return View(res);
         }
 
-        [Authorize]
         public ActionResult Alterar(int idArtigo)
         {
 
@@ -982,7 +970,6 @@ namespace WebApplication1.Controllers
             return View(ss);
         }
 
-        [Authorize]
         [HttpPost]
         public ActionResult Password(string password)
         {
@@ -1052,7 +1039,7 @@ namespace WebApplication1.Controllers
             return View("Password");
         }
 
-        [Authorize]
+      
         [HttpPost]
         public ActionResult CBanc(long conta)
         {
@@ -1112,7 +1099,6 @@ namespace WebApplication1.Controllers
             return View("Telemovel");
         }
 
-        [Authorize]
         [HttpPost]
         public ActionResult Telemovel(int telemovel)
         {
@@ -1173,7 +1159,7 @@ namespace WebApplication1.Controllers
             return View("CPostal");
         }
 
-        [Authorize]
+       
         [HttpPost]
         public ActionResult CPostal(string codigoPostal)
         {
@@ -1233,7 +1219,7 @@ namespace WebApplication1.Controllers
         {
             return View("Distrito");
         }
-        [Authorize]
+
         [HttpPost]
         public ActionResult Distrito(string distrito)
         {
@@ -1295,7 +1281,7 @@ namespace WebApplication1.Controllers
         }
 
 
-        [Authorize]
+
         [HttpPost]
         public ActionResult Freguesia(string freguesia)
         {
@@ -1358,7 +1344,6 @@ namespace WebApplication1.Controllers
         }
 
 
-        [Authorize]
         [HttpPost]
         public ActionResult Rua(string rua)
         {
@@ -1420,7 +1405,6 @@ namespace WebApplication1.Controllers
         }
 
 
-        [Authorize]
         [HttpPost]
 
         public ActionResult NPorta(int nporta)
@@ -1521,7 +1505,7 @@ namespace WebApplication1.Controllers
             return View("AlteraNome");
         }
 
-        [Authorize]
+    
         [HttpPost]
         public ActionResult AlteraNome(string nome)
         {
@@ -1554,7 +1538,7 @@ namespace WebApplication1.Controllers
             return View("AlteraPreco");
         }
 
-        [Authorize]
+      
         [HttpPost]
         public ActionResult AlteraPreco(float preco)
         {
@@ -1587,7 +1571,7 @@ namespace WebApplication1.Controllers
             return View("AlteraModo");
         }
 
-        [Authorize]
+     
         [HttpPost]
         public ActionResult AlteraModo(string modo)
         {
@@ -1620,7 +1604,7 @@ namespace WebApplication1.Controllers
             return View("AlteraCategoria");
         }
 
-        [Authorize]
+   
         [HttpPost]
         public ActionResult AlteraCategoria(string categoria)
         {
@@ -1653,7 +1637,7 @@ namespace WebApplication1.Controllers
             return View("AlteraQuantidade");
         }
 
-        [Authorize]
+   
         [HttpPost]
         public ActionResult AlteraQuantidade(int quantidade)
         {
@@ -1685,7 +1669,6 @@ namespace WebApplication1.Controllers
             return View("AlteraDescricao");
         }
 
-        [Authorize]
         [HttpPost]
         public ActionResult AlteraDescricao(string descricao)
         {
@@ -1718,7 +1701,7 @@ namespace WebApplication1.Controllers
             return View("AlteraEstado");
         }
 
-        [Authorize]
+     
         [HttpPost]
         public ActionResult AlteraEstado(int estado)
         {
@@ -1751,7 +1734,6 @@ namespace WebApplication1.Controllers
             return View("AlteraEtiquetas");
         }
 
-        [Authorize]
         [HttpPost]
         public ActionResult AlteraEtiquetas(string etiquetas)
         {
@@ -1784,7 +1766,7 @@ namespace WebApplication1.Controllers
             return View("AlteraImagem");
         }
 
-        [Authorize]
+   
         [HttpPost]
         public ActionResult AlteraImagem(List<IFormFile> file)
         {
@@ -1862,7 +1844,7 @@ namespace WebApplication1.Controllers
 
         }
 
-        [Authorize]
+     
         [HttpPost]
         public IActionResult AddComentario(String Descricao, int IdArtigo)
         {
@@ -1902,7 +1884,6 @@ namespace WebApplication1.Controllers
             return RedirectToAction("Details", "Utilizador", new { idArtigo = IdArtigo });
         }
 
-        [Authorize]
         [HttpPost]
         public IActionResult Stars(int IdArtigo, int pont)
         {
@@ -1930,7 +1911,7 @@ namespace WebApplication1.Controllers
             return RedirectToAction("Details", "Utilizador", new { IdArtigo = IdArtigo });
 
         }
-        [Authorize]
+  
         public ActionResult Remover(int idArtigo)
         {
 

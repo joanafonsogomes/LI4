@@ -186,9 +186,9 @@ namespace WebApplication1.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public IActionResult Login(string username, string password)
+        public ActionResult Login()
         {
-            return (IActionResult)conta.LoginAsync(username, password);
+            return View();
         }
 
         public ActionResult Procurei()

@@ -48,98 +48,98 @@
 
                 @if (!@User.Identity.IsAuthenticated)
                 {
-                   /* using (Html.BeginForm("NovoArtigo", "Utilizador", FormMethod.Post))
-                    {*/
+                    /* using (Html.BeginForm("NovoArtigo", "Utilizador", FormMethod.Post))
+                     {*/
 
-                        @Html.ValidationSummary(true)
-                <form asp-action="NovoArtigo" asp-controllers="Utilizador" method="POST" enctype="multipart/form-data">
+                    @Html.ValidationSummary(true)
+                    <form asp-action="NovoArtigo" asp-controllers="Utilizador" method="POST" enctype="multipart/form-data">
 
-                    <div class="form-group">
-                        <label for="Nome"> <b>Nome</b></label>
-                        <div>
-                            <input id="Nome" name="Nome" type="text" class="form-control input-md" required="">
-                        </div>
-
-                    </div>
-
-                    <!-- Text input-->
-                    <div class="form-group">
-                        <label for="preço"> <b>Preço (€)</b> </label>
-                        <div>
-                            <input id="Preco" name="Preco" type="text" class="form-control input-md" required="">
-                        </div>
-                    </div>
-
-                    <!-- Text input-->
-                    <label for="Modo"><b>Modo:</b></label>
-                    <select id="Modo" name="Modo" type="text" class="form-control input-md" required="">
-                        <option value="aluguer">aluguer</option>
-                        <option value="venda">venda</option>
-                    </select>
-
-
-                    <!-- Password input-->
-                    <div class="form-group">
-                        <label for="Quantidade"><b>Quantidade</b></label>
-                        <div>
-                            <input id="Quantidade" name="Quantidade" type="text" placeholder="" class="form-control input-md" required="">
+                        <div class="form-group">
+                            <label for="Nome"> <b>Nome</b></label>
+                            <div>
+                                <input id="Nome" name="Nome" type="text" class="form-control input-md" required="">
+                            </div>
 
                         </div>
-                    </div>
 
-                    <!-- Text input-->
-                    <label for="Categoria"><b>Escolha uma categoria:</b></label>
-                    <select id="Categoria" name="Categoria" type="text" placeholder="" class="form-control input-md" required="">
-                        <option value="Roupa">Roupa</option>
-                        <option value="Campismo">Campismo</option>
-                        <option value="Mobiliário">Mobiliário</option>
-                        <option value="Acessórios">Acessórios</option>
-                        <option value="Música">Música</option>
-                        <option value="Livros">Livros</option>
-                        <option value="Turismo">Turismo</option>
-                        <option value="Bebé e criança">Bebé e criança</option>
-                        <option value="Lazer">Lazer</option>
-                        <option value="Animais">Animais</option>
-                        <option value="Tecnologia">Tecnologia</option>
-                        <option value="Desporto">Desporto</option>
-                        <option value="Carros, motos e barcos">Carros, motos e barcos</option>
-                        <option value="Agricultura">Agricultura</option>
-                        <option value="Equipamentos e Ferramentas">Equipamentos e Ferramentas</option>
-                        <option value="Outros">Outros</option>
-                    </select>
-
-                    <div class="form-group">
-                        <label for="Descricao"><b>Descrição</b></label>
-                            <textarea id="Descricao" name="Descricao" typeof="text" class="form-control input-md" required=""  rows="3"></textarea>
-                    </div>
-
-
-
-                    <!-- tipo input-->
-                    <div class="form-group">
-                        <label for="Etiquetas"><b>Etiquetas</b></label>
-                        <div>
-                            <input id="Etiquetas" name="Etiquetas" type="text" placeholder="" class="form-control input-md" required="">
-
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label for="preço"> <b>Preço (€)</b> </label>
+                            <div>
+                                <input id="Preco" name="Preco" type="text" class="form-control input-md" required="">
+                            </div>
                         </div>
-                    </div>
-                    <p></p>
-                    <p></p>
-                    <div class="form-group">
-                        <label>Upload Image</label>
-                        <input type="file" id="file" name="file" class="form-control" multiple="multiple" />
-                    </div>
 
-                    <!-- Button (Double) -->
-                    <div class="form-group">
-                        <input type="submit" class="btn btn-primary" value="Inserir artigo" />
-                    </div>
+                        <!-- Text input-->
+                        <label for="Modo"><b>Modo:</b></label>
+                        <select id="Modo" name="Modo" type="text" class="form-control input-md" required="">
+                            <option value="aluguer">aluguer</option>
+                            <option value="venda">venda</option>
+                        </select>
 
-                    <script>
-                        document.getElementById("file").multiple = true;
-                    </script>
 
-                </form>
+                        <!-- Password input-->
+                        <div class="form-group">
+                            <label for="Quantidade"><b>Quantidade</b></label>
+                            <div>
+                                <input id="Quantidade" name="Quantidade" type="text" placeholder="" class="form-control input-md" required="">
+
+                            </div>
+                        </div>
+
+                        <!-- Text input-->
+                        <label for="Categoria"><b>Escolha uma categoria:</b></label>
+                        <select id="Categoria" name="Categoria" type="text" placeholder="" class="form-control input-md" required="">
+                            <option value="Roupa">Roupa</option>
+                            <option value="Campismo">Campismo</option>
+                            <option value="Mobiliário">Mobiliário</option>
+                            <option value="Acessórios">Acessórios</option>
+                            <option value="Música">Música</option>
+                            <option value="Livros">Livros</option>
+                            <option value="Turismo">Turismo</option>
+                            <option value="Bebé e criança">Bebé e criança</option>
+                            <option value="Lazer">Lazer</option>
+                            <option value="Animais">Animais</option>
+                            <option value="Tecnologia">Tecnologia</option>
+                            <option value="Desporto">Desporto</option>
+                            <option value="Carros, motos e barcos">Carros, motos e barcos</option>
+                            <option value="Agricultura">Agricultura</option>
+                            <option value="Equipamentos e Ferramentas">Equipamentos e Ferramentas</option>
+                            <option value="Outros">Outros</option>
+                        </select>
+
+                        <div class="form-group">
+                            <label for="Descricao"><b>Descrição</b></label>
+                            <textarea id="Descricao" name="Descricao" typeof="text" class="form-control input-md" required="" rows="3"></textarea>
+                        </div>
+
+
+
+                        <!-- tipo input-->
+                        <div class="form-group">
+                            <label for="Etiquetas"><b>Etiquetas</b></label>
+                            <div>
+                                <input id="Etiquetas" name="Etiquetas" type="text" placeholder="" class="form-control input-md" required="">
+
+                            </div>
+                        </div>
+                        <p></p>
+                        <p></p>
+                        <div class="form-group">
+                            <label>Upload Image</label>
+                            <input type="file" id="file" name="file" class="form-control" multiple="multiple" />
+                        </div>
+
+                        <!-- Button (Double) -->
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-primary" value="Inserir artigo" />
+                        </div>
+
+                        <script>
+                            document.getElementById("file").multiple = true;
+                        </script>
+
+                    </form>
                     //}
                 }
             </div>
