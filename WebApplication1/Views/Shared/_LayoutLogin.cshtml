@@ -530,6 +530,35 @@
                         -moz-appearance: none;
                         appearance: none;
                     }
+
+                    /*BOTOES DA SEGUNDA NAVBAR*/
+                    [data-tooltip]:before {
+                        /* needed - do not touch */
+                        content: attr(data-tooltip);
+                        position: absolute;
+                        opacity: 0;
+    
+                        /* customizable */
+                        transition: all 0.15s ease;
+                        padding: 10px;
+                        color: #ffffff;
+                        border-radius: 10px;
+                        box-shadow: 2px 2px 1px silver; 
+                    }
+
+                    [data-tooltip]:hover:before {
+                        /* needed - do not touch */
+                        opacity: 1;
+    
+                        /* customizable */
+                        background: #138AB2;
+                        margin-top: -50px;
+                        margin-left: -50px;    
+                    }
+
+                    [data-tooltip]:not([data-tooltip-persistent]):before {
+                        pointer-events: none;
+                    }
       
     </style>
 
@@ -608,8 +637,9 @@
                 font-size: 10px;
             }
 
+            /* to top button */
             #scroll-btn{
-            background-color: white;
+            background-color: transparent;
             border: none;
             bottom: 20px;
             color: #106D99;
@@ -817,9 +847,15 @@
             </h2>
 
             <nav>
-                <a href="@Url.Action("MaisVendidos", "Utilizador")"><i class="fa fa-trophy"></i> Mais Vendidos</a>
-                <a href="@Url.Action("MaiorClassificacao", "Utilizador")"><i class="fa fa-star"></i> Melhor Classificação</a>
-                <a href="@Url.Action("Novidades", "Utilizador")"><i class="fa fa-exclamation"></i> Novidades</a>
+                <div data-tooltip="Mais vendidos" style="display: inline-block; font: Helvetica; font-weight: bold">
+                    <a href="@Url.Action("MaisVendidos", "Home")"><i class="fa fa-trophy"></i>&nbsp;&nbsp;&nbsp;</a>
+                </div>
+                <div data-tooltip="Melhor Classificação" style="display: inline-block; ; font: Helvetica; font-weight: bold">
+                    <a href="@Url.Action("MaiorClassificacao", "Home")"><i class="fa fa-star"></i>&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                </div>
+                <div data-tooltip="Novidades" style="display: inline-block; ; font: Helvetica; font-weight: bold">
+                    <a href="@Url.Action("Novidades", "Home")"><i class="fa fa-exclamation"></i></a>
+                </div>
             </nav>
 
 

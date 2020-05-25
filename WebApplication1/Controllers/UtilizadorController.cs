@@ -71,6 +71,12 @@ namespace WebApplication1.Controllers
 
         public ActionResult Contact()
         {
+            string user = Helpers.CacheController.utilizador;
+            Utilizador u = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+            int notifications = u.Notificacoes;
+
+            ViewData["noti"] = notifications;
+
             return View();
         }
 
@@ -1034,12 +1040,24 @@ public ActionResult VerInfo()
 
         public ActionResult CBanc()
         {
+            string user = Helpers.CacheController.utilizador;
+            Utilizador u = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+            int notifications = u.Notificacoes;
+
+            ViewData["noti"] = notifications;
+
             return View("CBanc");
         }
 
 
         public ActionResult Password()
         {
+            string user = Helpers.CacheController.utilizador;
+            Utilizador u = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+            int notifications = u.Notificacoes;
+
+            ViewData["noti"] = notifications;
+
             return View("Password");
         }
 
@@ -1100,6 +1118,12 @@ public ActionResult VerInfo()
 
         public ActionResult Telemovel()
         {
+            string user = Helpers.CacheController.utilizador;
+            Utilizador u = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+            int notifications = u.Notificacoes;
+
+            ViewData["noti"] = notifications;
+
             return View("Telemovel");
         }
 
@@ -1160,6 +1184,12 @@ public ActionResult VerInfo()
 
         public ActionResult CPostal()
         {
+            string user = Helpers.CacheController.utilizador;
+            Utilizador u = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+            int notifications = u.Notificacoes;
+
+            ViewData["noti"] = notifications;
+
             return View("CPostal");
         }
 
@@ -1221,6 +1251,12 @@ public ActionResult VerInfo()
 
         public ActionResult Distrito()
         {
+            string user = Helpers.CacheController.utilizador;
+            Utilizador u = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+            int notifications = u.Notificacoes;
+
+            ViewData["noti"] = notifications;
+
             return View("Distrito");
         }
 
@@ -1280,6 +1316,11 @@ public ActionResult VerInfo()
 
         public ActionResult Freguesia()
         {
+            string user = Helpers.CacheController.utilizador;
+            Utilizador u = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+            int notifications = u.Notificacoes;
+
+            ViewData["noti"] = notifications;
 
             return View("Freguesia");
         }
@@ -1344,6 +1385,12 @@ public ActionResult VerInfo()
 
         public ActionResult Rua()
         {
+            string user = Helpers.CacheController.utilizador;
+            Utilizador u = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+            int notifications = u.Notificacoes;
+
+            ViewData["noti"] = notifications;
+
             return View("Rua");
         }
 
@@ -1405,6 +1452,11 @@ public ActionResult VerInfo()
 
         public ActionResult NPorta()
         {
+            string user = Helpers.CacheController.utilizador;
+            Utilizador u = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+            int notifications = u.Notificacoes;
+
+            ViewData["noti"] = notifications;
             return View("NPorta");
         }
 
@@ -1506,6 +1558,12 @@ public ActionResult VerInfo()
 
         public ActionResult AlteraNome()
         {
+            string user = Helpers.CacheController.utilizador;
+            Utilizador u = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+            int notifications = u.Notificacoes;
+
+            ViewData["noti"] = notifications;
+
             return View("AlteraNome");
         }
 
@@ -1539,6 +1597,12 @@ public ActionResult VerInfo()
 
         public ActionResult AlteraPreco()
         {
+            string user = Helpers.CacheController.utilizador;
+            Utilizador u = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+            int notifications = u.Notificacoes;
+
+            ViewData["noti"] = notifications;
+
             return View("AlteraPreco");
         }
 
@@ -1572,6 +1636,12 @@ public ActionResult VerInfo()
 
         public ActionResult AlteraModo()
         {
+            string user = Helpers.CacheController.utilizador;
+            Utilizador u = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+            int notifications = u.Notificacoes;
+
+            ViewData["noti"] = notifications;
+
             return View("AlteraModo");
         }
 
@@ -1605,6 +1675,12 @@ public ActionResult VerInfo()
 
         public ActionResult AlteraCategoria()
         {
+            string user = Helpers.CacheController.utilizador;
+            Utilizador u = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+            int notifications = u.Notificacoes;
+
+            ViewData["noti"] = notifications;
+
             return View("AlteraCategoria");
         }
 
@@ -1638,6 +1714,12 @@ public ActionResult VerInfo()
 
         public ActionResult AlteraQuantidade()
         {
+            string user = Helpers.CacheController.utilizador;
+            Utilizador u = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+            int notifications = u.Notificacoes;
+
+            ViewData["noti"] = notifications;
+
             return View("AlteraQuantidade");
         }
 
@@ -1670,6 +1752,12 @@ public ActionResult VerInfo()
 
         public ActionResult AlteraDescricao()
         {
+            string user = Helpers.CacheController.utilizador;
+            Utilizador u = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+            int notifications = u.Notificacoes;
+
+            ViewData["noti"] = notifications;
+
             return View("AlteraDescricao");
         }
 
@@ -1702,6 +1790,12 @@ public ActionResult VerInfo()
 
         public ActionResult AlteraEstado()
         {
+            string user = Helpers.CacheController.utilizador;
+            Utilizador u = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+            int notifications = u.Notificacoes;
+
+            ViewData["noti"] = notifications;
+
             return View("AlteraEstado");
         }
 
@@ -1735,6 +1829,12 @@ public ActionResult VerInfo()
 
         public ActionResult AlteraEtiquetas()
         {
+            string user = Helpers.CacheController.utilizador;
+            Utilizador u = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+            int notifications = u.Notificacoes;
+
+            ViewData["noti"] = notifications;
+
             return View("AlteraEtiquetas");
         }
 
@@ -1767,6 +1867,12 @@ public ActionResult VerInfo()
 
         public ActionResult AlteraImagem()
         {
+            string user = Helpers.CacheController.utilizador;
+            Utilizador u = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+            int notifications = u.Notificacoes;
+
+            ViewData["noti"] = notifications;
+
             return View("AlteraImagem");
         }
 
