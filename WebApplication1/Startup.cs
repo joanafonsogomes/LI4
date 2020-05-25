@@ -73,5 +73,8 @@ namespace WebApplication1
                 endpoints.MapRazorPages();
             });
         }
+
+
+
     }
 }

@@ -125,17 +125,21 @@ namespace WebApplication1.Controllers
             Artigo ss = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(idArtigo));
 
             var cenas = ss.IdArtigo;
-            Console.WriteLine(cenas);
+            Console.WriteLine("> O artigo tem o id: " + cenas);
+
             string nower = Helpers.CacheController.utilizador;
             var vendas = (from vend in model.Venda where (vend.IdRent == nower && vend.Estado == 0) select vend);
+
             List<Venda> lista = vendas.ToList<Venda>();
             Utilizador uti = model.Utilizador.FirstOrDefault(x => x.Email.Equals(nower));
 
+            List<Venda> vendasTotal = (from a in model.Venda select a).ToList();
+
             List<int> indexes = new List<int>();
 
-            foreach (Venda v in lista)
+            foreach (Venda vt in vendasTotal)
             {
-                indexes.Add(v.IdVenda);
+                indexes.Add(vt.IdVenda);
             }
 
             int tamanho = (indexes.Max()) + 1;

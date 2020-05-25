@@ -19,6 +19,8 @@ using System.Security.Claims;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
+using System.Collections;
+using System.Text;
 
 namespace WebApplication1.Controllers
 {
@@ -146,6 +148,39 @@ namespace WebApplication1.Controllers
             return View();
         }
 
+        public ActionResult Forgot()
+        {
+            return View();
+        }
+
+       
+
+        [HttpPost]
+        public ActionResult Enviar(string email) {
+            Utilizador u = model.Utilizador.Where(x => x.Email.Equals(email)).FirstOrDefault();
+            string pass = RandomString(8, true);
+            u.Password = MyHelpers.HashPassword(u.Password);
+            model.SaveChanges();
+            PassRec pr = new PassRec();
+            pr.Rec_Button(email,pass);
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        public string RandomString(int size, bool lowerCase)
+        {
+            StringBuilder builder = new StringBuilder();
+            Random random = new Random();
+            char ch;
+            for (int i = 0; i < size; i++)
+            {
+                ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * random.NextDouble() + 65)));
+                builder.Append(ch);
+            }
+            if (lowerCase)
+                return builder.ToString().ToLower();
+            return builder.ToString();
+        }
 
         public ActionResult LogOut()
         {

@@ -110,6 +110,10 @@ namespace WebApplication1.Controllers
         }
 
 
+     
+
+        
+
         public ActionResult MaisVendidos()
         {
             var local = (from x in model.Artigo select x);
