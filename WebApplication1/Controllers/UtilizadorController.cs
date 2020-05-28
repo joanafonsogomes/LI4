@@ -312,7 +312,8 @@ namespace WebApplication1.Controllers
                 NPorta = nPorta,
                 Estado = 0,
                 Administrador = "admin@gmail.com",
-                CodPostal = codigoPostal
+                CodPostal = codigoPostal,
+                NDenuncias = 0
             };
 
             var local = (from x in model.Localizacao where (x.CodigoPostal == codigoPostal) select x);
@@ -371,6 +372,13 @@ namespace WebApplication1.Controllers
 
             return View(ss);
 
+        }
+
+
+
+        public ActionResult GoToDenuncias(int idArtigo)
+        {
+            return RedirectToAction("Denunciar", "Utilizador", new { IdArtigo = idArtigo } );
         }
 
 
@@ -2133,6 +2141,61 @@ public ActionResult VerInfo()
             }
         }
        */
+
+        public ActionResult Denunciar(int IdArtigo)
+        {
+            Artigo ss = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(IdArtigo));
+            return View(ss);
+        }
+
+
+
+        
+        
+
+    [HttpPost]
+        public ActionResult AddDenunciar(String Descricao, int IdArtigo)
+        {
+            string user = CacheController.utilizador;
+            var totalDenuncias = (from comtotal in model.Denuncias select comtotal);
+            List<Denuncias> listatotal = totalDenuncias.ToList<Denuncias>();
+
+            Artigo a = model.Artigo.Where(x => x.IdArtigo == IdArtigo).FirstOrDefault();
+            Utilizador u = model.Utilizador.Where(x => x.Email.Equals(a.IdDono)).FirstOrDefault();
+
+            if (ModelState.IsValid)
+        {
+
+            List<int> indexes = new List<int>();
+
+            foreach (Denuncias denunc in listatotal)
+            {
+                indexes.Add(denunc.IdDenuncia);
+            }
+
+            int tamanho = (indexes.Max()) + 1;
+
+            Denuncias d = new Denuncias();
+            d.IdDenuncia = tamanho;
+            d.Descricao = Descricao;
+            d.IdAutor = user;
+            d.Administrador = "admin@gmail.com";
+            d.IdArtigo = IdArtigo;
+            DateTime today = DateTime.Today;
+                d.Data = today;
+
+                u.NDenuncias++;
+
+
+                model.Denuncias.Add(d);
+
+                model.SaveChanges();
+            }
+
+
+            return RedirectToAction("Index", "Utilizador");
+        }
+
     }
 
 }

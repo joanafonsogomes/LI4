@@ -70,7 +70,23 @@
                 color: #75BAFF;
                 transform: rotate(-15deg) scale(1.2);
             }
+
+        .button {
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
         }
+
+        .button2 {
+            background-color: #008CBA;
+        }
+        /* Blue */
 
     </style>
 
@@ -297,41 +313,63 @@
                                 }
                             </div>
                         </div>
-                        }
                     }
+                }
 
-                        <form asp-action="AddComentario" asp-controllers="Utilizador" method="POST" enctype="multipart/form-data">
+                <form asp-action="AddComentario" asp-controllers="Utilizador" method="POST" enctype="multipart/form-data">
 
-                            <div class="form-horizontal">
-                                @Html.ValidationSummary(true)
-                                <div>
-                                    <label for="Descricao"></label>
-                                    <div>
-                                        <input id="Descricao" name="Descricao" type="text" class="form-control" placeholder="Deixe o seu comentário" required="">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="IdArtigo"></label>
-                                    <div>
-                                        <input type="hidden" name="IdArtigo" value="@Model.IdArtigo" />
-                                    </div>
-                                </div>
-
-                                <center>
-                                    <div class="form-group">
-                                        <div>
-                                            <input type="submit" value="Post Review" class="btn border-primary btn-login btn-outline-primary" />
-                                        </div>
-                                    </div>
-                                </center>
-
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true)
+                        <div>
+                            <label for="Descricao"></label>
+                            <div>
+                                <input id="Descricao" name="Descricao" type="text" class="form-control" placeholder="Deixe o seu comentário" required="">
                             </div>
-                        </form>
+                        </div>
 
+                        <div class="form-group">
+                            <label for="IdArtigo"></label>
+                            <div>
+                                <input type="hidden" name="IdArtigo" value="@Model.IdArtigo" />
+                            </div>
+                        </div>
+
+                        <center>
+                            <div class="form-group">
+                                <div>
+                                    <input type="submit" value="Post Review" class="btn border-primary btn-login btn-outline-primary" />
+                                </div>
+                            </div>
+                        </center>
 
                     </div>
-<!-- /.col-lg-12 -->
+                </form>
+
+
+            </div>
+
+            <!-- Denuncias-->
+
+            <form asp-action="GoToDenuncias" asp-controllers="Utilizador" method="get" enctype="multipart/form-data">
+
+
+                <div class="form-group">
+                    
+                    <div>
+                        <label for="IdArtigo"></label>
+                        <input type="hidden" name="IdArtigo" value="@Model.IdArtigo" />
+                    </div>
+                    <div>
+                        <button type="submit" id="buttonDenuncias" class="button button2">Denunciar</button>
+                    </div>
+                  
+                </div>
+               
+            </form>
+
+
+
+            <!-- /.col-lg-12 -->
         </div>
 
     </div>

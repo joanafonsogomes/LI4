@@ -1,0 +1,71 @@
+﻿@model WebApplication1.Models.Artigo
+@{
+    ViewBag.Title = "Denunciar";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>VerInfo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/Content/style.css" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Oswald" rel="stylesheet">
+    <link rel="icon" href="~/icon.ico">
+
+
+</head>
+<body>
+    <br />
+    <br />
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-12"></div>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+
+
+                <form asp-action="AddDenunciar" asp-controllers="Utilizador" method="POST" enctype="multipart/form-data">
+
+                    <div class="form-group">
+                        <!-- Nome input-->
+
+                        <div>
+                            <label for="IdArtigo"></label>
+                            <input type="hidden" name="IdArtigo" value="@Model.IdArtigo" />
+                        </div>
+
+                        <div>
+                            <label for="Descricao">Insira a sua denuncia (limite 1000 carateres):</label>
+                            <div>
+                                <textarea id="Descricao" name="Descricao" typeof="text" class="form-control input-md" required="" rows="10"></textarea>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Button (Double) -->
+
+                        <div class="col-md-8">
+                            <button type="submit" id="save" name="save" class="btn btn-default">Enviar a minha denúncia</button>
+                        </div>
+                    </div>
+
+
+
+                </form>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12"></div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
+
+

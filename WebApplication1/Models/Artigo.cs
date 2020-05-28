@@ -22,6 +22,8 @@ namespace WebApplication1.Models
             Aluguer = new HashSet<Aluguer>();
             Venda = new HashSet<Venda>();
             Comentarios = new HashSet<Comentarios>();
+            Denuncias = new HashSet<Denuncias>();
+
         }
 
         public int IdArtigo { get; set; }
@@ -45,6 +47,8 @@ namespace WebApplication1.Models
         public virtual ICollection<Aluguer> Aluguer { get; set; }
         public virtual ICollection<Venda> Venda { get; set; }
         public virtual ICollection<Comentarios> Comentarios { get; set; }
+        public virtual ICollection<Denuncias> Denuncias { get; set; }
+
 
     }
 }

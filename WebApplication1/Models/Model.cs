@@ -173,6 +173,7 @@ namespace WebApplication1.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Artigo_Utilizador");
             });
+
             modelBuilder.Entity<AluguerInfo>(entity =>
             {
                 entity.HasKey(e => e.IdArtigo);
@@ -317,11 +318,7 @@ namespace WebApplication1.Models
                     .HasMaxLength(45)
                     .IsFixedLength();
 
-                entity.Property(e => e.IdDenunciado)
-                    .IsRequired()
-                    .HasColumnName("idDenunciado")
-                    .HasMaxLength(45)
-                    .IsFixedLength();
+                entity.Property(e => e.IdArtigo).HasColumnName("idArtigo");
 
                 entity.Property(e => e.Data)
                     .HasColumnName("data")
@@ -337,7 +334,14 @@ namespace WebApplication1.Models
                    .WithMany(p => p.Denuncias)
                    .HasForeignKey(d => d.IdAutor)
                    .OnDelete(DeleteBehavior.ClientSetNull)
-                   .HasConstraintName("FK_Venda_Utilizador");
+                   .HasConstraintName("FK_Denuncias_Utilizador");
+
+                entity.HasOne(d => d.IdArtigoNavigation)
+                   .WithMany(p => p.Denuncias)
+                   .HasForeignKey(d => d.IdArtigo)
+                   .OnDelete(DeleteBehavior.ClientSetNull)
+                   .HasConstraintName("FK_Denuncias_Artigo");
+
             });
 
             modelBuilder.Entity<Localizacao>(entity =>
@@ -434,6 +438,8 @@ namespace WebApplication1.Models
                     .HasForeignKey(d => d.CodPostal)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Utilizador_Localizacao");
+
+                entity.Property(e => e.NDenuncias).HasColumnName("nDenuncias");
             });
 
             modelBuilder.Entity<Venda>(entity =>
