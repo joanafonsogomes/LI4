@@ -41,13 +41,14 @@ namespace WebApplication1.Controllers
 
 
         [HttpPost]
-        public ActionResult Login(string email, string password)
+        public async System.Threading.Tasks.Task<ActionResult> LoginAsync(string email, string password)
         {
+            /*
             if (!Response.Cookies.Equals("CookieMonster"))
             {
                 Helpers.CacheController.utilizador = email;
                 return RedirectToAction("Index", "Utilizador");
-            }
+            }*/
 
             DefaultController.Utilizador = new Utilizador();
             DefaultController.Utilizador.Password = password;
@@ -65,15 +66,23 @@ namespace WebApplication1.Controllers
                         if (MyHelpers.VerifyMd5Hash(md5Hash, password, userSingle.Password))
                         {
                             var claims = new List<Claim>
+                                 {
+                                       new Claim(ClaimTypes.Name, email),
+                                       new Claim(ClaimTypes.Role, "User")
+                                  };
+
+                            var identidadeDeUsuario = new ClaimsIdentity(claims, "Login");
+                            ClaimsPrincipal claimPrincipal = new ClaimsPrincipal(identidadeDeUsuario);
+
+                            var propriedadesDeAutenticacao = new AuthenticationProperties
                             {
-                                new Claim(ClaimTypes.Name,email)
+                                AllowRefresh = true,
+                                ExpiresUtc = DateTime.Now.ToLocalTime().AddHours(10),
+                                IsPersistent = true
                             };
 
-                            var identety = new ClaimsIdentity(
-                                   claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                            var principal = new ClaimsPrincipal(identety);
-                            var props = new AuthenticationProperties();
-                            HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, props).Wait();
+                            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimPrincipal, propriedadesDeAutenticacao);
+
                             Helpers.CacheController.utilizador = userSingle.Email;
                             return RedirectToAction("Index", "Utilizador");
                         }
@@ -182,9 +191,11 @@ namespace WebApplication1.Controllers
             return builder.ToString();
         }
 
-        public ActionResult LogOut()
+        public async System.Threading.Tasks.Task<ActionResult> LogOutAsync()
         {
             // FormsAuthentication.SignOut();
+            await HttpContext.SignOutAsync();
+            Response.Cookies.Delete("CookieMonster");
             return RedirectToAction("Index", "Home");
         }
 

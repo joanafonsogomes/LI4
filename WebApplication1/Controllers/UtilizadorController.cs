@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System.Collections.Specialized;
 using WebApplication1.Helpers;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace WebApplication1.Controllers
 {
@@ -92,7 +93,8 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-    
+
+        [Authorize]
         public ActionResult Perfil()
         {
             string uti = Helpers.CacheController.utilizador;
@@ -105,7 +107,7 @@ namespace WebApplication1.Controllers
             std.CodPostalNavigation = l;
 
             var vouchers = from alu in model.Voucher where (alu.IdUtilizador.Equals(uti)) select alu;
-            
+
             List<Voucher> v = vouchers.ToList<Voucher>();
 
             foreach (Voucher a in v)
@@ -122,7 +124,9 @@ namespace WebApplication1.Controllers
             return View(std);
         }
 
- 
+
+
+        [Authorize]
         public ActionResult AdicionarCarrinho(int idArtigo)
         {
 
@@ -346,7 +350,7 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-       
+
         public ActionResult Details(int idArtigo)
         {
             Console.WriteLine(idArtigo);
@@ -375,7 +379,7 @@ namespace WebApplication1.Controllers
         }
 
 
-
+        [Authorize]
         public ActionResult GoToDenuncias(int idArtigo)
         {
             return RedirectToAction("Denunciar", "Utilizador", new { IdArtigo = idArtigo } );
@@ -383,7 +387,8 @@ namespace WebApplication1.Controllers
 
 
         /**envia o pedido ao dono*/
-        
+
+
         [HttpPost]
         public ActionResult Details(int IdArtigo, DateTime inicio, DateTime fim)
         {
@@ -422,6 +427,7 @@ namespace WebApplication1.Controllers
             return RedirectToAction("AluguerPedido", "Utilizador", new { idArtigo = IdArtigo });
         }
 
+        [Authorize]
         public ActionResult AluguerPedido(int idArtigo)
         {
             int s = Helpers.CacheController.aluguerRealizado;
@@ -458,9 +464,12 @@ namespace WebApplication1.Controllers
             return View(res);
         }
 
+
+        [Authorize]
         public IActionResult NovoArtigo()
         {
             string user = Helpers.CacheController.utilizador;
+
             Utilizador u = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
             int notifications = u.Notificacoes;
 
@@ -479,7 +488,13 @@ namespace WebApplication1.Controllers
             }
             try
             {
+
                 string user = Helpers.CacheController.utilizador;
+
+               
+               
+
+              
                 var artigos = (from m in model.Artigo select m);
                 List<Artigo> lista = artigos.ToList<Artigo>();
                 Artigo a = lista[lista.Count - 1];
@@ -560,6 +575,7 @@ namespace WebApplication1.Controllers
         }
 
 
+        [Authorize]
         public ActionResult verArtigos()
         {
             string user = Helpers.CacheController.utilizador;
@@ -574,7 +590,10 @@ namespace WebApplication1.Controllers
 
             return View(lista);
         }
-public ActionResult Aceitar(int idAluguer)
+
+
+        [Authorize]
+        public ActionResult Aceitar(int idAluguer)
         {
             Aluguer u = (from alu in model.Aluguer where (alu.IdAluguer == idAluguer) select alu).ToList().ElementAt<Aluguer>(0);
             u.Estado = 1;
@@ -595,6 +614,7 @@ public ActionResult Aceitar(int idAluguer)
             return RedirectToAction("AluguerPedidos", "Utilizador");
         }
 
+        [Authorize]
         public ActionResult Recusar(int idAluguer)
         {
             Aluguer u = (from alu in model.Aluguer where (alu.IdAluguer == idAluguer) select alu).ToList().ElementAt<Aluguer>(0);
@@ -608,7 +628,8 @@ public ActionResult Aceitar(int idAluguer)
             return RedirectToAction("AluguerPedidos", "Utilizador");
         }
 
- 
+
+        [Authorize]
         public ActionResult AluguerPedidos()
         {
             string user = Helpers.CacheController.utilizador;
@@ -652,6 +673,7 @@ public ActionResult Aceitar(int idAluguer)
         }
 
 
+        [Authorize]
         public ActionResult AluguerRespostas()
         {
             string user = Helpers.CacheController.utilizador;
@@ -706,6 +728,9 @@ public ActionResult Aceitar(int idAluguer)
 
             return View(nots);
         }
+
+
+        [Authorize]
         public ActionResult Historico()
         {
             string user = Helpers.CacheController.utilizador;
@@ -717,6 +742,8 @@ public ActionResult Aceitar(int idAluguer)
             return View("Historico");
         }
 
+
+        [Authorize]
         public ActionResult AluguerInfo()
         {
             string user = Helpers.CacheController.utilizador;
@@ -733,6 +760,7 @@ public ActionResult Aceitar(int idAluguer)
         }
 
 
+        [Authorize]
         public ActionResult HAlugueres()
         {
             string user = Helpers.CacheController.utilizador;
@@ -793,6 +821,7 @@ public ActionResult Aceitar(int idAluguer)
         }
 
 
+        [Authorize]
         public ActionResult HVendas()
         {
             string user = Helpers.CacheController.utilizador;
@@ -851,6 +880,7 @@ public ActionResult Aceitar(int idAluguer)
             return View(vendas);
         }
 
+        [Authorize]
         public ActionResult FinalizarCompra()
         {
 
@@ -879,7 +909,7 @@ public ActionResult Aceitar(int idAluguer)
             return RedirectToAction("VendaInfo", "Utilizador");
         }
 
-
+        [Authorize]
         public ActionResult RemArtCarrinho(int idVenda)
         {
             Venda v = (from vend in model.Venda where (vend.IdVenda == idVenda) select vend).ToList().ElementAt<Venda>(0);
@@ -947,7 +977,8 @@ public ActionResult Aceitar(int idAluguer)
             return View(lista);
         }
 
-public ActionResult VerInfo()
+        [Authorize]
+        public ActionResult VerInfo()
         {
             string user = Helpers.CacheController.utilizador;
 
@@ -970,6 +1001,7 @@ public ActionResult VerInfo()
             return View(res);
         }
 
+        [Authorize]
         public ActionResult Alterar(int idArtigo)
         {
 
@@ -988,6 +1020,7 @@ public ActionResult VerInfo()
             return View(ss);
         }
 
+     
         [HttpPost]
         public ActionResult Password(string password)
         {
@@ -1045,7 +1078,7 @@ public ActionResult VerInfo()
         * Permite vizualisar a view que permite alterar a conta Bancaria e efetua a sua mudança
         * */
 
-
+        [Authorize]
         public ActionResult CBanc()
         {
             string user = Helpers.CacheController.utilizador;
@@ -1057,7 +1090,7 @@ public ActionResult VerInfo()
             return View("CBanc");
         }
 
-
+        [Authorize]
         public ActionResult Password()
         {
             string user = Helpers.CacheController.utilizador;
@@ -1123,7 +1156,7 @@ public ActionResult VerInfo()
         /**
          * Permite vizualisar a view que permite alterar o numero de Telemovel e efetua a sua mudança
          * */
-
+        [Authorize]
         public ActionResult Telemovel()
         {
             string user = Helpers.CacheController.utilizador;
@@ -1189,7 +1222,7 @@ public ActionResult VerInfo()
         /**
          * Permite vizualisar a view que permite alterar o Codigo Postal e efetua a sua mudança
          * */
-
+        [Authorize]
         public ActionResult CPostal()
         {
             string user = Helpers.CacheController.utilizador;
@@ -1256,7 +1289,7 @@ public ActionResult VerInfo()
         /**
       * Permite vizualisar a view que permite alterar o Distrito e efetua a sua mudança
       * */
-
+        [Authorize]
         public ActionResult Distrito()
         {
             string user = Helpers.CacheController.utilizador;
@@ -1321,7 +1354,7 @@ public ActionResult VerInfo()
         /**
         * Permite vizualisar a view que permite alterar a freguesia e efetua a sua mudança
         * */
-
+        [Authorize]
         public ActionResult Freguesia()
         {
             string user = Helpers.CacheController.utilizador;
@@ -1390,7 +1423,7 @@ public ActionResult VerInfo()
         /**
        * Permite vizualisar a view que permite alterar a rua e efetua a sua mudança
        * */
-
+        [Authorize]
         public ActionResult Rua()
         {
             string user = Helpers.CacheController.utilizador;
@@ -1457,7 +1490,7 @@ public ActionResult VerInfo()
         /**
         * Permite vizualisar a view que permite alterar o numero de porta e efetua a sua mudança
         * */
-
+        [Authorize]
         public ActionResult NPorta()
         {
             string user = Helpers.CacheController.utilizador;
@@ -1520,6 +1553,7 @@ public ActionResult VerInfo()
             return RedirectToAction("VerInfo", "Utilizador");
         }
 
+
         public ActionResult SearchArtigos(string search)
         {
             var local = (from x in model.Artigo where (x.Nome.Contains(search)) select x);
@@ -1563,7 +1597,7 @@ public ActionResult VerInfo()
             else return RedirectToAction("ErrorSearch", "Utilizador");
         }
 
-
+        [Authorize]
         public ActionResult AlteraNome()
         {
             string user = Helpers.CacheController.utilizador;
@@ -1602,7 +1636,7 @@ public ActionResult VerInfo()
             return RedirectToAction("verArtigos", "Utilizador");
         }
 
-
+        [Authorize]
         public ActionResult AlteraPreco()
         {
             string user = Helpers.CacheController.utilizador;
@@ -1641,7 +1675,7 @@ public ActionResult VerInfo()
             return RedirectToAction("verArtigos", "Utilizador");
         }
 
-
+        [Authorize]
         public ActionResult AlteraModo()
         {
             string user = Helpers.CacheController.utilizador;
@@ -1681,6 +1715,7 @@ public ActionResult VerInfo()
         }
 
 
+        [Authorize]
         public ActionResult AlteraCategoria()
         {
             string user = Helpers.CacheController.utilizador;
@@ -1716,10 +1751,10 @@ public ActionResult VerInfo()
                 a.Imagem = std.Imagem;
                 model.SaveChanges();
             }
-            return RedirectToAction("verArtigos", "Utilizador");
+            return RedirectToAction("VerArtigos", "Utilizador");
         }
 
-
+        [Authorize]
         public ActionResult AlteraQuantidade()
         {
             string user = Helpers.CacheController.utilizador;
@@ -1758,6 +1793,7 @@ public ActionResult VerInfo()
             return RedirectToAction("verArtigos", "Utilizador");
         }
 
+        [Authorize]
         public ActionResult AlteraDescricao()
         {
             string user = Helpers.CacheController.utilizador;
@@ -1795,7 +1831,7 @@ public ActionResult VerInfo()
             return RedirectToAction("verArtigos", "Utilizador");
         }
 
-
+        [Authorize]
         public ActionResult AlteraEstado()
         {
             string user = Helpers.CacheController.utilizador;
@@ -1835,6 +1871,7 @@ public ActionResult VerInfo()
         }
 
 
+        [Authorize]
         public ActionResult AlteraEtiquetas()
         {
             string user = Helpers.CacheController.utilizador;
@@ -1873,6 +1910,7 @@ public ActionResult VerInfo()
         }
 
 
+        [Authorize]
         public ActionResult AlteraImagem()
         {
             string user = Helpers.CacheController.utilizador;
@@ -1962,7 +2000,7 @@ public ActionResult VerInfo()
 
         }
 
-     
+        [Authorize]
         [HttpPost]
         public IActionResult AddComentario(String Descricao, int IdArtigo)
         {
@@ -2002,6 +2040,8 @@ public ActionResult VerInfo()
             return RedirectToAction("Details", "Utilizador", new { idArtigo = IdArtigo });
         }
 
+
+        [Authorize]
         [HttpPost]
         public IActionResult Stars(int IdArtigo, int pont)
         {
@@ -2029,7 +2069,8 @@ public ActionResult VerInfo()
             return RedirectToAction("Details", "Utilizador", new { IdArtigo = IdArtigo });
 
         }
-  
+
+        [Authorize]
         public ActionResult Remover(int idArtigo)
         {
 

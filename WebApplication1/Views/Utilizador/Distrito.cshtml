@@ -43,7 +43,7 @@
 
 
 
-                @if (!@User.Identity.IsAuthenticated)
+                @if (@User.Identity.IsAuthenticated)
                 {
                     using (Html.BeginForm("Distrito", "Utilizador", FormMethod.Post))
                     {

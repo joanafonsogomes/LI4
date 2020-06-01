@@ -43,7 +43,7 @@
             <div class="col-md-4 col-sm-4 col-xs-12">
 
 
-                @if (!@User.Identity.IsAuthenticated)
+                @if (@User.Identity.IsAuthenticated)
                 {
                     using (Html.BeginForm("AlteraEstado", "Utilizador", FormMethod.Post))
                     {
@@ -55,10 +55,10 @@
                     <!-- Nome input-->
                     <div>
                         <div>
-                            <label for="Estado">Insira o estado (coleque um certo se pretende que se encontre disponível)</label>
+                            <label for="Estado">Insira o estado (coloque um certo se pretende que se encontre disponível)</label>
                             <form action="/action_page.php">
 
-                                <input type="checkbox" id="Estado" name="Estado" value="true">
+                                <input type="checkbox" id="Estado" name="Estado" value="1">
                                 <input type="submit" value="Guardar">
                             </form>
                         </div>
