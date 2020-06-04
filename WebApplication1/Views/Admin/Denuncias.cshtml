@@ -1,0 +1,76 @@
+﻿@model IEnumerable<WebApplication1.Models.Denuncias>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+    string str = (string)@ViewData["User_Name"];
+}
+
+
+<center>
+    <p>
+        <b>Denúncias</b>
+    </p>
+    <p>    </p>
+    <p>    </p>
+</center>
+
+<table class="table">
+    <tr>
+        <th style="text-align:center; vertical-align:middle">
+            Indice de Denúncia
+        </th>
+        <th style="text-align:center; vertical-align:middle">
+            Descrição
+        </th>
+        <th style="text-align: center; vertical-align: middle">
+            Autor da Denuncia
+        </th>
+        <th style="text-align: center; vertical-align: middle">
+            Artigo denunciado
+        </th>
+        <th style="text-align: center; vertical-align: middle">
+            Dono do Artigo
+        </th>
+        <th style="text-align: center; vertical-align: middle">
+            Numero de Denuncias do Dono
+        </th>
+        <th style="text-align: center; vertical-align: middle">
+            Efetuar Açao
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+
+        <tr>
+            <td style="text-align:center; vertical-align:middle; font-weight:bold">
+                @Html.DisplayFor(modelItem => item.IdDenuncia)
+            </td>
+            <td style="text-align:center; vertical-align:middle">
+                @Html.DisplayFor(modelItem => item.Descricao)
+            </td>
+            <td style="text-align:center; vertical-align:middle">
+                @Html.DisplayFor(modelItem => item.IdAutor)
+            </td>
+            <td style="text-align:center; vertical-align:middle">
+                @Html.DisplayFor(modelItem => item.IdArtigoNavigation.Nome))
+            </td>
+            <td style="text-align:center; vertical-align:middle">
+                @Html.DisplayFor(modelItem => item.IdUtilizadorNavigation.Nome)
+
+                @Html.DisplayFor(modelItem => item.IdUtilizadorNavigation.Email)
+            </td>
+            <td style="text-align:center; vertical-align:middle">
+                @Html.DisplayFor(modelItem => item.IdUtilizadorNavigation.NDenuncias)
+            </td>
+            <td style="text-align:center; vertical-align:middle">
+                <div class="btn-login">
+                    <!--nome para as views depois altera se quiseres-->
+                    <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" href="@Html.ActionLink("Aceitar", "AceitaDenuncia")"></button>
+                    <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" href="@Html.ActionLink("Rejeitar", "RejeitaDenuncia")"></button>
+            </td>
+        </tr>
+    }
+
+</table>

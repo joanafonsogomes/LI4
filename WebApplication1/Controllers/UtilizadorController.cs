@@ -139,63 +139,99 @@ namespace WebApplication1.Controllers
 
             string nower = Helpers.CacheController.utilizador;
             var vendas = (from vend in model.Venda where (vend.IdRent == nower && vend.Estado == 0) select vend);
-
+            int teste = 0;
             List<Venda> lista = vendas.ToList<Venda>();
-            Utilizador uti = model.Utilizador.FirstOrDefault(x => x.Email.Equals(nower));
-
-            List<Venda> vendasTotal = (from a in model.Venda select a).ToList();
-
-            List<int> indexes = new List<int>();
-
-            foreach (Venda vt in vendasTotal)
+            int ind = 0;
+            foreach(Venda a in lista)
             {
-                indexes.Add(vt.IdVenda);
+                ind++;
+                if(a.IdArtigo == idArtigo)
+                {
+                    teste = 1; a.Quantidade++;
+                    break;
+                }
             }
-
-            int tamanho = (indexes.Max()) + 1;
-
-            Venda vendinha = new Venda()
+            
+            if (teste == 0)
             {
-                IdVenda = tamanho,
-                IdArtigo = ss.IdArtigo,
-                IdUtilizador = ss.IdDono,
-                Preco = ss.Preco,
-                IdRent = nower,
-                Estado = 0,
-                Quantidade = 1,
+                Utilizador uti = model.Utilizador.FirstOrDefault(x => x.Email.Equals(nower));
+
+                List<Venda> vendasTotal = (from a in model.Venda select a).ToList();
+
+                List<int> indexes = new List<int>();
+
+                foreach (Venda vt in vendasTotal)
+                {
+                    indexes.Add(vt.IdVenda);
+                }
+
+                int tamanho = (indexes.Max()) + 1;
+
+                Venda vendinha = new Venda()
+                {
+                    IdVenda = tamanho,
+                    IdArtigo = ss.IdArtigo,
+                    IdUtilizador = ss.IdDono,
+                    Preco = ss.Preco,
+                    IdRent = nower,
+                    Estado = 0,
+                    Quantidade = 1,
 
 
-            };
-            lista.Add(vendinha);
+                };
+                lista.Add(vendinha);
 
-            VendaInfo res = new VendaInfo()
+                VendaInfo res = new VendaInfo()
+                {
+                    IdArtigo = ss.IdArtigo,
+                    IdVenda = vendinha.IdVenda,
+                    NomeArtigo = ss.Nome,
+                    Preco = vendinha.Preco,
+                    Quantidade = vendinha.Quantidade,
+                    Imagem = ss.Imagem,
+                    Email = nower,
+
+                };
+
+                uti.Venda.Add(vendinha);
+
+
+                model.Venda.Add(vendinha);
+                model.SaveChanges();
+
+                string user = Helpers.CacheController.utilizador;
+                Utilizador u = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+                int notifications = u.Notificacoes;
+
+                ViewData["noti"] = notifications;
+
+                return View(res);
+            }
+            else
             {
-                IdArtigo = ss.IdArtigo,
-                IdVenda = vendinha.IdVenda,
-                NomeArtigo = ss.Nome,
-                Preco = vendinha.Preco,
-                Quantidade = vendinha.Quantidade,
-                Imagem = ss.Imagem,
-                Email = nower,
+                Venda tete = lista.ElementAt<Venda>(ind-1);
+                VendaInfo res = new VendaInfo()
 
-            };
+                {
+                    IdArtigo = ss.IdArtigo,
+                    IdVenda = tete.IdVenda,
+                    NomeArtigo = ss.Nome,
+                    Preco = tete.Preco,
+                    Quantidade = tete.Quantidade,
+                    Imagem = ss.Imagem,
+                    Email = nower,
 
-            uti.Venda.Add(vendinha);
+                };
+                model.SaveChanges();
 
+                string user = Helpers.CacheController.utilizador;
+                Utilizador u = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+                int notifications = u.Notificacoes;
 
-            model.Venda.Add(vendinha);
-            model.SaveChanges();
+                ViewData["noti"] = notifications;
 
-            string user = Helpers.CacheController.utilizador;
-            Utilizador u = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
-            int notifications = u.Notificacoes;
-
-            ViewData["noti"] = notifications;
-
-            return View(res);
-
-
-        }
+                return View(res);
+            }                 }
 
         public ActionResult MaiorClassificacao()
         {

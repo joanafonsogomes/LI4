@@ -1,26 +1,14 @@
-﻿using WebApplication1.Models;
-using System.Linq;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
-using RestSharp;
-using Nancy.Authentication.Forms;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Text;
 using WebApplication1.Helpers;
 using WebApplication1.Models;
-using System;
-using System.Linq;
-using System.Security.Cryptography;
-
-using RestSharp;
-using Nancy.Authentication.Forms;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.Extensions.DependencyInjection;
-using System.Security.Cryptography;
-using System.Security.Claims;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication;
-using System.Collections;
-using System.Text;
 
 namespace WebApplication1.Controllers
 {
@@ -43,19 +31,15 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public async System.Threading.Tasks.Task<ActionResult> LoginAsync(string email, string password)
         {
-            /*
-            if (!Response.Cookies.Equals("CookieMonster"))
-            {
-                Helpers.CacheController.utilizador = email;
-                return RedirectToAction("Index", "Utilizador");
-            }*/
-
             DefaultController.Utilizador = new Utilizador();
             DefaultController.Utilizador.Password = password;
             // int userName = Int32.Parse(username);
             if (ModelState.IsValid)
             {
-                var userS = (from u in model.Utilizador where (u.Email == email && u.Tipo == "single") select u);
+                var userS = (from u
+                             in model.Utilizador
+                             where (u.Email == email && u.Tipo == "single")
+                             select u);
 
                 if (userS.ToList().Count > 0)
                 {
@@ -77,7 +61,7 @@ namespace WebApplication1.Controllers
                             var propriedadesDeAutenticacao = new AuthenticationProperties
                             {
                                 AllowRefresh = true,
-                                ExpiresUtc = DateTime.Now.ToLocalTime().AddHours(10),
+                                ExpiresUtc = DateTime.Now.ToLocalTime().AddSeconds(10),
                                 IsPersistent = true
                             };
 
@@ -96,21 +80,48 @@ namespace WebApplication1.Controllers
                     }
                 }
 
-                else if (((from m in model.Administrador where (m.Email == email) select m)).ToList().Count > 0)
-                {
-                    var admin = ((from m in model.Administrador where (m.Email == email) select m)).ToList().ElementAt<Administrador>(0);
+                var administrador = (from a
+                           in model.Administrador
+                                     where (a.Email == email)
+                                     select a);
 
+                if (administrador.ToList().Count > 0)
+                {
+                    Administrador admin = administrador.ToList().ElementAt<Administrador>(0);
+
+
+
+                    //ViewData["User_Name"] = "Bem vindo";
+                    /*
+                    HttpCookie cookie = MyHelpers.CreateAuthorizeTicket(cliente.Id.ToString(), cliente.Role);
+                        Response.Cookies.Add(cookie);
+                        */
+                    return RedirectToAction("Index", "Admin");
+                }
+                else
+                {
+                    ModelState.AddModelError("password", "Password incorreta!");
+                    return View();
+                }
+            }
+
+            /*
+            else
+            {
+                var userC = (from m in model.Utilizador where (m.Email == email && m.Tipo == "company") select m);
+                if (userC.ToList().Count > 0)
+                {
+                    Utilizador utilizador = userC.ToList().ElementAt<Utilizador>(0);
                     using (MD5 md5Hash = MD5.Create())
                     {
-                        if (MyHelpers.VerifyMd5Hash(md5Hash, password, admin.Password))
+                        if (MyHelpers.VerifyMd5Hash(md5Hash, password, utilizador.Password))
                         {
-
-                            //ViewData["User_Name"] = "Bem vindo";
                             /*
                             HttpCookie cookie = MyHelpers.CreateAuthorizeTicket(cliente.Id.ToString(), cliente.Role);
-                                Response.Cookies.Add(cookie);
-                                */
-                            return RedirectToAction("Index", "Administrador");
+                            Response.Cookies.Add(cookie);
+
+                            ViewData["User_Name"] = "Bem vindo" + utilizador.Nome;
+                            return RedirectToAction("Index", "Funcionario");
                         }
                         else
                         {
@@ -118,41 +129,16 @@ namespace WebApplication1.Controllers
                             return View();
                         }
                     }
-
                 }
+
+
                 else
                 {
-                    var userC = (from m in model.Utilizador where (m.Email == email && m.Tipo == "company") select m);
-                    if (userC.ToList().Count > 0)
-                    {
-                        Utilizador utilizador = userC.ToList().ElementAt<Utilizador>(0);
-                        using (MD5 md5Hash = MD5.Create())
-                        {
-                            if (MyHelpers.VerifyMd5Hash(md5Hash, password, utilizador.Password))
-                            {
-                                /*
-                                HttpCookie cookie = MyHelpers.CreateAuthorizeTicket(cliente.Id.ToString(), cliente.Role);
-                                Response.Cookies.Add(cookie);
-                                */
-                                ViewData["User_Name"] = "Bem vindo" + utilizador.Nome;
-                                return RedirectToAction("Index", "Funcionario");
-                            }
-                            else
-                            {
-                                ModelState.AddModelError("password", "Password incorreta!");
-                                return View();
-                            }
-                        }
-                    }
-
-
-                    else
-                    {
-                        ModelState.AddModelError("", "Login data is incorrect!");
-                        return View();
-                    }
+                    ModelState.AddModelError("", "Login data is incorrect!");
+                    return View();
                 }
-            }
+            }*/
+
 
             return View();
         }
@@ -162,16 +148,17 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-       
+
 
         [HttpPost]
-        public ActionResult Enviar(string email) {
+        public ActionResult Enviar(string email)
+        {
             Utilizador u = model.Utilizador.Where(x => x.Email.Equals(email)).FirstOrDefault();
             string pass = RandomString(8, true);
             u.Password = MyHelpers.HashPassword(u.Password);
             model.SaveChanges();
             PassRec pr = new PassRec();
-            pr.Rec_Button(email,pass);
+            pr.Rec_Button(email, pass);
 
             return RedirectToAction("Index", "Home");
         }
