@@ -358,7 +358,7 @@ namespace WebApplication1.Controllers
         {
             var utilizadores = from x in model.Utilizador select x;
             List<Utilizador> lista = utilizadores.ToList<Utilizador>();
-            foreach(Utilizador uti in lista)
+            foreach (Utilizador uti in lista)
             {
                 var artigos = from x in model.Artigo where (x.IdDono.Equals(uti.Email)) select x;
                 List<Artigo> art = artigos.ToList<Artigo>();
@@ -401,8 +401,8 @@ namespace WebApplication1.Controllers
         public ActionResult Denuncias()
         {
             var den = from x in model.Denuncias select x;
-            List<Denuncias> lista = den.ToList<Denuncias>(); 
-            foreach(Denuncias d in lista)
+            List<Denuncias> lista = den.ToList<Denuncias>();
+            foreach (Denuncias d in lista)
             {
                 var artigos = from f in model.Artigo where (f.IdArtigo == d.IdArtigo) select f;
                 Artigo al = artigos.ToList<Artigo>().FirstOrDefault();
@@ -467,14 +467,13 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        public ActionResult bloquearUtilizador(string utilizador)
+        public ActionResult Warning(string email)
         {
-            Utilizador u = model.Utilizador.Where(x => x.Email.Equals(utilizador)).FirstOrDefault();
-            u.Estado = 2;
-            model.SaveChanges();
-            return View();
+            Utilizador u = model.Utilizador.Where(x => x.Email.Equals(email)).FirstOrDefault();
+            PassRec pr = new PassRec();
+            pr.Warning(email);
+            Console.WriteLine("Enviei email!");
+            return RedirectToAction("Index", "Admin");
         }
-
     }
-
 }

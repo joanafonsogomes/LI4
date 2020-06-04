@@ -64,9 +64,30 @@
     </td>
     <td style="text-align:center; vertical-align:middle">
         <div class="btn-login">
-             <!--nome para as views depois altera se quiseres-->
-            <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" href="@Html.ActionLink("Énviar Aviso", "Warning")"></button>
-            <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" href="@Html.ActionLink("Bloquear", "Block")"></button>
+            <!--nome para as views depois altera se quiseres-->
+            <!--button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" href="@Html.ActionLink("Enviar Aviso", "Warning",new { email = item.Email })"></!--button>-->
+            <form asp-action="Warning" asp-controllers="Admin" method="get" enctype="multipart/form-data">
+                <div class="form-group">
+                    <div>
+                        <label for="Email"></label>
+                        <input type="hidden" name="email" value="@item.Email" />
+                    </div>
+                    <div>
+                        <button type="submit" id="buttonEmail" class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2">Warning</button>
+                    </div>
+
+
+            </form>
+        
+            <div>
+                <button type="submit" id="buttonEmail" class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2">Bloquear</button>
+            </div>
+
+          
+
+
+
+
 </td>
 </tr>
     }
