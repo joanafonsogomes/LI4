@@ -155,11 +155,11 @@ namespace WebApplication1.Controllers
         {
             Utilizador u = model.Utilizador.Where(x => x.Email.Equals(email)).FirstOrDefault();
             string pass = RandomString(8, true);
-            u.Password = MyHelpers.HashPassword(u.Password);
-            model.SaveChanges();
+            Console.WriteLine(pass);
+            u.Password = MyHelpers.HashPassword(pass);
             PassRec pr = new PassRec();
             pr.Rec_Button(email, pass);
-
+            model.SaveChanges();
             return RedirectToAction("Index", "Home");
         }
 
