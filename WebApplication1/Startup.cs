@@ -36,6 +36,7 @@ namespace WebApplication1
                 options.LoginPath = "/Conta/Login";
                 options.Cookie.Name = "CookieMonster";
                 options.Cookie.Path = "/Utilizador";
+                options.Cookie.Path = "/Admin";
 
 
             });

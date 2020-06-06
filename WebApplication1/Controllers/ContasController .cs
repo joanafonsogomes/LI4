@@ -88,60 +88,69 @@ namespace WebApplication1.Controllers
                 if (administrador.ToList().Count > 0)
                 {
                     Administrador admin = administrador.ToList().ElementAt<Administrador>(0);
+                
+                            var claims = new List<Claim>
+                                 {
+                                       new Claim(ClaimTypes.Name, email),
+                                       new Claim(ClaimTypes.Role, "Admin")
+                                  };
+
+                            var identidadeDeUsuario = new ClaimsIdentity(claims, "Login");
+                            ClaimsPrincipal claimPrincipal = new ClaimsPrincipal(identidadeDeUsuario);
+
+                            var propriedadesDeAutenticacao = new AuthenticationProperties
+                            {
+                                AllowRefresh = true,
+                                ExpiresUtc = DateTime.Now.ToLocalTime().AddSeconds(10),
+                                IsPersistent = true
+                            };
+
+                            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimPrincipal, propriedadesDeAutenticacao);
 
 
 
-                    //ViewData["User_Name"] = "Bem vindo";
-                    /*
-                    HttpCookie cookie = MyHelpers.CreateAuthorizeTicket(cliente.Id.ToString(), cliente.Role);
-                        Response.Cookies.Add(cookie);
-                        */
-                    return RedirectToAction("Index", "Admin");
+                            return RedirectToAction("Index", "Admin");
+                     
                 }
+
+                /*
                 else
                 {
-                    ModelState.AddModelError("password", "Password incorreta!");
-                    return View();
-                }
-            }
-
-            /*
-            else
-            {
-                var userC = (from m in model.Utilizador where (m.Email == email && m.Tipo == "company") select m);
-                if (userC.ToList().Count > 0)
-                {
-                    Utilizador utilizador = userC.ToList().ElementAt<Utilizador>(0);
-                    using (MD5 md5Hash = MD5.Create())
+                    var userC = (from m in model.Utilizador where (m.Email == email && m.Tipo == "company") select m);
+                    if (userC.ToList().Count > 0)
                     {
-                        if (MyHelpers.VerifyMd5Hash(md5Hash, password, utilizador.Password))
+                        Utilizador utilizador = userC.ToList().ElementAt<Utilizador>(0);
+                        using (MD5 md5Hash = MD5.Create())
                         {
-                            /*
-                            HttpCookie cookie = MyHelpers.CreateAuthorizeTicket(cliente.Id.ToString(), cliente.Role);
-                            Response.Cookies.Add(cookie);
+                            if (MyHelpers.VerifyMd5Hash(md5Hash, password, utilizador.Password))
+                            {
+                                /*
+                                HttpCookie cookie = MyHelpers.CreateAuthorizeTicket(cliente.Id.ToString(), cliente.Role);
+                                Response.Cookies.Add(cookie);
 
-                            ViewData["User_Name"] = "Bem vindo" + utilizador.Nome;
-                            return RedirectToAction("Index", "Funcionario");
-                        }
-                        else
-                        {
-                            ModelState.AddModelError("password", "Password incorreta!");
-                            return View();
+                                ViewData["User_Name"] = "Bem vindo" + utilizador.Nome;
+                                return RedirectToAction("Index", "Funcionario");
+                            }
+                            else
+                            {
+                                ModelState.AddModelError("password", "Password incorreta!");
+                                return View();
+                            }
                         }
                     }
-                }
 
 
-                else
-                {
-                    ModelState.AddModelError("", "Login data is incorrect!");
+                    else
+                    {
+                        ModelState.AddModelError("", "Login data is incorrect!");
+                        return View();
+                    }
+                }*/
+
+            }
                     return View();
-                }
-            }*/
-
-
-            return View();
-        }
+                
+            }
 
         public ActionResult Forgot()
         {
