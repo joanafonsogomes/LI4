@@ -9,6 +9,7 @@ namespace WebApplication1.Models
         public int Estado { get; set; }
         public double ValorOferta { get; set; }
         public string IdUtilizador { get; set; }
+        public DateTime Data { get; set; }
 
         public virtual Utilizador IdUtilizadorNavigation { get; set; }
     }

@@ -544,6 +544,10 @@ namespace WebApplication1.Models
                     entity.Property(e => e.IdUtilizador).HasColumnName("idUtilizador").HasMaxLength(45)
                         .IsFixedLength();
 
+                    entity.Property(e => e.Data)
+                    .HasColumnName("data")
+                    .HasColumnType("date");
+
                     entity.HasOne(d => d.IdUtilizadorNavigation)
                     .WithMany(p => p.Voucher)
                     .HasForeignKey(d => d.IdUtilizador)

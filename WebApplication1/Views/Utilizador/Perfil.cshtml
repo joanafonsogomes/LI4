@@ -170,20 +170,52 @@
                         <p>
 
                         </p>
+                        <p>
 
+                        </p>
+
+                        <p>
+
+                        </p>
                         <p>
 
                         </p>
 
                         <p class="w3-large w3-text-theme"><b><i class="fa fa-globe fa-fw w3-margin-right w3-text-teal"></i>Cupões:</b></p>
+                        <table>
+                            <tr>
+                                <th>
+                                    <p>Código</p>
+                                    <div class="w3-light-grey w3-round-xlarge">
+                                        <div class="w3-round-xlarge w3-teal" style="height:24px;width:100%"></div>
+                                    </div>
+                                </th>
+                                <th>
+                                    <p>Data de Validade</p>
+                                    <div class="w3-light-grey w3-round-xlarge">
+                                        <div class="w3-round-xlarge w3-teal" style="height:24px;width:100%"></div>
+                                    </div>
+                                </th>
+                            </tr>
+                            @foreach (var item2 in Model.Voucher)
+                            {
+                                <tr>
+                                    <th>
+                                        <p>@Html.DisplayFor(itemModel => item2.Codigo)</p>
+                                        <div class="w3-light-grey w3-round-xlarge">
+                                            <div class="w3-round-xlarge w3-teal" style="height:24px;width:100%"></div>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <p>@Html.DisplayFor(itemModel => item2.Data)</p>
+                                        <div class="w3-light-grey w3-round-xlarge">
+                                            <div class="w3-round-xlarge w3-teal" style="height:24px;width:100%"></div>
+                                        </div>
+                                    </th>
+                                </tr>
+                            }
+                        </table>
 
-                        @foreach (var item2 in Model.Voucher)
-                        {
-                            <p>@Html.DisplayFor(itemModel => item2.Codigo)</p>
-                            <div class="w3-light-grey w3-round-xlarge">
-                                <div class="w3-round-xlarge w3-teal" style="height:24px;width:100%"></div>
-                            </div>
-                        }
                         <br>
                     </div>
                 </div><br>
