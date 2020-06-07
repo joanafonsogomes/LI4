@@ -32,7 +32,7 @@
                     <div class="card-body">
                         <h5 class="card-title text-center">Register</h5>
 
-                        @if (!@User.Identity.IsAuthenticated)
+                        @if (@User.Identity.IsAuthenticated)
                         {
                             using (Html.BeginForm("AdicionarCliente", "Utilizador", FormMethod.Post))
                             {
