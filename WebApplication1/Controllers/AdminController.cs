@@ -12,6 +12,7 @@ using System.Web;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System.Collections.Specialized;
 using WebApplication1.Helpers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplication1.Controllers
 {
@@ -307,6 +308,8 @@ namespace WebApplication1.Controllers
             return RedirectToAction("verArtigos", "Administrador");
         }
 
+      
+        [Authorize]
         [HttpPost]
         public ActionResult RemoverArtigo(int idArtigo)
         {
@@ -335,6 +338,8 @@ namespace WebApplication1.Controllers
             return RedirectToAction("VerArtigos", "Administrador");
         }
 
+    
+        [Authorize]
         public ActionResult RemoverUtilizador(string utilizador)
         {
             string user = Helpers.CacheController.utilizador;
@@ -354,6 +359,8 @@ namespace WebApplication1.Controllers
             return RedirectToAction("VerArtigos", "Administrador");
         }
 
+   
+        [Authorize]
         public ActionResult VerUtis()
         {
             var utilizadores = from x in model.Utilizador select x;
@@ -366,16 +373,10 @@ namespace WebApplication1.Controllers
                     uti.Artigo.Add(g);
                 var vendas = from x in model.Venda where (x.IdUtilizador.Equals(uti.Email)) select x;
                 List<Venda> ven = vendas.ToList<Venda>();
-                foreach(Venda a in ven)
-                {
-                    uti.Venda.Add(a);
-                }
+                uti.Venda = ven;
                 var Alugueres = from x in model.Aluguer where (x.IdUtilizador.Equals(uti.Email)) select x;
                 List<Aluguer> ar = Alugueres.ToList<Aluguer>();
-                foreach (Aluguer a in ar)
-                {
-                    uti.Aluguer.Add(a);
-                }
+                uti.Aluguer = ar;
 
             }
             return View(lista);
@@ -404,6 +405,7 @@ namespace WebApplication1.Controllers
             return View(res2);
         }
 
+       [Authorize]
         public ActionResult Denuncias()
         {
             var den = from x in model.Denuncias select x;
@@ -413,20 +415,24 @@ namespace WebApplication1.Controllers
                 var artigos = from f in model.Artigo where (f.IdArtigo == d.IdArtigo) select f;
                 Artigo al = artigos.ToList<Artigo>().FirstOrDefault();
                 d.IdArtigoNavigation.IdArtigo = al.IdArtigo;
-                d.IdArtigoNavigation.Nome = al.Nome;                
+                d.IdArtigoNavigation.Nome = al.Nome;
                 d.IdArtigoNavigation.IdDono = al.IdDono; // acho que não é preciso mais info
+                
 
                 var ut = from x in model.Utilizador where (x.Email.Equals(al.IdDono)) select x;
                 Utilizador u = ut.ToList<Utilizador>().FirstOrDefault();
-                d.IdUtilizadorNavigation.Nome = u.Nome;          //Nao está a dar ????
-                d.IdUtilizadorNavigation.Email = u.Email;
-                d.IdUtilizadorNavigation.NDenuncias = u.NDenuncias;
+
+                //d.IdUtilizadorNavigation.Nome = u.Nome;          //Nao está a dar ????
+                //d.IdUtilizadorNavigation.Email = u.Email;
+                //d.IdUtilizadorNavigation.NDenuncias = u.NDenuncias;
+
+
 
             }
             return View(lista);
         }
 
-
+        [Authorize]
         public ActionResult searchDenuncias(string utilizador)
         {
             var local1 = (from y in model.Artigo where (y.IdDono.Equals(utilizador)) select y);
@@ -450,12 +456,14 @@ namespace WebApplication1.Controllers
             return View(res);
         }
 
+        [Authorize]
         public ActionResult viewDenuncias(int IdArtigo)
         {
             Denuncias local = (from x in model.Denuncias where (x.IdArtigo == IdArtigo) select x).FirstOrDefault();
             return View(local);
         }
 
+        [Authorize]
         public ActionResult rejeitarDenuncia(int idDenuncia)
         {
             List<Denuncias> lista = (from den in model.Denuncias where (den.IdDenuncia >= idDenuncia) select den).ToList<Denuncias>();
@@ -473,6 +481,7 @@ namespace WebApplication1.Controllers
             return View();
         }
 
+        [Authorize]
         public ActionResult Warning(string email)
         {
             Utilizador u = model.Utilizador.Where(x => x.Email.Equals(email)).FirstOrDefault();
