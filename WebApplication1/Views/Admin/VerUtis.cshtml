@@ -27,15 +27,17 @@
         <th style="text-align: center; vertical-align: middle">
             Número de Denuncias
         </th>
-        <th style="text-align: center; vertical-align: middle">
-            Numero de Artigos
-        </th>
-        <th style="text-align: center; vertical-align: middle">
-            Numero de Vendas
-        </th>
-        <th style="text-align: center; vertical-align: middle">
-            Numero de Alugueres
-        </th>
+        <!--
+    <th style="text-align: center; vertical-align: middle">
+        Numero de Artigos
+    </th>
+    <th style="text-align: center; vertical-align: middle">
+        Numero de Vendas
+    </th>
+    <th style="text-align: center; vertical-align: middle">
+        Numero de Alugueres
+    </th>
+        -->
         <th style="text-align: center; vertical-align: middle">
             Efetuar Açao
         </th>
@@ -53,15 +55,17 @@
     <td style="text-align:center; vertical-align:middle">
         @Html.DisplayFor(modelItem => item.NDenuncias)
     </td>
+    <!--
     <td style="text-align:center; vertical-align:middle">
-         @Html.DisplayFor(modelItem => item.Artigo.Length())<!-- sao 3 da manha esta merda n dá-->
+         Html.DisplayFor(modelItem => item.Artigo.Length())   sao 3 da manha esta merda n dá
     </td>
     <td style="text-align:center; vertical-align:middle">
-        <!-- Html.DisplayFor(modelItem => item.Venda.Length()) -->
+         Html.DisplayFor(modelItem => item.Venda.Length()) 
     </td>
     <td style="text-align:center; vertical-align:middle">
-        <!--Html.DisplayFor(modelItem => item.Aluguer.Length())  -->
+        Html.DisplayFor(modelItem => item.Aluguer.Length())  
     </td>
+        -->
     <td style="text-align:center; vertical-align:middle">
         <div class="btn-login">
             <!--nome para as views depois altera se quiseres-->

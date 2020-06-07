@@ -57,12 +57,12 @@
                 @Html.DisplayFor(modelItem => item.IdArtigoNavigation.Nome)
             </td>
             <td style="text-align:center; vertical-align:middle">
-                @Html.DisplayFor(modelItem => item.IdUtilizadorNavigation.Nome)
+                @Html.DisplayFor(modelItem => item.IdArtigoNavigation.IdDonoNavigation.Nome)
 
-                @Html.DisplayFor(modelItem => item.IdUtilizadorNavigation.Email)
+                @Html.DisplayFor(modelItem => item.IdArtigoNavigation.IdDonoNavigation.Email)
             </td>
             <td style="text-align:center; vertical-align:middle">
-                @Html.DisplayFor(modelItem => item.IdUtilizadorNavigation.NDenuncias)
+                @Html.DisplayFor(modelItem => item.IdArtigoNavigation.IdDonoNavigation.NDenuncias)
             </td>
             <td style="text-align:center; vertical-align:middle">
                 <div class="btn-login">

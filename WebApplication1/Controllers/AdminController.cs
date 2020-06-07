@@ -422,9 +422,11 @@ namespace WebApplication1.Controllers
                 var ut = from x in model.Utilizador where (x.Email.Equals(al.IdDono)) select x;
                 Utilizador u = ut.ToList<Utilizador>().FirstOrDefault();
 
-                //d.IdUtilizadorNavigation.Nome = u.Nome;          //Nao está a dar ????
-                //d.IdUtilizadorNavigation.Email = u.Email;
-                //d.IdUtilizadorNavigation.NDenuncias = u.NDenuncias;
+                al.IdDonoNavigation.Nome = u.Nome;
+
+                al.IdDonoNavigation.Email = u.Email;
+
+                al.IdDonoNavigation.NDenuncias = u.NDenuncias;
 
 
 
