@@ -38,7 +38,6 @@ namespace WebApplication1.Models
         public virtual ICollection<Venda> Venda { get; set; }
         public virtual ICollection<Comentarios> Comentarios { get; set; }
         public virtual ICollection<Voucher> Voucher { get; set; }
-
         public virtual ICollection<Denuncias> Denuncias { get; set; }
 
         public int NPorta { get; internal set; }
