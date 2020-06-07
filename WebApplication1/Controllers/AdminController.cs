@@ -366,10 +366,16 @@ namespace WebApplication1.Controllers
                     uti.Artigo.Add(g);
                 var vendas = from x in model.Venda where (x.IdUtilizador.Equals(uti.Email)) select x;
                 List<Venda> ven = vendas.ToList<Venda>();
-                uti.Venda = ven;
+                foreach(Venda a in ven)
+                {
+                    uti.Venda.Add(a);
+                }
                 var Alugueres = from x in model.Aluguer where (x.IdUtilizador.Equals(uti.Email)) select x;
                 List<Aluguer> ar = Alugueres.ToList<Aluguer>();
-                uti.Aluguer = ar;
+                foreach (Aluguer a in ar)
+                {
+                    uti.Aluguer.Add(a);
+                }
 
             }
             return View(lista);
@@ -407,14 +413,14 @@ namespace WebApplication1.Controllers
                 var artigos = from f in model.Artigo where (f.IdArtigo == d.IdArtigo) select f;
                 Artigo al = artigos.ToList<Artigo>().FirstOrDefault();
                 d.IdArtigoNavigation.IdArtigo = al.IdArtigo;
-                d.IdArtigoNavigation.Nome = al.Nome;
+                d.IdArtigoNavigation.Nome = al.Nome;                
                 d.IdArtigoNavigation.IdDono = al.IdDono; // acho que não é preciso mais info
 
                 var ut = from x in model.Utilizador where (x.Email.Equals(al.IdDono)) select x;
                 Utilizador u = ut.ToList<Utilizador>().FirstOrDefault();
-                //d.IdUtilizadorNavigation.Nome = u.Nome;          //Nao está a dar ????
-                //d.IdUtilizadorNavigation.Email = u.Email;
-                //d.IdUtilizadorNavigation.NDenuncias = u.NDenuncias;
+                d.IdUtilizadorNavigation.Nome = u.Nome;          //Nao está a dar ????
+                d.IdUtilizadorNavigation.Email = u.Email;
+                d.IdUtilizadorNavigation.NDenuncias = u.NDenuncias;
 
             }
             return View(lista);
