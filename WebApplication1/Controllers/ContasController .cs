@@ -45,37 +45,40 @@ namespace WebApplication1.Controllers
                 {
 
                     Utilizador userSingle = userS.ToList().ElementAt<Utilizador>(0);
-                    using (MD5 md5Hash = MD5.Create())
+                    if (userSingle.Estado != 2)
                     {
-                        if (MyHelpers.VerifyMd5Hash(md5Hash, password, userSingle.Password))
+                        using (MD5 md5Hash = MD5.Create())
                         {
-                            var claims = new List<Claim>
+                            if (MyHelpers.VerifyMd5Hash(md5Hash, password, userSingle.Password))
+                            {
+                                var claims = new List<Claim>
                                  {
                                        new Claim(ClaimTypes.Name, email),
                                        new Claim(ClaimTypes.Role, "User")
                                   };
 
-                            var identidadeDeUsuario = new ClaimsIdentity(claims, "Login");
-                            ClaimsPrincipal claimPrincipal = new ClaimsPrincipal(identidadeDeUsuario);
+                                var identidadeDeUsuario = new ClaimsIdentity(claims, "Login");
+                                ClaimsPrincipal claimPrincipal = new ClaimsPrincipal(identidadeDeUsuario);
 
-                            var propriedadesDeAutenticacao = new AuthenticationProperties
+                                var propriedadesDeAutenticacao = new AuthenticationProperties
+                                {
+                                    AllowRefresh = true,
+                                    ExpiresUtc = DateTime.Now.ToLocalTime().AddHours(10),
+                                    IsPersistent = true
+                                };
+
+                                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimPrincipal, propriedadesDeAutenticacao);
+
+                                Helpers.CacheController.utilizador = userSingle.Email;
+                                return RedirectToAction("Index", "Utilizador");
+                            }
+                            else
+
                             {
-                                AllowRefresh = true,
-                                ExpiresUtc = DateTime.Now.ToLocalTime().AddHours(10),
-                                IsPersistent = true
-                            };
-
-                            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimPrincipal, propriedadesDeAutenticacao);
-
-                            Helpers.CacheController.utilizador = userSingle.Email;
-                            return RedirectToAction("Index", "Utilizador");
-                        }
-                        else
-
-                        {
-                            //ViewData["User_Name"] = "Bem vindo" + userSingle.Nome;
-                            ModelState.AddModelError("password", "Password incorreta!");
-                            return View();
+                                //ViewData["User_Name"] = "Bem vindo" + userSingle.Nome;
+                                ModelState.AddModelError("password", "Password incorreta!");
+                                return View();
+                            }
                         }
                     }
                 }
