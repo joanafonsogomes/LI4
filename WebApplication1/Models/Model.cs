@@ -376,6 +376,10 @@ namespace WebApplication1.Models
                     .HasColumnName("email")
                     .HasMaxLength(45)
                     .IsFixedLength();
+                entity.Property(e => e.Codigo)
+                   .HasColumnName("codigo")
+                   .HasMaxLength(45)
+                   .IsFixedLength();
 
                 entity.Property(e => e.Administrador)
                     .IsRequired()

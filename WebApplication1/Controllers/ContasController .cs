@@ -116,39 +116,25 @@ namespace WebApplication1.Controllers
                      
                 }
 
-                /*
-                else
+                var userC = (from m in model.Utilizador where (m.Email == email && m.Tipo == "company") select m);
+                if (userC.ToList().Count > 0)
                 {
-                    var userC = (from m in model.Utilizador where (m.Email == email && m.Tipo == "company") select m);
-                    if (userC.ToList().Count > 0)
-                    {
-                        Utilizador utilizador = userC.ToList().ElementAt<Utilizador>(0);
-                        using (MD5 md5Hash = MD5.Create())
-                        {
-                            if (MyHelpers.VerifyMd5Hash(md5Hash, password, utilizador.Password))
-                            {
-                                /*
-                                HttpCookie cookie = MyHelpers.CreateAuthorizeTicket(cliente.Id.ToString(), cliente.Role);
-                                Response.Cookies.Add(cookie);
+                    Utilizador utilizador = userC.ToList().ElementAt<Utilizador>(0);
+                     using (MD5 md5Hash = MD5.Create())
+                     {
+                         if (MyHelpers.VerifyMd5Hash(md5Hash, password, utilizador.Password))
+                         {
+                    Helpers.CacheController.utilizador = utilizador.Email;
 
-                                ViewData["User_Name"] = "Bem vindo" + utilizador.Nome;
-                                return RedirectToAction("Index", "Funcionario");
-                            }
-                            else
-                            {
-                                ModelState.AddModelError("password", "Password incorreta!");
-                                return View();
-                            }
-                        }
+                    return RedirectToAction("Index", "Home");
                     }
-
-
-                    else
-                    {
-                        ModelState.AddModelError("", "Login data is incorrect!");
-                        return View();
-                    }
-                }*/
+                     else
+                     {
+                         ModelState.AddModelError("password", "Password incorreta!");
+                         return View();
+                     }
+                 }
+                }
 
             }
                     return View();
@@ -159,20 +145,47 @@ namespace WebApplication1.Controllers
         {
             return View();
         }
-
-
-
+        public ActionResult Recovery()
+        {
+            return View();
+        }
         [HttpPost]
         public ActionResult Enviar(string email)
         {
             Utilizador u = model.Utilizador.Where(x => x.Email.Equals(email)).FirstOrDefault();
-            string pass = RandomString(8, true);
-            Console.WriteLine(pass);
-            u.Password = MyHelpers.HashPassword(pass);
-            PassRec pr = new PassRec();
-            pr.Rec_Button(email, pass);
+            Helpers.CacheController.utilizador = u.Email;
+            string code = RandomString(8, true);
+            u.Codigo = code;
             model.SaveChanges();
-            return RedirectToAction("Index", "Home");
+            PassRec pr = new PassRec();
+            pr.Rec_Button(email, code);
+            return RedirectToAction("Recovery", "Conta");
+        }
+        [HttpPost]
+        public ActionResult Recovery(string code, string pass, string pa)
+        {
+
+            string email = Helpers.CacheController.utilizador;
+            Utilizador u = model.Utilizador.Where(x => x.Email.Equals(email)).FirstOrDefault();
+            if (u != null)
+            {
+                if (Equals(code, u.Codigo))
+                {
+                    if (Equals(pass, pa))
+                    {
+                        u.Password = MyHelpers.HashPassword(pass);
+                        model.SaveChanges();
+                    }
+                    else
+                    {
+                        Console.WriteLine("pass nao coincidem");
+                        Console.WriteLine(pass);
+                        Console.WriteLine(pa);
+                    }
+                }
+                else { Console.WriteLine("codigo errado"); Console.WriteLine(u.Codigo); }
+            }
+            return RedirectToAction("About", "Home");
         }
 
         public string RandomString(int size, bool lowerCase)
@@ -189,7 +202,6 @@ namespace WebApplication1.Controllers
                 return builder.ToString().ToLower();
             return builder.ToString();
         }
-
         public async System.Threading.Tasks.Task<ActionResult> LogOutAsync()
         {
             // FormsAuthentication.SignOut();
