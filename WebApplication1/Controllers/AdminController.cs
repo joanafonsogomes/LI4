@@ -510,5 +510,13 @@ namespace WebApplication1.Controllers
             Console.WriteLine("Enviei email!");
             return RedirectToAction("Index", "Admin");
         }
+
+        public ActionResult Bloquear(string email)
+        {
+            Utilizador u = model.Utilizador.Where(x => x.Email.Equals(email)).FirstOrDefault();
+            u.Estado = 2;
+            model.SaveChanges();
+            return RedirectToAction("Index", "Admin");
+        }
     }
 }

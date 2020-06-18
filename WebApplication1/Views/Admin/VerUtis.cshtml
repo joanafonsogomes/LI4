@@ -82,12 +82,19 @@
 
 
             </form>
-        
-            <div>
-                <button type="submit" id="buttonEmail" class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2">Bloquear</button>
-            </div>
 
-          
+            <form asp-action="Bloquear" asp-controllers="Admin" method="get" enctype="multipart/form-data">
+                <div class="form-group">
+                    <div>
+                        <label for="Email"></label>
+                        <input type="hidden" name="email" value="@item.Email" />
+                    </div>
+                    <div>
+                        <button type="submit" id="buttonEmail" class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2">Bloquear</button>
+                    </div>
+            </form>
+
+
 
 
 

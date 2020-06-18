@@ -30,6 +30,7 @@ namespace WebApplication1.Models
         public int Notificacoes { get; set; }
 
         public int NDenuncias { get; set; }
+        public string Codigo { get; set; }
 
         public virtual Administrador AdministradorNavigation { get; set; }
         public virtual Localizacao CodPostalNavigation { get; set; }

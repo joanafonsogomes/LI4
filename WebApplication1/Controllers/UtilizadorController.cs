@@ -15,6 +15,7 @@ using WebApplication1.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 
+
 namespace WebApplication1.Controllers
 {
     public class UtilizadorController : Controller
