@@ -112,6 +112,24 @@ namespace WebApplication1.Controllers
                             return RedirectToAction("Index", "Admin");
                      
                 }
+                var userC = (from m in model.Utilizador where (m.Email == email && m.Tipo == "company") select m);
+                if (userC.ToList().Count > 0)
+                {
+                    Utilizador utilizador = userC.ToList().ElementAt<Utilizador>(0);
+                    /* using (MD5 md5Hash = MD5.Create())
+                     {
+                         if (MyHelpers.VerifyMd5Hash(md5Hash, password, utilizador.Password))
+                         {*/
+
+                    return RedirectToAction("Index", "Company");
+                    /* }
+                     else
+                     {
+                         ModelState.AddModelError("password", "Password incorreta!");
+                         return View();
+                     }
+                 }*/
+                }
 
                 /*
                 else
