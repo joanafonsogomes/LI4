@@ -111,29 +111,11 @@ namespace WebApplication1.Controllers
                             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimPrincipal, propriedadesDeAutenticacao);
 
 
-
-                            return RedirectToAction("Index", "Admin");
+                    Helpers.CacheController.utilizador = admin.Email;
+                    return RedirectToAction("Index", "Admin");
                      
                 }
-                var userC = (from m in model.Utilizador where (m.Email == email && m.Tipo == "company") select m);
-                if (userC.ToList().Count > 0)
-                {
-                    Utilizador utilizador = userC.ToList().ElementAt<Utilizador>(0);
-                    /* using (MD5 md5Hash = MD5.Create())
-                     {
-                         if (MyHelpers.VerifyMd5Hash(md5Hash, password, utilizador.Password))
-                         {*/
-
-                    return RedirectToAction("Index", "Company");
-                    /* }
-                     else
-                     {
-                         ModelState.AddModelError("password", "Password incorreta!");
-                         return View();
-                     }
-                 }*/
-                }
-
+               
                 var userC = (from m in model.Utilizador where (m.Email == email && m.Tipo == "company") select m);
                 if (userC.ToList().Count > 0)
                 {
@@ -144,7 +126,7 @@ namespace WebApplication1.Controllers
                          {
                     Helpers.CacheController.utilizador = utilizador.Email;
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Company");
                     }
                      else
                      {

@@ -26,7 +26,6 @@ namespace WebApplication1.Models
         public virtual DbSet<Comentarios> Comentarios { get; set; }
         public virtual DbSet<Voucher> Voucher { get; set; }
 
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -533,7 +532,8 @@ namespace WebApplication1.Models
                     .HasConstraintName("FK_Comentarios_Utilizador");
 
                 });
-             modelBuilder.Entity<Voucher>(entity =>
+
+            modelBuilder.Entity<Voucher>(entity =>
                 {
                     entity.HasKey(e => e.Codigo);
 
@@ -559,8 +559,7 @@ namespace WebApplication1.Models
                     .HasConstraintName("FK_Voucher_Utilizador");
 
                 });
-
-            OnModelCreatingPartial(modelBuilder);
+             OnModelCreatingPartial(modelBuilder);
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

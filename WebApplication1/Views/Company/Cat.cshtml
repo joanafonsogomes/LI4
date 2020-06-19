@@ -1,0 +1,106 @@
+﻿@model IEnumerable<WebApplication1.Models.Artigo>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutCompany.cshtml";
+
+    string str = (string)@ViewData["User_Name"];
+}
+
+
+<center>
+    <p>
+        <b>Catálogo de Artigos</b>
+    </p>
+    <p>    </p>
+    <p>    </p>
+</center>
+
+<table class="table">
+    <tr>
+        <th style="text-align:center; vertical-align:middle">
+            Id
+        </th>
+        <th style="text-align:center; vertical-align:middle">
+            Nome
+        </th>
+        <th style="text-align: center; vertical-align: middle">
+            Preco
+        </th>
+        <!--
+        <th style="text-align: center; vertical-align: middle">
+            Numero de Artigos
+        </th>
+        <th style="text-align: center; vertical-align: middle">
+            Numero de Vendas
+        </th>
+        <th style="text-align: center; vertical-align: middle">
+            Numero de Alugueres
+        </th>
+            -->
+        <th style="text-align: center; vertical-align: middle">
+            Efetuar Açao
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+
+        <tr>
+            <td style="text-align:center; vertical-align:middle; font-weight:bold">
+                @Html.DisplayFor(modelItem => item.IdArtigo)
+            </td>
+            <td style="text-align:center; vertical-align:middle">
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td style="text-align:center; vertical-align:middle">
+                @Html.DisplayFor(modelItem => item.Preco)
+            </td>
+            <!--
+            <td style="text-align:center; vertical-align:middle">
+                 Html.DisplayFor(modelItem => item.Artigo.Length())   sao 3 da manha esta merda n dá
+            </td>
+            <td style="text-align:center; vertical-align:middle">
+                 Html.DisplayFor(modelItem => item.Venda.Length())
+            </td>
+            <td style="text-align:center; vertical-align:middle">
+                Html.DisplayFor(modelItem => item.Aluguer.Length())
+            </td>
+                -->
+            <td style="text-align:center; vertical-align:middle">
+                <div class="btn-login">
+                    <!--nome para as views depois altera se quiseres-->
+                    <!--button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" href="@Html.ActionLink("Alterar", "Delete",new { email = item.IdArtigo })"></!--button>-->
+                    <form asp-action="Warning" asp-controllers="Admin" method="get" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <div>
+                                <label for="Email"></label>
+                                <input type="hidden" name="email" value="@item.IdArtigo" />
+                            </div>
+                            <div>
+                                <button type="submit" id="buttonEmail" class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2">Warning</button>
+                            </div>
+
+
+                    </form>
+
+                    <form asp-action="Bloquear" asp-controllers="Admin" method="get" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <div>
+                                <label for="Email"></label>
+                                <input type="hidden" name="email" value="@item.IdArtigo" />
+                            </div>
+                            <div>
+                                <button type="submit" id="buttonEmail" class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2">Eliminar</button>
+                            </div>
+                    </form>
+
+
+
+
+
+
+            </td>
+        </tr>
+    }
+
+</table>

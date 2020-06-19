@@ -18,6 +18,8 @@ namespace WebApplication1.Models
             Utilizador = new HashSet<Utilizador>();
         }
 
+        public string Email { get; set; }
+
         public virtual ICollection<Aluguer> Aluguer { get; set; }
         public virtual ICollection<Artigo> Artigo { get; set; }
         public virtual ICollection<Venda> Venda { get; set; }

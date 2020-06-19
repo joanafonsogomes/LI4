@@ -14,29 +14,13 @@ namespace WebApplication1.Controllers
     {
 
         private Model model = new Model();
-        public IActionResult Index()
-        {
-            return View();
-        }
 
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Descrição da página.";
-
-            string user = Helpers.CacheController.utilizador;
-            Utilizador u = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
-          
-
+        public ActionResult About() { 
             return View();
         }
 
         public ActionResult Contact()
         {
-            string user = Helpers.CacheController.utilizador;
-            Utilizador u = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
-           
-
             return View();
         }
 
@@ -1195,13 +1179,30 @@ namespace WebApplication1.Controllers
         }
 
        
+        public ActionResult Cat()
+        {
+            string us = Helpers.CacheController.utilizador;
+            var art = from x in model.Artigo where x.IdDono.Equals(us) select x;
+            List<Artigo> res = art.ToList<Artigo>();
+            return View(res);
+        }
 
-        public ActionResult CompanyIndex()
+
+
+
+
+
+        public ActionResult Index()
         {
             string user = Helpers.CacheController.utilizador;
+            SpecialIndexes special = new SpecialIndexes();
+            special.Email = user;
 
+            //get artigos
             var local = from x in model.Artigo where (x.IdDono.Equals(user)) select x;
             List<Artigo> res = local.ToList<Artigo>();
+
+
             Dictionary<Artigo, int> mp = new Dictionary<Artigo, int>();
 
             var d = from x in model.Denuncias select x;
@@ -1211,7 +1212,7 @@ namespace WebApplication1.Controllers
 
 
             //artigos + vendidos
-            for (int i = 0; i < res.Count; i++)
+            for (int i = 0; i < res.Count(); i++)
             {
                 int v = (from x in model.Venda where (x.IdArtigo == res[i].IdArtigo) select x).ToList().Count;
                 mp.Add(res[i], v);
@@ -1230,7 +1231,7 @@ namespace WebApplication1.Controllers
             //denuncias dos artigos da empresa (5 + recentes)
             foreach (Denuncias de in denuncias)
             {
-                foreach (Artigo a in res)
+                foreach (Artigo a in res2)
                 {
                     if (de.IdArtigo == a.IdArtigo)
                     {
@@ -1288,14 +1289,12 @@ namespace WebApplication1.Controllers
                 resVendas = lista;
             }
 
-            SpecialIndexes special = new SpecialIndexes()
-            {
-                Artigo = res2, //5 artigos + vendidos
-                Denuncias = resDenuncias, //5 denuncias + recentes
-                Comentarios = resComentarios, //5 comentarios + recentes
-                Venda = resVendas //15 últimas vendas
-            };
-
+   
+            foreach(Artigo a in res2) special.Artigo.Add(a); //5 artigos + vendidos
+            foreach (Denuncias a in resDenuncias) special.Denuncias.Add(a); //5 denuncias + recentes
+            foreach (Comentarios a in resComentarios) special.Comentarios.Add(a); //5 comentarios + recentes
+            foreach (Venda a in resVendas) special.Venda.Add(a); //15 últimas vendas
+            model.SaveChanges();
             return View(special);
 
         }
