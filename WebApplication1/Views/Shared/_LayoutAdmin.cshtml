@@ -594,8 +594,8 @@
     <header class="header-two-bars">
 
         <div class="header-first-bar header-fixed header-login-signup header-search">
-            <div class="header-limiter" asp-area="" asp-controller="Utilizador" asp-action="Index">
-                <a asp-area="" asp-controller="Utilizador" asp-action="Index">
+            <div class="header-limiter" asp-area="" asp-controller="Admin" asp-action="Index">
+                <a asp-area="" asp-controller="Admin" asp-action="Index">
                     <img src="~/Images/rentitalllogo.png" class="col-md-2" style="margin-top: -12px;" alt="Responsive image">
                 </a>
 
@@ -610,17 +610,13 @@
                 <ul>
 
                     <li>
-                        <form asp-action="SearchArtigos" asp-controllers="Utilizador" method="POST" enctype="multipart/form-data">
+                        <form asp-action="SearchArtigos" asp-controllers="Admin" method="POST" enctype="multipart/form-data">
                             <input type="text" placeholder="Search" name="search" class="input">
                         </form>
                     </li>
 
                     <li><a href="@Url.Action("VerUtis", "Admin")">Ver Utilizadores</a></li>
                     <li><a href="@Url.Action("Denuncias", "Admin")">Denúncias</a></li>
-                    @if (IsSectionDefined("NotId"))
-                    {
-                        @RenderSection("NotId")
-                    }
 
                     <li class="header-user-dropdown">
 
