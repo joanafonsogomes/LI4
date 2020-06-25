@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<WebApplication1.Models.Artigo>
 
 @{
-    ViewBag.Title = "Search";
+    ViewBag.Title = "Novidades";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -30,7 +30,7 @@
                                 String[] words = fileName.Split(" ");
                                 String itempic = words[0];
                             }
-                            <a href="@Url.Action("Details", new { idArtigo = item.IdArtigo })"><img class="card-img-top" src="~/uploads/@itempic" alt=""></a>
+                            <a href="@Url.Action("Details", new { idArtigo = item.IdArtigo })"><img class="card-img-top" style="height:370px" src="~/uploads/@itempic" alt=""></a>
                             <div class="card-body">
                                 <h4 class="card-title">
                                     <a href="@Url.Action("Details", new { idArtigo = item.IdArtigo })">@Html.DisplayFor(modelItem => item.Nome)</a>
