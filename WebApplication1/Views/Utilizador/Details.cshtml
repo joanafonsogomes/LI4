@@ -97,6 +97,10 @@
         #divDen:after {
             clear: both;
         }
+
+        .tryButton:hover{
+            color: white;
+        }
     </style>
 
 
@@ -216,7 +220,7 @@
                                         <input type="hidden" name="IdArtigo" value="@Model.IdArtigo" />
                                     </div>
                                     <div>
-                                        <button type="submit" id="buttonDenuncias" class="btn border-primary btn-login btn-outline-primary" style="border:none">&#9888; Denunciar Artigo</button>
+                                        <button type="submit" id="buttonDenuncias" class="btn border-primary btn-login btn-outline-primary tryButton" style="border:none">&#9888; Denunciar Artigo</button>
                                     </div>
 
                                 </form>
@@ -231,8 +235,7 @@
                         <p class="card-text">@Html.DisplayFor(modelItem => Model.Descricao)</p>
 
                         <a href="@Url.Action("AdicionarCarrinho", new { idArtigo = Model.IdArtigo })"
-                           class="btn border-primary btn-login btn-outline-primary">Adicionar ao Carrinho</a>
-
+                           class="btn border-primary btn-login btn-outline-primary tryButton" style="font-size:12px">Adicionar ao Carrinho <i class="fa fa-shopping-cart"></i></a>
 
                         <!-- Denuncias-->
 
@@ -244,7 +247,7 @@
                                 <input type="hidden" name="IdArtigo" value="@Model.IdArtigo" />
                             </div>
                             <div>
-                                <button type="submit" id="buttonDenuncias" class="btn border-primary btn-login btn-outline-primary" style="border:none">&#9888; Denunciar Artigo</button>
+                                <button type="submit" id="buttonDenuncias" class="btn border-primary btn-login btn-outline-primary tryButton" style="border:none">&#9888; Denunciar Artigo</button>
                             </div>
 
                         </form>
@@ -383,7 +386,7 @@
                         <center>
                             <div class="form-group">
                                 <div>
-                                    <input type="submit" value="Post Review" class="btn border-primary btn-login btn-outline-primary" />
+                                    <input type="submit" value="Enviar comentário" class="btn border-primary btn-login btn-outline-primary tryButton" />
                                 </div>
                             </div>
                         </center>
