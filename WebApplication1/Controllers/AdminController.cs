@@ -32,27 +32,90 @@ namespace WebApplication1.Controllers
 
         public ActionResult Index()
         {
-            var local = (from x in model.Utilizador select x);
-            List<Utilizador> res = local.ToList<Utilizador>();
-            foreach(Utilizador a in res)
+            SpecialIndexes special = new SpecialIndexes();
+            //get utilizadores
+            var utis = from f in model.Utilizador select f;
+            List<Utilizador> i = utis.ToList<Utilizador>();
+            special.NumUtis = i.Count();
+
+            //get vouchers
+            var v = from g in model.Voucher select g;
+            List<Voucher> vv = v.ToList<Voucher>();
+            special.NumVoucher = vv.Count();
+
+            //get artigos mais recentes
+            var local = from x in model.Artigo select x;
+            List<Artigo> res = local.ToList<Artigo>();
+            res.Reverse();
+            
+            List<Artigo> resArt = local.ToList<Artigo>();
+            if (res.Count >= 5)
             {
-                var als = from x in model.Aluguer where x.IdUtilizador.Equals(a.Email) select x;
-                a.Aluguer = als.ToList<Aluguer>();
-                var arts = from g in model.Artigo where g.IdDono.Equals(a.Email) select g;
-                List<Artigo> oi = arts.ToList<Artigo>();
-                foreach(Artigo u in oi)
-                {
-                    var denun = from f in model.Denuncias where f.IdArtigo.Equals(u.IdArtigo) select f;
-                    List<Denuncias> de = denun.ToList<Denuncias>();
-                    foreach (Denuncias d in de) u.Denuncias.Add(d);
-                    a.Artigo.Add(u);
-                }
-                var vens = from x in model.Venda where x.IdUtilizador.Equals(a.Email) select x;
-                a.Venda = vens.ToList<Venda>();
-                var vou = from x in model.Voucher where x.IdUtilizador.Equals(a.Email) select x;
-                a.Voucher = vou.ToList<Voucher>();
+                resArt = res.Take(5).ToList();
             }
-            return View(res);
+            else
+            {
+                resArt = res;
+            }
+
+            foreach (Artigo a in resArt) special.Artigo.Add(a); //5 artigos + recentes
+
+            var d = from x in model.Denuncias select x;
+            List<Denuncias> denuncias = d.ToList<Denuncias>();
+            List<Denuncias> resDenuncias = new List<Denuncias>();
+
+            denuncias.Reverse();
+            if (denuncias.Count >= 5)
+            {
+                resDenuncias = denuncias.Take(5).ToList();
+            }
+            else
+            {
+                resDenuncias = denuncias;
+            }
+
+            foreach (Denuncias a in resDenuncias) special.Denuncias.Add(a); //5 denuncias + recentes
+
+            //lista de vendas (15 elementos)
+
+            var vendas = from ven in model.Venda select ven;
+            List<Venda> lista = vendas.ToList<Venda>();
+            special.NumVendas = lista.Count();
+            List<Venda> resVendas = new List<Venda>();
+            lista.Reverse();
+            if (lista.Count >= 15)
+            {
+                resVendas = lista.Take(15).ToList();
+            }
+            else
+            {
+                resVendas = lista;
+            }
+       
+            
+            foreach (Venda a in resVendas) special.Venda.Add(a); //15 últimas vendas
+
+            //lista de alugueres (15 elementos)
+
+            var al = from ven in model.Aluguer select ven;
+            List<Aluguer> lis = al.ToList<Aluguer>();
+            special.NumAlugueres = lis.Count();
+            List <Aluguer> als = new List<Aluguer>();
+            lis.Reverse();
+            if (lis.Count >= 15)
+            {
+                als = lis.Take(15).ToList();
+            }
+            else
+            {
+                als = lis;
+            }
+            model.SaveChanges();
+
+            foreach (Aluguer a in als) special.Aluguer.Add(a); //15 últimos alugueres
+
+            return View(special);
+
         }
 
 

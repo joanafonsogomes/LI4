@@ -9,10 +9,11 @@
 			}
 			for (var res = [], i = 0; i < data.length; ++i) res.push([i, data[i]]);
 			return res
-		}
-		for (var data = [], totalPoints = 100, d1 = [], i = 0; 10 >= i; i += 1) d1.push([i, parseInt(30 * Math.random())]);
-		for (var d2 = [], i = 0; 20 >= i; i += 1) d2.push([i, parseInt(30 * Math.random())]);
-		for (var d3 = [], i = 0; 10 >= i; i += 1) d3.push([i, parseInt(30 * Math.random())]);
+    }
+    //valores para o grafico grande
+    for (var data = [], totalPoints = 100, d1 = [], i = 0; 10 >= i; i += 1) d1.push([i, parseInt(30 * Math.random())]);  //valor após o igual (valor do produto alugado)
+    for (var d2 = [], i = 0; 20 >= i; i += 1) d2.push([i, parseInt(30 * 1)]);
+    for (var d3 = [], i = 0; 10 >= i; i += 1) d3.push([i, parseInt(30 * Math.random())]); //valor após o igual (valor do produto vendido)
 		var options = {
 			series: {
 				shadowSize: 0,

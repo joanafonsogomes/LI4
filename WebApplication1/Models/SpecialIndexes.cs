@@ -19,6 +19,10 @@ namespace WebApplication1.Models
         }
 
         public string Email { get; set; }
+        public int NumVendas { get; set; }
+        public int NumAlugueres { get; set; }
+        public int NumUtis { get; set; }
+        public int NumVoucher { get; set; }
 
         public virtual ICollection<Aluguer> Aluguer { get; set; }
         public virtual ICollection<Artigo> Artigo { get; set; }

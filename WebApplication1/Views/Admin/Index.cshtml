@@ -1,13 +1,10 @@
-﻿@model IEnumerable<WebApplication1.Models.Utilizador>
+﻿@model WebApplication1.Models.SpecialIndexes
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 
     string str = (string)@ViewData["User_Name"];
-    int contaalugueres = 0;
-    int contavendas = 0;
-    int contaVouchers = 0;
 }
 
     <head>
@@ -23,7 +20,7 @@
             <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                 <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30">
                     <div class="website-traffic-ctn">
-                        <h2><span class="counter">@Model.Count()</span></h2>
+                        <h2><span class="counter">@Model.NumUtis</span></h2>
                         <p>Total de Utilizadores</p>
                     </div>
                     <div class="sparkline-bar-stats1">9,4,8,6,5,6,4,8,3,5,9,5</div>
@@ -33,9 +30,7 @@
                 <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30">
                     <div class="website-traffic-ctn">
                         <h2><span class="counter">
-    @foreach (var item in Model)
-        contaalugueres = contaalugueres + item.Aluguer.Count();
-                            @contaalugueres </span></h2>
+  @Model.NumAlugueres </span></h2>
                         <p>Total de Alugueres</p>
                     </div>
                     <div class="sparkline-bar-stats2">1,4,8,3,5,6,4,8,3,3,9,5</div>
@@ -45,9 +40,7 @@
                 <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30 dk-res-mg-t-30">
                     <div class="website-traffic-ctn">
                         <h2><span class="counter">
-    @foreach (var item in Model)
-        contavendas = contavendas + item.Venda.Count();
-    @contavendas
+    @Model.NumVendas
 </span></h2>
                         <p>Total de Vendas</p>
                     </div>
@@ -58,9 +51,7 @@
                 <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30 dk-res-mg-t-30">
                     <div class="website-traffic-ctn">
                         <h2><span class="counter">
-    @foreach (var item in Model)
-        contaVouchers = contaVouchers + item.Voucher.Count();
-    @contaVouchers
+    @Model.NumVoucher
 </span></h2>
                         <p>Total de Vouchers</p>
                     </div>
@@ -113,7 +104,7 @@
                     </div>
                     <div class="past-statistic-an">
                         <div class="past-statistic-ctn">
-                            <h3><span class="counter">@Model.Count()</span></h3>
+                            <h3><span class="counter">@Model.NumUtis</span></h3>
                             <p>Número de Visitantes</p>
                         </div>
                         <div class="past-statistic-graph">
@@ -182,26 +173,18 @@
                     </div>
                    @{ int con = 0;}
                     <div class="recent-post-items">
-                         @foreach(var i in Model) {
-                             foreach (var e in i.Artigo)
-                             {
-                                 foreach (var a in e.Denuncias)
-                                 {
+                         @foreach(var i in Model.Denuncias) {
                         <div class="recent-post-signle rct-pt-mg-wp">
                             <a href="#">
                                 <div class="recent-post-flex">
                                     <div class="recent-post-it-ctn">
-                                        <h2>@a.IdAutor</h2>
-                                        <p>@a.Descricao</p>
+                                        <h2>@i.IdAutor</h2>
+                                        <p>@i.Descricao</p>
                                     </div>
                                 </div>
                             </a>
                         </div> con = con + 1;
                                      if (con == 5) break;
-                                 }
-                                 if (con == 5) break;
-                             }
-                             if (con == 5) break;
                          }
                         <div class="recent-post-signle">
                             <a href="#">
@@ -234,25 +217,19 @@
                                 </thead>
                                 <tbody>
                                     @{ int conta = 0;}
-                                    @foreach (var Item in Model)
+                                    @foreach (var Item in Model.Artigo)
                                     {
-                                        if (Item.Artigo.Count() > 0)
+
+                                        if (conta == 5) break;
+                                        else
                                         {
-                                            foreach (var item2 in Item.Artigo)
-                                            {
-                                                if (conta == 5) break;
-                                                else
-                                                {
                                     <tr>
-                                        <td class="f-500 c-cyan">@item2.IdArtigo</td>
-                                        <td>@item2.Nome</td>
-                                        <td class="f-500 c-cyan">@item2.Preco €</td>
+                                        <td class="f-500 c-cyan">@Item.IdArtigo</td>
+                                        <td>@Item.Nome</td>
+                                        <td class="f-500 c-cyan">@Item.Preco €</td>
                                     </tr>
-                                                    conta++;
-                                                }
-                                            }
+                                            conta++;
                                         }
-                                        else if (conta == 5) break;
                                     }
                                    </tbody>
                             </table>
