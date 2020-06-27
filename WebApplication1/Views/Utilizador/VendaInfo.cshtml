@@ -408,40 +408,40 @@
                     @foreach (var item in Model)
                     {
                         totalPrice += item.Preco;
-                        <div class="basket-product">
-                            <div class="item">
-                                <div class="product-image">
+                <div class="basket-product">
+                    <div class="item">
+                        <div class="product-image">
 
 
-                                    @{var fileName = @item.IdArtigoNavigation.Imagem;
-                                        String[] words = fileName.Split(" ");
-                                        String itempic = words[0];
-                                    }
+                            @{var fileName = @item.IdArtigoNavigation.Imagem;
+                                String[] words = fileName.Split(" ");
+                                String itempic = words[0];
+                            }
 
-                                    <img src="~/uploads/@itempic" alt="Placholder Image 2" class="product-frame">
+                            <img src="~/uploads/@itempic" alt="Placholder Image 2" class="product-frame">
 
 
-                                </div>
-                                <div class="product-details">
-                                    <h1><strong><span class="item-quantity"></span></strong></h1>
-                                    <p>
-                                        <a href="@Url.Action("Details", new { idArtigo = item.IdArtigo })">
-
-                                            @Html.DisplayFor(modelItem => item.IdArtigoNavigation.Nome)
-                                        </a>
-                                    </p>
-                                    <p>Código do Artigo - @Html.DisplayFor(modelItem => item.IdArtigo)</p>
-                                </div>
-                            </div>
-                            <div class="price">@Html.DisplayFor(modelItem => item.Preco) €</div>
-                            <div class="quantity">
-                                <input type="number" value="@Html.DisplayFor(modelItem => item.Quantidade)" min="1" class="quantity-field">
-                            </div>
-                            <div class="subtotal">@Html.DisplayFor(modelItem => item.Preco)*@Html.DisplayFor(modelItem => item.Quantidade) €</div>
-                            <div class="remove">
-                                <button>@Html.ActionLink("Remover", "RemArtCarrinho", "Utilizador", new { idVenda = item.IdVenda }, null)</button>
-                            </div>
                         </div>
+                        <div class="product-details">
+                            <p>
+                                <a href="@Url.Action("Details", new { idArtigo = item.IdArtigo })">
+
+                                    @Html.DisplayFor(modelItem => item.IdArtigoNavigation.Nome)
+                                </a>
+                            </p>
+                            <p>Código do Artigo - @Html.DisplayFor(modelItem => item.IdArtigo)</p>
+                        </div>
+                    </div>
+                    <div class="price">@Html.DisplayFor(modelItem => item.Preco) €</div>
+                    @{ var maxQuant = @item.IdArtigoNavigation.Quantidade;}
+                    <div class="quantity">
+                        <input type="number" value="@Html.DisplayFor(modelItem => item.Quantidade)" min="1" max="@maxQuant" class="quantity-field">
+                    </div>
+                    <div class="subtotal">@Html.DisplayFor(modelItem => item.Preco)*@Html.DisplayFor(modelItem => item.Quantidade) €</div>
+                    <div class="remove">
+                        <button>@Html.ActionLink("Remover", "RemArtCarrinho", "Utilizador", new { idVenda = item.IdVenda }, null)</button>
+                    </div>
+                </div>
                     }
                 </div>
 
