@@ -407,59 +407,59 @@
                     </div>
                     @foreach (var item in Model)
                     {
-                        totalPrice += item.Preco;
-                <div class="basket-product">
-                    <div class="item">
-                        <div class="product-image">
+                        totalPrice += item.Preco * item.Quantidade;
+                        <div class="basket-product">
+                            <div class="item">
+                                <div class="product-image">
 
 
-                            @{var fileName = @item.IdArtigoNavigation.Imagem;
-                                String[] words = fileName.Split(" ");
-                                String itempic = words[0];
-                            }
+                                    @{var fileName = @item.IdArtigoNavigation.Imagem;
+                                        String[] words = fileName.Split(" ");
+                                        String itempic = words[0];
+                                    }
 
-                            <img src="~/uploads/@itempic" alt="Placholder Image 2" class="product-frame">
+                                    <img src="~/uploads/@itempic" alt="Placholder Image 2" class="product-frame">
 
 
+                                </div>
+                                <div class="product-details">
+                                    <p>
+                                        <a href="@Url.Action("Details", new { idArtigo = item.IdArtigo })">
+
+                                            @Html.DisplayFor(modelItem => item.IdArtigoNavigation.Nome)
+                                        </a>
+                                    </p>
+                                    <p>Código do Artigo - @Html.DisplayFor(modelItem => item.IdArtigo)</p>
+                                </div>
+                            </div>
+                            <div class="price">@Html.DisplayFor(modelItem => item.Preco) €</div>
+                            @{ var maxQuant = @item.IdArtigoNavigation.Quantidade;}
+                            <div class="quantity">
+                                <input type="number" value="@Html.DisplayFor(modelItem => item.Quantidade)" min="1" max="@maxQuant" class="quantity-field">
+                            </div>
+                            <div class="subtotal">@Html.DisplayFor(modelItem => item.Preco)</div>
+                            <div class="remove">
+                                <button>@Html.ActionLink("Remover", "RemArtCarrinho", "Utilizador", new { idVenda = item.IdVenda }, null)</button>
+                            </div>
                         </div>
-                        <div class="product-details">
-                            <p>
-                                <a href="@Url.Action("Details", new { idArtigo = item.IdArtigo })">
-
-                                    @Html.DisplayFor(modelItem => item.IdArtigoNavigation.Nome)
-                                </a>
-                            </p>
-                            <p>Código do Artigo - @Html.DisplayFor(modelItem => item.IdArtigo)</p>
-                        </div>
-                    </div>
-                    <div class="price">@Html.DisplayFor(modelItem => item.Preco) €</div>
-                    @{ var maxQuant = @item.IdArtigoNavigation.Quantidade;}
-                    <div class="quantity">
-                        <input type="number" value="@Html.DisplayFor(modelItem => item.Quantidade)" min="1" max="@maxQuant" class="quantity-field">
-                    </div>
-                    <div class="subtotal">@Html.DisplayFor(modelItem => item.Preco)*@Html.DisplayFor(modelItem => item.Quantidade) €</div>
-                    <div class="remove">
-                        <button>@Html.ActionLink("Remover", "RemArtCarrinho", "Utilizador", new { idVenda = item.IdVenda }, null)</button>
-                    </div>
-                </div>
                     }
                 </div>
-
+                
                 <aside>
                     <div class="summary">
                         <div class="summary-total-items"><span class="total-items"></span>Itens no Carrinho</div>
                         <div class="summary-subtotal">
                             <div class="subtotal-title">Subtotal</div>
-                            <div class="subtotal-value final-value" id="basket-subtotal">@totalPrice €</div>
+                            <div class="subtotal-value final-value" id="basket-subtotal">@totalPrice</div>
                             <div class="summary-promo hide">
                                 <div class="promo-title">Propoção</div>
                                 <div class="promo-value final-value" id="basket-promo"></div>
                             </div>
                         </div>
-                        @{int valorOf = 0; }
+                        @{int valorOf = 0;  double pp = totalPrice; }
                         <a> Adicione um Voucher:</a>
                         <div class="summary-delivery">
-                            <select id="list" name="delivery-collection" onchange="getSelectValue(); " class="summary-delivery-selection">
+                            <select id="list" name="delivery-collection" onchange=" getSelectValue()" class="summary-delivery-selection">
                                 @{ int index2 = 0;}
                                 <option value=@index2 selected="selected">Selecione Voucher</option>
                                 @foreach (var item1 in Model.FirstOrDefault().IdUtilizadorNavigation.Voucher)
@@ -483,8 +483,8 @@
 
                         </div>
                         <div class="summary-total">
-                            <div class="total-title">Total</div>
-                            <div id="end" class="total-value final-value" id="basket-total"> @precoCupao €</div>
+                            <div class="total-title">Total</div> @{double res = pp - valorOf;}
+                            <div id="end" class="subtotal-value final-value" id="basket-total">@res </div>
                         </div>
                         <div class="summary-checkout">
                             <button class="checkout-cta"> @Html.ActionLink("Checkout", "FinalizarCompra") </button>
@@ -500,27 +500,10 @@
 }
 }
 
-<script>
-    function showDiv() {
-
-        $('#end').show(300000)
-    }
-</script>
 
 <script>
 
-    function getSelectValue() {
-        var selectedValue = document.getElementById("list").value;
-        valorOf = selectedValue;
-        console.log(selectedValue)
-
-        console.log(valorOf)
-
-    }
-
-</script>
-
-<script>
+  
     /* Set values + misc */
     var promoCode;
     var promoPrice;
@@ -547,12 +530,10 @@
             //If promoPrice has no value, set it as 10 for the 10OFF promocode
             if (!promoPrice) {
                 promoPrice = 10;
-            }
-            else if (promoCode) {
+            } else if (promoCode) {
                 promoPrice = promoPrice * 1;
             }
-        }
-        else if (promoCode != '') {
+        } else if (promoCode != '') {
             alert("Invalid Promo Code");
             promoPrice = 0;
         }
@@ -572,6 +553,7 @@
         $('.basket-product').each(function () {
             subtotal += parseFloat($(this).children('.subtotal').text());
         });
+
         /* Calculate totals */
         var total = subtotal;
 
@@ -580,13 +562,12 @@
         if (promoPrice) {
             if (subtotal >= 10) {
                 total -= promoPrice;
-            }
-            else {
-                alert('Compra deve ser mais alta para aplicar código promocional.');
+            } else {
+                alert('Order must be more than £10 for Promo code to apply.');
                 $('.summary-promo').addClass('hide');
             }
         }
-        total = precoCupao;
+
         /*If switch for update only total, update only total display*/
         if (onlyTotal) {
             /* Update total display */
@@ -594,23 +575,21 @@
                 $('#basket-total').html(total.toFixed(2));
                 $('.total-value').fadeIn(fadeTime);
             });
-        }
-        else {
+        } else {
             /* Update summary display. */
             $('.final-value').fadeOut(fadeTime, function () {
                 $('#basket-subtotal').html(subtotal.toFixed(2));
                 $('#basket-total').html(total.toFixed(2));
                 if (total == 0) {
                     $('.checkout-cta').fadeOut(fadeTime);
-                }
-                else {
+                } else {
                     $('.checkout-cta').fadeIn(fadeTime);
                 }
                 $('.final-value').fadeIn(fadeTime);
             });
         }
+        
     }
-
 
     /* Update quantity */
     function updateQuantity(quantityInput) {
@@ -651,4 +630,18 @@
             updateSumItems();
         });
     }
+
+</script>
+
+<script>
+
+    function getSelectValue() {
+        var selectedValue = document.getElementById("list").value;
+        valorOf = selectedValue;
+        console.log(selectedValue)
+
+        console.log(valorOf)
+
+    }
+
 </script>
