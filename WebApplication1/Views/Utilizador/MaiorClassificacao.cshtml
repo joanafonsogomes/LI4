@@ -2,7 +2,7 @@
 @model IEnumerable<WebApplication1.Models.Artigo>
 
 @{
-    ViewBag.Title = "Search";
+    ViewBag.Title = "Melhor Classificação";
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
 
@@ -37,7 +37,7 @@
 
 
             <div class="w3-display-bottomleft w3-container w3-text-black">
-                <h2>Maior Classificação</h2>
+                <h2>Melhor Classificação</h2>
             </div>
 
             <div class="row">
@@ -50,7 +50,7 @@
                                 String[] words = fileName.Split(" ");
                                 String itempic = words[0];
                             }
-                            <a href="@Url.Action("Details", new { idArtigo = item.IdArtigo })"><img class="card-img-top" src="~/uploads/@itempic" alt=""></a>
+                            <a href="@Url.Action("Details", new { idArtigo = item.IdArtigo })"><img class="card-img-top" style="height:370px" src="~/uploads/@itempic" alt=""></a>
                             <div class="card-body">
                                 <h4 class="card-title">
                                     <a href="@Url.Action("Details", new { idArtigo = item.IdArtigo })">@Html.DisplayFor(modelItem => item.Nome)</a>

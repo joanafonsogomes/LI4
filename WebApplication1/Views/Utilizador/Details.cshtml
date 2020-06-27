@@ -1,6 +1,6 @@
 ﻿@model WebApplication1.Models.Artigo
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Ver Artigo";
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
 
@@ -88,6 +88,19 @@
         }
         /* Blue */
 
+
+        /* This will make your float stick to the right-hand side */
+        #divDen form {
+            float: right;
+        }
+        /* This will clear any existing floating rules after this element */
+        #divDen:after {
+            clear: both;
+        }
+
+        .tryButton:hover{
+            color: white;
+        }
     </style>
 
 
@@ -134,10 +147,11 @@
 
                             if (words.Length() > 1)
                             {
-                                <center>
-                                    <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
-                                    <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
-                                </center>
+                    <center>
+                        <button style="background:none ; font-weight:bold ; border:none ; font-size:20px; color:#1376D8 ; outline:none " onclick="plusDivs(-1)">&#10094;</button>
+                        &nbsp;
+                        <button style="background:none ; font-weight:bold ; border:none ; font-size:20px; color:#1376D8 ; outline:none " onclick="plusDivs(1)">&#10095;</button>
+                    </center>
                             }
 
                             <script name="script-@idd" type="text/javascript">
@@ -189,24 +203,59 @@
                                     <input class="btn border-primary btn-login btn-outline-primary" type="submit" value="Verificar Disponibilidade">
                                 </div>
 
-
-
                                 <script>
                                     document.getElementById("file").multiple = true;
                                 </script>
 
                             </form>
 
+                            <div id="divDen">
+                                <span class="card-text">@Html.DisplayFor(modelItem => Model.Descricao)</span>
+
+                                <form asp-action="GoToDenuncias" asp-controllers="Utilizador" method="get" enctype="multipart/form-data" align="right">
+
+
+                                    <div>
+                                        <label for="IdArtigo"></label>
+                                        <input type="hidden" name="IdArtigo" value="@Model.IdArtigo" />
+                                    </div>
+                                    <div>
+                                        <button type="submit" id="buttonDenuncias" class="btn border-primary btn-login btn-outline-primary tryButton" style="border:none">&#9888; Denunciar Artigo</button>
+                                    </div>
+
+                                </form>
+                            </div>
+
 
                         }
-                        <p class="card-text">@Html.DisplayFor(modelItem => Model.Descricao)</p>
 
-                        <br />
                         @if (Model.Modo.Equals("venda"))
                         {
-                            <a href="@Url.Action("AdicionarCarrinho", new { idArtigo = Model.IdArtigo })"
-                               class="btn border-primary btn-login btn-outline-primary">Adicionar ao Carrinho</a>
-                        }
+                    <div id="divDen">
+                        <p class="card-text">@Html.DisplayFor(modelItem => Model.Descricao)</p>
+
+                        <a href="@Url.Action("AdicionarCarrinho", new { idArtigo = Model.IdArtigo })"
+                           class="btn border-primary btn-login btn-outline-primary tryButton" style="font-size:12px">Adicionar ao Carrinho <i class="fa fa-shopping-cart"></i></a>
+
+                        <!-- Denuncias-->
+
+                        <form asp-action="GoToDenuncias" asp-controllers="Utilizador" method="get" enctype="multipart/form-data" align="right">
+
+
+                            <div>
+                                <label for="IdArtigo"></label>
+                                <input type="hidden" name="IdArtigo" value="@Model.IdArtigo" />
+                            </div>
+                            <div>
+                                <button type="submit" id="buttonDenuncias" class="btn border-primary btn-login btn-outline-primary tryButton" style="border:none">&#9888; Denunciar Artigo</button>
+                            </div>
+
+                        </form>
+
+                    </div>
+                    }
+
+
 
                     </div>
                 </div>
@@ -291,7 +340,7 @@
 
                         @{ if (Model.NumeroVotos == 0)
                             {
-                                <small><i>(Ainda sem reviews.)</i></small>
+                                <small><i>(Ainda sem avaliações)</i></small>
                             } }
 
                     </div>
@@ -337,7 +386,7 @@
                         <center>
                             <div class="form-group">
                                 <div>
-                                    <input type="submit" value="Post Review" class="btn border-primary btn-login btn-outline-primary" />
+                                    <input type="submit" value="Enviar comentário" class="btn border-primary btn-login btn-outline-primary tryButton" />
                                 </div>
                             </div>
                         </center>
@@ -347,25 +396,6 @@
 
 
             </div>
-
-            <!-- Denuncias-->
-
-            <form asp-action="GoToDenuncias" asp-controllers="Utilizador" method="get" enctype="multipart/form-data">
-
-
-                <div class="form-group">
-                    
-                    <div>
-                        <label for="IdArtigo"></label>
-                        <input type="hidden" name="IdArtigo" value="@Model.IdArtigo" />
-                    </div>
-                    <div>
-                        <button type="submit" id="buttonDenuncias" class="btn border-primary btn-login btn-outline-primary" style="border:none ; position:relative ; left:10px">&#9888; Denunciar Artigo</button>
-                    </div>
-                  
-                </div>
-               
-            </form>
 
 
 

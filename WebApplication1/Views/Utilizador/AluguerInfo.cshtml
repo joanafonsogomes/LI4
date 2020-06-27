@@ -4,34 +4,34 @@
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
 
-    <head>
-        @section NotId {
-            <li>
-                <a href="@Url.Action("AluguerInfo", "Utilizador")">
-                    <span class="glyphicon glyphicon-bell "></span>
-                    Notificações
-                    @{
-                        int n = (int)@ViewData["noti"];
-                        if (n > 0)
-                        {
+<head>
+    @section NotId {
+        <li>
+            <a href="@Url.Action("AluguerInfo", "Utilizador")">
+                <span class="glyphicon glyphicon-bell "></span>
+                Notificações
+                @{
+                    int n = (int)@ViewData["noti"];
+                    if (n > 0)
+                    {
 
-                                        <span class="badge" style="background-color: #138AB2">@n</span>
-                        }
+                        <span class="badge" style="background-color: #138AB2">@n</span>
                     }
-                </a>
-            </li>
-        }
-    </head>
+                }
+            </a>
+        </li>
+    }
+</head>
 
-<center>
-    <p style=" font-family: 'Montserrat'; font-weight: bold ">Consulte as suas notificações relativas a alugueres:</p>
-</center>
+<br />
+<br />
+<p style=" font-family: 'Montserrat'; font-weight: bold; margin-left:26em">Consulte as suas notificações relativas a alugueres:</p>
+
 <p> </p>
 <p> </p>
 
 <center>
-    <button class="btn border-primary btn-login-large btn-outline-primary" style="        margin: 5px
-">
+    <button class="btn border-primary btn-login-large btn-outline-primary" style="margin: 5px">
         @Html.ActionLink("Pedidos de Alugueres ", "AluguerPedidos")
     </button>
 
@@ -39,3 +39,6 @@
         @Html.ActionLink("Respostas de Alugueres", "AluguerRespostas")
     </button>
 </center>
+
+<br />
+<br />

@@ -25,7 +25,7 @@
             Email
         </th>
         <th style="text-align: center; vertical-align: middle">
-            Número de Denuncias
+            Número de Denúncias
         </th>
         <!--
     <th style="text-align: center; vertical-align: middle">
@@ -39,7 +39,6 @@
     </th>
         -->
         <th style="text-align: center; vertical-align: middle">
-            Efetuar Açao
         </th>
     </tr>
     @foreach (var item in Model)
@@ -57,7 +56,7 @@
     </td>
     <!--
     <td style="text-align:center; vertical-align:middle">
-         Html.DisplayFor(modelItem => item.Artigo.Length())   sao 3 da manha esta merda n dá
+         Html.DisplayFor(modelItem => item.Artigo.Length()) 
     </td>
     <td style="text-align:center; vertical-align:middle">
          Html.DisplayFor(modelItem => item.Venda.Length()) 
@@ -67,39 +66,38 @@
     </td>
         -->
     <td style="text-align:center; vertical-align:middle">
-        <div class="btn-login">
-            <!--nome para as views depois altera se quiseres-->
-            <!--button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" href="@Html.ActionLink("Enviar Aviso", "Warning",new { email = item.Email })"></!--button>-->
-            <form asp-action="Warning" asp-controllers="Admin" method="get" enctype="multipart/form-data">
-                <div class="form-group">
-                    <div>
-                        <label for="Email"></label>
-                        <input type="hidden" name="email" value="@item.Email" />
-                    </div>
-                    <div>
-                        <button type="submit" id="buttonEmail" class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2">Warning</button>
-                    </div>
-
-
+        <!--nome para as views depois altera se quiseres-->
+        <!--button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" href="@Html.ActionLink("Enviar Aviso", "Warning",new { email = item.Email })"></!--button>-->
+        <div style="float:left ; display:inline">
+            <form asp-action="Warning" asp-controllers="Admin" method="get" enctype="multipart/form-data" style="font-size:21px">
+                <div style="height:0px ; width:0px">
+                    <label for="Email"></label>
+                    <input type="hidden" name="email" value="@item.Email" />
+                </div>
+                <div>
+                    <button type="submit" id="buttonEmail" title="Enviar aviso" style="background:none ; border:none ; outline:none; color:#11709E">&#9888;&nbsp;</button>
+                </div>
             </form>
-
-            <form asp-action="Bloquear" asp-controllers="Admin" method="get" enctype="multipart/form-data">
-                <div class="form-group">
-                    <div>
-                        <label for="Email"></label>
-                        <input type="hidden" name="email" value="@item.Email" />
-                    </div>
-                    <div>
-                        <button type="submit" id="buttonEmail" class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2">Bloquear</button>
-                    </div>
+        </div>
+        
+        <div style="float:left ; display:inline">
+            <form asp-action="Bloquear" asp-controllers="Admin" method="get" enctype="multipart/form-data" style="font-size: 20px;">
+                <div style="height:0px ; width:0px">
+                    <label for="Email"></label>
+                    <input type="hidden" name="email" value="@item.Email" />
+                </div>
+                <div>
+                    <button type="submit" id="buttonEmail" title="Bloquear Utilizador" style="background:none ; border:none ; outline:none; color:#11709E">&#128711;</button>
+                </div>
             </form>
+        </div>
 
 
 
 
 
 
-</td>
+    </td>
 </tr>
     }
 

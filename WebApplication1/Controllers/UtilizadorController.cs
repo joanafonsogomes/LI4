@@ -930,18 +930,8 @@ namespace WebApplication1.Controllers
             foreach (Venda venda in lista)
             {
                 Artigo artigo = (from m in model.Artigo where (m.IdArtigo == venda.IdArtigo) select m).ToList().ElementAt<Artigo>(0);
-                if (venda.Quantidade <= artigo.Quantidade)
-                {
-                    artigo.Quantidade -= venda.Quantidade;
-                    venda.Estado = 1;
-                }
-                else
-                {
-                    //model.Venda.Remove(venda);
-                    venda.Estado = 2;
-                    String s = "Sorry, but the item " + venda.IdArtigo + " is out of stock";
-                    return Content(s);
-                }
+                artigo.Quantidade -= venda.Quantidade;
+                venda.Estado = 1;
             }
             model.SaveChanges();
             return RedirectToAction("VendaInfo", "Utilizador");

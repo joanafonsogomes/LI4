@@ -6,105 +6,81 @@
 }
 
     <head>
-        <head>
-            @section NotId {
-                <li>
-                    <a href="@Url.Action("AluguerInfo", "Utilizador")">
-                        <span class="glyphicon glyphicon-bell "></span>
-                        Notificações
-                        @{
-                            int n = (int)@ViewData["noti"];
-                            if (n > 0)
-                            {
+        @section NotId {
+            <li>
+                <a href="@Url.Action("AluguerInfo", "Utilizador")">
+                    <span class="glyphicon glyphicon-bell "></span>
+                    Notificações
+                    @{
+                        int n = (int)@ViewData["noti"];
+                        if (n > 0)
+                        {
 
-                                                <span class="badge" style="background-color: #138AB2">@n</span>
-                            }
+                            <span class="badge" style="background-color: #138AB2">@n</span>
                         }
-                    </a>
-                </li>
-            }
-        </head>
-    </head>
-
-    <table class="table">
-        <tr>
-            <th style="                     text-align: center;
-                     vertical-align: middle;
-             ">
-                @Html.DisplayNameFor(model => model.Nome)
-            </th>
-            <th style="text-align:center; vertical-align:middle">
-                @Html.DisplayNameFor(model => model.Quantidade) <h6><b>de artigos</b></h6>
-            </th>
-            <th style="text-align:center; vertical-align:middle">
-                @Html.DisplayNameFor(model => model.Modo)
-            </th>
-            <th style="text-align: center; vertical-align: middle">
-                @Html.DisplayNameFor(model => model.Preco) <h6><b>(€)</b></h6>
-            </th>
-            <th style="text-align:center; vertical-align:middle">
-                @Html.DisplayNameFor(model => model.Estado)
-            </th>
-            <th style="text-align:center; vertical-align:middle">
-                Imagens
-            </th>
-            <th style="text-align:center; vertical-align:middle">
-                Alterar artigo
-            </th>
-
-
-
-        </tr>
-
-        @foreach (var item in Model)
-        {
-    <tr>
-        <td style="text-align:center; vertical-align:middle; font-weight:bold">
-            <a href="@Url.Action("Details", new { idArtigo = item.IdArtigo })">@Html.DisplayFor(modelItem => item.Nome)</a>
-        </td>
-        <td style="text-align:center; vertical-align:middle">
-            @Html.DisplayFor(modelItem => item.Quantidade)
-        </td>
-        <td style="text-align:center; vertical-align:middle">
-            @Html.DisplayFor(modelItem => item.Modo)
-        </td>
-        <td style="text-align:center; vertical-align:middle">
-            @Html.DisplayFor(modelItem => item.Preco) <b> (€)</b>
-        </td>
-        <td style="text-align:center; vertical-align:middle">
-            @Html.DisplayFor(modelItem => item.Estado)
-        </td>
-        <td style="width:250px; height:250px; text-align:center; vertical-align:middle">
-            <div class="w3-content w3-display-container">
-
-                @{var fileName = @item.Imagem;
-                    String[] words = fileName.Split(" ");
-                    String itempic = words[0];
-                }
-                <img class="card-img-top" src="~/uploads/@itempic" alt="" style="max-width:250px ; max-height:250px">
-
-            </div>
-        </td>
-        <td style="text-align:center; vertical-align:middle">
-            @Html.ActionLink("Alterar" +
-           "", "Alterar", new { idArtigo = item.IdArtigo }, null)
-
-        </td>
-        <td style="text-align:center; vertical-align:middle">
-            @Html.ActionLink("Remover" +
-           "", "Remover", new { idArtigo = item.IdArtigo }, null)
-
-        </td>
-    </tr>
+                    }
+                </a>
+            </li>
         }
 
-    </table>
+        <style>
+        .newArtB:hover, newArtB:active {color: #3BE7EE;}
+        .newArtB:hover, newArtB:active {background-color: #3094FF;}
+        .newArtB:hover, newArtB:active {font-size: 150%;}
+        </style>
+    </head>
 
-        <p></p>
-        <p></p>
-        <p></p>
-        <center>
-            <button class="myButton">
-                @Html.ActionLink("Adicionar novo artigo", "NovoArtigo")
-            </button>
-        </center>
+<br />
+<br />
+<!-- Page Content -->
+<div class="container">
+
+    <div class="row">
+
+
+
+        <div class="col-lg-12">
+
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card h-100">
+                            @{var fileName = @item.Imagem;
+                                String[] words = fileName.Split(" ");
+                                String itempic = words[0];
+                            }
+                            <a href="@Url.Action("Details", new { idArtigo = item.IdArtigo })"><img class="card-img-top" style="height:348.89px" src="~/uploads/@itempic" alt=""></a>
+                            <div class="card-body">
+                                <center>
+                                    <h4 class="card-title">
+                                        <a href="@Url.Action("Details", new { idArtigo = item.IdArtigo })">@Html.DisplayFor(modelItem => item.Nome)</a>
+                                    </h4>
+                                    <h5>
+                                        Modo: @Html.DisplayFor(modelItem => item.Modo) <br /> <br />
+                                    </h5>
+                                    <h6 style="color: rgb(17, 112, 158);">
+                                        Preço: <span style="color: black"> @Html.DisplayFor(modelItem => item.Preco) €</span> <br /> <br />
+                                        Quantidade: <span style="color: black"> @Html.DisplayFor(modelItem => item.Quantidade)</span>
+                                    </h6>
+                                </center>
+                            </div>
+                            <div class="card-footer" style="font-weight: 700; font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';">
+                                <span style="display:inline-block; margin-left:30px">@Html.ActionLink(" Alterar Artigo" + "", "Alterar", new { idArtigo = item.IdArtigo }, null)</span>
+                                <span style="float:right; margin-right:30px">@Html.ActionLink("Remover Artigo" + "", "Remover", new { idArtigo = item.IdArtigo }, null)</span>
+                            </div>
+                        </div>
+                    </div>
+                }
+                </div>
+            </div>
+        </div>
+    </div>
+
+                <br />
+                <center>
+                    <a href='@Url.Action("NovoArtigo", "Utilizador")' class="btn btn-login-large newArtB" style="font-weight: 700; font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; border-color: rgb(17, 112, 158); ">
+                        &#43; Adicionar artigo
+                    </a>
+                </center>
+                <br />

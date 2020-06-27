@@ -25,7 +25,19 @@
                 </a>
             </li>
         }
+    <style>
+        .newArtB:hover {
+            color: white;
+            background-color: #3094FF;
+        }
+
+        .newArtB:hover, newArtB:active {
+            font-size: 130%;
+        }
+        </style>
+
     </head>
+<br />
 <center>
     <p>
         <b>O produto foi adicionado ao seu Carrinho de Compras com sucesso!</b>
@@ -33,6 +45,7 @@
     <p>    </p>
     <p>    </p>
 </center>
+<br />
 
 <table class="table">
     <tr>
@@ -46,7 +59,7 @@
             @Html.DisplayNameFor(model => model.Preco) <b> (€)</b>
         </th>
         <th style="text-align: center; vertical-align: middle">
-            @Html.DisplayNameFor(model => model.Imagem) <h6><b>(€)</b></h6>
+            Foto do Artigo
         </th>
 
 
@@ -81,10 +94,10 @@
 
 <p></p>
 <p></p>
-<button style=" margin:0 auto; display:block;">
+<button class="btn btn-login-large newArtB" style="font-weight: 700; font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; border-color: rgb(17, 112, 158); margin:0 auto; display:block; font-size:10px">
     @Html.ActionLink("Ver Carrinho", "VendaInfo", "Utilizador", new { idVenda = Model.IdVenda }, null)
 </button>
 <p></p>
-<button style=" margin:0 auto; display:block;">
+<button class="btn btn-login-large newArtB" style="font-weight: 700; font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; border-color: rgb(17, 112, 158); margin:0 auto; display:block; font-size:10px">
     @Html.ActionLink("Continuar a comprar", "Details", "Utilizador", new { idArtigo = Model.IdArtigo }, null)
 </button>
