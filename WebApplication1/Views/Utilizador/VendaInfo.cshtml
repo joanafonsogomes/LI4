@@ -32,23 +32,19 @@
             text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
         }
 
+        /* it was ruining the header
         body {
             background-color: #fff;
             color: #666;
             font-family: 'Open Sans', sans-serif;
-            font-size: 62.5%;
             margin: 0 auto;
-        }
-
-        a {
-            border: 0 none;
-            outline: 0;
-            text-decoration: none;
-        }
+        }*/
 
         strong {
             font-weight: bold;
         }
+
+        /*error is up*/
 
         p {
             margin: 0.75rem 0 0;
@@ -444,7 +440,7 @@
                         </div>
                     }
                 </div>
-                
+
                 <aside>
                     <div class="summary">
                         <div class="summary-total-items"><span class="total-items"></span> Itens no Carrinho</div>
@@ -456,7 +452,7 @@
                                 <div class="promo-value final-value" id="basket-promo"></div>
                             </div>
                         </div>
-                        @{int valorOf = 0;  double pp = totalPrice; }
+                        @{int valorOf = 0; double pp = totalPrice; }
                         <a> Adicione um Voucher:</a>
                         <div class="summary-delivery">
                             <select id="list" name="delivery-collection" onchange=" getSelectValue()" class="summary-delivery-selection">
@@ -503,7 +499,7 @@
 
 <script>
 
-  
+
     /* Set values + misc */
     var promoCode;
     var promoPrice;
@@ -588,7 +584,7 @@
                 $('.final-value').fadeIn(fadeTime);
             });
         }
-        
+
     }
 
     /* Update quantity */
