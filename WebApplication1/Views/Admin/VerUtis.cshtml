@@ -1,20 +1,27 @@
 ﻿@model IEnumerable<WebApplication1.Models.Utilizador>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Utilizadores";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 
     string str = (string)@ViewData["User_Name"];
 }
 
+<head>
+    <style>
+        html * {
+            font-family: Montserrat;
+        }
+    </style>
+</head>
 
+<br />
 <center>
-    <p>
-        <b>Utilizadores na Aplicação</b>
-    </p>
-    <p>    </p>
-    <p>    </p>
+    <div style="color:#555555; font-size:16px; font-weight:bold">
+        <b>Utilizadores na aplicação</b>
+    </div>
 </center>
+<br />
 
 <table class="table">
     <tr>
@@ -28,77 +35,77 @@
             Número de Denúncias
         </th>
         <!--
-    <th style="text-align: center; vertical-align: middle">
-        Numero de Artigos
-    </th>
-    <th style="text-align: center; vertical-align: middle">
-        Numero de Vendas
-    </th>
-    <th style="text-align: center; vertical-align: middle">
-        Numero de Alugueres
-    </th>
-        -->
+        <th style="text-align: center; vertical-align: middle">
+            Numero de Artigos
+        </th>
+        <th style="text-align: center; vertical-align: middle">
+            Numero de Vendas
+        </th>
+        <th style="text-align: center; vertical-align: middle">
+            Numero de Alugueres
+        </th>
+            -->
         <th style="text-align: center; vertical-align: middle">
         </th>
     </tr>
     @foreach (var item in Model)
     {
 
-<tr>
-    <td style="text-align:center; vertical-align:middle; font-weight:bold">
-        @Html.DisplayFor(modelItem => item.Nome)
-    </td>
-    <td style="text-align:center; vertical-align:middle">
-        @Html.DisplayFor(modelItem => item.Email)
-    </td>
-    <td style="text-align:center; vertical-align:middle">
-        @Html.DisplayFor(modelItem => item.NDenuncias)
-    </td>
-    <!--
-    <td style="text-align:center; vertical-align:middle">
-         Html.DisplayFor(modelItem => item.Artigo.Length()) 
-    </td>
-    <td style="text-align:center; vertical-align:middle">
-         Html.DisplayFor(modelItem => item.Venda.Length()) 
-    </td>
-    <td style="text-align:center; vertical-align:middle">
-        Html.DisplayFor(modelItem => item.Aluguer.Length())  
-    </td>
-        -->
-    <td style="text-align:center; vertical-align:middle">
-        <!--nome para as views depois altera se quiseres-->
-        <!--button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" href="@Html.ActionLink("Enviar Aviso", "Warning",new { email = item.Email })"></!--button>-->
-        <div style="float:left ; display:inline">
-            <form asp-action="Warning" asp-controllers="Admin" method="get" enctype="multipart/form-data" style="font-size:21px">
-                <div style="height:0px ; width:0px">
-                    <label for="Email"></label>
-                    <input type="hidden" name="email" value="@item.Email" />
+        <tr>
+            <td style="text-align:center; vertical-align:middle; font-weight:bold">
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td style="text-align:center; vertical-align:middle">
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td style="text-align:center; vertical-align:middle">
+                @Html.DisplayFor(modelItem => item.NDenuncias)
+            </td>
+            <!--
+            <td style="text-align:center; vertical-align:middle">
+                 Html.DisplayFor(modelItem => item.Artigo.Length())
+            </td>
+            <td style="text-align:center; vertical-align:middle">
+                 Html.DisplayFor(modelItem => item.Venda.Length())
+            </td>
+            <td style="text-align:center; vertical-align:middle">
+                Html.DisplayFor(modelItem => item.Aluguer.Length())
+            </td>
+                -->
+            <td style="text-align:center; vertical-align:middle">
+                <!--nome para as views depois altera se quiseres-->
+                <!--button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" href="@Html.ActionLink("Enviar Aviso", "Warning",new { email = item.Email })"></!--button>-->
+                <div style="float:left ; display:inline">
+                    <form asp-action="Warning" asp-controllers="Admin" method="get" enctype="multipart/form-data" style="font-size:21px">
+                        <div style="height:0px ; width:0px">
+                            <label for="Email"></label>
+                            <input type="hidden" name="email" value="@item.Email" />
+                        </div>
+                        <div>
+                            <button type="submit" id="buttonEmail" title="Enviar aviso" style="background:none ; border:none ; outline:none; color:#11709E">&#9888;&nbsp;</button>
+                        </div>
+                    </form>
                 </div>
-                <div>
-                    <button type="submit" id="buttonEmail" title="Enviar aviso" style="background:none ; border:none ; outline:none; color:#11709E">&#9888;&nbsp;</button>
+
+                <div style="float:left ; display:inline">
+                    <form asp-action="Bloquear" asp-controllers="Admin" method="get" enctype="multipart/form-data" style="font-size: 20px;">
+                        <div style="height:0px ; width:0px">
+                            <label for="Email"></label>
+                            <input type="hidden" name="email" value="@item.Email" />
+                        </div>
+                        <div>
+                            <button type="submit" id="buttonEmail" title="Bloquear Utilizador" style="background:none ; border:none ; outline:none; color:#11709E">&#128711;</button>
+                        </div>
+                    </form>
                 </div>
-            </form>
-        </div>
-        
-        <div style="float:left ; display:inline">
-            <form asp-action="Bloquear" asp-controllers="Admin" method="get" enctype="multipart/form-data" style="font-size: 20px;">
-                <div style="height:0px ; width:0px">
-                    <label for="Email"></label>
-                    <input type="hidden" name="email" value="@item.Email" />
-                </div>
-                <div>
-                    <button type="submit" id="buttonEmail" title="Bloquear Utilizador" style="background:none ; border:none ; outline:none; color:#11709E">&#128711;</button>
-                </div>
-            </form>
-        </div>
 
 
 
 
 
 
-    </td>
-</tr>
+            </td>
+        </tr>
     }
 
 </table>

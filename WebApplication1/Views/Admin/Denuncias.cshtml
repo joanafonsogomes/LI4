@@ -1,24 +1,31 @@
 ﻿@model IEnumerable<WebApplication1.Models.Denuncias>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Denúncias";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 
     string str = (string)@ViewData["User_Name"];
 }
 
+<head>
+    <style>
+        html * {
+            font-family: Montserrat;
+        }
+    </style>
+</head>
 
+<br />
 <center>
-    <p>
+    <div style="color:#555555; font-size:16px; font-weight:bold;">
         <b>Denúncias</b>
-    </p>
-    <p>    </p>
-    <p>    </p>
+    </div>
 </center>
+<br />
 
-<table class="table">
+<table class="table" style="margin-left: -120px;">
     <tr>
-        <th style="text-align:center; vertical-align:middle">
+        <th style="text-align:center; vertical-align:middle; white-space:nowrap;">
             Indice de Denúncia
         </th>
         <th style="text-align:center; vertical-align:middle">
@@ -27,17 +34,16 @@
         <th style="text-align: center; vertical-align: middle">
             Autor da Denuncia
         </th>
-        <th style="text-align: center; vertical-align: middle">
+        <th style="text-align: center; vertical-align: middle; white-space:nowrap">
             Artigo denunciado
         </th>
         <th style="text-align: center; vertical-align: middle">
             Dono do Artigo
         </th>
         <th style="text-align: center; vertical-align: middle">
-            Numero de Denuncias do Dono
+            Num. de Denúncias do Dono
         </th>
-        <th style="text-align: center; vertical-align: middle">
-            Efetuar Açao
+        <th style="text-align: center; vertical-align: middle;">
         </th>
     </tr>
     @foreach (var item in Model)
@@ -57,21 +63,22 @@
                 @Html.DisplayFor(modelItem => item.IdArtigoNavigation.Nome)
             </td>
             <td style="text-align:center; vertical-align:middle">
-                @Html.DisplayFor(modelItem => item.IdArtigoNavigation.IdDonoNavigation.Nome)
+                <p>@Html.DisplayFor(modelItem => item.IdArtigoNavigation.IdDonoNavigation.Nome) </p>
 
-                @Html.DisplayFor(modelItem => item.IdArtigoNavigation.IdDonoNavigation.Email)
+                <p>@Html.DisplayFor(modelItem => item.IdArtigoNavigation.IdDonoNavigation.Email)</p>
             </td>
             <td style="text-align:center; vertical-align:middle">
                 @Html.DisplayFor(modelItem => item.IdArtigoNavigation.IdDonoNavigation.NDenuncias)
             </td>
-            <td style="text-align:center; vertical-align:middle">
-                <div class="btn-login">
-                    <!--nome para as views depois altera se quiseres-->
-                    <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2">
-                        @Html.ActionLink("Aceitar", "AceitaDenuncia")
-                    </button>
-                                        <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2"> @Html.ActionLink("Rejeitar", "RejeitaDenuncia") </button>
-</td>
+            <td style="text-align:center; vertical-align:middle; white-space:nowrap;">
+                <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" style="background-color:#CCDBE2; border-color:#11709E; display:inline-block; width: 100px; font-size:13px; margin-top:4.5px;">
+                    @Html.ActionLink("Aceitar", "AceitaDenuncia")
+                </button>
+                &nbsp;
+                <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2 " style="background-color:#CCDBE2; border-color:#11709E; display:inline-block; width: 100px; font-size:13px">
+                    @Html.ActionLink("Rejeitar", "RejeitaDenuncia")
+                </button>
+            </td>
         </tr>
     }
 
