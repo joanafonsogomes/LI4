@@ -32,13 +32,17 @@
             text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
         }
 
-        /* it was ruining the header
+        /*were ruining the header and the footer*/
         body {
-            background-color: #fff;
-            color: #666;
-            font-family: 'Open Sans', sans-serif;
+            font-family: 'Montserrat';
             margin: 0 auto;
-        }*/
+        }
+
+        a {
+            border: 0 none;
+            outline: 0;
+            text-decoration: none;
+        }
 
         strong {
             font-weight: bold;
@@ -108,10 +112,11 @@
         }
 
         main {
-            clear: both;
+            /*clear: both;
             font-size: 1.55rem;
             overflow: hidden;
-            padding: 1rem 0;
+            padding: 1rem 0;*/
+            font-family: 'Montserrat';
         }
 
         .basket,
@@ -174,13 +179,13 @@
         li {
             color: #111;
             display: inline-block;
-            padding: 0.625rem 0;
         }
 
             li.price:before,
             li.subtotal:before {
                 content: '';
             }
+
 
         .item {
             width: 55%;
@@ -391,6 +396,7 @@
             <main>
                 <div class="basket">
                     <div class="basket-module">
+                        <br />
                         <label for="promo-code">Carrinho de Compras</label>
                     </div>
                     <div class="basket-labels">
@@ -440,8 +446,9 @@
                         </div>
                     }
                 </div>
-
+                
                 <aside>
+                    <br />
                     <div class="summary">
                         <div class="summary-total-items"><span class="total-items"></span> Itens no Carrinho</div>
                         <div class="summary-subtotal">
