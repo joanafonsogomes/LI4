@@ -359,6 +359,17 @@
             height: 34px;
             width: 100%;
         }
+
+        .newArtB:hover, newArtB:active {
+            color: #3BE7EE;
+        }
+
+        .newArtB:hover, newArtB:active {
+            background-color: #3094FF;
+        }
+
+        .newArtB:hover, newArtB:active {
+            font-size: 150%;
         }
     </style>
 
@@ -373,13 +384,22 @@
     }
     if (count == 0)
     {
+        <br />
+        <br />
+        <br />
         <center>
-            <b>O seu carrinho está vazio!</b>
-            <p>  </p>
+            <div style="color:#555555; font-size:16px; font-weight:bold;">
+                <b>O seu carrinho está vazio!</b>
+            </div>
         </center>
-        <button style=" margin:0 auto; display:block;">
-            @Html.ActionLink("Continuar a comprar", "Index", "Utilizador")
-        </button>
+        <br />
+        <br />
+        <center>
+            <a href='@Url.Action("Index", "Utilizador")' class="btn btn-login-large newArtB" style="font-weight: 700; font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; border-color: rgb(17, 112, 158); ">
+                Continuar a comprar
+            </a>
+        </center>
+        <br />
     }
     else
     {
@@ -446,7 +466,7 @@
                         </div>
                     }
                 </div>
-                
+
                 <aside>
                     <br />
                     <div class="summary">
