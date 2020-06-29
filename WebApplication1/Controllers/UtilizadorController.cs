@@ -1602,7 +1602,7 @@ namespace WebApplication1.Controllers
                 return View(listaUnion);
             }
 
-            else return RedirectToAction("ErrorSearch", "Home");
+            else return RedirectToAction("ErrorSearch", "Utilizador");
         }
 
 

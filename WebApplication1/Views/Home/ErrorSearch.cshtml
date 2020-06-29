@@ -1,11 +1,31 @@
 ﻿
 @{
-    ViewData["Title"] = "ErrorSearch";
+    ViewData["Title"] = "Sem resultados";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-Não foi encontrado nenhum item correspondente à sua pesquisa.
-<p></p>
-<button>@Html.ActionLink("Voltar à página inicial", "Index")</button>
+<head>
+    <style>
+        html * {
+            font-family: Montserrat;
+        }
+    </style>
+</head>
 
+<br />
+<br />
+<center>
+    <div style="color:#555555; font-size:16px; font-weight:bold;">
+        <b>Não foi encontrado nenhum item correspondente à pesquisa.</b>
+    </div>
+</center>
+<br />
+<br />
+<center>
+    <a href='@Url.Action("Index", "Home")' class="btn btn-login-large newArtB" style="font-weight: 700; font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; border-color: rgb(17, 112, 158); ">
+        Voltar à página inicial.
+    </a>
+</center>
+<br />
+<br />
 
