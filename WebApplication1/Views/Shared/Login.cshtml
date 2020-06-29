@@ -26,6 +26,10 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-9 col-lg-8 mx-auto">
+
+                                <div style="color:rgb(220, 20, 60); font-family:Montserrat; font-weight:bold">
+                                    @Html.ValidationSummary(true, "O login foi mal sucedido!")
+                                </div>
                                 <h3 class="login-heading mb-4">Olá de novo!</h3>
                                 <!-- form start -->
 
@@ -33,7 +37,6 @@
                                 {
                                     using (Html.BeginForm("Login", "Conta", FormMethod.Post))
                                     {
-                                        @Html.ValidationSummary(true);
                                         <form>
                                             <div class="form-label-group">
                                                 <input type="text" name="email" class="form-control" id="email" placeholder="E-mail" required autofocus>

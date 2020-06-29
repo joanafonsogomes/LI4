@@ -76,7 +76,7 @@ namespace WebApplication1.Controllers
 
                             {
                                 //ViewData["User_Name"] = "Bem vindo" + userSingle.Nome;
-                                ModelState.AddModelError("password", "Password incorreta!");
+                                ModelState.AddModelError("", "E-mail ou password incorreto(s).");
                                 return View();
                             }
                         }

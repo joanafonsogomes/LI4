@@ -1,106 +1,136 @@
 ﻿@model IEnumerable<WebApplication1.Models.Artigo>
 
 @{
-    ViewBag.Title = "Catálogo de Artigos";
-    Layout = "~/Views/Shared/_LayoutCompany.cshtml";
-
-    string str = (string)@ViewData["User_Name"];
+    ViewBag.Title = "Artigos";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
 
+<head>
 
+    <style>
+        .newArtB:hover, newArtB:active {
+            color: #3BE7EE;
+        }
+
+        .newArtB:hover, newArtB:active {
+            background-color: #3094FF;
+        }
+
+        .newArtB:hover, newArtB:active {
+            font-size: 150%;
+        }
+
+
+        .container {
+            position: relative;
+            margin: 0 auto;
+        }
+
+            .container img {
+                vertical-align: middle;
+            }
+
+            .container .content {
+                position: absolute;
+                bottom: 0;
+                background: rgb(0, 0, 0); /* Fallback color */
+                background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
+                color: #f1f1f1;
+                width: 108%;
+                padding: 20px;
+                margin-left: -27.5px;
+            }
+    </style>
+</head>
+
+<br />
+<br />
+<!-- Page Content -->
+<div class="container">
+
+    <div class="row">
+
+
+
+        <div class="col-lg-12">
+
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    if (item.Modo.Equals("venda") && (item.Quantidade) == 0)
+                    {
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <div class="card h-100">
+                                @{var fileName = @item.Imagem;
+                                    String[] words = fileName.Split(" ");
+                                    String itempic = words[0];
+                                }
+                                <div class="card-body">
+                                    <center>
+                                        <h4 class="card-title">
+                                            <div class="container">
+                                                <a href="@Url.Action("Details", new { idArtigo = item.IdArtigo })"><img class="card-img-top" style="height:348.89px" src="~/uploads/@itempic" alt=""></a>
+                                                <div class="content">
+                                                    <h1>OUT OF STOCK</h1>
+                                                    <p>Escolha se pretende remover o artigo do site ou repor o stock</p>
+                                                </div>
+                                            </div>
+                                        </h4>
+                                        <h5>
+                                            Modo: @Html.DisplayFor(modelItem => item.Modo) <br /> <br />
+                                        </h5>
+                                        <h6 style="color: rgb(17, 112, 158);">
+                                            Preço: <span style="color: black"> @Html.DisplayFor(modelItem => item.Preco) €</span> <br /> <br />
+                                            Quantidade: <span style="color: black"> @Html.DisplayFor(modelItem => item.Quantidade)</span>
+                                        </h6>
+                                    </center>
+                                </div>
+                                <div class="card-footer" style="font-weight: 700; font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';">
+                                    <span style="display:inline-block; margin-left:30px; color: rgb(220, 20, 60)">@Html.ActionLink(" Repor Stock" + "", "Alterar", new { idArtigo = item.IdArtigo }, new { @style = "color:rgb(220, 20, 60);" })</span>
+                                    <span style="float:right; margin-right:30px">@Html.ActionLink("Remover Artigo" + "", "Remover", new { idArtigo = item.IdArtigo }, new { @style = "color:rgb(220, 20, 60);" })</span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <div class="card h-100">
+                                @{var fileName = @item.Imagem;
+                                    String[] words = fileName.Split(" ");
+                                    String itempic = words[0];
+                                }
+                                <div class="card-body">
+                                    <center>
+                                        <h4 class="card-title">
+                                            <a href="@Url.Action("Details", new { idArtigo = item.IdArtigo })"><img class="card-img-top" style="height:348.89px" src="~/uploads/@itempic" alt=""></a>
+                                        </h4>
+                                        <h5>
+                                            Modo: @Html.DisplayFor(modelItem => item.Modo) <br /> <br />
+                                        </h5>
+                                        <h6 style="color: rgb(17, 112, 158);">
+                                            Preço: <span style="color: black"> @Html.DisplayFor(modelItem => item.Preco) €</span> <br /> <br />
+                                            Quantidade: <span style="color: black"> @Html.DisplayFor(modelItem => item.Quantidade)</span>
+                                        </h6>
+                                    </center>
+                                </div>
+                                <div class="card-footer" style="font-weight: 700; font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';">
+                                    <span style="display:inline-block; margin-left:30px">@Html.ActionLink(" Alterar Artigo" + "", "Alterar", new { idArtigo = item.IdArtigo }, null)</span>
+                                    <span style="float:right; margin-right:30px">@Html.ActionLink("Remover Artigo" + "", "Remover", new { idArtigo = item.IdArtigo }, null)</span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<br />
 <center>
-    <p>
-        <b>Catálogo de Artigos</b>
-    </p>
-    <p>    </p>
-    <p>    </p>
+    <a href='@Url.Action("NovoArtigo", "Company")' class="btn btn-login-large newArtB" style="font-weight: 700; font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; border-color: rgb(17, 112, 158); ">
+        &#43; Adicionar artigo
+    </a>
 </center>
-
-<table class="table">
-    <tr>
-        <th style="text-align:center; vertical-align:middle">
-            Id
-        </th>
-        <th style="text-align:center; vertical-align:middle">
-            Nome
-        </th>
-        <th style="text-align: center; vertical-align: middle">
-            Preco
-        </th>
-        <!--
-        <th style="text-align: center; vertical-align: middle">
-            Numero de Artigos
-        </th>
-        <th style="text-align: center; vertical-align: middle">
-            Numero de Vendas
-        </th>
-        <th style="text-align: center; vertical-align: middle">
-            Numero de Alugueres
-        </th>
-            -->
-        <th style="text-align: center; vertical-align: middle">
-            Efetuar Açao
-        </th>
-    </tr>
-    @foreach (var item in Model)
-    {
-
-        <tr>
-            <td style="text-align:center; vertical-align:middle; font-weight:bold">
-                @Html.DisplayFor(modelItem => item.IdArtigo)
-            </td>
-            <td style="text-align:center; vertical-align:middle">
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            <td style="text-align:center; vertical-align:middle">
-                @Html.DisplayFor(modelItem => item.Preco)
-            </td>
-            <!--
-            <td style="text-align:center; vertical-align:middle">
-                 Html.DisplayFor(modelItem => item.Artigo.Length())   sao 3 da manha esta merda n dá
-            </td>
-            <td style="text-align:center; vertical-align:middle">
-                 Html.DisplayFor(modelItem => item.Venda.Length())
-            </td>
-            <td style="text-align:center; vertical-align:middle">
-                Html.DisplayFor(modelItem => item.Aluguer.Length())
-            </td>
-                -->
-            <td style="text-align:center; vertical-align:middle">
-                <div class="btn-login">
-                    <!--nome para as views depois altera se quiseres-->
-                    <!--button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" href="@Html.ActionLink("Alterar", "Delete",new { email = item.IdArtigo })"></!--button>-->
-                    <form asp-action="Warning" asp-controllers="Admin" method="get" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <div>
-                                <label for="Email"></label>
-                                <input type="hidden" name="email" value="@item.IdArtigo" />
-                            </div>
-                            <div>
-                                <button type="submit" id="buttonEmail" class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2">Warning</button>
-                            </div>
-
-
-                    </form>
-
-                    <form asp-action="Bloquear" asp-controllers="Admin" method="get" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <div>
-                                <label for="Email"></label>
-                                <input type="hidden" name="email" value="@item.IdArtigo" />
-                            </div>
-                            <div>
-                                <button type="submit" id="buttonEmail" class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2">Eliminar</button>
-                            </div>
-                    </form>
-
-
-
-
-
-
-            </td>
-        </tr>
-    }
-
-</table>
+<br />
