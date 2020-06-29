@@ -9,6 +9,7 @@ using WebApplication1.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using WebApplication1.Helpers;
 
 namespace WebApplication1.Controllers
 {
@@ -231,6 +232,59 @@ namespace WebApplication1.Controllers
 
                 else return RedirectToAction("ErrorSearch", "Home");
             }
+
+        public IActionResult AdicionarCliente()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AdicionarCliente(string email, int cc, string nome, string password, long contaBancaria, string tipo, int telemovel, string rua, int nPorta, string codigoPostal, string freguesia, string distrito)
+        {
+
+            Utilizador utilizador = new Utilizador()
+            {
+                Email = email,
+                Cc = cc,
+                Nome = nome,
+                Password = password,
+                ContaBancaria = contaBancaria,
+                Pontuacao = 0,
+                Tipo = tipo,
+                Telemovel = telemovel,
+                Rua = rua,
+                NPorta = nPorta,
+                Estado = 0,
+                Administrador = "admin@gmail.com",
+                CodPostal = codigoPostal,
+                NDenuncias = 0
+            };
+
+            var local = (from x in model.Localizacao where (x.CodigoPostal == codigoPostal) select x);
+            if (local.ToList().Count == 0)
+            {
+
+                Localizacao localizacao = new Localizacao()
+                {
+                    CodigoPostal = codigoPostal,
+                    Freguesia = freguesia,
+                    Distrito = distrito
+                };
+
+                model.Localizacao.Add(localizacao);
+            }
+            if (ModelState.IsValid)
+            {
+
+                utilizador.Password = MyHelpers.HashPassword(utilizador.Password);
+                model.Utilizador.Add(utilizador);
+                model.SaveChanges();
+            }
+
+
+            return RedirectToAction("Login", "Conta");
+        }
 
     }
 

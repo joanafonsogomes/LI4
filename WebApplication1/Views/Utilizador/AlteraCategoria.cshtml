@@ -1,6 +1,6 @@
 ﻿@model WebApplication1.Models.Artigo
 @{
-    ViewBag.Title = "AlteraCategoria";
+    ViewBag.Title = "Alterar categoria";
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
      string str = (string)@ViewData["User_Name"];
 }
@@ -8,14 +8,6 @@
 <html>
 
 <head>
-    <title>VerInfo</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/Content/style.css" />
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Oswald" rel="stylesheet">
-    <link rel="icon" href="~/icon.ico">
 
     @section NotId {
         <li>
@@ -33,11 +25,24 @@
             </a>
         </li>
     }
+    <style>
+        html * {
+            font-family: Montserrat;
+        }
+    </style>
 
 </head>
 <body>
     <br />
     <br />
+    <br />
+    <center>
+        <div style="color:#555555; font-size:16px; font-weight:bold;">
+            <b>Alterar a categoria</b>
+        </div>
+    </center>
+    <br />
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-4 col-sm-4 col-xs-12"></div>
@@ -56,7 +61,7 @@
                             <!-- Nome input-->
                             <div>
                                 <label for="Categoria"><Escolha uma nova categoria:></label>
-                                <select id="Categoria" name="Categoria" type="text" placeholder="" class="form-control input-md" required="">
+                                <select id="Categoria" name="Categoria" type="text" placeholder="" class="form-control input-md" required="" style="height:inherit">
                                     <option value="Roupa">Roupa</option>
                                     <option value="Campismo">Campismo</option>
                                     <option value="Mobiliário">Mobiliário</option>
@@ -77,24 +82,28 @@
 
                             </div>
 
-
-
-
-                            <!-- Button (Double) -->
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="save"></label>
-                                <div class="col-md-8">
-                                    <button id="save" name="save" class="btn btn-default">Guardar</button>
+                            <br />
+                            <center>
+                                <!-- Button (Double) -->
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="save"></label>
+                                    <div class="col-md-8">
+                                        <button id="save" name="save" class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" style="background-color:#CCDBE2; border-color:#11709E; width: 100px; font-size:13px; color: #11709E; margin-left:-112px">Guardar</button>
+                                    </div>
                                 </div>
-                            </div>
+                            </center>
 
 
                         </form>
                     }
                 }
-                <div>
-                    @Html.ActionLink("Voltar", "Alterar")
-                </div>
+                <br />
+                <center>
+                    <a href='@Url.Action("VerArtigos", "Utilizador")' class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" style="background-color:#CCDBE2; border-color:#11709E; display:inline-block; width: 100px; font-size:13px; color: #11709E">
+                        Voltar
+                    </a>
+                </center>
+                <br />
             </div>
             <div class="col-md-4 col-sm-4 col-xs-12"></div>
         </div>
