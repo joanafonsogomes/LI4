@@ -5,6 +5,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<head>
+    <style>
+        html * {
+            font-family: Montserrat;
+        }
+    </style>
+</head>
+
 <!-- Page Content -->
 <div class="container">
 
@@ -47,7 +55,7 @@
                                     {
                                         <small>Ainda sem pontuação</small>
                                     }
-                                    if (0 <= item.Pontuacao && item.Pontuacao < 1)
+                                    if (0 <= item.Pontuacao && item.Pontuacao < 1 && item.NumeroVotos > 0)
                                     {
                                         <small class="text-muted">&#9734; &#9734; &#9734; &#9734; &#9734;</small>
                                     }
