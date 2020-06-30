@@ -8,7 +8,7 @@ public partial class PassRec
     {
         MailMessage mm = new MailMessage("rentitallofficial@gmail.com", email);
         mm.Subject = "Recuperação de password!";
-        mm.Body = string.Format("Hello! Esta é a tua nova pass : " + pass);
+        mm.Body = string.Format("Olá! Este é o teu código de recuperação de password : " + pass);
         mm.IsBodyHtml = true;
         SmtpClient smtp = new SmtpClient();
         smtp.Host = "smtp.gmail.com";
