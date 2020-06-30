@@ -8,22 +8,22 @@
 }
 
 
-    <head>
-        @section NotId {
-            <li>
-                <a href="@Url.Action("AluguerInfo", "Utilizador")">
-                    <span class="glyphicon glyphicon-bell "></span>
-                    Notificações
-                    @{
-                        int n = (int)@ViewData["noti"];
-                        if (n > 0)
-                        {
+<head>
+    @section NotId {
+        <li>
+            <a href="@Url.Action("AluguerInfo", "Utilizador")">
+                <span class="glyphicon glyphicon-bell "></span>
+                Notificações
+                @{
+                    int n = (int)@ViewData["noti"];
+                    if (n > 0)
+                    {
                         <span class="badge" style="background-color: #138AB2">@n</span>
-                        }
                     }
-                </a>
-            </li>
-        }
+                }
+            </a>
+        </li>
+    }
     <style>
         .newArtB:hover {
             color: white;
@@ -33,16 +33,18 @@
         .newArtB:hover, newArtB:active {
             font-size: 130%;
         }
-        </style>
 
-    </head>
+        html * {
+            font-family: Montserrat;
+        }
+    </style>
+
+</head>
 <br />
 <center>
-    <p>
-        <b>O produto foi adicionado ao seu Carrinho de Compras com sucesso!</b>
-    </p>
-    <p>    </p>
-    <p>    </p>
+    <div style="color:#555555; font-size:16px; font-weight:bold;">
+        <b>O produto foi adicionado ao seu carrinho</b>
+    </div>
 </center>
 <br />
 
