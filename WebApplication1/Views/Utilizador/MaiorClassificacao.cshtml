@@ -43,7 +43,8 @@
             <div class="row">
                 @foreach (var item in Model)
                 {
-
+                    if (item.Quantidade > 0)
+                    {
                     <div class="col-lg-4 col-md-6 mb-4">
                         <div class="card h-100">
                             @{var fileName = @item.Imagem;
@@ -64,27 +65,31 @@
                                 <p class="card-text">@Html.DisplayFor(modelItem => item.Descricao)</p>
                             </div>
                             <div class="card-footer">
-                                @{ if (0 <= item.Pontuacao && item.Pontuacao < 1)
+                                @{ if (item.NumeroVotos == 0)
+                                    {
+                                        <small>Ainda sem pontuação</small>
+                                    }
+                                    if (0 <= item.Pontuacao && item.Pontuacao < 1)
                                     {
                                         <small class="text-muted">&#9734; &#9734; &#9734; &#9734; &#9734;</small>
                                     }
-                                    else if (1 <= item.Pontuacao && item.Pontuacao < 2)
+                                    if (1 <= item.Pontuacao && item.Pontuacao < 2)
                                     {
                                         <small class="text-muted">&#9733; &#9734; &#9734; &#9734; &#9734;</small>
                                     }
-                                    else if (2 <= item.Pontuacao && item.Pontuacao < 3)
+                                    if (2 <= item.Pontuacao && item.Pontuacao < 3)
                                     {
                                         <small class="text-muted">&#9733; &#9733; &#9734; &#9734; &#9734;</small>
                                     }
-                                    else if (3 <= item.Pontuacao && item.Pontuacao < 4)
+                                    if (3 <= item.Pontuacao && item.Pontuacao < 4)
                                     {
                                         <small class="text-muted">&#9733; &#9733; &#9733; &#9734; &#9734;</small>
                                     }
-                                    else if (4 <= item.Pontuacao && item.Pontuacao < 5)
+                                    if (4 <= item.Pontuacao && item.Pontuacao < 5)
                                     {
                                         <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
                                     }
-                                    else if (item.Pontuacao == 5)
+                                    if (item.Pontuacao == 5)
                                     {
                                         <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9733;</small>
                                     }
@@ -92,6 +97,7 @@
                             </div>
                         </div>
                     </div>
+                }
                 }
 
 
