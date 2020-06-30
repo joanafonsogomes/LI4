@@ -137,7 +137,12 @@ namespace WebApplication1.Controllers
                 }
 
             }
-                    return View();
+            {
+                //ViewData["User_Name"] = "Bem vindo" + userSingle.Nome;
+                ModelState.AddModelError("", "E-mail ou password incorreto(s).");
+                return View();
+            }
+            return View();
                 
             }
 

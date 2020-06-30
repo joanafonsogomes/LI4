@@ -1,8 +1,8 @@
 ﻿@model IEnumerable<WebApplication1.Models.AluguerInfo>
 
 @{
-    ViewBag.Title = "Respostas a aluguer";
-    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+    ViewBag.Title = "Pedidos de aluguer";
+    Layout = "~/Views/Shared/_LayoutCompany.cshtml";
 }
 
 
@@ -10,7 +10,7 @@
     <head>
         @section NotId {
             <li>
-                <a href="@Url.Action("AluguerInfo", "Utilizador")">
+                <a href="@Url.Action("AluguerPedidos", "Company")">
                     <span class="glyphicon glyphicon-bell "></span>
                     Notificações
                     @{
@@ -42,6 +42,7 @@
             if (count == 0)
             {
                 <br />
+                <br />
                 <center>
                     <div style="color:#555555; font-size:16px; font-weight:bold;">
                         <b>Não existem novos pedidos de aluguer.</b>
@@ -50,8 +51,8 @@
                 <br />
                 <br />
                 <center>
-                    <a href='@Url.Action("Index", "Utilizador")' class="btn btn-login-large newArtB" style="font-weight: 700; font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; border-color: rgb(17, 112, 158); ">
-                        Voltar à página inicial.
+                    <a href='@Url.Action("Index", "Company")' class="btn btn-login-large newArtB" style="font-weight: 700; font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; border-color: rgb(17, 112, 158); ">
+                       Voltar à página inicial.
                     </a>
                 </center>
                 <br />
@@ -130,9 +131,9 @@
                                 @Html.DisplayFor(modelItem => item.Nome)
                             </td>
                             <td style="text-align:center; vertical-align:middle; width:150px ; font-weight: bold">
-                                <a href='@Url.Action("Aceitar", "Utilizador", new { idAluguer = item.IdAluguer })'>Aceitar &#10004;</a>
+                                <a href='@Url.Action("Aceitar", "Company", new { idAluguer = item.IdAluguer })'>Aceitar &#10004;</a>
                                 <p></p>
-                                <a href='@Url.Action("Recusar", "Utilizador", new { idAluguer = item.IdAluguer })'>Recusar &#10008;</a>
+                                <a href='@Url.Action("Recusar", "Company", new { idAluguer = item.IdAluguer })'>Recusar &#10008;</a>
                             </td>
                         </tr>
 

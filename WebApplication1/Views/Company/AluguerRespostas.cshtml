@@ -1,15 +1,15 @@
 ﻿@model IEnumerable<WebApplication1.Models.AluguerInfo>
 
 @{
-    ViewBag.Title = "Pedidos de aluguer";
-    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+    ViewBag.Title = "Respostas a aluguer";
+    Layout = "~/Views/Shared/_LayoutCompany.cshtml";
 }
 
 
     <head>
         @section NotId {
             <li>
-                <a href="@Url.Action("AluguerInfo", "Utilizador")">
+                <a href="@Url.Action("AluguerPedidos", "Company")">
                     <span class="glyphicon glyphicon-bell "></span>
                     Notificações
                     @{
@@ -32,13 +32,21 @@
     }
     if (count == 0)
     {
+        <br />
+        <br />
         <center>
-            <p style=" font-family: 'Montserrat'; font-weight: bold ">Não existem novas respostas a pedidos de aluguer.</p>
+            <div style="color:#555555; font-size:16px; font-weight:bold;">
+                <b>Não existem novas respostas a pedidos de aluguer.</b>
+            </div>
         </center>
-        <p> </p>
-        <button class="btn border-primary btn-login btn-outline-primary" style=" margin:0 auto; display:block;">
-            @Html.ActionLink("Voltar a página inicial", "Index", "Utilizador")
-        </button>
+        <br />
+        <br />
+        <center>
+            <a href='@Url.Action("Index", "Company")' class="btn btn-login-large newArtB" style="font-weight: 700; font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; border-color: rgb(17, 112, 158); ">
+                Voltar à página inicial.
+            </a>
+        </center>
+        <br />
     }
     else
     {

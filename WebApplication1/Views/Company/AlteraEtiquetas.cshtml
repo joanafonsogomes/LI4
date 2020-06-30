@@ -1,0 +1,93 @@
+﻿@model WebApplication1.Models.Artigo
+@{
+    ViewBag.Title = "AlteraEtiquetas";
+    Layout = "~/Views/Shared/_LayoutCompany.cshtml";
+}
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    @section NotId {
+        <li>
+            <a href="@Url.Action("AluguerPedidos", "Company")">
+                <span class="glyphicon glyphicon-bell "></span>
+                Notificações
+                @{
+                    int n = (int)@ViewData["noti"];
+                    if (n > 0)
+                    {
+
+                        <span class="badge" style="background-color: #138AB2">@n</span>
+                    }
+                }
+            </a>
+        </li>
+    }
+    <style>
+        html * {
+            font-family: Montserrat;
+        }
+    </style>
+</head>
+<body>
+    <br />
+    <br />
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-12"></div>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+
+
+                @{ using (Html.BeginForm("AlteraEtiquetas", "Company", FormMethod.Post))
+                    {
+
+                        @Html.ValidationSummary(true)
+                        <form>
+
+
+                            <!-- Nome input-->
+                            <div>
+                                <center>
+                                    <label for="Etiquetas" style="color:#555555; font-size:16px; font-weight:bold">Insira nova(s) etiqueta(s)</label>
+                                </center>
+                                <br />
+                                <div>
+                                    <input id="Etiquetas" name="Etiquetas" type="text" placeholder="" class="form-control input-md" required="">
+
+                                </div>
+                            </div>
+                            <br />
+
+                            <center>
+                                <!-- Button (Double) -->
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="save"></label>
+                                    <div class="col-md-8">
+                                        <button id="save" name="save" class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" style="background-color:#CCDBE2; border-color:#11709E; width: 100px; font-size:13px; color: #11709E; margin-left:-112px">Guardar</button>
+                                </div>
+                                </div>
+                            </center>
+
+                        </form>
+                    }
+                }
+                <br />
+                <center>
+                <a href='@Url.Action("Cat", "Company")' class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" style="background-color:#CCDBE2; border-color:#11709E; display:inline-block; width: 100px; font-size:13px; color: #11709E">
+                    Voltar
+                </a>
+            </center>
+            <br />
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12"></div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
+
+

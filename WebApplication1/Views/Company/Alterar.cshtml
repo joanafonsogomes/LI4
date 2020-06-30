@@ -1,0 +1,163 @@
+﻿@model WebApplication1.Models.Artigo
+
+@{
+    ViewBag.Title = "Alterar";
+    Layout = "~/Views/Shared/_LayoutCompany.cshtml";
+}
+
+<head>
+    @section NotId {
+        <li>
+            <a href="@Url.Action("AluguerPedidos", "Company")">
+                <span class="glyphicon glyphicon-bell "></span>
+                Notificações
+                @{
+                    int n = (int)@ViewData["noti"];
+                    if (n > 0)
+                    {
+
+                        <span class="badge" style="background-color: #138AB2">@n</span>
+                    }
+                }
+            </a>
+        </li>
+    }
+    <style>
+        html * {
+            font-family: Montserrat;
+        }
+
+        .newArtB:hover, newArtB:active {
+            color: #3BE7EE;
+        }
+
+        .newArtB:hover, newArtB:active {
+            background-color: #3094FF;
+        }
+
+        .newArtB:hover, newArtB:active {
+            font-size: 150%;
+        }
+    </style>
+</head>
+<table class="table">
+    <tr>
+        <td>
+            <h4>Tipo de informação</h4>
+        </td>
+        <td>
+            <h4>Informação atual</h4>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            Nome
+        </td>
+        <td>
+            @Html.DisplayFor(Model => Model.Nome)
+        </td>
+        <td>
+            @Html.ActionLink("Alterar", "AlteraNome")
+        </td>
+
+    </tr>
+
+
+    <tr>
+        <td>
+            Preço
+        </td>
+        <td>
+            @Html.DisplayFor(Model => Model.Preco)
+        </td>
+        <td>
+            @Html.ActionLink("Alterar", "AlteraPreco")
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Modo
+        </td>
+        <td>
+            @Html.DisplayFor(Model => Model.Modo)
+        </td>
+        <td>
+            @Html.ActionLink("Alterar", "AlteraModo")
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Quantidade
+        </td>
+        <td>
+            @Html.DisplayFor(Model => Model.Quantidade)
+        </td>
+        <td>
+            @Html.ActionLink("Alterar", "AlteraQuantidade")
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Categoria
+        </td>
+        <td>
+            @Html.DisplayFor(Model => Model.Categoria)
+        </td>
+        <td>
+            @Html.ActionLink("Alterar", "AlteraCategoria")
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Etiquetas
+        </td>
+        <td>
+            @Html.DisplayFor(Model => Model.Etiquetas)
+        </td>
+        <td>
+            @Html.ActionLink("Alterar", "AlteraEtiquetas")
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Estado
+        </td>
+        <td>
+            @Html.DisplayFor(Model => Model.Estado)
+        </td>
+        <td>
+            @Html.ActionLink("Alterar", "AlteraEstado")
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Descrição
+        </td>
+        <td>
+            @Html.DisplayFor(Model => Model.Descricao)
+        </td>
+        <td>
+            @Html.ActionLink("Alterar", "AlteraDescricao")
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Imagens
+        </td>
+        <td>
+            @Html.DisplayFor(Model => Model.Imagem)
+        </td>
+        <td>
+            @Html.ActionLink("Alterar", "AlteraImagem")
+        </td>
+    </tr>
+</table>
+
+<br />
+<center>
+    <a href='@Url.Action("Index", "Company")' class="btn btn-login-large newArtB" style="font-weight: 700; font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; border-color: rgb(17, 112, 158); ">
+        Voltar
+    </a>
+</center>
+<br />

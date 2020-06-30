@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Novo Artigo";
-    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+    Layout = "~/Views/Shared/_LayoutCompany.cshtml";
 }
 
 
@@ -12,7 +12,7 @@
 <head>
     @section NotId {
         <li>
-            <a href="@Url.Action("AluguerInfo", "Utilizador")">
+            <a href="@Url.Action("AluguerPedidos", "Company")">
                 <span class="glyphicon glyphicon-bell "></span>
                 Notificações
                 @{
@@ -28,8 +28,8 @@
     }
     <style>
         html * {
-        font-family: Montserrat;
-    }
+            font-family: Montserrat;
+        }
     </style>
 </head>
 <body>
@@ -40,11 +40,11 @@
             <div class="col-md-4 col-sm-4 col-xs-12"></div>
             <div class="col-md-4 col-sm-4 col-xs-12">
 
-              
-                   
 
-                    @Html.ValidationSummary(true)
-                <form asp-action="NovoArtigo" asp-controllers="Utilizador" method="POST" enctype="multipart/form-data">
+
+
+                @Html.ValidationSummary(true)
+                <form asp-action="NovoArtigo" asp-controllers="Company" method="POST" enctype="multipart/form-data">
 
                     <div class="form-group">
                         <label for="Nome"> <b>Nome</b></label>
@@ -120,7 +120,7 @@
                     <p></p>
                     <div class="form-group">
                         <label>Faça upload da(s) imagem(ns)</label>
-                        <input type="file" id="file" name="file" class="form-control" multiple="multiple" style="border:none"/>
+                        <input type="file" id="file" name="file" class="form-control" multiple="multiple" style="border:none" />
                     </div>
 
                     <br />
@@ -134,7 +134,7 @@
                     </script>
 
                 </form>
-                
+
             </div>
             <div class="col-md-4 col-sm-4 col-xs-12"></div>
 

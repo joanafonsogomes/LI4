@@ -12,6 +12,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Company\AluguerInfo.cshtml" />
+    <Content Remove="Views\Company\AluguerRespostas.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <COMReference Include="{215d64d2-031c-33c7-96e3-61794cd1ee61}">
       <Guid>215d64d2-031c-33c7-96e3-61794cd1ee61</Guid>
       <VersionMajor>2</VersionMajor>

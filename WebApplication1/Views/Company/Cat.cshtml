@@ -2,46 +2,66 @@
 
 @{
     ViewBag.Title = "Artigos";
-    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+    Layout = "~/Views/Shared/_LayoutCompany.cshtml";
 }
 
-<head>
+    <head>
+            <link href="~/css/StyleSheet.css" rel="stylesheet" type="text/css">
+            <script src="~/js/charts/Chart.js"></script>
+            <script src="~/js/charts/bar-chart.js"></script>
 
-    <style>
-        .newArtB:hover, newArtB:active {
-            color: #3BE7EE;
-        }
+            @section NotId {
+                <li>
+                    <a href="@Url.Action("AluguerPedidos", "Company")">
+                        <span class="glyphicon glyphicon-bell "></span>
+                        Notificações
+                        @{
+                            int n = (int)@ViewData["noti"];
+                            if (n > 0)
+                            {
 
-        .newArtB:hover, newArtB:active {
-            background-color: #3094FF;
-        }
-
-        .newArtB:hover, newArtB:active {
-            font-size: 150%;
-        }
-
-
-        .container {
-            position: relative;
-            margin: 0 auto;
-        }
-
-            .container img {
-                vertical-align: middle;
+                                <span class="badge" style="background-color: #138AB2">@n</span>
+                            }
+                        }
+                    </a>
+                </li>
             }
 
-            .container .content {
-                position: absolute;
-                bottom: 0;
-                background: rgb(0, 0, 0); /* Fallback color */
-                background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
-                color: #f1f1f1;
-                width: 108%;
-                padding: 20px;
-                margin-left: -27.5px;
+        <style>
+            .newArtB:hover, newArtB:active {
+                color: #3BE7EE;
             }
-    </style>
-</head>
+
+            .newArtB:hover, newArtB:active {
+                background-color: #3094FF;
+            }
+
+            .newArtB:hover, newArtB:active {
+                font-size: 150%;
+            }
+
+
+            .container {
+                position: relative;
+                margin: 0 auto;
+            }
+
+                .container img {
+                    vertical-align: middle;
+                }
+
+                .container .content {
+                    position: absolute;
+                    bottom: 0;
+                    background: rgb(0, 0, 0); /* Fallback color */
+                    background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
+                    color: #f1f1f1;
+                    width: 108%;
+                    padding: 20px;
+                    margin-left: -27.5px;
+                }
+        </style>
+    </head>
 
 <br />
 <br />
