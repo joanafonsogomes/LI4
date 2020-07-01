@@ -33,6 +33,13 @@
 
     </head>
     <body>
+        <br />
+        <center>
+            <div style="color:#555555; font-size:16px; font-weight:bold;">
+                <b>Pedidos de aluguer</b>
+            </div>
+        </center>
+        <br />
         <!--IF THEN ELSE PARA VER SE HÁ PEDIDOS DE ALUGUER-->
         @{ int count = 0;
             foreach (var item in Model)
@@ -139,10 +146,15 @@
                     }
                 </table>
 
-                <p></p>
-                <p></p>
-                <p></p>
             }
         }
+
+        <br />
+        <center>
+            <a href='@Url.Action("AluguerInfo", "Utilizador")' class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" style="background-color:#CCDBE2; border-color:#11709E; width: fit-content; font-size:13px; color:#11709E;">
+                Voltar ao menu de alugueres
+            </a>
+        </center>
+        <br />
+
     </body>
-    </html>

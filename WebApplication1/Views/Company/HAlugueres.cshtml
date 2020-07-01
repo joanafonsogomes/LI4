@@ -1,15 +1,14 @@
-﻿@model IEnumerable<WebApplication1.Models.VendaInfo>
+﻿@model IEnumerable<WebApplication1.Models.AluguerInfo>
 
 @{
-    ViewBag.Title = "Histórico de Vendas";
-    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+    ViewBag.Title = "Histórico de alugueres";
+    Layout = "~/Views/Shared/_LayoutCompany.cshtml";
 }
-
 
 <head>
     @section NotId {
         <li>
-            <a href="@Url.Action("AluguerInfo", "Utilizador")">
+            <a href="@Url.Action("AluguerPedidos", "Company")">
                 <span class="glyphicon glyphicon-bell "></span>
                 Notificações
                 @{
@@ -34,7 +33,7 @@
 <br />
 <center>
     <div style="color:#555555; font-size:16px; font-weight:bold;">
-        <b>Histórico de Vendas</b>
+        <b>Histórico de Alugueres</b>
     </div>
 </center>
 <br />
@@ -57,23 +56,27 @@
             Foto do Artigo
         </th>
         <th style="text-align: center; vertical-align: middle;">
+            Data de Início
+        </th>
+        <th style="text-align: center; vertical-align: middle;">
+            Data de fim
+        </th>
+        <th style="text-align: center; vertical-align: middle;">
             @Html.DisplayNameFor(model => model.Email)
         </th>
         <th style="text-align: center; vertical-align: middle;">
-            Vendido a
+            Alugado por
         </th>
-
-
     </tr>
 
     @foreach (var item in Model)
     {
         <tr>
-            <td style="color: rgb(17, 112, 158); text-align:center; vertical-align:middle; font-weight:bold">
+            <td style="color: rgb(17, 112, 158);  text-align:center; vertical-align:middle; font-weight:bold">
                 @Html.DisplayFor(modelItem => item.Tipo)
             </td>
             <td style="text-align:center; vertical-align:middle">
-                <a href="@Url.Action("Details", new { idArtigo = item.IdArtigo })">@Html.DisplayFor(modelItem => item.Nome)</a>
+                @Html.DisplayFor(modelItem => item.NomeArtigo)
             </td>
             <td style="text-align:center; vertical-align:middle">
                 @Html.DisplayFor(modelItem => item.Quantidade)
@@ -97,19 +100,26 @@
                 </div>
             </td>
             <td style="text-align:center; vertical-align:middle">
+                @Html.DisplayFor(modelItem => item.DataInicio)
+            </td>
+            <td style="text-align:center; vertical-align:middle">
+                @Html.DisplayFor(modelItem => item.DataFim)
+            </td>
+            <td style="text-align:center; vertical-align:middle">
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td style="text-align:center; vertical-align:middle">
                 @Html.DisplayFor(modelItem => item.Nome)
             </td>
+
         </tr>
     }
 </table>
 
 <br />
 <center>
-    <a href='@Url.Action("Historico", "Utilizador")' <a href='@Url.Action("NovoArtigo", "Utilizador")' class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" style="background-color:#CCDBE2; border-color:#11709E; width: fit-content; font-size:13px; color: #11709E;">
-    Voltar ao menu de históricos
-</a>
+    <a href='@Url.Action("Historico", "Company")' class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" style="background-color:#CCDBE2; border-color:#11709E; width: fit-content; font-size:13px; color: #11709E;">
+        Voltar ao menu de históricos
+    </a>
 </center>
 <br />

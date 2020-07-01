@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewData["Title"] = "Consultar históricos";
+    Layout = "~/Views/Shared/_LayoutCompany.cshtml";
+}
+
+
+<head>
+    @section NotId {
+        <li>
+            <a href="@Url.Action("AluguerPedidos", "Company")">
+                <span class="glyphicon glyphicon-bell "></span>
+                Notificações
+                @{
+                    int n = (int)@ViewData["noti"];
+                    if (n > 0)
+                    {
+
+                        <span class="badge" style="background-color: #138AB2">@n</span>
+                    }
+                }
+            </a>
+        </li>
+    }
+</head>
+
+<br />
+<br />
+<br />
+<center>
+    <div style="color:#555555; font-size:16px; font-weight:bold;">
+        <b>Consulte os seus históricos:</b>
+    </div>
+</center>
+<br />
+
+<center>
+    <button class="btn border-primary btn-login-large btn-outline-primary" style="margin: 5px">
+        @Html.ActionLink("Historico de Alugueres", "HAlugueres")
+    </button>
+    <button class="btn border-primary btn-login-large btn-outline-primary" style="margin: 5px">
+        @Html.ActionLink("Historico de Compras", "HVendas")
+    </button>
+</center>
+
+<br />
+<br />

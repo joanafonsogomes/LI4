@@ -1502,6 +1502,137 @@ namespace WebApplication1.Controllers
 
             return RedirectToAction("Cat", "Company");
         }
+
+        public ActionResult Historico()
+        {
+            string user = Helpers.CacheController.utilizador;
+            Utilizador u = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+            int notifications = u.Notificacoes;
+
+            ViewData["noti"] = notifications;
+
+            return View("Historico");
+        }
+
+        public ActionResult HAlugueres()
+        {
+            string user = Helpers.CacheController.utilizador;
+            List<AluguerInfo> alugueres = new List<AluguerInfo>();
+
+            var alugueres1 = from alu in model.Aluguer where (alu.IdUtilizador == user || alu.IdRent == user) && alu.Estado == 1 select alu;
+            List<Aluguer> lista1 = alugueres1.ToList<Aluguer>();
+
+            string tipo = " ";
+
+
+            foreach (Aluguer alug in lista1)
+            {
+                Utilizador u = new Utilizador();
+
+                if (alug.IdUtilizador == user)
+                {
+                    tipo = "Recebido";
+                    u = (from m in model.Utilizador where (m.Email.Equals(alug.IdRent)) select m).ToList().ElementAt<Utilizador>(0);
+                }
+                else if (alug.IdRent == user)
+                {
+                    tipo = "Realizado";
+                    u = (from m in model.Utilizador where (m.Email.Equals(alug.IdUtilizador)) select m).ToList().ElementAt<Utilizador>(0);
+                }
+
+                Artigo artigo = (from m in model.Artigo where (m.IdArtigo == alug.IdArtigo) select m).ToList().ElementAt<Artigo>(0);
+
+                AluguerInfo a1 = new AluguerInfo()
+
+                {
+                    IdArtigo = artigo.IdArtigo,
+                    IdAluguer = alug.IdAluguer,
+                    NomeArtigo = artigo.Nome,
+                    Preco = alug.Preco,
+                    Quantidade = alug.Quantidade,
+                    Imagem = artigo.Imagem,
+                    DataInicio = alug.DataInicio,
+                    DataFim = alug.DataFim,
+                    Email = u.Email,
+                    Nome = u.Nome,
+                    Telemovel = u.Telemovel,
+                    CodPostal = u.CodPostal,
+                    Rua = u.Rua,
+                    NPorta = u.NPorta,
+                    Tipo = tipo
+
+                };
+                alugueres.Add(a1);
+            }
+
+            Utilizador uti = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+            int notifications = uti.Notificacoes;
+
+            ViewData["noti"] = notifications;
+
+            return View(alugueres);
+        }
+
+        public ActionResult HVendas()
+        {
+            string user = Helpers.CacheController.utilizador;
+            List<VendaInfo> vendas = new List<VendaInfo>();
+
+            var vendas1 = from ven in model.Venda where (ven.IdUtilizador == user || ven.IdRent == user) && ven.Estado == 1 select ven;
+            List<Venda> lista1 = vendas1.ToList<Venda>();
+
+            string tipo = " ";
+
+
+            foreach (Venda v in lista1)
+            {
+                Utilizador u = new Utilizador();
+
+                if (v.IdUtilizador == user)
+                {
+                    tipo = "Recebido";
+                    u = (from m in model.Utilizador where (m.Email.Equals(v.IdRent)) select m).ToList().ElementAt<Utilizador>(0);
+                }
+                else if (v.IdRent == user)
+                {
+                    tipo = "Realizado";
+                    u = (from m in model.Utilizador where (m.Email.Equals(v.IdUtilizador)) select m).ToList().ElementAt<Utilizador>(0);
+                }
+
+                Artigo artigo = (from m in model.Artigo where (m.IdArtigo == v.IdArtigo) select m).ToList().ElementAt<Artigo>(0);
+
+                VendaInfo a1 = new VendaInfo()
+
+                {
+                    IdArtigo = artigo.IdArtigo,
+                    IdVenda = v.IdVenda,
+                    NomeArtigo = artigo.Nome,
+                    Preco = v.Preco,
+                    Quantidade = v.Quantidade,
+                    Imagem = artigo.Imagem,
+                    Email = u.Email,
+                    Nome = u.Nome,
+                    Telemovel = u.Telemovel,
+                    CodPostal = u.CodPostal,
+                    Rua = u.Rua,
+                    NPorta = u.NPorta,
+                    Tipo = tipo
+
+                };
+                vendas.Add(a1);
+            }
+
+            Utilizador uti = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+            int notifications = uti.Notificacoes;
+
+            ViewData["noti"] = notifications;
+
+
+            return View(vendas);
+        }
+
+
+
     }
 
 }

@@ -2,14 +2,14 @@
 
 @{
     ViewBag.Title = "Histórico de Vendas";
-    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+    Layout = "~/Views/Shared/_LayoutCompany.cshtml";
 }
 
 
 <head>
     @section NotId {
         <li>
-            <a href="@Url.Action("AluguerInfo", "Utilizador")">
+            <a href="@Url.Action("AluguerPedidos", "Utilizador")">
                 <span class="glyphicon glyphicon-bell "></span>
                 Notificações
                 @{
@@ -108,7 +108,7 @@
 
 <br />
 <center>
-    <a href='@Url.Action("Historico", "Utilizador")' <a href='@Url.Action("NovoArtigo", "Utilizador")' class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" style="background-color:#CCDBE2; border-color:#11709E; width: fit-content; font-size:13px; color: #11709E;">
+    <a href='@Url.Action("Historico", "Company")' class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" style="background-color:#CCDBE2; border-color:#11709E; width: fit-content; font-size:13px; color: #11709E;">
     Voltar ao menu de históricos
 </a>
 </center>

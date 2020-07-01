@@ -697,12 +697,13 @@
                     <ul>
 
                         <!--li>
-                            <form asp-action="SearchArtigos" asp-controllers="Company" method="POST" enctype="multipart/form-data">
-                                <input type="text" placeholder="Search" name="search" class="input">
-                            </form>
-                        </!-li-->
+        <form asp-action="SearchArtigos" asp-controllers="Company" method="POST" enctype="multipart/form-data">
+            <input type="text" placeholder="Search" name="search" class="input">
+        </form>
+    </!-li-->
 
                         <li><a href="@Url.Action("Cat", "Company")">Ver Catálogo</a></li>
+                        <li><a href="@Url.Action("Historico", "Company")">Histórico</a></li>
                         @if (IsSectionDefined("NotId"))
                         {
                             @RenderSection("NotId")
@@ -725,7 +726,7 @@
                         </li>
 
 
-                </div>
+</div>
                 </ul>
             </div>
 

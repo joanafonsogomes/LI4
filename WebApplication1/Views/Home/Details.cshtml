@@ -62,7 +62,7 @@
                                 i++;
                             }
                             string slides = "mySlides-" + idd;
-                            var cenas = slides;
+                            var sl = slides;
                             string scr = "script-" + idd;
                             var scri = scr;
 
@@ -85,7 +85,7 @@
 
                         function showDivs(n) {
                             var i;
-                            var x = document.getElementsByClassName("@cenas");
+                            var x = document.getElementsByClassName("@sl");
                             if (n > x.length) { slideIndex = 1 }
                             if (n < 1) { slideIndex = x.length }
                             for (i = 0; i < x.length; i++) {
