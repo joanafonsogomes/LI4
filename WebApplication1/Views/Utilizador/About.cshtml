@@ -1,32 +1,14 @@
 ﻿@{
-    ViewBag.Title = "Sobre Nós";
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 
     string str = (string)@ViewData["User_Name"];
 }
 
 @{
-    ViewBag.Title = "About";
+    ViewBag.Title = "Sobre Nós";
 }
 
-    <head>
-        @section NotId {
-            <li>
-                <a href="@Url.Action("AluguerInfo", "Utilizador")">
-                    <span class="glyphicon glyphicon-bell "></span>
-                    Notificações
-                    @{
-                        int n = (int)@ViewData["noti"];
-                        if (n > 0)
-                        {
-
-                                        <span class="badge" style="background-color: #138AB2">@n</span>
-                        }
-                    }
-                </a>
-            </li>
-        }
-    </head>
 
 <!--Historia-->
 <section class="page-section" id="about">
@@ -78,7 +60,7 @@
                                 <h4 class="subheading">Contextualização</h4>
                             </div>
                             <div class="timeline-body">
-                                <p class="text-muted"> Este website está a ser construído por nós no ambito da Univade Curricular de Laboratórios de Informática 4 e deu inicio em Fevereiro de 2020</p>
+                                <p class="text-muted"> Este website está a ser construído por nós no ambito da Unidade Curricular de Laboratórios de Informática 4 e teve inicio em Fevereiro de 2020</p>
                             </div>
                         </div>
                     </li>
@@ -92,7 +74,7 @@
                                 <h4 class="subheading">Objetivos</h4>
                             </div>
                             <div class="timeline-body">
-                                <p class="text-muted"> Contrução de um website que permitar a vend e aluguer dos mais variados itens!</p>
+                                <p class="text-muted"> Contrução de um website que permitar a venda e aluguer dos mais variados itens!</p>
                             </div>
                         </div>
                     </li>
@@ -147,7 +129,7 @@
             </div>
             <div class="col-lg-3">
                 <div class="team-member">
-                    <img class="mx-auto rounded-circle" src="~/Images/mags.png" alt="">
+                    <img class="mx-auto rounded-circle" src="~/Images/mags.jpg" alt="">
                     <h4>Ana Margarida Campos</h4>
                     <p class="text-muted">BackEnd</p>
                     <ul class="list-inline social-buttons">
@@ -196,7 +178,7 @@
             </div>
             <div class="col-lg-3">
                 <div class="team-member">
-                    <img class="mx-auto rounded-circle" src="~/Images/joana.png" alt="">
+                    <img class="mx-auto rounded-circle" src="~/Images/joana.jpg" alt="">
                     <h4>Joana Afonso Gomess</h4>
                     <p class="text-muted">FrontEnd</p>
                     <ul class="list-inline social-buttons">

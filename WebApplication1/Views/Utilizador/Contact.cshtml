@@ -6,69 +6,88 @@
 }
 
 @{
-    ViewBag.Title = "Contacte-nos";
+    ViewBag.Title = "Contactos";
 }
 
-    <head>
-        @section NotId {
-            <li>
-                <a href="@Url.Action("AluguerInfo", "Utilizador")">
-                    <span class="glyphicon glyphicon-bell "></span>
-                    Notificações
-                    @{
-                        int n = (int)@ViewData["noti"];
-                        if (n > 0)
-                        {
+<!DOCTYPE HTML>
+<html xml:lang="en" lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="https://cdn-skin.prettylittlething.com/frontend/prettylittlething/_root/styles/css/contact-styles-1593524758.min.css" media="all" />
 
-                            <span class="badge" style="background-color: #138AB2">@n</span>
-                        }
-                    }
-                </a>
-            </li>
-        }
-    </head>
 
-<!-- Contact -->
-<section class="page-section" id="contact">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <h2 class="section-heading text-uppercase">Contacte-nos</h2>
-                <h3 class="section-subheading text-muted">Estamos disponiveis para o atender.</h3>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <form id="contactForm" name="sentMessage" novalidate="novalidate">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <input class="form-control" id="name" type="text" placeholder="Nome *" required="required" data-validation-required-message="Insira o seu nome.">
-                                <p class="help-block text-danger"></p>
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control" id="email" type="email" placeholder="Email *" required="required" data-validation-required-message="Insira o seu email.">
-                                <p class="help-block text-danger"></p>
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control" id="phone" type="tel" placeholder="Telemóvel *" required="required" data-validation-required-message="Insira um número de telemóvel.">
-                                <p class="help-block text-danger"></p>
-                            </div>
+</head>
+
+<body class=" cms-page-view plt-update default-gbp cms-faq">
+
+    <div class="remodal-bg">
+
+
+        <main class="main">
+            <div class="container">
+
+                <div class="main__content">
+
+
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+
+                    <div class="std">
+                        <div class="page-title faq-page-title">
+                            <h1>
+                                FAQ! Precisa de Ajuda?
+                            </h1>
+                            <h2>
+                                Tem a nossa total atenção!
+                            </h2>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <textarea class="form-control" id="message" placeholder="A sua Mensagem *" required="required" data-validation-required-message="Escreva a sua mensagem."></textarea>
-                                <p class="help-block text-danger"></p>
-                            </div>
+
+
+
+
+                        <style>
+
+                            .faq-contact-block ul li.contact {
+                                display: block;
+                                margin-top: 20px;
+                            }
+                        </style>
+                        <div class="faq-contact-block" style="
+    background-color: #337ab759;
+">
+                            <p>
+                                Entre em contacto com a nossa equipa através de <b> rentitallofficial@gmail.com </b><br>
+                            </p>
+                            <ul>
+                                <li class="contact" style="background-color: #17a2b800;">
+                                    <a>
+                                        <span> </span>
+                                    </a>
+                                </li>
+                                <li class="contact">
+                                    <a>
+                                        <i class="fa fa-envelope-o fa-2x"></i>
+                                        <span>Envie-nos um E-mail</span>
+                                    </a>
+                                </li>
+                                <li class="contact" style="background-color: #17a2b800;">
+                                    <a>
+                                        <span></span>
+                                    </a>
+                                </li>
+
+                            </ul>
                         </div>
-                        <div class="clearfix"></div>
-                        <div class="col-lg-12 text-center">
-                            <div id="success"></div>
-                            <button id="sendMessageButton" class="btn btn-primary btn-xl text-uppercase" type="submit">Enviar</button>
-                        </div>
+
+
                     </div>
-                </form>
+                </div>
             </div>
-        </div>
-    </div>
-</section>
+        </main>
+        <p></p>
+        <p></p>
+        <p></p>
+
+</body>
+</html>

@@ -157,7 +157,7 @@
                                 <a href="#">
                                     <div class="recent-post-flex">
                                         <div class="recent-post-it-ctn">
-                                            <h2>@i.IdArtigo</h2>
+                                            <h2>@i.IdArtigoNavigation.Nome</h2>
                                             <p>@i.Descricao</p>
                                         </div>
                                     </div>
@@ -168,7 +168,7 @@
                             <a href="#">
                                 <div class="recent-post-flex rc-ps-vw">
                                     <div class="recent-post-line rct-pt-mg">
-                                        <p>Ver todas</p>
+                                        <p></p>
                                     </div>
                                 </div>
                             </a>
@@ -201,7 +201,7 @@
                             <a href="#">
                                 <div class="recent-post-flex rc-ps-vw">
                                     <div class="recent-post-line rct-pt-mg">
-                                        <p>Ver todas</p>
+                                        <p></p>
                                     </div>
                                 </div>
                             </a>
@@ -245,6 +245,26 @@
         </div>
     </div>
 </div>
+<script>
+
+    @{string one = "";int it = 0;
+        foreach (var item in Model.Venda) { one = ","+ one; one = item.Preco.ToString() + one ;it++; }
+        if(it<11) one = "," + one;
+        while (it < 11) { one = ",0" + one; it++; }
+
+        string two = "";it = 0;
+        foreach (var item in Model.Aluguer) { two = "," + two; two = item.Preco.ToString() + two; it++; }
+        if (it < 11) two = "," + two;
+        while (it < 11) { two = ",0" + two; it++; }
+
+        //string one1 = new string(one.Reverse().ToArray());
+        //string two2 = new string(two.Reverse().ToArray());
+        one = one.TrimStart(',');
+        two = two.TrimStart(',');
+    }
+    
+
+</script>
 <!-- End Email Statistic area-->
 <!-- jquery
     ============================================ -->
@@ -289,7 +309,7 @@
 <script src="~/js/flot/jquery.flot.js"></script>
 <script src="~/js/flot/jquery.flot.resize.js"></script>
 <script src="~/js/flot/curvedLines.js"></script>
-<script src="~/js/flot/flot-active.js"></script>
+<script src="~/js/flot/flot-active.js" one=@one two=@two></script>
 <!-- knob JS
     ============================================ -->
 <script src="js/knob/jquery.knob.js"></script>

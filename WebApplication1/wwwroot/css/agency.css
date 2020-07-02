@@ -1,9 +1,8 @@
-﻿/*!
+﻿﻿ /*!
  * Start Bootstrap - Agency v5.2.2 (https://startbootstrap.com/template-overviews/agency)
  * Copyright 2013-2019 Start Bootstrap
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-agency/blob/master/LICENSE)
  */
-
 body {
     overflow-x: hidden;
     font-family: 'Roboto Slab', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -1258,6 +1257,7 @@ img::-moz-selection {
     -moz-box-sizing: border-box;
     box-sizing: border-box
 }
+
 header.masthead {
     text-align: center;
     color: white;
@@ -1944,6 +1944,12 @@ header.masthead {
         }
 }
 
+@media print {
+    .noprint {
+        display: none;
+    }
+}
+
 .team-member {
     margin-bottom: 50px;
     text-align: center;
@@ -1966,8 +1972,8 @@ header.masthead {
     }
 
 section#contact {
-    background-color: #343a40;
-    background-image: url(~/Images/map-image.png);
+    background-color: #212529;
+    background-image:url( ~/Images/map-image.png);
     background-repeat: no-repeat;
     background-position: center;
 }
@@ -2549,4 +2555,3 @@ body {
 .w3-display-hover {
     display: none
 }
-

@@ -6,12 +6,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using System.Runtime.Serialization.Json;
 using System.Configuration;
 using System.IO;
 using System.Web;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System.Collections.Specialized;
+//using System.Web.Script.Serialization;
 using WebApplication1.Helpers;
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplication1.Controllers
@@ -76,43 +79,44 @@ namespace WebApplication1.Controllers
 
             foreach (Denuncias a in resDenuncias) special.Denuncias.Add(a); //5 denuncias + recentes
 
-            //lista de vendas (15 elementos)
+            //lista de vendas (10 elementos)
 
             var vendas = from ven in model.Venda select ven;
             List<Venda> lista = vendas.ToList<Venda>();
             special.NumVendas = lista.Count();
             List<Venda> resVendas = new List<Venda>();
             lista.Reverse();
-            if (lista.Count >= 15)
+            if (lista.Count >= 11)
             {
-                resVendas = lista.Take(15).ToList();
+                resVendas = lista.Take(11).ToList();
             }
             else
             {
                 resVendas = lista;
             }
-       
+            resVendas.Reverse();
             
-            foreach (Venda a in resVendas) special.Venda.Add(a); //15 últimas vendas
+            foreach (Venda a in resVendas) special.Venda.Add(a); //10 últimas vendas
 
-            //lista de alugueres (15 elementos)
+            //lista de alugueres (10 elementos)
 
             var al = from ven in model.Aluguer select ven;
             List<Aluguer> lis = al.ToList<Aluguer>();
             special.NumAlugueres = lis.Count();
             List <Aluguer> als = new List<Aluguer>();
             lis.Reverse();
-            if (lis.Count >= 15)
+            if (lis.Count >= 11)
             {
-                als = lis.Take(15).ToList();
+                als = lis.Take(11).ToList();
             }
             else
             {
                 als = lis;
             }
+            als.Reverse();
             model.SaveChanges();
 
-            foreach (Aluguer a in als) special.Aluguer.Add(a); //15 últimos alugueres
+            foreach (Aluguer a in als) special.Aluguer.Add(a); //10 últimos alugueres
 
             return View(special);
 

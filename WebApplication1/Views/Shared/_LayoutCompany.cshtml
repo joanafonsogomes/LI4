@@ -675,245 +675,264 @@
 
     </head>
 
-    <body>
+<body>
 
-        <header class="header-two-bars">
+    <button onclick="scrollToTop()" id="scroll-btn" title="Topo da página"><i class="fa fa-arrow-circle-o-up" aria-hidden="true"></i></button>
 
-            <div class="header-first-bar header-fixed header-login-signup header-search">
-                <div class="header-limiter" asp-area="" asp-controller="Company" asp-action="Index">
-                    <a asp-area="" asp-controller="Company" asp-action="Index">
-                        <img src="~/Images/rentitalllogo.png" class="col-md-2" style="margin-top: -12px;" alt="Responsive image">
-                    </a>
+    <script>
+        // When the user scrolls down 20px from the top of the document,we will show the button
 
-                    <nav>
-                        <a href="@Url.Action("Index", "Company")">
-                            <i class="fa fa-home"></i>
-                            Página Inicial
-                        </a>
-                        <a href="@Url.Action("About", "Company")">Sobre Nós</a>
-                        <a href="@Url.Action("Contact", "Company")">Contacto</a>
-                    </nav>
+        window.onscroll = function () {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                document.getElementById("scroll-btn").style.display = "block";
+            }
+            else {
+                document.getElementById("scroll-btn").style.display = "none";
+            }
+        };
 
-                    <ul>
+        function scrollToTop() {
+            document.body.scrollTop = 0; // For Safari
+            document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+        }
+    </script> 
+    <header class="header-two-bars">
 
-                        <!--li>
-        <form asp-action="SearchArtigos" asp-controllers="Company" method="POST" enctype="multipart/form-data">
-            <input type="text" placeholder="Search" name="search" class="input">
-        </form>
-    </!-li-->
-
-                        <li><a href="@Url.Action("Cat", "Company")">Ver Catálogo</a></li>
-                        <li><a href="@Url.Action("Historico", "Company")">Histórico</a></li>
-                        @if (IsSectionDefined("NotId"))
-                        {
-                            @RenderSection("NotId")
-                        }
-                        <li class="header-user-dropdown">
-
-                            <div class="header-limiter">
-                                <div class="header-user-menu">
-
-                                    <i class="fa fa-user"></i>
-
-                                    <ul>
-                                        <li><a href="@Url.Action("Perfil","Company")">Perfil</a></li>
-                                        <li><a href="@Url.Action("LogOut","Conta")" class="highlight">Logout</a></li>
-                                    </ul>
-                                </div>
-
-                            </div>
-
-                        </li>
-
-
-</div>
-                </ul>
-            </div>
-
-
-
-
-            </div>
-            <!--div class="header-second-bar header-limiter">
-
-                <h2>
-                </h2>
+        <div class="header-first-bar header-fixed header-login-signup header-search">
+            <div class="header-limiter" asp-area="" asp-controller="Company" asp-action="Index">
+                <a asp-area="" asp-controller="Company" asp-action="Index">
+                    <img src="~/Images/rentitalllogo.png" class="col-md-2" style="margin-top: -12px;" alt="Responsive image">
+                </a>
 
                 <nav>
-                    <div data-tooltip="Mais vendidos" style="display: inline-block; font: Helvetica; font-weight: bold">
-                        <a href="@Url.Action("MaisVendidos", "Home")"><i class="fa fa-trophy"></i>&nbsp;&nbsp;&nbsp;</a>
-                    </div>
-                    <div data-tooltip="Melhor Classificação" style="display: inline-block; ; font: Helvetica; font-weight: bold">
-                        <a href="@Url.Action("MaiorClassificacao", "Home")"><i class="fa fa-star"></i>&nbsp;&nbsp;&nbsp;&nbsp;</a>
-                    </div>
-                    <div data-tooltip="Novidades" style="display: inline-block; ; font: Helvetica; font-weight: bold">
-                        <a href="@Url.Action("Novidades", "Home")"><i class="fa fa-exclamation"></i></a>
-                    </div>
+                    <a href="@Url.Action("Index", "Company")">
+                        <i class="fa fa-home"></i>
+                        Página Inicial
+                    </a>
+                    <a href="@Url.Action("About", "Company")">Sobre Nós</a>
+                    <a href="@Url.Action("Contact", "Company")">Contacto</a>
                 </nav>
 
+                <ul>
 
-            </!-div-->
+                    <!--li>
+                        <form asp-action="SearchArtigos" asp-controllers="Company" method="POST" enctype="multipart/form-data">
+                            <input type="text" placeholder="Search" name="search" class="input">
+                        </form>
+                    </!-li-->
 
-
-
-
-        </header>
-
-
-
-
-        <!-- You need this element to prevent the content of the page from jumping up -->
-        <div class="header-fixed-placeholder"></div>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-        <script>
-
-            $(document).ready(function () {
-
-                var userMenu = $('.header-user-dropdown .header-user-menu');
-
-                userMenu.on('touchend', function (e) {
-
-                    userMenu.addClass('show');
-
-                    e.preventDefault();
-                    e.stopPropagation();
-
-                });
-
-                // This code makes the user dropdown work on mobile devices
-
-                $(document).on('touchend', function (e) {
-
-                    // If the page is touched anywhere outside the user menu, close it
-                    userMenu.removeClass('show');
-
-                });
-
-            });
-
-        </script>
-        <script>
-
-            $(document).ready(function () {
-
-                var showHeaderAt = 150;
-
-                var win = $(window),
-                    body = $('body');
-
-                // Show the fixed header only on larger screen devices
-
-                if (win.width() > 600) {
-
-                    // When we scroll more than 150px down, we set the
-                    // "fixed" class on the body element.
-
-                    win.on('scroll', function (e) {
-
-                        if (win.scrollTop() > showHeaderAt) {
-                            body.addClass('fixed');
-                        }
-                        else {
-                            body.removeClass('fixed');
-                        }
-                    });
-
-                }
-
-            });
-
-        </script>
-        <script>
-
-            $(document).ready(function () {
-
-                $('.header-search form').on('click', function (e) {
-
-                    // If the form (which is turned into the search button) was
-                    // clicked directly, toggle the visibility of the search box.
-
-                    if (e.target == this) {
-                        $(this).find('input').toggle();
+                    <li><a href="@Url.Action("Cat", "Company")">Ver Catálogo</a></li>
+                    <li><a href="@Url.Action("Historico", "Company")">Histórico</a></li>
+                    @if (IsSectionDefined("NotId"))
+                    {
+                        @RenderSection("NotId")
                     }
+                    <li class="header-user-dropdown">
 
-                });
-            });
+                        <div class="header-limiter">
+                            <div class="header-user-menu">
 
-        </script>
+                                <i class="fa fa-user"></i>
+
+                                <ul>
+                                    <li><a href="@Url.Action("Perfil","Company")">Perfil</a></li>
+                                    <li><a href="@Url.Action("LogOut","Conta")" class="highlight">Logout</a></li>
+                                </ul>
+                            </div>
+
+                        </div>
+
+                    </li>
 
 
-        <div class="container">
-            <main role="main" class="pb-3">
-                @RenderBody()
-            </main>
+            </div>
+            </ul>
         </div>
 
 
-        <footer class="footer">
-            <div class="container">
-                @RenderBody()
 
 
-                <div class="row align-items-center">
-                    <div class="col-md-4">
-                        <span class="copyright">Copyright  @DateTime.Now.Year - RentItAll</span>
-                    </div>
-                    <div class="col-md-4">
-                        <ul class="list-inline social-buttons">
-                            <li class="list-inline-item">
-                                <a href="#">
-                                    <i class="fab fa-twitter"></i>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#">
-                                    <i class="fab fa-facebook-f"></i>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#">
-                                    <i class="fab fa-linkedin-in"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+        </div>
+        <!--div class="header-second-bar header-limiter">
 
-                    <div class="col-xl-4">
-                        <ul class="list-inline quicklinks">
-                            <li class="list-inline-item">
-                                <a class="nav-link" href="#">Services</a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#">Termos de Uso</a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">
-                                    Privacy
-                                </a>
-                            </li>
+            <h2>
+            </h2>
 
-                        </ul>
-                    </div>
+            <nav>
+                <div data-tooltip="Mais vendidos" style="display: inline-block; font: Helvetica; font-weight: bold">
+                    <a href="@Url.Action("MaisVendidos", "Home")"><i class="fa fa-trophy"></i>&nbsp;&nbsp;&nbsp;</a>
+                </div>
+                <div data-tooltip="Melhor Classificação" style="display: inline-block; ; font: Helvetica; font-weight: bold">
+                    <a href="@Url.Action("MaiorClassificacao", "Home")"><i class="fa fa-star"></i>&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                </div>
+                <div data-tooltip="Novidades" style="display: inline-block; ; font: Helvetica; font-weight: bold">
+                    <a href="@Url.Action("Novidades", "Home")"><i class="fa fa-exclamation"></i></a>
+                </div>
+            </nav>
+
+
+        </!-div-->
+
+
+
+
+    </header>
+
+
+
+
+    <!-- You need this element to prevent the content of the page from jumping up -->
+    <div class="header-fixed-placeholder"></div>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+
+            var userMenu = $('.header-user-dropdown .header-user-menu');
+
+            userMenu.on('touchend', function (e) {
+
+                userMenu.addClass('show');
+
+                e.preventDefault();
+                e.stopPropagation();
+
+            });
+
+            // This code makes the user dropdown work on mobile devices
+
+            $(document).on('touchend', function (e) {
+
+                // If the page is touched anywhere outside the user menu, close it
+                userMenu.removeClass('show');
+
+            });
+
+        });
+
+    </script>
+    <script>
+
+        $(document).ready(function () {
+
+            var showHeaderAt = 150;
+
+            var win = $(window),
+                body = $('body');
+
+            // Show the fixed header only on larger screen devices
+
+            if (win.width() > 600) {
+
+                // When we scroll more than 150px down, we set the
+                // "fixed" class on the body element.
+
+                win.on('scroll', function (e) {
+
+                    if (win.scrollTop() > showHeaderAt) {
+                        body.addClass('fixed');
+                    }
+                    else {
+                        body.removeClass('fixed');
+                    }
+                });
+
+            }
+
+        });
+
+    </script>
+    <script>
+
+        $(document).ready(function () {
+
+            $('.header-search form').on('click', function (e) {
+
+                // If the form (which is turned into the search button) was
+                // clicked directly, toggle the visibility of the search box.
+
+                if (e.target == this) {
+                    $(this).find('input').toggle();
+                }
+
+            });
+        });
+
+    </script>
+
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+
+    <footer class="footer">
+        <div class="container">
+            @RenderBody()
+
+
+            <div class="row align-items-center">
+                <div class="col-md-4">
+                    <span class="copyright">Copyright  @DateTime.Now.Year - RentItAll</span>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-inline social-buttons">
+                        <li class="list-inline-item">
+                            <a href="#">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-xl-4">
+                    <ul class="list-inline quicklinks">
+                        <li class="list-inline-item">
+                            <a class="nav-link" href="#">Services</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#">Termos de Uso</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">
+                                Privacy
+                            </a>
+                        </li>
+
+                    </ul>
                 </div>
             </div>
-        </footer>
+        </div>
+    </footer>
 
 
-        @RenderSection("scripts", required: false)
+    @RenderSection("scripts", required: false)
 
-        <!-- Bootstrap core JavaScript -->
-        <script src="~/lib/jquery/dist/jquery.min.js"></script>
-        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-
-        <!-- Contact form JavaScript -->
-        <script src="~/js/jqBootstrapValidation.js"></script>
-        <script src="~/js/contact_me.js"></script>
-
-        <!-- Custom scripts for this template -->
-        <script src="~/js/agency.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 
-    </body>
+    <!-- Contact form JavaScript -->
+    <script src="~/js/jqBootstrapValidation.js"></script>
+    <script src="~/js/contact_me.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="~/js/agency.min.js"></script>
+
+
+</body>
 
 </html>

@@ -550,6 +550,100 @@
         }
     </style>
 
+    <!-- Sidebar -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+
+        body {
+            /*font-weight: 700;*/
+            font-family: 'Montserrat' line-height: 40px;
+        }
+
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #212529;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+
+            .sidebar a {
+                padding: 8px 8px 8px 32px;
+                text-decoration: none;
+                font-size: 14.5px;
+                color: #DBDBDB;
+                display: block;
+                transition: 0.3s;
+                font-family: Montserrat;
+            }
+
+                .sidebar a:hover {
+                    color: #f1f1f1;
+                }
+
+            .sidebar .closebtn {
+                position: absolute;
+                top: 0;
+                right: 25px;
+                font-size: 16px;
+                margin-left: 50px;
+            }
+
+        .openbtn {
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #ffffff;
+            color: #495057;
+            padding: 5px 5px;
+            border: none;
+        }
+
+            .openbtn:hover {
+                background-color: #ffffff;
+                color: #212529;
+            }
+
+        #main {
+            transition: margin-left .5s;
+            padding: 16px;
+        }
+
+
+        /* notifications badge */
+
+        .nav-link .badge {
+            top: 15px;
+            right: 380px;
+            padding: 2px 5px;
+            border-radius: 50%;
+            background: #11709E;
+            color: white;
+            font-size: 10px;
+        }
+
+        /* to top button */
+        #scroll-btn {
+            background-color: transparent;
+            border: none;
+            bottom: 20px;
+            color: #106D99;
+            cursor: pointer;
+            display: none;
+            outline: none;
+            padding: 10px 15px 7px;
+            position: fixed;
+            right: 30px;
+            z-index: 99;
+            font-size: 35px;
+        }
+    </style>
+
+
 
 
     @section scripts{
@@ -582,6 +676,26 @@
 
 <body>
 
+    <button onclick="scrollToTop()" id="scroll-btn" title="Topo da página"><i class="fa fa-arrow-circle-o-up" aria-hidden="true"></i></button>
+
+    <script>
+        // When the user scrolls down 20px from the top of the document,we will show the button
+
+        window.onscroll = function () {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                document.getElementById("scroll-btn").style.display = "block";
+            }
+            else {
+                document.getElementById("scroll-btn").style.display = "none";
+            }
+        };
+
+        function scrollToTop() {
+            document.body.scrollTop = 0; // For Safari
+            document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+        }
+    </script>
+
     <header class="header-two-bars">
 
         <div class="header-first-bar header-fixed header-login-signup header-search">
@@ -600,11 +714,12 @@
 
                 <ul>
 
+                    <!--
                     <li>
                         <form asp-action="SearchArtigos" asp-controllers="Admin" method="POST" enctype="multipart/form-data">
                             <input type="text" placeholder="Search" name="search" class="input">
                         </form>
-                    </li>
+                    </li>-->
 
                     <li><a href="@Url.Action("VerUtis", "Admin")">Ver Utilizadores</a></li>
                     <li><a href="@Url.Action("Denuncias", "Admin")">Denúncias</a></li>
@@ -627,7 +742,7 @@
                     </li>
 
 
-</div>
+            </div>
             </ul>
         </div>
 
@@ -638,7 +753,6 @@
         <div class="header-second-bar header-limiter">
 
             <h2>
-                
             </h2>
 
             <nav>

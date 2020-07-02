@@ -45,7 +45,7 @@
 
         </th>
         <th style="text-align:center; vertical-align:middle">
-            Nome
+            Nome do Artigo
         </th>
         <th style="text-align:center; vertical-align:middle">
             Quantidade
@@ -55,12 +55,6 @@
         </th>
         <th style="text-align:center; vertical-align:middle">
             Foto do Artigo
-        </th>
-        <th style="text-align: center; vertical-align: middle;">
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th style="text-align: center; vertical-align: middle;">
-            Vendido a
         </th>
 
 
@@ -73,7 +67,7 @@
                 @Html.DisplayFor(modelItem => item.Tipo)
             </td>
             <td style="text-align:center; vertical-align:middle">
-                <a href="@Url.Action("Details", new { idArtigo = item.IdArtigo })">@Html.DisplayFor(modelItem => item.Nome)</a>
+                @Html.DisplayFor(modelItem => item.NomeArtigo)
             </td>
             <td style="text-align:center; vertical-align:middle">
                 @Html.DisplayFor(modelItem => item.Quantidade)
@@ -81,26 +75,15 @@
             <td style="text-align:center; vertical-align:middle">
                 @Html.DisplayFor(modelItem => item.Preco)
             </td>
-            <td style="        width: 250px;
-        height: 250px;
-        text-align: center;
-        vertical-align: middle
-">
+            <td style="width: 250px; height: 250px;text-align: center;vertical-align: middle">
                 <div class="w3-content w3-display-container">
-
                     @{var fileName = @item.Imagem;
                         String[] words = fileName.Split(" ");
                         String itempic = words[0];
                     }
-                    <img class="card-img-top" src="~/uploads/@itempic" alt="" style="max-width:250px ; max-height:250px">
+                    <a href="@Url.Action("Details", new { idArtigo = item.IdArtigo })"><img class="card-img-top" src="~/uploads/@itempic" alt="" style="max-width:250px ; max-height:250px"></a>
 
                 </div>
-            </td>
-            <td style="text-align:center; vertical-align:middle">
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td style="text-align:center; vertical-align:middle">
-                @Html.DisplayFor(modelItem => item.Nome)
             </td>
         </tr>
     }

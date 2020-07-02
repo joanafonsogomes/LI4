@@ -1,7 +1,7 @@
 ﻿@model WebApplication1.Models.Utilizador
 @{
     ViewBag.Title = "Perfil";
-    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+    Layout = "~/Views/Shared/_LayoutCompany.cshtml";
 }
 
 <html>
@@ -9,7 +9,7 @@
 <head>
     @section NotId {
         <li>
-            <a href="@Url.Action("AluguerInfo", "Utilizador")">
+            <a href="@Url.Action("AluguerPedidos", "Company")">
                 <span class="glyphicon glyphicon-bell "></span>
                 Notificações
                 @{
@@ -44,7 +44,7 @@
                         </div>
                     </div>
                     <div class="w3-container">
-                        <p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Utilizador Geral</p>
+                        <p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Utilizador Empresa</p>
                         <hr>
 
                         <p class="w3-large"><b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>Dados</b></p>
@@ -205,26 +205,26 @@
                             </tr>
                             @foreach (var item2 in Model.Voucher)
                             {
-                        <tr>
-                            <th>
-                                <p>@Html.DisplayFor(itemModel => item2.Codigo)</p>
-                                <div class="w3-light-grey w3-round-xlarge">
-                                    <div class="w3-round-xlarge w3-teal" style="height:24px;width:100%"></div>
-                                </div>
-                            </th>
-                            <th>
-                                <p>@Html.DisplayFor(itemModel => item2.Data)</p>
-                                <div class="w3-light-grey w3-round-xlarge">
-                                    <div class="w3-round-xlarge w3-teal" style="height:24px;width:100%"></div>
-                                </div>
-                            </th>
-                            <th>
-                                <p>@Html.DisplayFor(itemModel => item2.ValorOferta)</p>
-                                <div class="w3-light-grey w3-round-xlarge">
-                                    <div class="w3-round-xlarge w3-teal" style="height:24px;width:100%"></div>
-                                </div>
-                            </th>
-                        </tr>
+                                <tr>
+                                    <th>
+                                        <p>@Html.DisplayFor(itemModel => item2.Codigo)</p>
+                                        <div class="w3-light-grey w3-round-xlarge">
+                                            <div class="w3-round-xlarge w3-teal" style="height:24px;width:100%"></div>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <p>@Html.DisplayFor(itemModel => item2.Data)</p>
+                                        <div class="w3-light-grey w3-round-xlarge">
+                                            <div class="w3-round-xlarge w3-teal" style="height:24px;width:100%"></div>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <p>@Html.DisplayFor(itemModel => item2.ValorOferta)</p>
+                                        <div class="w3-light-grey w3-round-xlarge">
+                                            <div class="w3-round-xlarge w3-teal" style="height:24px;width:100%"></div>
+                                        </div>
+                                    </th>
+                                </tr>
                             }
                         </table>
 

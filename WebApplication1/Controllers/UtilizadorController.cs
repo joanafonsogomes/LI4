@@ -130,109 +130,60 @@ namespace WebApplication1.Controllers
         [Authorize]
         public ActionResult AdicionarCarrinho(int idArtigo)
         {
-
-            Console.WriteLine(idArtigo);
+            Console.WriteLine("> id do artigo que vai ser add à venda : " + idArtigo);
 
             Artigo ss = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(idArtigo));
 
             var cenas = ss.IdArtigo;
-            Console.WriteLine("> O artigo tem o id: " + cenas);
-
+            Console.WriteLine(cenas);
             string nower = Helpers.CacheController.utilizador;
             var vendas = (from vend in model.Venda where (vend.IdRent == nower && vend.Estado == 0) select vend);
-            int teste = 0;
             List<Venda> lista = vendas.ToList<Venda>();
-            int ind = 0;
-            foreach(Venda a in lista)
+            Utilizador uti = model.Utilizador.FirstOrDefault(x => x.Email.Equals(nower));
+            int size = model.Venda.Length() + 3;
+
+            Console.WriteLine("> id da pessoa que está a comprar : " + nower);
+            Console.WriteLine("> id da pessoa que está a vender : " + ss.IdDono);
+
+            Venda vendinha = new Venda()
             {
-                ind++;
-                if(a.IdArtigo == idArtigo)
-                {
-                    teste = 1; a.Quantidade++;
-                    break;
-                }
-            }
-            
-            if (teste == 0)
+                IdVenda = size,
+                IdArtigo = ss.IdArtigo,
+                IdUtilizador = ss.IdDono,
+                Preco = ss.Preco,
+                IdRent = nower,
+                Estado = 0,
+                Quantidade = 1,
+
+            };
+
+            model.Venda.Add(vendinha);
+            model.SaveChanges();
+
+            Console.WriteLine("> id da nova venda: " + vendinha.IdVenda);
+
+            VendaInfo res = new VendaInfo()
             {
-                Utilizador uti = model.Utilizador.FirstOrDefault(x => x.Email.Equals(nower));
+                IdArtigo = ss.IdArtigo,
+                IdVenda = vendinha.IdVenda,
+                NomeArtigo = ss.Nome,
+                Preco = vendinha.Preco,
+                Quantidade = vendinha.Quantidade,
+                Imagem = ss.Imagem,
+                Email = nower,
+            };
 
-                List<Venda> vendasTotal = (from a in model.Venda select a).ToList();
+            string user = Helpers.CacheController.utilizador;
+            Utilizador u = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
+            int notifications = u.Notificacoes;
 
-                List<int> indexes = new List<int>();
+            ViewData["noti"] = notifications;
 
-                foreach (Venda vt in vendasTotal)
-                {
-                    indexes.Add(vt.IdVenda);
-                }
-
-                int tamanho = (indexes.Max()) + 1;
-
-                Venda vendinha = new Venda()
-                {
-                    IdVenda = tamanho,
-                    IdArtigo = ss.IdArtigo,
-                    IdUtilizador = ss.IdDono,
-                    Preco = ss.Preco,
-                    IdRent = nower,
-                    Estado = 0,
-                    Quantidade = 1,
+            return View(res);
 
 
-                };
-                lista.Add(vendinha);
 
-                VendaInfo res = new VendaInfo()
-                {
-                    IdArtigo = ss.IdArtigo,
-                    IdVenda = vendinha.IdVenda,
-                    NomeArtigo = ss.Nome,
-                    Preco = vendinha.Preco,
-                    Quantidade = vendinha.Quantidade,
-                    Imagem = ss.Imagem,
-                    Email = nower,
-
-                };
-
-                uti.Venda.Add(vendinha);
-
-
-                model.Venda.Add(vendinha);
-                model.SaveChanges();
-
-                string user = Helpers.CacheController.utilizador;
-                Utilizador u = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
-                int notifications = u.Notificacoes;
-
-                ViewData["noti"] = notifications;
-
-                return View(res);
-            }
-            else
-            {
-                Venda tete = lista.ElementAt<Venda>(ind-1);
-                VendaInfo res = new VendaInfo()
-
-                {
-                    IdArtigo = ss.IdArtigo,
-                    IdVenda = tete.IdVenda,
-                    NomeArtigo = ss.Nome,
-                    Preco = tete.Preco,
-                    Quantidade = tete.Quantidade,
-                    Imagem = ss.Imagem,
-                    Email = nower,
-
-                };
-                model.SaveChanges();
-
-                string user = Helpers.CacheController.utilizador;
-                Utilizador u = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
-                int notifications = u.Notificacoes;
-
-                ViewData["noti"] = notifications;
-
-                return View(res);
-            }                 }
+        }
 
         public ActionResult MaiorClassificacao()
         {
@@ -368,7 +319,7 @@ namespace WebApplication1.Controllers
         [Authorize]
         public ActionResult GoToDenuncias(int idArtigo)
         {
-            return RedirectToAction("Denunciar", "Utilizador", new { IdArtigo = idArtigo } );
+            return RedirectToAction("Denunciar", "Utilizador", new { IdArtigo = idArtigo });
         }
 
 
@@ -386,7 +337,8 @@ namespace WebApplication1.Controllers
 
             List<int> indexes = new List<int>();
 
-            foreach(Aluguer a in alugueres){
+            foreach (Aluguer a in alugueres)
+            {
                 indexes.Add(a.IdAluguer);
             }
 
@@ -464,7 +416,7 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-   
+
         [HttpPost]
         public IActionResult NovoArtigo(List<IFormFile> file, string nome, float preco, string modo, int quantidade, string categoria, string etiquetas, string descricao)
         {
@@ -477,10 +429,10 @@ namespace WebApplication1.Controllers
 
                 string user = Helpers.CacheController.utilizador;
 
-               
-               
 
-              
+
+
+
                 var artigos = (from m in model.Artigo select m);
                 List<Artigo> lista = artigos.ToList<Artigo>();
                 Artigo a = lista[lista.Count - 1];
@@ -805,7 +757,7 @@ namespace WebApplication1.Controllers
 
             return View(alugueres);
         }
-        
+
 
 
         [Authorize]
@@ -997,7 +949,7 @@ namespace WebApplication1.Controllers
             return View(ss);
         }
 
-     
+
         [HttpPost]
         public ActionResult Password(string password)
         {
@@ -1079,7 +1031,7 @@ namespace WebApplication1.Controllers
             return View("Password");
         }
 
-      
+
         [HttpPost]
         public ActionResult CBanc(long conta)
         {
@@ -1211,7 +1163,7 @@ namespace WebApplication1.Controllers
             return View("CPostal");
         }
 
-       
+
         [HttpPost]
         public ActionResult CPostal(string codigoPostal)
         {
@@ -1586,7 +1538,7 @@ namespace WebApplication1.Controllers
             return View("AlteraNome");
         }
 
-    
+
         [HttpPost]
         public ActionResult AlteraNome(string nome)
         {
@@ -1625,7 +1577,7 @@ namespace WebApplication1.Controllers
             return View("AlteraPreco");
         }
 
-      
+
         [HttpPost]
         public ActionResult AlteraPreco(float preco)
         {
@@ -1664,7 +1616,7 @@ namespace WebApplication1.Controllers
             return View("AlteraModo");
         }
 
-     
+
         [HttpPost]
         public ActionResult AlteraModo(string modo)
         {
@@ -1704,7 +1656,7 @@ namespace WebApplication1.Controllers
             return View("AlteraCategoria");
         }
 
-   
+
         [HttpPost]
         public ActionResult AlteraCategoria(string categoria)
         {
@@ -1743,7 +1695,7 @@ namespace WebApplication1.Controllers
             return View("AlteraQuantidade");
         }
 
-   
+
         [HttpPost]
         public ActionResult AlteraQuantidade(int quantidade)
         {
@@ -1820,7 +1772,7 @@ namespace WebApplication1.Controllers
             return View("AlteraEstado");
         }
 
-     
+
         [HttpPost]
         public ActionResult AlteraEstado(int estado)
         {
@@ -1899,7 +1851,7 @@ namespace WebApplication1.Controllers
             return View("AlteraImagem");
         }
 
-   
+
         [HttpPost]
         public ActionResult AlteraImagem(List<IFormFile> file)
         {
@@ -2054,7 +2006,8 @@ namespace WebApplication1.Controllers
             Artigo art = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(idArtigo));
 
             List<Comentarios> comentarios = model.Comentarios.Where(x => x.IdArtigo.Equals(art.IdArtigo)).ToList();
-            foreach(Comentarios c in comentarios){
+            foreach (Comentarios c in comentarios)
+            {
                 model.Comentarios.Remove(c);
             }
 
@@ -2168,10 +2121,10 @@ namespace WebApplication1.Controllers
 
 
 
-        
-        
 
-    [HttpPost]
+
+
+        [HttpPost]
         public ActionResult AddDenunciar(String Descricao, int IdArtigo)
         {
             string user = CacheController.utilizador;
@@ -2182,24 +2135,24 @@ namespace WebApplication1.Controllers
             Utilizador u = model.Utilizador.Where(x => x.Email.Equals(a.IdDono)).FirstOrDefault();
 
             if (ModelState.IsValid)
-        {
-
-            List<int> indexes = new List<int>();
-
-            foreach (Denuncias denunc in listatotal)
             {
-                indexes.Add(denunc.IdDenuncia);
-            }
 
-            int tamanho = (indexes.Max()) + 1;
+                List<int> indexes = new List<int>();
 
-            Denuncias d = new Denuncias();
-            d.IdDenuncia = tamanho;
-            d.Descricao = Descricao;
-            d.IdAutor = user;
-            d.Administrador = "admin@gmail.com";
-            d.IdArtigo = IdArtigo;
-            DateTime today = DateTime.Today;
+                foreach (Denuncias denunc in listatotal)
+                {
+                    indexes.Add(denunc.IdDenuncia);
+                }
+
+                int tamanho = (indexes.Max()) + 1;
+
+                Denuncias d = new Denuncias();
+                d.IdDenuncia = tamanho;
+                d.Descricao = Descricao;
+                d.IdAutor = user;
+                d.Administrador = "admin@gmail.com";
+                d.IdArtigo = IdArtigo;
+                DateTime today = DateTime.Today;
                 d.Data = today;
 
                 u.NDenuncias++;

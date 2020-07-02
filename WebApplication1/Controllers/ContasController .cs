@@ -166,6 +166,7 @@ namespace WebApplication1.Controllers
             pr.Rec_Button(email, code);
             return RedirectToAction("Recovery", "Conta");
         }
+
         [HttpPost]
         public ActionResult Recovery(string code, string pass, string pa)
         {

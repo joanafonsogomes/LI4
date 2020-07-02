@@ -24,7 +24,8 @@ namespace WebApplication1.Controllers
             _environment = environment;
         }
 
-        public ActionResult About() {
+        public ActionResult About()
+        {
             string user = Helpers.CacheController.utilizador;
             Utilizador std = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
 
@@ -864,9 +865,6 @@ namespace WebApplication1.Controllers
 
 
 
-
-
-
         public ActionResult Index()
         {
             string user = Helpers.CacheController.utilizador;
@@ -950,22 +948,42 @@ namespace WebApplication1.Controllers
                 resComentarios = comFinal;
             }
 
-            //lista de vendas (15 elementos)
+            //lista de vendas (11 elementos)
 
             var vendas = from ven in model.Venda where ven.IdUtilizador == user && ven.Estado == 1 select ven;
             List<Venda> lista = vendas.ToList<Venda>();
             List<Venda> resVendas = new List<Venda>();
             lista.Reverse();
-            if (lista.Count >= 15)
+            if (lista.Count >= 11)
             {
-                resVendas = lista.Take(15).ToList();
+                resVendas = lista.Take(11).ToList();
             }
-            else{
+            else
+            {
                 resVendas = lista;
             }
+            resVendas.Reverse();
 
-   
-            foreach(Artigo a in res2) special.Artigo.Add(a); //5 artigos + vendidos
+            //lista de alugueres (11 elementos)
+
+            var al = from ven in model.Aluguer where ven.IdUtilizador==user select ven;
+            List<Aluguer> lis = al.ToList<Aluguer>();
+            special.NumAlugueres = lis.Count();
+            List<Aluguer> als = new List<Aluguer>();
+            lis.Reverse();
+            if (lis.Count >= 11)
+            {
+                als = lis.Take(11).ToList();
+            }
+            else
+            {
+                als = lis;
+            }
+            als.Reverse();
+
+            foreach (Aluguer a in als) special.Aluguer.Add(a); //15 últimos alugueres
+
+            foreach (Artigo a in res2) special.Artigo.Add(a); //5 artigos + vendidos
             foreach (Denuncias a in resDenuncias) special.Denuncias.Add(a); //5 denuncias + recentes
             foreach (Comentarios a in resComentarios) special.Comentarios.Add(a); //5 comentarios + recentes
             foreach (Venda a in resVendas) special.Venda.Add(a); //15 últimas vendas
@@ -1022,7 +1040,7 @@ namespace WebApplication1.Controllers
         public ActionResult AluguerPedidos()
         {
             string user = Helpers.CacheController.utilizador;
-            
+
             var alugueres = (from alu in model.Aluguer where (alu.IdUtilizador == user && alu.Estado == 0) select alu);
             List<Aluguer> lista = alugueres.ToList<Aluguer>();
             List<AluguerInfo> nots = new List<AluguerInfo>();
@@ -1057,7 +1075,7 @@ namespace WebApplication1.Controllers
 
             model.SaveChanges();
 
-            int notifications = uti.Notificacoes; 
+            int notifications = uti.Notificacoes;
 
             ViewData["noti"] = notifications;
 
@@ -1158,7 +1176,7 @@ namespace WebApplication1.Controllers
             return RedirectToAction("Cat", "Company");
         }
 
-        
+
         public ActionResult AlteraPreco()
         {
             string user = Helpers.CacheController.utilizador;
