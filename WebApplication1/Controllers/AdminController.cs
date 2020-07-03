@@ -122,6 +122,28 @@ namespace WebApplication1.Controllers
 
         }
 
+        public ActionResult Details(int idArtigo)
+        {
+            Console.WriteLine(idArtigo);
+
+            Artigo ss = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(idArtigo));
+
+            var cenas = ss.IdArtigo;
+            Console.WriteLine(cenas);
+
+            var comentarios = from x in model.Comentarios where (x.IdArtigo.Equals(idArtigo)) select x;
+            List<Comentarios> c = comentarios.ToList<Comentarios>();
+
+            foreach (Comentarios a in c)
+            {
+                ss.Comentarios.Add(a);
+            }
+
+
+            return View(ss);
+
+        }
+
 
 
         public ActionResult AlterarDadosUtilizador()
@@ -174,28 +196,6 @@ namespace WebApplication1.Controllers
         public ActionResult UploadDocument()
         {
             return View();
-        }
-
-        public ActionResult Details(int idArtigo)
-        {
-            Console.WriteLine(idArtigo);
-
-            Artigo ss = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(idArtigo));
-
-            var cenas = ss.IdArtigo;
-            Console.WriteLine(cenas);
-
-            var comentarios = from x in model.Comentarios where (x.IdArtigo.Equals(idArtigo)) select x;
-            List<Comentarios> c = comentarios.ToList<Comentarios>();
-
-            foreach (Comentarios a in c)
-            {
-                ss.Comentarios.Add(a);
-            }
-
-
-            return View(ss);
-
         }
 
         public ActionResult verArtigos()

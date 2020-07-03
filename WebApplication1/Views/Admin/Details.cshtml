@@ -1,0 +1,174 @@
+﻿@model WebApplication1.Models.Artigo
+
+@{
+    ViewBag.Title = "Ver Artigo";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Details</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Oswald" rel="stylesheet">
+
+    <style>
+        .starsHome {
+            color: #168AFF;
+        }
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- Page Content -->
+    <div class="container">
+
+
+        <div class="row">
+
+            <div class="col-lg-12">
+
+
+                <div class="card mt-4">
+                    <!--<img class="card-img-top img-fluid" src="~/uploads/@Html.DisplayFor(modelItem => Model.Imagem)" alt="">-->
+                    <div class="w3-content w3-display-container">
+
+                        @{var fileName = Model.Imagem;
+                            var idd = Model.IdArtigo;
+                            string[] words = fileName.Split(" ");
+
+                            int i = 1;
+
+                            int count = words.Length();
+
+                            Console.WriteLine(count);
+
+                            foreach (string s in words)
+                            {
+                                <center>
+                                    <img class="mySlides-@idd" src="~/uploads/@s" style="max-width:250px ; max-height:250px ; display: none" />
+                                </center>
+                                if (i == count)
+                                {
+                                    break;
+                                }
+                                i++;
+                            }
+                            string slides = "mySlides-" + idd;
+                            var sl = slides;
+                            string scr = "script-" + idd;
+                            var scri = scr;
+
+                            if (words.Length() > 1)
+                            {
+                                <center>
+                                    <button style="background:none ; font-weight:bold ; border:none ; font-size:20px; color:#1376D8; outline:none " onclick="plusDivs(-1)">&#10094</button>
+                                    &nbsp;
+                                    <button style="background:none ; font-weight:bold ; border:none ; font-size:20px; color:#1376D8; outline:none " onclick="plusDivs(1)">&#10095;</button>
+                                </center>
+                            }
+
+                            <script name="script-@idd" type="text/javascript">
+                        var slideIndex = 1;
+                        showDivs(slideIndex);
+
+                        function plusDivs(n,) {
+                        showDivs(slideIndex += n);
+                         }
+
+                        function showDivs(n) {
+                            var i;
+                            var x = document.getElementsByClassName("@sl");
+                            if (n > x.length) { slideIndex = 1 }
+                            if (n < 1) { slideIndex = x.length }
+                            for (i = 0; i < x.length; i++) {
+                                x[i].style.display = "none";
+                            }
+                            x[slideIndex - 1].style.display = "block";
+                            }
+
+
+                            </script>
+
+                        }
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">@Html.DisplayFor(modelItem => Model.Nome)</h3>
+                        <h4>@Html.DisplayFor(modelItem => Model.Preco) €</h4>
+                        <h5>@Html.DisplayFor(modelItem => Model.Modo)</h5>
+
+                      
+
+                        <p class="card-text">@Html.DisplayFor(modelItem => Model.Descricao)</p>
+                        @{ if (0 <= Model.Pontuacao && Model.Pontuacao < 1)
+                            {
+                                <span class="starsHome">&#9734; &#9734; &#9734; &#9734; &#9734;</span>
+                            }
+                            else if (1 <= Model.Pontuacao && Model.Pontuacao < 2)
+                            {
+                                <span class="starsHome">&#9733; &#9734; &#9734; &#9734; &#9734;</span>
+                            }
+                            else if (2 <= Model.Pontuacao && Model.Pontuacao < 3)
+                            {
+                                <span class="starsHome">&#9733; &#9733; &#9734; &#9734; &#9734;</span>
+                            }
+                            else if (3 <= Model.Pontuacao && Model.Pontuacao < 4)
+                            {
+                                <span class="starsHome">&#9733; &#9733; &#9733; &#9734; &#9734;</span>
+                            }
+                            else if (4 <= Model.Pontuacao && Model.Pontuacao < 5)
+                            {
+                                <span class="starsHome">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
+                            }
+                            else if (Model.Pontuacao == 5)
+                            {
+                                <span class="starsHome">&#9733; &#9733; &#9733; &#9733; &#9733;</span>
+                            }
+                        }
+                        <br />
+                        <small>@Model.Pontuacao estrelas</small>
+                        @{ if (Model.NumeroVotos == 0)
+                            {
+                                <small><i>(Ainda sem avaliações)</i></small>
+                            } }
+
+                    </div>
+                </div>
+                <!-- /.card -->
+                @{ if (Model.Comentarios.Count != 0)
+                    {
+                        <div class="card card-outline-secondary my-4">
+                            <div class="card-header">
+                                Comentários
+                            </div>
+                            <div class="card-body">
+                                @foreach (var item in Model.Comentarios)
+                                {
+                                    <p>@Html.DisplayFor(itemModel => item.Descricao)</p>
+                                    <small class="text-muted"> Postado por @Html.DisplayFor(itemModel => item.IdUtilizador) em @Html.DisplayFor(itemModel => item.Data) </small>
+                                    <hr>
+                                }
+                            </div>
+                        </div>
+                    }
+                }
+                <!-- /.card -->
+
+            </div>
+            <!-- /.col-lg-9 -->
+
+        </div>
+
+    </div>
+    <!-- /.container -->
+
+</body>
+
+</html>
