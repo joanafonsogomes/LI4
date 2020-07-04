@@ -100,10 +100,12 @@
                 </div>
             </td>
             <td style="text-align:center; vertical-align:middle">
-                @Html.DisplayFor(modelItem => item.DataInicio)
+                @{String dInicio = (item.DataInicio).ToString("dd/MM/yyyy");}
+                @dInicio
             </td>
             <td style="text-align:center; vertical-align:middle">
-                @Html.DisplayFor(modelItem => item.DataFim)
+                @{String dFim = (item.DataFim).ToString("dd/MM/yyyy");}
+                @dFim
             </td>
             <td style="text-align:center; vertical-align:middle">
                 @Html.DisplayFor(modelItem => item.Email)
