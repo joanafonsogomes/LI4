@@ -553,9 +553,19 @@ namespace WebApplication1.Controllers
             return View(local);
         }
 
-     
+        public ActionResult AceitarDenuncia(int idDenuncia)
+        {
+            List<Denuncias> lista = (from den in model.Denuncias where (den.IdDenuncia >= idDenuncia) select den).ToList<Denuncias>();
+            Denuncias k = lista.ElementAt<Denuncias>(0);
+            lista.Remove(k);
+            Artigo a = (from x in model.Artigo where (k.IdArtigo == x.IdArtigo) select x).FirstOrDefault();
+            if (k != null) model.Denuncias.Remove(k);
+            model.SaveChanges();
+            return View();
+        }
+
         [Authorize]
-        public ActionResult rejeitarDenuncia(int idDenuncia)
+        public ActionResult RejeitarDenuncia(int idDenuncia)
         {
             List<Denuncias> lista = (from den in model.Denuncias where (den.IdDenuncia >= idDenuncia) select den).ToList<Denuncias>();
             Denuncias k = lista.ElementAt<Denuncias>(0);
@@ -563,7 +573,7 @@ namespace WebApplication1.Controllers
             Artigo a = (from x in model.Artigo where (k.IdArtigo == x.IdArtigo) select x).FirstOrDefault();
             Utilizador u = model.Utilizador.FirstOrDefault(x => x.Email.Equals(a.IdDono));
             model.Denuncias.Remove(k);
-            u.NDenuncias--;
+            u.NDenuncias++;
             foreach (Denuncias d in lista)
             {
                 d.IdDenuncia--;
@@ -572,7 +582,7 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-       [Authorize]
+        [Authorize]
         public ActionResult Warning(string email)
         {
             Utilizador u = model.Utilizador.Where(x => x.Email.Equals(email)).FirstOrDefault();

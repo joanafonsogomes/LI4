@@ -23,12 +23,12 @@
 </center>
 <br />
 
-<table class="table" style="margin-left: -120px;">
+<table class="table">
     <tr>
         <th style="text-align:center; vertical-align:middle; white-space:nowrap;">
             Indice de Denúncia
         </th>
-        <th style="text-align:center; vertical-align:middle">
+        <th style="text-align:center; vertical-align:middle; width:310px">
             Descrição
         </th>
         <th style="text-align: center; vertical-align: middle">
@@ -70,14 +70,27 @@
             <td style="text-align:center; vertical-align:middle">
                 @Html.DisplayFor(modelItem => item.IdArtigoNavigation.IdDonoNavigation.NDenuncias)
             </td>
-            <td style="text-align:center; vertical-align:middle; white-space:nowrap;">
-                <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" style="background-color:#CCDBE2; border-color:#11709E; display:inline-block; width: 100px; font-size:13px; margin-top:4.5px;">
-                    @Html.ActionLink("Aceitar", "AceitaDenuncia")
-                </button>
-                &nbsp;
-                <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2 " style="background-color:#CCDBE2; border-color:#11709E; display:inline-block; width: 100px; font-size:13px">
-                    @Html.ActionLink("Rejeitar", "RejeitaDenuncia")
-                </button>
+            <td style="text-align:center; vertical-align:middle; width:150px ; font-weight: bold; color: #11709E">
+                <div style="float:left ; display:inline">
+                    <form asp-action="AceitarDenuncia" asp-controllers="Utilizador" method="POST" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <input type="hidden" id="IdDenuncia" name="IdDenuncia" value="@item.IdDenuncia">
+                        </div>
+                        <div>
+                            <button type="submit" id="buttonDenuncias" title="Aceitar denúncia" style="border:none; background:none; color:#11709E; font-size:20px">&#10004; &nbsp;</button>
+                        </div>
+                    </form>
+                </div>
+                <div style="float:left ; display:inline">
+                    <form asp-action="RejeitarDenuncia" asp-controllers="Utilizador" method="POST" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <input type="hidden" id="IdDenuncia" name="IdDenuncia" value="@item.IdDenuncia">
+                        </div>
+                        <div>
+                            <button type="submit" id="buttonDenuncias" title="Rejeitar Denúncia" style="border:none; background:none; color:#11709E; font-size:20px">&#10008; </button>
+                        </div>
+                    </form>
+                </div>
             </td>
         </tr>
     }
