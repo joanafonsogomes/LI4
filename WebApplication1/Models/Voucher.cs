@@ -12,5 +12,6 @@ namespace WebApplication1.Models
         public DateTime Data { get; set; }
 
         public virtual Utilizador IdUtilizadorNavigation { get; set; }
+
     }
 }

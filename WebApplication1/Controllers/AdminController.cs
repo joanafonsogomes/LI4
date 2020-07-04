@@ -122,6 +122,7 @@ namespace WebApplication1.Controllers
 
         }
 
+
         public ActionResult Details(int idArtigo)
         {
             Console.WriteLine(idArtigo);
@@ -174,7 +175,7 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-
+        [Authorize]
         public ActionResult Perfil()
         {
             string uti = Helpers.CacheController.utilizador;
@@ -424,7 +425,7 @@ namespace WebApplication1.Controllers
         }
 
     
-        
+        [Authorize]
         public ActionResult RemoverUtilizador(string utilizador)
         {
             string user = Helpers.CacheController.utilizador;
@@ -445,7 +446,7 @@ namespace WebApplication1.Controllers
         }
 
    
-      
+        [Authorize]
         public ActionResult VerUtis()
         {
             var utilizadores = from x in model.Utilizador select x;
@@ -467,6 +468,7 @@ namespace WebApplication1.Controllers
             return View(lista);
         }
 
+        [Authorize]
         public ActionResult ProcurarUtilizadoresCom3DenunciasOuMais()
         {
             var local = (from x in model.Utilizador select x);
@@ -491,6 +493,7 @@ namespace WebApplication1.Controllers
         }
 
     
+        [Authorize]
         public ActionResult Denuncias()
         {
             var den = from x in model.Denuncias select x;
@@ -519,7 +522,7 @@ namespace WebApplication1.Controllers
             return View(lista);
         }
 
-       
+       [Authorize]
         public ActionResult searchDenuncias(string utilizador)
         {
             var local1 = (from y in model.Artigo where (y.IdDono.Equals(utilizador)) select y);
@@ -543,7 +546,7 @@ namespace WebApplication1.Controllers
             return View(res);
         }
 
-    
+        [Authorize]
         public ActionResult viewDenuncias(int IdArtigo)
         {
             Denuncias local = (from x in model.Denuncias where (x.IdArtigo == IdArtigo) select x).FirstOrDefault();
@@ -551,6 +554,7 @@ namespace WebApplication1.Controllers
         }
 
      
+        [Authorize]
         public ActionResult rejeitarDenuncia(int idDenuncia)
         {
             List<Denuncias> lista = (from den in model.Denuncias where (den.IdDenuncia >= idDenuncia) select den).ToList<Denuncias>();
@@ -568,7 +572,7 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-       
+       [Authorize]
         public ActionResult Warning(string email)
         {
             Utilizador u = model.Utilizador.Where(x => x.Email.Equals(email)).FirstOrDefault();
@@ -578,6 +582,7 @@ namespace WebApplication1.Controllers
             return RedirectToAction("Index", "Admin");
         }
 
+        [Authorize]
         public ActionResult Bloquear(string email)
         {
             Utilizador u = model.Utilizador.Where(x => x.Email.Equals(email)).FirstOrDefault();

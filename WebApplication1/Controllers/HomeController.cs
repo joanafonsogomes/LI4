@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using WebApplication1.Helpers;
+using System.Text;
 
 namespace WebApplication1.Controllers
 {
@@ -239,6 +240,28 @@ namespace WebApplication1.Controllers
             return View();
         }
 
+
+        public String Random()
+        {
+            int length = 7;
+
+            // creating a StringBuilder object()
+            StringBuilder str_build = new StringBuilder();
+            Random random = new Random();
+
+            char letter;
+
+            for (int i = 0; i < length; i++)
+            {
+                double flt = random.NextDouble();
+                int shift = Convert.ToInt32(Math.Floor(25 * flt));
+                letter = Convert.ToChar(shift + 65);
+                str_build.Append(letter);
+            }
+            return str_build.ToString();
+
+    }
+
         [HttpPost]
         public ActionResult AdicionarCliente(string email, int cc, string nome, string password, long contaBancaria, string tipo, int telemovel, string rua, int nPorta, string codigoPostal, string freguesia, string distrito)
         {
@@ -274,11 +297,24 @@ namespace WebApplication1.Controllers
 
                 model.Localizacao.Add(localizacao);
             }
+
+            
+            Voucher voucher = new Voucher()
+            {
+                IdUtilizador = email,
+                Estado = 0,
+                ValorOferta = 5,
+                Codigo = Random(),
+                Data = DateTime.Now.AddMonths(1)
+        };
+
+
             if (ModelState.IsValid)
             {
 
                 utilizador.Password = MyHelpers.HashPassword(utilizador.Password);
                 model.Utilizador.Add(utilizador);
+                model.Voucher.Add(voucher);
                 model.SaveChanges();
             }
 
