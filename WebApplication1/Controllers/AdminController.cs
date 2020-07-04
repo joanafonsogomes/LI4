@@ -50,7 +50,22 @@ namespace WebApplication1.Controllers
             var local = from x in model.Artigo select x;
             List<Artigo> res = local.ToList<Artigo>();
             res.Reverse();
-            
+
+            special.precario = "";
+            int inrr = 0;
+            foreach (Artigo h in res)
+            {
+                special.precario = "," + special.precario;
+                special.precario = h.Preco + special.precario;
+                inrr++;
+            }
+
+            while (inrr < 100)
+            {
+                special.precario = "0," + special.precario;
+                inrr++;
+            }
+
             List<Artigo> resArt = local.ToList<Artigo>();
             if (res.Count >= 5)
             {
