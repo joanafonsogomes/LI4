@@ -358,7 +358,8 @@
                                 @foreach (var item in Model.Comentarios)
                                 {
                                     <p>@Html.DisplayFor(itemModel => item.Descricao)</p>
-                                    <small class="text-muted">Postado por @Html.DisplayFor(itemModel => item.IdUtilizador) em @Html.DisplayFor(itemModel => item.Data)</small>
+                                    String dataCom = (item.Data).ToString("dd/MM/yyyy");
+                                    <small class="text-muted">Postado por @Html.DisplayFor(itemModel => item.IdUtilizador) em @dataCom</small>
                                     <hr>
                                 }
                             </div>
@@ -387,7 +388,7 @@
                         <center>
                             <div class="form-group">
                                 <div>
-                                    <input type="submit" value="Enviar comentário" class="btn border-primary btn-login btn-outline-primary tryButton" />
+                                    <input type="submit" value="Enviar comentário" class="btn border-primary btn-login btn-outline-primary tryButton" style="outline:none"/>
                                 </div>
                             </div>
                         </center>

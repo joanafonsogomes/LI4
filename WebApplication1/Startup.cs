@@ -35,7 +35,7 @@ namespace WebApplication1
             {
                 options.LoginPath = "/Conta/Login";
                 options.Cookie.Name = "CookieMonster";
-                options.Cookie.Path = "/";
+                options.Cookie.Path = "/Utilizador";
 
             });
             services.AddMvc();

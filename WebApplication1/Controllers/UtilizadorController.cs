@@ -303,6 +303,7 @@ namespace WebApplication1.Controllers
             foreach (Comentarios a in c)
             {
                 ss.Comentarios.Add(a);
+                Console.WriteLine(">Data na details: " + a.Data);
             }
 
             string user = Helpers.CacheController.utilizador;
@@ -1953,6 +1954,7 @@ namespace WebApplication1.Controllers
             c.Descricao = Descricao;
             c.IdUtilizador = user;
             c.IdArtigo = IdArtigo;
+            c.Data = DateTime.Now;
 
             if (ModelState.IsValid)
             {
