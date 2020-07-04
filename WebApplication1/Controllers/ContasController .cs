@@ -36,21 +36,7 @@ namespace WebApplication1.Controllers
             // int userName = Int32.Parse(username);
             if (ModelState.IsValid)
             {
-                var claims = new List<Claim>
-                                 {
-                                       new Claim(ClaimTypes.Name, email),
-                                       new Claim(ClaimTypes.Role, "User")
-                                  };
 
-                var identidadeDeUsuario = new ClaimsIdentity(claims, "Login");
-                ClaimsPrincipal claimPrincipal = new ClaimsPrincipal(identidadeDeUsuario);
-
-                var propriedadesDeAutenticacao = new AuthenticationProperties
-                {
-                    AllowRefresh = true,
-                    ExpiresUtc = DateTime.Now.ToLocalTime().AddHours(10),
-                    IsPersistent = true
-                };
 
 
 
@@ -70,6 +56,21 @@ namespace WebApplication1.Controllers
                         {
                             if (MyHelpers.VerifyMd5Hash(md5Hash, password, userSingle.Password))
                             {
+                                var claims = new List<Claim>
+                                 {
+                                       new Claim(ClaimTypes.Name, email),
+                                       new Claim(ClaimTypes.Role, "User")
+                                  };
+
+                                var identidadeDeUsuario = new ClaimsIdentity(claims, "Login");
+                                ClaimsPrincipal claimPrincipal = new ClaimsPrincipal(identidadeDeUsuario);
+
+                                var propriedadesDeAutenticacao = new AuthenticationProperties
+                                {
+                                    AllowRefresh = true,
+                                    ExpiresUtc = DateTime.Now.ToLocalTime().AddHours(10),
+                                    IsPersistent = true
+                                };
                                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimPrincipal, propriedadesDeAutenticacao);
                                 Helpers.CacheController.utilizador = userSingle.Email;
                                 return RedirectToAction("Index", "Utilizador");
@@ -94,7 +95,7 @@ namespace WebApplication1.Controllers
                 {
                     Administrador admin = administrador.ToList().ElementAt<Administrador>(0);
 
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimPrincipal, propriedadesDeAutenticacao);
+
                     Helpers.CacheController.utilizador = admin.Email;
                     return RedirectToAction("Index", "Admin");
 
@@ -108,7 +109,7 @@ namespace WebApplication1.Controllers
                     {
                         if (MyHelpers.VerifyMd5Hash(md5Hash, password, utilizador.Password))
                         {
-                            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimPrincipal, propriedadesDeAutenticacao);
+
                             Helpers.CacheController.utilizador = utilizador.Email;
 
                             return RedirectToAction("Index", "Company");
