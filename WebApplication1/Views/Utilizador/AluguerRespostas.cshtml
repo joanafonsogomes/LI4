@@ -45,7 +45,7 @@
     if (count == 0)
     {
         <center>
-            <p style=" font-family: 'Montserrat'; font-weight: bold ">Não existem novas respostas a pedidos de aluguer.</p>
+            <p style=" font-family: 'Montserrat';">Não existem novas respostas a pedidos de aluguer.</p>
         </center>
         <p> </p>
         <button class="btn border-primary btn-login btn-outline-primary" style=" margin:0 auto; display:block;">
@@ -112,10 +112,12 @@
                         </div>
                     </td>
                     <td style="text-align:center; vertical-align:middle">
-                        @Html.DisplayFor(modelItem => item.DataInicio)
+                        @{String dInicio = (item.DataInicio).ToString("dd/MM/yyyy");}
+                        @dInicio
                     </td>
                     <td style="text-align:center; vertical-align:middle">
-                        @Html.DisplayFor(modelItem => item.DataFim)
+                        @{String dFim = (item.DataFim).ToString("dd/MM/yyyy");}
+                        @dFim
                     </td>
                     <td style="text-align:center; vertical-align:middle">
                         @Html.DisplayFor(modelItem => item.Email)
