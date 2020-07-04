@@ -12,14 +12,18 @@
     }
     var pls = document.currentScript.getAttribute('one');
     var work = document.currentScript.getAttribute('two');
+    var omd = document.currentScript.getAttribute('three');
+   // var new = document.currentScript.getAttribute('three');
     console.log(pls);
     console.log(work);
     var arr = pls.split(",").map(Number);
     var arr2 = work.split(",").map(Number);
-     
+    var arr3 = omd.split(",").map(Number);
 
     console.log(arr);
     console.log(arr2);
+    console.log(arr3);
+
   
 
     for (var data = [], totalPoints = 100, d1 = [], i = 0; 10 >= i; i += 1) d1.push([i, parseInt(arr2[i])]);
@@ -52,6 +56,17 @@
             show: !1
         }
     };
+    function getRandomData2() {
+        for (data.length > 0 && (data = data.slice(1)); data.length < totalPoints;) {
+            var prev = data.length > 0 ? data[data.length - 1] : 50,
+                y = prev + 10 * Math.random() - 5
+            0 > y ? y = 0 : y > 90 && (y = 90), data.push(y);
+        }
+     //   console.log(data.length);
+        for (var res = [], i = 0; i < data.length ; ++i) { res.push([i, arr3[i]]);  }
+        return res
+    }
+
     $("#line-chart")[0] && $.plot($("#line-chart"), [{
         data: d1,
         lines: {
@@ -70,8 +85,8 @@
         label: "Product 2",
         stack: !0,
         color: "#17a2b8"
-    }], options), $("#recent-items-chart")[0] && $.plot($("#recent-items-chart"), [{
-        data: getRandomData(),
+        }], options), $("#recent-items-chart")[0] && $.plot($("#recent-items-chart"), [{
+            data: getRandomData2(),  //grafh de baixo
         lines: {
             show: !0,
             fill: .99

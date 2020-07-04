@@ -24,6 +24,8 @@ namespace WebApplication1.Models
         public int NumUtis { get; set; }
         public int NumVoucher { get; set; }
 
+        public string precario { get; set; }
+
         public virtual ICollection<Aluguer> Aluguer { get; set; }
         public virtual ICollection<Artigo> Artigo { get; set; }
         public virtual ICollection<Venda> Venda { get; set; }

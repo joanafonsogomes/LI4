@@ -884,11 +884,24 @@ namespace WebApplication1.Controllers
             List<Denuncias> resDenuncias = new List<Denuncias>();
 
 
+            special.precario = "";
+            int inrr = 0;
+           
+
             //artigos + vendidos
             for (int i = 0; i < res.Count(); i++)
             {
                 int v = (from x in model.Venda where (x.IdArtigo == res[i].IdArtigo) select x).ToList().Count;
                 mp.Add(res[i], v);
+                special.precario = "," + special.precario;
+                special.precario = res[i].Preco + special.precario;
+                inrr++;
+            }
+
+            while (inrr < 100)
+            {
+                special.precario = "0," + special.precario;
+                inrr++;
             }
 
             if (mp.Count >= 5)

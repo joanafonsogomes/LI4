@@ -50,6 +50,19 @@ namespace WebApplication1.Controllers
             var local = from x in model.Artigo select x;
             List<Artigo> res = local.ToList<Artigo>();
             res.Reverse();
+            special.precario = "";
+            int inrr = 0;
+            foreach(Artigo f in res)
+            {
+                special.precario = "," + special.precario;
+                special.precario = f.Preco + special.precario;
+                inrr++;
+            }
+            while(inrr<100)
+            {
+                special.precario = "0," + special.precario;
+                inrr++;
+            }
             
             List<Artigo> resArt = local.ToList<Artigo>();
             if (res.Count >= 5)
@@ -551,7 +564,7 @@ namespace WebApplication1.Controllers
         }
 
      
-        public ActionResult rejeitarDenuncia(int idDenuncia)
+        public ActionResult rejeitaDenuncia(int idDenuncia)
         {
             List<Denuncias> lista = (from den in model.Denuncias where (den.IdDenuncia >= idDenuncia) select den).ToList<Denuncias>();
             Denuncias k = lista.ElementAt<Denuncias>(0);
@@ -560,12 +573,15 @@ namespace WebApplication1.Controllers
             Utilizador u = model.Utilizador.FirstOrDefault(x => x.Email.Equals(a.IdDono));
             model.Denuncias.Remove(k);
             u.NDenuncias--;
+           // a.Denuncias.Remove(k);
+
             foreach (Denuncias d in lista)
             {
                 d.IdDenuncia--;
             }
+
             model.SaveChanges();
-            return View();
+            return RedirectToAction("Denuncias", "Admin");
         }
 
        
