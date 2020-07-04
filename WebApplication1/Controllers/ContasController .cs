@@ -48,7 +48,7 @@ namespace WebApplication1.Controllers
                 var propriedadesDeAutenticacao = new AuthenticationProperties
                 {
                     AllowRefresh = true,
-                    ExpiresUtc = DateTime.Now.ToLocalTime().AddHours(10),
+                    ExpiresUtc = DateTime.Now.ToLocalTime().AddSeconds(10),
                     IsPersistent = true
                 };
 
@@ -176,7 +176,7 @@ namespace WebApplication1.Controllers
                 }
                 else { Console.WriteLine("codigo errado"); Console.WriteLine(u.Codigo); }
             }
-            return RedirectToAction("About", "Home");
+            return RedirectToAction("Login", "Conta");
         }
 
         public string RandomString(int size, bool lowerCase)
