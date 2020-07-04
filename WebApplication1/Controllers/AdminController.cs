@@ -466,8 +466,10 @@ namespace WebApplication1.Controllers
         {
             var utilizadores = from x in model.Utilizador select x;
             List<Utilizador> lista = utilizadores.ToList<Utilizador>();
+            Dictionary<Utilizador, int> mp = new Dictionary<Utilizador, int>();
             foreach (Utilizador uti in lista)
             {
+                mp.Add(uti,uti.NDenuncias);
                 var artigos = from x in model.Artigo where (x.IdDono.Equals(uti.Email)) select x;
                 List<Artigo> art = artigos.ToList<Artigo>();
                 foreach (Artigo g in art)
@@ -480,7 +482,10 @@ namespace WebApplication1.Controllers
                 uti.Aluguer = ar;
 
             }
-            return View(lista);
+            mp = mp.OrderBy(p => p.Value).Reverse().ToDictionary(p => p.Key, p => p.Value);
+
+            List<Utilizador> res2 = mp.Keys.ToList();
+            return View(res2);
         }
 
         
