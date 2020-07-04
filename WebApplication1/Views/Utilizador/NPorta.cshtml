@@ -7,14 +7,6 @@
 <html>
 
 <head>
-    <title>VerInfo</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/Content/style.css" />
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Oswald" rel="stylesheet">
-    <link rel="icon" href="~/icon.ico">
 
     @section NotId {
         <li>
@@ -32,6 +24,11 @@
             </a>
         </li>
     }
+    <style>
+        html * {
+            font-family: Montserrat;
+        }
+    </style>
 </head>
 <body>
     <br />
@@ -53,19 +50,26 @@
 
                             <!-- Text input-->
                             <div>
-                                <label for="NPorta">Insira novo Número da porta</label>
+                                <br />
+                                <br />
+                                <center>
+                                    <label for="NPorta" style="color:#555555; font-size:16px; font-weight:bold;">
+                                        <b>Insira novo número de porta:</b>
+                                    </label>
+                                </center>
+                                <br />
                                 <div>
                                     <input id="NPorta" name="NPorta" type="text" placeholder="" class="form-control input-md" required="">
 
                                 </div>
                             </div>
 
-
+                            <br />
                             <!-- Button (Double) -->
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="save"></label>
                                 <div class="col-md-8">
-                                    <button id="save" name="save" class="btn btn-default">Guardar</button>
+                                    <button id="save" name="save" class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" style="background-color:#CCDBE2; border-color:#11709E; width: 100px; font-size:13px; color: #11709E; margin-left:-9px">Guardar</button>
                                 </div>
                             </div>
 
@@ -73,9 +77,13 @@
                         </form>
                     }
                 }
-                <div>
-                    @Html.ActionLink("Voltar", "VerInfo")
-                </div>
+                <br />
+                <center>
+                    <a href='@Url.Action("VerInfo", "Utilizador")' class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" style="background-color:#CCDBE2; border-color:#11709E; display:inline-block; width: 100px; font-size:13px; color: #11709E">
+                        Voltar
+                    </a>
+                </center>
+                <br />
             </div>
             <div class="col-md-4 col-sm-4 col-xs-12"></div>
         </div>
