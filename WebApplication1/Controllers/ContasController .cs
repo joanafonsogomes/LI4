@@ -36,6 +36,25 @@ namespace WebApplication1.Controllers
             // int userName = Int32.Parse(username);
             if (ModelState.IsValid)
             {
+                var claims = new List<Claim>
+                                 {
+                                       new Claim(ClaimTypes.Name, email),
+                                       new Claim(ClaimTypes.Role, "User")
+                                  };
+
+                var identidadeDeUsuario = new ClaimsIdentity(claims, "Login");
+                ClaimsPrincipal claimPrincipal = new ClaimsPrincipal(identidadeDeUsuario);
+
+                var propriedadesDeAutenticacao = new AuthenticationProperties
+                {
+                    AllowRefresh = true,
+                    ExpiresUtc = DateTime.Now.ToLocalTime().AddHours(10),
+                    IsPersistent = true
+                };
+
+
+
+
                 var userS = (from u
                              in model.Utilizador
                              where (u.Email == email && u.Tipo == "single")
@@ -51,24 +70,7 @@ namespace WebApplication1.Controllers
                         {
                             if (MyHelpers.VerifyMd5Hash(md5Hash, password, userSingle.Password))
                             {
-                                var claims = new List<Claim>
-                                 {
-                                       new Claim(ClaimTypes.Name, email),
-                                       new Claim(ClaimTypes.Role, "User")
-                                  };
-
-                                var identidadeDeUsuario = new ClaimsIdentity(claims, "Login");
-                                ClaimsPrincipal claimPrincipal = new ClaimsPrincipal(identidadeDeUsuario);
-
-                                var propriedadesDeAutenticacao = new AuthenticationProperties
-                                {
-                                    AllowRefresh = true,
-                                    ExpiresUtc = DateTime.Now.ToLocalTime().AddHours(10),
-                                    IsPersistent = true
-                                };
-
                                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimPrincipal, propriedadesDeAutenticacao);
-
                                 Helpers.CacheController.utilizador = userSingle.Email;
                                 return RedirectToAction("Index", "Utilizador");
                             }
@@ -85,55 +87,38 @@ namespace WebApplication1.Controllers
 
                 var administrador = (from a
                            in model.Administrador
-                                     where (a.Email == email)
+                                     where (a.Email == email && a.Password == password)
                                      select a);
 
                 if (administrador.ToList().Count > 0)
                 {
                     Administrador admin = administrador.ToList().ElementAt<Administrador>(0);
-                
-                            var claims = new List<Claim>
-                                 {
-                                       new Claim(ClaimTypes.Name, email),
-                                       new Claim(ClaimTypes.Role, "Admin")
-                                  };
 
-                            var identidadeDeUsuario = new ClaimsIdentity(claims, "Login");
-                            ClaimsPrincipal claimPrincipal = new ClaimsPrincipal(identidadeDeUsuario);
-
-                            var propriedadesDeAutenticacao = new AuthenticationProperties
-                            {
-                                AllowRefresh = true,
-                                ExpiresUtc = DateTime.Now.ToLocalTime().AddHours(10),
-                                IsPersistent = true
-                            };
-
-                            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimPrincipal, propriedadesDeAutenticacao);
-
-
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimPrincipal, propriedadesDeAutenticacao);
                     Helpers.CacheController.utilizador = admin.Email;
                     return RedirectToAction("Index", "Admin");
-                     
+
                 }
-               
+
                 var userC = (from m in model.Utilizador where (m.Email == email && m.Tipo == "company") select m);
                 if (userC.ToList().Count > 0)
                 {
                     Utilizador utilizador = userC.ToList().ElementAt<Utilizador>(0);
-                     using (MD5 md5Hash = MD5.Create())
-                     {
-                         if (MyHelpers.VerifyMd5Hash(md5Hash, password, utilizador.Password))
-                         {
-                    Helpers.CacheController.utilizador = utilizador.Email;
+                    using (MD5 md5Hash = MD5.Create())
+                    {
+                        if (MyHelpers.VerifyMd5Hash(md5Hash, password, utilizador.Password))
+                        {
+                            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimPrincipal, propriedadesDeAutenticacao);
+                            Helpers.CacheController.utilizador = utilizador.Email;
 
-                    return RedirectToAction("Index", "Company");
+                            return RedirectToAction("Index", "Company");
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("password", "Password incorreta!");
+                            return View();
+                        }
                     }
-                     else
-                     {
-                         ModelState.AddModelError("password", "Password incorreta!");
-                         return View();
-                     }
-                 }
                 }
 
             }
@@ -143,8 +128,8 @@ namespace WebApplication1.Controllers
                 return View();
             }
             return View();
-                
-            }
+
+        }
 
         public ActionResult Forgot()
         {
@@ -191,7 +176,7 @@ namespace WebApplication1.Controllers
                 }
                 else { Console.WriteLine("codigo errado"); Console.WriteLine(u.Codigo); }
             }
-            return RedirectToAction("About", "Home");
+            return RedirectToAction("Login", "Conta");
         }
 
         public string RandomString(int size, bool lowerCase)
