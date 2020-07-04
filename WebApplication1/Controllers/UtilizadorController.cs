@@ -2145,8 +2145,10 @@ namespace WebApplication1.Controllers
                 {
                     indexes.Add(denunc.IdDenuncia);
                 }
-
-                int tamanho = (indexes.Max()) + 1;
+                int tamanho;
+                if (indexes.Count != 0)
+                    tamanho = (indexes.Max()) + 1;
+                else tamanho = 1;
 
                 Denuncias d = new Denuncias();
                 d.IdDenuncia = tamanho;
