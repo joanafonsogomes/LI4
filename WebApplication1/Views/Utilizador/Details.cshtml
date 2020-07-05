@@ -123,6 +123,7 @@
 
                 <div class="card mt-4">
                     <!--<img class="card-img-top img-fluid" src="~/uploads/@Html.DisplayFor(modelItem => Model.Imagem)" alt="">-->
+                    <br />
                     <div class="w3-content w3-display-container">
                         @{var fileName = Model.Imagem;
                             var idd = Model.IdArtigo;
@@ -137,7 +138,7 @@
                             foreach (string s in words)
                             {
                                 <center>
-                                    <img class="mySlides-@idd" src="~/uploads/@s" style="max-width:250px ; max-height:250px ; display: none" />
+                                    <img class="mySlides-@idd" src="~/uploads/@s" style="max-width:250px ; height:250px ; display: none" />
                                 </center>
                                 if (i == count)
                                 {
