@@ -608,7 +608,7 @@ namespace WebApplication1.Controllers
             PassRec pr = new PassRec();
             pr.Warning(email);
             Console.WriteLine("Enviei email!");
-            return RedirectToAction("Index", "Admin");
+            return RedirectToAction("VerUtis", "Admin");
         }
 
         
@@ -617,7 +617,7 @@ namespace WebApplication1.Controllers
             Utilizador u = model.Utilizador.Where(x => x.Email.Equals(email)).FirstOrDefault();
             u.Estado = 2;
             model.SaveChanges();
-            return RedirectToAction("Index", "Admin");
+            return RedirectToAction("VerUtis", "Admin");
         }
 
         public ActionResult MaiorClassificacao()
