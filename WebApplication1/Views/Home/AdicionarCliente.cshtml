@@ -27,7 +27,7 @@
                     <div class="card-img-left d-none d-md-flex">
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title text-center">Register</h5>
+                        <h5 class="card-title text-center">Registar</h5>
 
                         @if (!@User.Identity.IsAuthenticated)
                         {
@@ -39,7 +39,7 @@
                                 <form class="form-signin">
 
                                     <div class="form-label-group">
-                                        <input type="text" id="email" name="email" class="form-control" placeholder="Email" required>
+                                        <input type="text" id="Email" name="Email" class="form-control" placeholder="Email" required>
                                         <label for="Email">Email</label>
                                     </div>
                                     <div class="form-label-group">
@@ -47,11 +47,11 @@
                                         <label for="Cc"> CC</label>
                                     </div>
                                     <div class="form-label-group">
-                                        <input type="text" id="Nome" name="nome" class="form-control" placeholder="nome" required>
+                                        <input type="text" id="Nome" name="nome" class="form-control" placeholder="Nome" required>
                                         <label for="Nome">Nome</label>
                                     </div>
                                     <div class="form-label-group">
-                                        <input id="Password" name="Password" type="password" placeholder="" class="form-control" required>
+                                        <input id="Password" name="Password" type="password" placeholder="Password" class="form-control" required>
                                         <label for="Password">Password</label>
                                     </div>
                                     <div class="form-label-group">
@@ -60,8 +60,11 @@
                                     </div>
                                     <!-- tipo input-->
                                     <div class="form-label-group">
-                                        <input id="Tipo" name="Tipo" type="text" placeholder="Tipo" class="form-control" required>
                                         <label for="Tipo">Tipo (single/company)</label>
+                                        <select id="Tipo" name="Tipo" type="text" placeholder="Tipo" class="form-control input-md" style="height:inherit" required>
+                                            <option value="single">single</option>
+                                            <option value="company">company</option>
+                                        </select>
                                     </div>
 
                                     <!-- Text input-->

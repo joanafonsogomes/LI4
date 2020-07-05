@@ -203,48 +203,11 @@ namespace WebApplication1.Controllers
                 return Content("Could not create item...");
             }
 
-            return RedirectToAction("VerArtigos", "Utilizador");
+            return RedirectToAction("Cat", "Company");
         }
 
         
-        public ActionResult verArtigos()
-        {
-            string user = Helpers.CacheController.utilizador;
-
-            var artigos = (from m in model.Artigo where (m.IdDono == user) select m);
-            List<Artigo> lista = artigos.ToList<Artigo>();
-
-            Utilizador uti = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
-            int notifications = uti.Notificacoes;
-
-            ViewData["noti"] = notifications;
-
-            return View(lista);
-        }
-
         
-        public ActionResult VerInfo()
-        {
-            string user = Helpers.CacheController.utilizador;
-
-            var info = (from m in model.Utilizador where (m.Email.Equals(user)) select m);
-            List<Utilizador> lista = info.ToList<Utilizador>();
-
-            Utilizador res = lista.ElementAt(0);
-            var local = (from m in model.Localizacao where (m.CodigoPostal.Equals(res.CodPostal)) select m);
-
-            List<Localizacao> list = local.ToList<Localizacao>();
-            Localizacao l = list.ElementAt(0);
-
-            res.CodPostalNavigation = l;
-
-            Utilizador uti = model.Utilizador.Where(x => x.Email.Equals(user)).FirstOrDefault();
-            int notifications = uti.Notificacoes;
-
-            ViewData["noti"] = notifications;
-
-            return View(res);
-        }
 
         
         public ActionResult Alterar(int idArtigo)
@@ -347,7 +310,7 @@ namespace WebApplication1.Controllers
                 model.SaveChanges();
             }
 
-            return RedirectToAction("VerInfo", "Utilizador");
+            return RedirectToAction("Perfil", "Company");
         }
 
         /**
@@ -426,7 +389,7 @@ namespace WebApplication1.Controllers
                 u.CodPostalNavigation = l;
                 model.SaveChanges();
             }
-            return RedirectToAction("VerInfo", "Utilizador");
+            return RedirectToAction("Perfil", "Company");
         }
 
         /**
@@ -492,7 +455,7 @@ namespace WebApplication1.Controllers
                 u.CodPostalNavigation = l;
                 model.SaveChanges();
             }
-            return RedirectToAction("VerInfo", "Utilizador");
+            return RedirectToAction("Perfil", "Company");
         }
 
 
@@ -560,7 +523,7 @@ namespace WebApplication1.Controllers
 
                 model.SaveChanges();
             }
-            return RedirectToAction("VerInfo", "Utilizador");
+            return RedirectToAction("Perfil", "Company");
         }
 
         /**
@@ -626,7 +589,7 @@ namespace WebApplication1.Controllers
 
                 model.SaveChanges();
             }
-            return RedirectToAction("", "Utilizador");
+            return RedirectToAction("Perfil", "Company");
         }
         /**
         * Permite vizualisar a view que permite alterar a freguesia e efetua a sua mudança
@@ -693,7 +656,7 @@ namespace WebApplication1.Controllers
 
                 model.SaveChanges();
             }
-            return RedirectToAction("VerInfo", "Utilizador");
+            return RedirectToAction("Perfil", "Company");
         }
 
 
@@ -760,7 +723,7 @@ namespace WebApplication1.Controllers
                 u.CodPostalNavigation = l;
                 model.SaveChanges();
             }
-            return RedirectToAction("VerInfo", "Utilizador");
+            return RedirectToAction("Perfil", "Company");
         }
 
 
@@ -827,7 +790,7 @@ namespace WebApplication1.Controllers
                 u.CodPostalNavigation = l;
                 model.SaveChanges();
             }
-            return RedirectToAction("VerInfo", "Utilizador");
+            return RedirectToAction("Perfil", "Company");
         }
 
         
@@ -1078,7 +1041,7 @@ namespace WebApplication1.Controllers
             uti.Notificacoes++;
 
             model.SaveChanges();
-            return RedirectToAction("AluguerPedidos", "Utilizador");
+            return RedirectToAction("AluguerPedidos", "Company");
         }
 
         
@@ -1490,7 +1453,7 @@ namespace WebApplication1.Controllers
                 a.Imagem = std.Imagem;
                 model.SaveChanges();
             }
-            return RedirectToAction("verArtigos", "Utilizador");
+            return RedirectToAction("Cat", "Company");
         }
 
         
