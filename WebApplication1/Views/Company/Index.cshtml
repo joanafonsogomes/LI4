@@ -158,7 +158,7 @@
                         @foreach (var i in Model.Comentarios)
                         {
                             <div class="recent-post-signle rct-pt-mg-wp">
-                                <a href="#">
+                                <a href="@Url.Action("Details", new { idArtigo = i.IdArtigo })">
                                     <div class="recent-post-flex">
                                         <div class="recent-post-it-ctn">
                                             <h2>@i.IdArtigoNavigation.Nome</h2>
@@ -191,7 +191,7 @@
                         @foreach (var i in Model.Denuncias)
                         {
                             <div class="recent-post-signle rct-pt-mg-wp">
-                                <a href="#">
+                                <a>
                                     <div class="recent-post-flex">
                                         <div class="recent-post-it-ctn">
                                             <h2>@i.IdAutor</h2>

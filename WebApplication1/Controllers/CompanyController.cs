@@ -1026,7 +1026,28 @@ namespace WebApplication1.Controllers
 
         }
 
-        
+        public ActionResult Details(int idArtigo)
+        {
+            Console.WriteLine(idArtigo);
+
+            Artigo ss = model.Artigo.FirstOrDefault(x => x.IdArtigo.Equals(idArtigo));
+
+            var cenas = ss.IdArtigo;
+            Console.WriteLine(cenas);
+
+            var comentarios = from x in model.Comentarios where (x.IdArtigo.Equals(idArtigo)) select x;
+            List<Comentarios> c = comentarios.ToList<Comentarios>();
+
+            foreach (Comentarios a in c)
+            {
+                ss.Comentarios.Add(a);
+            }
+
+
+            return View(ss);
+
+        }
+
         public ActionResult Aceitar(int idAluguer)
         {
             Aluguer u = (from alu in model.Aluguer where (alu.IdAluguer == idAluguer) select alu).ToList().ElementAt<Aluguer>(0);

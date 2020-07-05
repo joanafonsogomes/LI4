@@ -7,7 +7,7 @@ $(document).ready(function() {
             if (item) {
                 var x = item.datapoint[0].toFixed(2),
                     y = item.datapoint[1].toFixed(2);
-                $('.flot-tooltip').html(item.series.label + ' of ' + x + ' = ' + y).css({top: item.pageY+5, left: item.pageX+5}).show();
+                $('.flot-tooltip').html('Artigo com valor de' + y).css({top: item.pageY+5, left: item.pageX+5}).show();
             }
             else {
                 $('.flot-tooltip').hide();
