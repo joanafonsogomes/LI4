@@ -1,6 +1,8 @@
 # LI4
 
-Development of a sales and rental platform, *RentItAll*.
+Development of sales and rental platform *RentItAll*.
+
+![alt text](https://github.com/joanafonsogomes/LI4/blob/master/WebApplication1/wwwroot/Images/rentitalllogo.png?raw=true)
 
 **Computer Labs IV** (Laboratórios de Informática IV) project 2019/2020
 
