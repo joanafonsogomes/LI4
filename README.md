@@ -1,6 +1,6 @@
 # LI4
 
-Development of a sales and rental platform
+Development of a sales and rental platform called *RentItAll*
 
 ![alt text](https://github.com/joanafonsogomes/LI4/blob/master/WebApplication1/wwwroot/Images/rentitalllogo.png?raw=true)
 
